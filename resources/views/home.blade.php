@@ -1,193 +1,799 @@
 @extends('layouts.app')
 
-@section('title', 'IdleMach — Turn Idle Capacity Into Opportunity')
+@section('title', 'IdleMach — Industrial Capacity Marketplace')
+
+@section(
+'meta_description',
+'Find available CNC, VMC, laser cutting and other manufacturing capacity through IdleMach.'
+)
 
 @section('content')
 
-{{-- ================= HERO ================= --}}
-<section class="section-tight">
+
+{{-- =========================================================
+    HERO
+========================================================= --}}
+
+<section class="home-hero">
+
     <div class="container">
+
         <div class="row align-items-center g-5">
+
+            {{-- HERO CONTENT --}}
             <div class="col-lg-6">
-                <span class="hero-badge mb-4">
-                    <span class="dot"></span> 4,200+ idle machine-hours listed this week
+
+                <span class="hero-kicker">
+                    <span></span>
+                    B2B MANUFACTURING CAPACITY MARKETPLACE
                 </span>
 
-                <h1 class="display-5 mb-3" style="line-height:1.15;">Turn Idle Capacity Into Opportunity.</h1>
+                <h1>
+                    Turn Idle Capacity
+                    Into Opportunity.
+                </h1>
 
-                <p class="fs-5 max-content mb-4">
-                    IdleMach connects manufacturing businesses that have unused machine hours with buyers who need
-                    capacity right now — CNC, printing, embroidery, injection-molding and laser-cutting, booked in a few clicks.
+                <p class="hero-description">
+
+                    Find available manufacturing machines and working
+                    capacity, or list unused machine capacity for
+                    productive, revenue-generating shop floor hours.
+
                 </p>
 
-                <div class="d-flex flex-wrap gap-3 mb-4">
-                    <a href="{{ url('/browse-machines') }}" class="btn btn-idle-primary btn-lg">Browse Machines</a>
-                    <a href="{{ Route::has('register') ? route('register') : '#' }}" class="btn btn-idle-outline btn-lg">List Your Machine</a>
+                <div class="hero-buttons">
+
+                    <a
+                        href="{{ url('/browse-machines') }}"
+                        class="btn btn-primary-idle">
+                        Find Machine Capacity
+
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                    <a
+                        href="{{ url('/register') }}"
+                        class="btn btn-secondary-idle">
+                        List Your Machine
+                    </a>
+
                 </div>
 
-                <div class="d-flex flex-wrap gap-4 pt-2">
-                    <div>
-                        <div class="fs-4 fw-bold display-font">150+</div>
-                        <div class="text-muted-custom small">Machines listed</div>
-                    </div>
-                    <div>
-                        <div class="fs-4 fw-bold display-font">12</div>
-                        <div class="text-muted-custom small">Cities in Gujarat</div>
-                    </div>
-                    <div>
-                        <div class="fs-4 fw-bold display-font">₹8,000+</div>
-                        <div class="text-muted-custom small">Avg. booking value</div>
-                    </div>
+                <div class="hero-trust">
+
+                    <span>
+                        <i class="fa-solid fa-circle-check"></i>
+                        Direct booking flow
+                    </span>
+
+                    <span>
+                        Transparent hourly rates
+                    </span>
+
+                    <span>
+                        Verified machine specs
+                    </span>
+
                 </div>
+
             </div>
 
+
+            {{-- HERO MACHINE --}}
             <div class="col-lg-6">
-                <div class="capacity-card">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                        <div>
-                            <div class="fw-semibold display-font">This Week's Capacity</div>
-                            <div class="text-muted-custom small">Across 5 listed machines</div>
+
+                <div class="hero-machine-card">
+
+                    <div class="hero-machine-image">
+
+                        <img
+                            src="https://prototool.com/wp-content/uploads/2023/04/Types-of-CNC-machines-1024x576.webp"
+                            alt="Industrial CNC manufacturing machines">
+
+                        <div class="machine-live">
+                            <span></span>
+                            LIVE SHOP FLOOR
                         </div>
-                        <span class="badge-status" style="background:#FFF7ED;color:#EA580C;">Live</span>
+
+                        <span class="machine-capability">
+                            5-Axis High Tolerance
+                        </span>
+
                     </div>
 
-                    {{-- Capacity bar chart — reflects the "used vs idle hours" core idea --}}
-                    <svg viewBox="0 0 400 230" width="100%" height="220" role="img" aria-label="Chart showing used and idle machine capacity">
-                        @php
-                        $machines = [
-                        ['label' => 'CNC Turn', 'used' => 60, 'idle' => 40],
-                        ['label' => 'Laser Cut', 'used' => 45, 'idle' => 55],
-                        ['label' => 'Injection', 'used' => 70, 'idle' => 30],
-                        ['label' => 'Print', 'used' => 35, 'idle' => 65],
-                        ['label' => 'Embroidery', 'used' => 55, 'idle' => 45],
-                        ];
-                        $barWidth = 46;
-                        $gap = 26;
-                        $chartHeight = 170;
-                        $startX = 20;
-                        @endphp
 
-                        @foreach ($machines as $i => $m)
-                        @php
-                        $x = $startX + $i * ($barWidth + $gap);
-                        $usedH = ($m['used'] / 100) * $chartHeight;
-                        $idleH = ($m['idle'] / 100) * $chartHeight;
-                        $usedY = 190 - $usedH;
-                        $idleY = $usedY - $idleH;
-                        @endphp
-                        <rect x="{{ $x }}" y="{{ $usedY }}" width="{{ $barWidth }}" height="{{ $usedH }}" rx="4" fill="#D9E1EA" />
-                        <rect x="{{ $x }}" y="{{ $idleY }}" width="{{ $barWidth }}" height="{{ $idleH }}" rx="4" fill="#F97316" fill-opacity="0.85" />
-                        <text x="{{ $x + $barWidth / 2 }}" y="208" text-anchor="middle" font-size="11" fill="#526174" font-family="Inter, sans-serif">{{ $m['label'] }}</text>
-                        @endforeach
-                    </svg>
+                    <div class="machine-info">
 
-                    <div class="capacity-legend">
-                        <span><span class="swatch" style="background:#D9E1EA;"></span>Used hours</span>
-                        <span><span class="swatch" style="background:#F97316;"></span>Idle hours (available to book)</span>
+                        <div>
+
+                            <small>
+                                Verified Tolerance
+                            </small>
+
+                            <strong>
+                                ± 0.005 mm
+                            </strong>
+
+                        </div>
+
+                        <div>
+
+                            <small>
+                                Direct Utilization
+                            </small>
+
+                            <strong class="blue-text">
+                                Zero Markups
+                            </strong>
+
+                        </div>
+
+                        <div>
+
+                            <small>
+                                Capacity Settlement
+                            </small>
+
+                            <strong>
+                                Escrow Assured
+                            </strong>
+
+                        </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
 </section>
 
-{{-- ================= CATEGORIES ================= --}}
-<section class="section" style="background-color: var(--bg-secondary);">
+
+{{-- =========================================================
+    DUAL PARTICIPANT
+========================================================= --}}
+
+<section class="dual-section">
+
     <div class="container">
-        <div class="row mb-5">
-            <div class="col-lg-6">
-                <h2 class="h1 mb-3">Capacity across every process</h2>
-                <p class="fs-5">Whatever your job needs, there's likely a machine sitting idle nearby that can run it today.</p>
-            </div>
+
+        <div class="section-heading">
+
+            <span class="section-kicker">
+                DUAL-PARTICIPANT INFRASTRUCTURE
+            </span>
+
+            <h2>
+                Engineered for Both Sides
+                of Precision Production
+            </h2>
+
+            <p>
+                IdleMach connects underutilized shop floors with
+                engineering teams looking for dependable production
+                capacity without unnecessary intermediaries.
+            </p>
+
         </div>
+
 
         <div class="row g-4">
-            @php
-            $categories = [
-            ['icon' => 'fa-solid fa-gears', 'color' => '#1677FF', 'name' => 'CNC Machining', 'desc' => 'Turning, milling and precision cutting.'],
-            ['icon' => 'fa-solid fa-print', 'color' => '#B87333', 'name' => 'Printing', 'desc' => 'Offset, digital and large-format printing.'],
-            ['icon' => 'fa-solid fa-shirt', 'color' => '#F97316', 'name' => 'Embroidery', 'desc' => 'Multi-head embroidery for bulk orders.'],
-            ['icon' => 'fa-solid fa-cubes', 'color' => '#1677FF', 'name' => 'Injection Molding', 'desc' => 'Plastic parts, short and long runs.'],
-            ['icon' => 'fa-solid fa-bolt', 'color' => '#B87333', 'name' => 'Laser Cutting', 'desc' => 'Sheet metal and acrylic cutting.'],
-            ];
-            @endphp
 
-            @foreach ($categories as $cat)
-            <div class="col-lg-4 col-md-6">
-                <div class="category-tile">
-                    <div class="category-icon" style="background-color: {{ $cat['color'] }}1A; color: {{ $cat['color'] }};">
-                        <i class="{{ $cat['icon'] }}"></i>
+
+            {{-- MACHINE OWNERS --}}
+            <div class="col-lg-6">
+
+                <div class="side-card owner-card">
+
+                    <div class="side-card-header">
+
+                        <div class="side-icon">
+                            <i class="fa-solid fa-industry"></i>
+                        </div>
+
+                        <span>
+                            Machine Owners
+                        </span>
+
                     </div>
-                    <h5 class="mb-2">{{ $cat['name'] }}</h5>
-                    <p class="mb-0">{{ $cat['desc'] }}</p>
+
+
+                    <h3>
+                        Monetize Underutilized Shop Floors
+                    </h3>
+
+                    <p>
+                        List machines and make unused production
+                        capacity available on your terms.
+                    </p>
+
+
+                    <ul>
+
+                        <li>
+                            <i class="fa-regular fa-circle-check"></i>
+
+                            List machine specifications, tooling
+                            limits and CNC controller details.
+                        </li>
+
+                        <li>
+                            <i class="fa-regular fa-circle-check"></i>
+
+                            Define exact daily or weekly idle
+                            capacity windows.
+                        </li>
+
+                        <li>
+                            <i class="fa-regular fa-circle-check"></i>
+
+                            Receive direct booking requests with
+                            technical drawings and step files.
+                        </li>
+
+                        <li>
+                            <i class="fa-regular fa-circle-check"></i>
+
+                            Retain full approval control before
+                            committing workshop time.
+                        </li>
+
+                    </ul>
+
+
+                    <div class="side-card-footer">
+
+                        <span>
+                            Zero listing fees for shops
+                        </span>
+
+                        <a href="{{ url('/register') }}">
+
+                            List Your Machine
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
                 </div>
+
             </div>
+
+
+
+            {{-- CAPACITY BUYERS --}}
+            <div class="col-lg-6">
+
+                <div class="side-card buyer-card">
+
+                    <div class="side-card-header">
+
+                        <div class="side-icon">
+                            <i class="fa-solid fa-crosshairs"></i>
+                        </div>
+
+                        <span>
+                            Capacity Buyers
+                        </span>
+
+                    </div>
+
+
+                    <h3>
+                        Access Precision Manufacturing on Demand
+                    </h3>
+
+                    <p>
+                        Find verified industrial machines and
+                        available spindle hours without unnecessary
+                        intermediaries.
+                    </p>
+
+
+                    <ul>
+
+                        <li>
+                            <i class="fa-regular fa-circle-check"></i>
+
+                            Filter by CNC type, milling, turning,
+                            wire EDM or fiber laser.
+                        </li>
+
+                        <li>
+                            <i class="fa-regular fa-circle-check"></i>
+
+                            View available working hours and
+                            machine specifications.
+                        </li>
+
+                        <li>
+                            <i class="fa-regular fa-circle-check"></i>
+
+                            Submit structured job requests with
+                            defined production requirements.
+                        </li>
+
+                        <li>
+                            <i class="fa-regular fa-circle-check"></i>
+
+                            Keep production planning transparent
+                            from request to settlement.
+                        </li>
+
+                    </ul>
+
+
+                    <div class="side-card-footer">
+
+                        <span>
+                            Instant specification filtering
+                        </span>
+
+                        <a href="{{ url('/browse-machines') }}">
+
+                            Explore Marketplace
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+{{-- =========================================================
+    WORKFLOW
+========================================================= --}}
+
+<section class="workflow-section">
+
+    <div class="container">
+
+        <div class="section-heading centered">
+
+            <span class="section-kicker">
+                OPERATIONAL WORKFLOW
+            </span>
+
+            <h2>
+                How Capacity Sharing Works
+            </h2>
+
+            <p>
+                A transparent workflow designed around machine
+                availability, technical requirements and
+                production predictability.
+            </p>
+
+        </div>
+
+
+        @php
+
+        $steps = [
+
+        [
+        'number' => '01',
+        'icon' => 'fa-solid fa-magnifying-glass',
+        'title' => 'Discovery & Listing',
+        'text' => 'Owners list verified machine specifications and available production capacity.'
+        ],
+
+        [
+        'number' => '02',
+        'icon' => 'fa-regular fa-clock',
+        'title' => 'Capacity & Request',
+        'text' => 'Buyers select available hours and submit a structured production request.'
+        ],
+
+        [
+        'number' => '03',
+        'icon' => 'fa-regular fa-square-check',
+        'title' => 'Owner Review',
+        'text' => 'Machine owners review technical requirements and approve the request.'
+        ],
+
+        [
+        'number' => '04',
+        'icon' => 'fa-solid fa-box',
+        'title' => 'Production & Settlement',
+        'text' => 'Production is completed against agreed capacity and requirements.'
+        ],
+
+        ];
+
+        @endphp
+
+
+        <div class="workflow-grid">
+
+            @foreach ($steps as $step)
+
+            <div class="workflow-card">
+
+                <div class="workflow-top">
+
+                    <span>
+                        {{ $step['number'] }}
+                    </span>
+
+                    <i class="{{ $step['icon'] }}"></i>
+
+                </div>
+
+
+                <h3>
+                    {{ $step['title'] }}
+                </h3>
+
+
+                <p>
+                    {{ $step['text'] }}
+                </p>
+
+            </div>
+
             @endforeach
 
-            <div class="col-lg-4 col-md-6">
-                <div class="category-tile d-flex flex-column justify-content-center align-items-start" style="background-color: var(--blue);">
-                    <h5 class="mb-2 text-white">See all machines</h5>
-                    <p class="mb-3" style="color: rgba(255,255,255,0.8);">Browse every listing, filtered by type and city.</p>
-                    <a href="{{ url('/browse-machines') }}" class="btn btn-idle-outline bg-white">Browse Machines</a>
-                </div>
-            </div>
         </div>
+
     </div>
+
 </section>
 
-{{-- ================= VALUE PROPS ================= --}}
-<section class="section">
+{{-- =========================================================
+    MACHINE DIRECTORY
+========================================================= --}}
+
+<section class="machines-section">
+
     <div class="container">
-        <div class="row g-5">
-            <div class="col-lg-6">
-                <h3 class="h2 mb-3">If you own a machine</h3>
-                <div class="d-flex gap-3 mb-3">
-                    <i class="fa-solid fa-circle-check fs-5 mt-1" style="color: var(--blue);"></i>
-                    <p class="mb-0">List your idle hours in minutes — no long onboarding.</p>
-                </div>
-                <div class="d-flex gap-3 mb-3">
-                    <i class="fa-solid fa-circle-check fs-5 mt-1" style="color: var(--blue);"></i>
-                    <p class="mb-0">Choose which requests to accept — you stay in control.</p>
-                </div>
-                <div class="d-flex gap-3 mb-4">
-                    <i class="fa-solid fa-circle-check fs-5 mt-1" style="color: var(--blue);"></i>
-                    <p class="mb-0">Get paid for hours that would otherwise sit unused.</p>
-                </div>
-                <a href="{{ Route::has('register') ? route('register') : '#' }}" class="btn btn-idle-primary">List Your Machine</a>
+
+        <div class="section-heading-row">
+
+            <div>
+
+                <span class="section-kicker">
+                    DIRECT ACCESS DIRECTORY
+                </span>
+
+                <h2>
+                    Available Machine Capacity
+                </h2>
+
+                <p>
+                    Explore active industrial machines ready for
+                    production scheduling.
+                </p>
+
             </div>
 
-            <div class="col-lg-6">
-                <h3 class="h2 mb-3">If you need capacity</h3>
-                <div class="d-flex gap-3 mb-3">
-                    <i class="fa-solid fa-circle-check fs-5 mt-1" style="color: var(--orange);"></i>
-                    <p class="mb-0">Find verified machines near you by type and rate.</p>
-                </div>
-                <div class="d-flex gap-3 mb-3">
-                    <i class="fa-solid fa-circle-check fs-5 mt-1" style="color: var(--orange);"></i>
-                    <p class="mb-0">Check availability and send a booking request directly.</p>
-                </div>
-                <div class="d-flex gap-3 mb-4">
-                    <i class="fa-solid fa-circle-check fs-5 mt-1" style="color: var(--orange);"></i>
-                    <p class="mb-0">Skip the wait for your own machine to free up.</p>
-                </div>
-                <a href="{{ url('/browse-machines') }}" class="btn btn-idle-outline">Browse Machines</a>
-            </div>
+            <a
+                href="{{ url('/browse-machines') }}"
+                class="view-all-link">
+                View all in Marketplace
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
         </div>
+
+
+        @php
+
+        $machines = [
+
+        [
+        'image' => 'https://img2.tradewheel.com/uploads/images/products/9/9/journey-fanuc-system-factory-supplies-one-meter-11-single-provided-cnc-machine-5-axis-yil06cnc-machine-china-24-vertical-482-0512930001723030489.jpg',
+        'category' => 'CNC Milling & Turning',
+        'title' => '5-Axis CNC Vertical Machining Center',
+        'owner' => 'Precision Works',
+        'location' => 'Rajkot, Gujarat',
+        'capacity' => '6 hours / day',
+        'rate' => '₹1,400',
+        ],
+
+        [
+        'image' => 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1000&q=85',
+        'category' => 'CNC Turning',
+        'title' => 'Heavy-Duty CNC Turning Machine',
+        'owner' => 'Apex Industrial Solutions',
+        'location' => 'Pune, Maharashtra',
+        'capacity' => '4 hours / day',
+        'rate' => '₹800',
+        ],
+
+        [
+        'image' => 'https://www.ifrontiers.lk/wp-content/uploads/2025/07/gweike_lf3015E-main.png',
+        'category' => 'Sheet Metal Cutting',
+        'title' => 'High-Speed Fiber Laser Cutting Machine',
+        'owner' => 'Synergy Fab & Form',
+        'location' => 'Coimbatore, Tamil Nadu',
+        'capacity' => '8 hours / day',
+        'rate' => '₹1,850',
+        ],
+
+        ];
+
+        @endphp
+
+
+        <div class="row g-4 machine-grid">
+
+            @foreach ($machines as $machine)
+
+            <div class="col-lg-4">
+
+                <article class="machine-card">
+
+                    {{-- IMAGE --}}
+                    <div class="machine-photo">
+
+                        <img
+                            src="{{ $machine['image'] }}"
+                            alt="{{ $machine['title'] }}"
+                            loading="lazy">
+
+                        <span>
+                            {{ $machine['category'] }}
+                        </span>
+
+                    </div>
+
+
+                    {{-- BODY --}}
+                    <div class="machine-body">
+
+                        <h3>
+                            {{ $machine['title'] }}
+                        </h3>
+
+
+                        <p class="machine-owner">
+
+                            <i class="fa-regular fa-building"></i>
+
+                            {{ $machine['owner'] }}
+
+                        </p>
+
+
+                        <p class="machine-location">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            {{ $machine['location'] }}
+
+                        </p>
+
+
+                        {{-- CAPACITY --}}
+                        <div class="capacity-available">
+
+                            <span>
+
+                                <i></i>
+
+                                Available Capacity:
+
+                            </span>
+
+                            <strong>
+                                {{ $machine['capacity'] }}
+                            </strong>
+
+                        </div>
+
+
+                        {{-- FOOTER --}}
+                        <div class="machine-footer">
+
+                            <div>
+
+                                <small>
+                                    Hourly Rate
+                                </small>
+
+                                <strong>
+
+                                    {{ $machine['rate'] }}
+
+                                    <small>/ hr</small>
+
+                                </strong>
+
+                            </div>
+
+
+                            <a href="{{ url('/browse-machines') }}">
+                                View Details
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+            @endforeach
+
+        </div>
+
     </div>
+
 </section>
 
-{{-- ================= CTA BAND ================= --}}
-<section class="section-tight">
+
+{{-- =========================================================
+    WHY IDLEMACH
+========================================================= --}}
+
+<section class="why-idlemach-section">
+
     <div class="container">
-        <div class="cta-band text-center">
-            <h2 class="h1 text-white mb-3">Ready to put idle hours to work?</h2>
-            <p class="fs-5 mb-4 mx-auto" style="max-width: 480px;">Join owners and buyers already turning unused capacity into completed jobs.</p>
-            <div class="d-flex justify-content-center gap-3 flex-wrap">
-                <a href="{{ Route::has('register') ? route('register') : '#' }}" class="btn btn-idle-primary btn-lg">Get Started Free</a>
-                <a href="{{ url('/how-it-works') }}" class="btn btn-idle-outline btn-lg bg-transparent text-white border-light">See How It Works</a>
-            </div>
+
+        <div class="section-heading centered">
+
+            <span class="section-kicker">
+                WHY IDLEMACH
+            </span>
+
+            <h2>
+                Built for Real Manufacturing Work
+            </h2>
+
+            <p>
+                IdleMach is designed around how manufacturing
+                businesses actually operate — machine capability,
+                available hours, technical requirements and
+                production demand.
+            </p>
+
         </div>
+
+
+        @php
+
+        $benefits = [
+
+        [
+        'icon' => 'fa-solid fa-crosshairs',
+        'color' => 'blue',
+        'title' => 'Precision First',
+        'text' => 'Discover machines using actual technical specifications instead of generic service listings.'
+        ],
+
+        [
+        'icon' => 'fa-solid fa-clock',
+        'color' => 'orange',
+        'title' => 'Visible Capacity',
+        'text' => 'See available production hours so you can plan around real machine availability.'
+        ],
+
+        [
+        'icon' => 'fa-solid fa-shield-halved',
+        'color' => 'blue',
+        'title' => 'Transparent Process',
+        'text' => 'Keep machine details, capacity requests and production requirements clear between both sides.'
+        ],
+
+        [
+        'icon' => 'fa-solid fa-chart-line',
+        'color' => 'orange',
+        'title' => 'Better Utilization',
+        'text' => 'Help manufacturers find capacity while helping machine owners use otherwise idle hours.'
+        ],
+
+        ];
+
+        @endphp
+
+
+        <div class="row g-4">
+
+            @foreach ($benefits as $benefit)
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="why-card">
+
+                    <div class="why-icon {{ $benefit['color'] }}">
+
+                        <i class="{{ $benefit['icon'] }}"></i>
+
+                    </div>
+
+
+                    <h3>
+                        {{ $benefit['title'] }}
+                    </h3>
+
+
+                    <p>
+                        {{ $benefit['text'] }}
+                    </p>
+
+                </div>
+
+            </div>
+
+            @endforeach
+
+        </div>
+
     </div>
+
 </section>
+
+
+
+{{-- =========================================================
+    CTA
+========================================================= --}}
+
+<section class="cta-section">
+
+    <div class="container">
+
+        <div class="cta-card">
+
+            <div>
+
+                <span class="section-kicker">
+                    GET STARTED
+                </span>
+
+                <h2>
+                    Ready to optimize your
+                    manufacturing capacity?
+                </h2>
+
+                <p>
+                    Join machine shops and manufacturers connecting
+                    unused capacity with real production demand.
+                </p>
+
+            </div>
+
+
+            <div class="cta-actions">
+
+                <a
+                    href="{{ url('/browse-machines') }}"
+                    class="btn btn-primary-idle">
+                    Find Machine Capacity
+                </a>
+
+                <a
+                    href="{{ url('/register') }}"
+                    class="btn btn-secondary-idle">
+                    Register as Machine Owner
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
 
 @endsection

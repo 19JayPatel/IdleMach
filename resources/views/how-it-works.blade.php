@@ -4,153 +4,427 @@
 
 @section('content')
 
-<section class="section-tight text-center">
+{{-- =========================================================
+     PAGE HERO
+     ========================================================= --}}
+
+<section class="how-hero">
     <div class="container">
-        <h1 class="display-6 mb-3">How IdleMach Works</h1>
-        <p class="fs-5 mx-auto" style="max-width: 560px;">
-            One marketplace, two sides of the same problem — idle capacity on one end, unmet demand on the other.
-        </p>
+        <div class="how-hero-inner text-center">
+            <span class="section-kicker">HOW IDLEMACH WORKS</span>
+
+            <h1>How IdleMach Works</h1>
+
+            <p>
+                One marketplace, two sides of the same problem —
+                idle capacity on one end, unmet demand on the other.
+            </p>
+        </div>
     </div>
 </section>
 
-<section class="section pt-0">
-    <div class="container">
-        <div class="row g-5">
 
-            {{-- OWNER FLOW --}}
+{{-- =========================================================
+     OWNER / BUYER FLOWS
+     ========================================================= --}}
+
+<section class="how-flows-section">
+    <div class="container">
+
+        <div class="section-heading centered">
+            <span class="section-kicker">ONE PLATFORM. TWO WORKFLOWS.</span>
+
+            <h2>
+                Simple for machine owners.<br>
+                Straightforward for buyers.
+            </h2>
+
+            <p>
+                IdleMach connects available manufacturing capacity
+                with businesses that need reliable production access.
+            </p>
+        </div>
+
+
+        <div class="row g-4">
+
+            {{-- MACHINE OWNER --}}
             <div class="col-lg-6">
-                <div class="d-flex align-items-center gap-3 mb-2">
-                    <div class="category-icon mb-0" style="background-color: #1677FF1A; color: var(--blue);">
-                        <i class="fa-solid fa-industry"></i>
-                    </div>
-                    <h2 class="h3 mb-0">For Machine Owners</h2>
-                </div>
-                <p class="mb-4">Turn the hours your machine sits idle into paid work, without giving up control of your schedule.</p>
 
-                <div class="step-row">
-                    <div class="step-number">1</div>
-                    <div>
-                        <h5 class="mb-1">Create your profile & list a machine</h5>
-                        <p class="mb-0">Add your company details, machine type, specifications, hourly rate and available hours.</p>
+                <div class="how-flow-card owner-flow">
+
+                    <div class="how-flow-header">
+
+                        <div class="how-flow-icon">
+                            <i class="fa-solid fa-industry"></i>
+                        </div>
+
+                        <div>
+                            <span class="how-flow-label">
+                                MACHINE OWNERS
+                            </span>
+
+                            <h2>Turn idle hours into productive work</h2>
+                        </div>
+
                     </div>
+
+                    <p class="how-flow-description">
+                        List your available machine capacity, control your
+                        schedule and receive production requests from
+                        businesses looking for the right equipment.
+                    </p>
+
+
+                    <div class="how-step-list">
+
+                        <div class="how-step">
+                            <div class="how-step-number">01</div>
+
+                            <div class="how-step-content">
+                                <h3>Create your profile & list a machine</h3>
+
+                                <p>
+                                    Add your company details, machine type,
+                                    specifications, hourly rate and available hours.
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="how-step">
+                            <div class="how-step-number">02</div>
+
+                            <div class="how-step-content">
+                                <h3>Get approved by IdleMach</h3>
+
+                                <p>
+                                    New listings are reviewed before going live,
+                                    helping buyers discover verified machine capacity.
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="how-step">
+                            <div class="how-step-number">03</div>
+
+                            <div class="how-step-content">
+                                <h3>Receive production requests</h3>
+
+                                <p>
+                                    Buyers can request specific dates, machine
+                                    hours and production requirements.
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="how-step">
+                            <div class="how-step-number">04</div>
+
+                            <div class="how-step-content">
+                                <h3>Complete the work & get paid</h3>
+
+                                <p>
+                                    Complete accepted work and receive payment
+                                    through the platform workflow.
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="how-step">
+                            <div class="how-step-number">05</div>
+
+                            <div class="how-step-content">
+                                <h3>Build your reputation</h3>
+
+                                <p>
+                                    Buyer feedback helps establish your profile
+                                    and build trust for future production requests.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="how-flow-footer">
+                        <span>
+                            <i class="fa-solid fa-clock"></i>
+                            You control your available capacity
+                        </span>
+
+                        <a href="{{ url('/register') }}">
+                            List Your Machine
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+
                 </div>
 
-                <div class="step-row">
-                    <div class="step-number">2</div>
-                    <div>
-                        <h5 class="mb-1">Get approved by IdleMach</h5>
-                        <p class="mb-0">Our team reviews new listings before they go live, so buyers only see verified machines.</p>
-                    </div>
-                </div>
-
-                <div class="step-row">
-                    <div class="step-number">3</div>
-                    <div>
-                        <h5 class="mb-1">Receive booking requests</h5>
-                        <p class="mb-0">Buyers send requests for specific dates and hours. You accept or reject each one.</p>
-                    </div>
-                </div>
-
-                <div class="step-row">
-                    <div class="step-number">4</div>
-                    <div>
-                        <h5 class="mb-1">Complete the work & get paid</h5>
-                        <p class="mb-0">Mark the booking complete once the job is done, and collect payment through the platform.</p>
-                    </div>
-                </div>
-
-                <div class="step-row">
-                    <div class="step-number">5</div>
-                    <div>
-                        <h5 class="mb-1">Build your reputation</h5>
-                        <p class="mb-0">Buyer reviews stack up on your profile, helping you win more bookings over time.</p>
-                    </div>
-                </div>
             </div>
 
-            {{-- BUYER FLOW --}}
+
+            {{-- BUYER --}}
             <div class="col-lg-6">
-                <div class="d-flex align-items-center gap-3 mb-2">
-                    <div class="category-icon mb-0" style="background-color: #F973161A; color: var(--orange);">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </div>
-                    <h2 class="h3 mb-0">For Buyers</h2>
-                </div>
-                <p class="mb-4">Skip the wait for your own machine to free up — find capacity that's already available.</p>
 
-                <div class="step-row">
-                    <div class="step-number">1</div>
-                    <div>
-                        <h5 class="mb-1">Search by machine type & location</h5>
-                        <p class="mb-0">Filter listings by process, city, hourly rate and available dates.</p>
+                <div class="how-flow-card buyer-flow">
+
+                    <div class="how-flow-header">
+
+                        <div class="how-flow-icon">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+
+                        <div>
+                            <span class="how-flow-label">
+                                CAPACITY BUYERS
+                            </span>
+
+                            <h2>Find the right machine when you need it</h2>
+                        </div>
+
                     </div>
+
+                    <p class="how-flow-description">
+                        Discover available manufacturing machines, compare
+                        specifications and request capacity without waiting
+                        for your own equipment to become available.
+                    </p>
+
+
+                    <div class="how-step-list">
+
+                        <div class="how-step">
+                            <div class="how-step-number">01</div>
+
+                            <div class="how-step-content">
+                                <h3>Search by machine type & location</h3>
+
+                                <p>
+                                    Filter available machines by process,
+                                    location, hourly rate and availability.
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="how-step">
+                            <div class="how-step-number">02</div>
+
+                            <div class="how-step-content">
+                                <h3>Review machine details</h3>
+
+                                <p>
+                                    Check machine specifications, owner details,
+                                    available hours and production requirements.
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="how-step">
+                            <div class="how-step-number">03</div>
+
+                            <div class="how-step-content">
+                                <h3>Send a production request</h3>
+
+                                <p>
+                                    Select your required dates and hours and
+                                    provide the information needed for the job.
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="how-step">
+                            <div class="how-step-number">04</div>
+
+                            <div class="how-step-content">
+                                <h3>Confirm once accepted</h3>
+
+                                <p>
+                                    Once the machine owner accepts your request,
+                                    confirm the production arrangement.
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="how-step">
+                            <div class="how-step-number">05</div>
+
+                            <div class="how-step-content">
+                                <h3>Complete the job & review</h3>
+
+                                <p>
+                                    Follow the production process through completion
+                                    and share your experience afterward.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="how-flow-footer">
+                        <span>
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            Discover available capacity
+                        </span>
+
+                        <a href="{{ url('/browse-machines') }}">
+                            Browse Machines
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+
                 </div>
 
-                <div class="step-row">
-                    <div class="step-number">2</div>
-                    <div>
-                        <h5 class="mb-1">Review machine details</h5>
-                        <p class="mb-0">Check specifications, owner ratings and real-time availability before requesting.</p>
-                    </div>
-                </div>
-
-                <div class="step-row">
-                    <div class="step-number">3</div>
-                    <div>
-                        <h5 class="mb-1">Send a booking request</h5>
-                        <p class="mb-0">Pick your dates and hours, attach any work documents, and send the request.</p>
-                    </div>
-                </div>
-
-                <div class="step-row">
-                    <div class="step-number">4</div>
-                    <div>
-                        <h5 class="mb-1">Pay once accepted</h5>
-                        <p class="mb-0">Once the owner accepts, confirm your booking with payment through the platform.</p>
-                    </div>
-                </div>
-
-                <div class="step-row">
-                    <div class="step-number">5</div>
-                    <div>
-                        <h5 class="mb-1">Track the job & leave a review</h5>
-                        <p class="mb-0">Follow the booking to completion, then rate your experience for other buyers.</p>
-                    </div>
-                </div>
             </div>
 
         </div>
+
     </div>
 </section>
 
-{{-- ================= CORE FLOW STRIP ================= --}}
-<section class="section-tight" style="background-color: var(--bg-secondary);">
+
+{{-- =========================================================
+     CORE FLOW
+     ========================================================= --}}
+
+<section class="core-flow-section">
+
     <div class="container">
-        <h2 class="h3 text-center mb-5">The core flow, end to end</h2>
-        <div class="row g-3 text-center">
-            @php
-            $flow = ['List', 'Discover', 'Request', 'Accept', 'Pay', 'Work', 'Review'];
-            @endphp
-            @foreach ($flow as $i => $step)
-            <div class="col-6 col-md">
-                <div class="fw-bold display-font mb-1" style="color: var(--blue);">{{ $step }}</div>
-                @if (!$loop->last)
-                <div class="d-none d-md-block text-muted-custom mt-2"><i class="fa-solid fa-arrow-right-long"></i></div>
-                @endif
+
+        <div class="section-heading centered">
+            <span class="section-kicker">END-TO-END PROCESS</span>
+
+            <h2>The core flow, end to end</h2>
+
+            <p>
+                From discovering available capacity to completing
+                production, IdleMach keeps the process structured.
+            </p>
+        </div>
+
+
+        <div class="core-flow">
+
+            <div class="core-flow-item">
+                <span>01</span>
+                <strong>List</strong>
+                <small>Make capacity visible</small>
             </div>
-            @endforeach
+
+            <div class="core-flow-arrow">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+            <div class="core-flow-item">
+                <span>02</span>
+                <strong>Discover</strong>
+                <small>Find the right machine</small>
+            </div>
+
+            <div class="core-flow-arrow">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+            <div class="core-flow-item">
+                <span>03</span>
+                <strong>Request</strong>
+                <small>Submit requirements</small>
+            </div>
+
+            <div class="core-flow-arrow">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+            <div class="core-flow-item">
+                <span>04</span>
+                <strong>Accept</strong>
+                <small>Confirm the work</small>
+            </div>
+
+            <div class="core-flow-arrow">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+            <div class="core-flow-item">
+                <span>05</span>
+                <strong>Pay</strong>
+                <small>Confirm production</small>
+            </div>
+
+            <div class="core-flow-arrow">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+            <div class="core-flow-item">
+                <span>06</span>
+                <strong>Work</strong>
+                <small>Complete the job</small>
+            </div>
+
+            <div class="core-flow-arrow">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+            <div class="core-flow-item">
+                <span>07</span>
+                <strong>Review</strong>
+                <small>Build trust</small>
+            </div>
+
         </div>
+
     </div>
+
 </section>
 
-<section class="section-tight text-center">
+
+{{-- =========================================================
+     CTA
+     ========================================================= --}}
+
+<section class="cta-section">
+
     <div class="container">
-        <h2 class="h3 mb-3">Ready to see it in action?</h2>
-        <div class="d-flex justify-content-center gap-3 flex-wrap">
-            <a href="{{ url('/browse-machines') }}" class="btn btn-idle-primary btn-lg">Browse Machines</a>
-            <a href="{{ Route::has('register') ? route('register') : '#' }}" class="btn btn-idle-outline btn-lg">List Your Machine</a>
+
+        <div class="cta-card">
+
+            <div>
+                <span class="section-kicker">GET STARTED</span>
+
+                <h2>Ready to put IdleMach to work?</h2>
+
+                <p>
+                    Discover available manufacturing capacity or list
+                    your unused machine hours for productive work.
+                </p>
+            </div>
+
+            <div class="cta-actions">
+
+                <a href="{{ url('/browse-machines') }}"
+                    class="btn btn-primary-idle">
+                    Browse Machines
+                </a>
+
+                <a href="{{ url('/register') }}"
+                    class="btn btn-secondary-idle">
+                    List Your Machine
+                </a>
+
+            </div>
+
         </div>
+
     </div>
+
 </section>
 
 @endsection

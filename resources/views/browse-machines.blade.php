@@ -458,62 +458,6 @@
             </div>
 
 
-            {{-- =================================================
-                PAGINATION
-            ================================================== --}}
-            <div class="marketplace-pagination">
-
-                <ul class="pagination mb-0">
-
-                    <li class="page-item disabled">
-
-                        <span class="page-link">
-                            Previous
-                        </span>
-
-                    </li>
-
-                    <li class="page-item active">
-
-                        <span class="page-link">
-                            1
-                        </span>
-
-                    </li>
-
-                    <li class="page-item">
-
-                        <a
-                            href="#"
-                            class="page-link">
-                            2
-                        </a>
-
-                    </li>
-
-                    <li class="page-item">
-
-                        <a
-                            href="#"
-                            class="page-link">
-                            3
-                        </a>
-
-                    </li>
-
-                    <li class="page-item">
-
-                        <a
-                            href="#"
-                            class="page-link">
-                            Next
-                        </a>
-
-                    </li>
-
-                </ul>
-
-            </div>
 
         </div>
 

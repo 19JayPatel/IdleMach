@@ -2021,6 +2021,53 @@ select:focus-visible {
     }
 }
 
+
+/* =========================================================
+   MARKETPLACE SORT + AVAILABILITY ACTION
+   ========================================================= */
+
+.marketplace-sort-group {
+    min-width: 0;
+}
+
+.marketplace-notify-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    width: 100%;
+    padding: 9px 10px;
+    margin: -3px 0 15px;
+    color: var(--blue);
+    background: var(--blue-soft);
+    border: 1px solid #dce6ff;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.marketplace-notify-link:hover {
+    color: var(--blue-dark);
+    background: #e5efff;
+    border-color: #c9d9fa;
+}
+
+@media (max-width: 991px) {
+    .marketplace-sort-group {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 767px) {
+    .marketplace-sort-group {
+        grid-column: auto;
+    }
+}
+
 /* =========================================================
    MARKETPLACE / BROWSE MACHINES
    ========================================================= */

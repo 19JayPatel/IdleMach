@@ -225,6 +225,7 @@
 
             [
             'name' => 'Haas CNC Turning Machine',
+            'owner' => 'Precision Works',
             'type' => 'CNC Machining',
             'location' => 'Rajkot',
             'rate' => 800,
@@ -236,6 +237,7 @@
 
             [
             'name' => 'Mimaki Large Format Printer',
+            'owner' => 'Apex Industrial Solutions',
             'type' => 'Printing',
             'location' => 'Ahmedabad',
             'rate' => 450,
@@ -247,6 +249,7 @@
 
             [
             'name' => 'Tajima 12-Head Embroidery',
+            'owner' => 'Synergy Fab & Form',
             'type' => 'Embroidery',
             'location' => 'Morbi',
             'rate' => 350,
@@ -258,6 +261,7 @@
 
             [
             'name' => 'Engel Injection Molder 200T',
+            'owner' => 'Vertex Manufacturing',
             'type' => 'Injection Molding',
             'location' => 'Surat',
             'rate' => 1200,
@@ -269,6 +273,7 @@
 
             [
             'name' => 'Trotec Fiber Laser Cutter',
+            'owner' => 'Nova Industrial Works',
             'type' => 'Laser Cutting',
             'location' => 'Rajkot',
             'rate' => 600,
@@ -280,6 +285,7 @@
 
             [
             'name' => 'Doosan CNC Milling Center',
+            'owner' => 'PrimeTech Engineering',
             'type' => 'CNC Machining',
             'location' => 'Ahmedabad',
             'rate' => 950,
@@ -372,35 +378,32 @@
                             </h3>
 
 
-                            {{-- OWNER --}}
+                            {{-- OWNER + RATING --}}
                             <div class="marketplace-machine-owner">
 
                                 <i class="fa-solid fa-building"></i>
 
-                                Verified Machine Owner
+                                <span>
+                                    {{ $machine['owner'] }}
+                                </span>
+
+                                <span class="marketplace-machine-owner-rating">
+                                    <i
+                                        class="fa-solid fa-star"
+                                        style="color: var(--orange);"></i>
+                                    {{ $machine['rating'] }}
+                                </span>
 
                             </div>
 
 
-                            {{-- LOCATION + RATING --}}
+                            {{-- LOCATION --}}
                             <div class="marketplace-machine-location">
 
                                 <i class="fa-solid fa-location-dot"></i>
 
                                 <span>
                                     {{ $machine['location'] }}
-                                </span>
-
-                                <span>
-                                    ·
-                                </span>
-
-                                <i
-                                    class="fa-solid fa-star"
-                                    style="color: var(--orange);"></i>
-
-                                <span>
-                                    {{ $machine['rating'] }}
                                 </span>
 
                             </div>

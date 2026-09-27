@@ -19,7 +19,7 @@
             <h1>Browse Machines</h1>
 
             <p>
-                Find verified manufacturing capacity available across Gujarat.
+                Find available manufacturing capacity across Gujarat.
             </p>
 
         </div>
@@ -221,7 +221,7 @@
             'rate' => 800,
             'rating' => 4.8,
             'status' => 'Available',
-            'capacity' => '18 hrs available',
+            'capacity' => '18 hours available',
             'image' => 'https://img2.tradewheel.com/uploads/images/products/9/9/journey-fanuc-system-factory-supplies-one-meter-11-single-provided-cnc-machine-5-axis-yil06cnc-machine-china-24-vertical-482-0512930001723030489.jpg',
             ],
 
@@ -232,7 +232,7 @@
             'rate' => 450,
             'rating' => 4.6,
             'status' => 'Available',
-            'capacity' => '24 hrs available',
+            'capacity' => '24 hours available',
             'image' => 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80',
             ],
 
@@ -243,7 +243,7 @@
             'rate' => 350,
             'rating' => 4.9,
             'status' => 'Available',
-            'capacity' => '12 hrs available',
+            'capacity' => '12 hours available',
             'image' => 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1200&q=80',
             ],
 
@@ -265,7 +265,7 @@
             'rate' => 600,
             'rating' => 4.5,
             'status' => 'Available',
-            'capacity' => '20 hrs available',
+            'capacity' => '20 hours available',
             'image' => 'https://www.ifrontiers.lk/wp-content/uploads/2025/07/gweike_lf3015E-main.png',
             ],
 
@@ -276,7 +276,7 @@
             'rate' => 950,
             'rating' => 4.8,
             'status' => 'Available',
-            'capacity' => '16 hrs available',
+            'capacity' => '16 hours available',
             'image' => 'https://image.made-in-china.com/2f0j00aFOiAwcCwTRm/Metal-Cutting-CNC-Vertical-Machining-Center-Vmc1160-CNC-Milling-Machine-Price.webp',
             ],
 

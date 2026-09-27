@@ -382,6 +382,14 @@ select {
     font-size: 10px;
 }
 
+.machine-info-heading {
+    padding: 13px 16px 0;
+    color: #65748b;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
 .machine-info {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -599,6 +607,7 @@ select {
 }
 
 .workflow-card {
+    position: relative;
     min-height: 165px;
     padding: 20px;
     background: #fff;
@@ -612,6 +621,29 @@ select {
 .workflow-card:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-sm);
+}
+
+@media (min-width: 992px) {
+    .workflow-card:not(:last-child)::after {
+        content: "\f061";
+        position: absolute;
+        top: 50%;
+        right: -14px;
+        z-index: 3;
+        width: 27px;
+        height: 27px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #9aa8ba;
+        background: #f8fafc;
+        border: 1px solid #dfe6ee;
+        border-radius: 50%;
+        font-family: "Font Awesome 6 Free";
+        font-size: 10px;
+        font-weight: 900;
+        transform: translateY(-50%);
+    }
 }
 
 .workflow-top {
@@ -647,6 +679,94 @@ select {
     color: #65748b;
     font-size: 13px;
     line-height: 1.65;
+}
+
+
+/* =========================================================
+   MANUFACTURING NETWORK
+   ========================================================= */
+
+.network-section {
+    padding: 0 0 70px;
+    background: #eef3f8;
+}
+
+.network-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 28px 30px;
+    background: #ffffff;
+    border: 1px solid #dbe3ec;
+    border-radius: 11px;
+    box-shadow: var(--shadow-sm);
+}
+
+.network-copy {
+    max-width: 700px;
+}
+
+.network-copy .section-kicker {
+    margin-bottom: 7px;
+}
+
+.network-copy h2 {
+    margin-bottom: 9px;
+    font-size: 25px;
+    line-height: 1.25;
+}
+
+.network-copy p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+.network-locations {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.network-locations span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 11px;
+    color: #526176;
+    background: #f5f8fc;
+    border: 1px solid #dfe6ee;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.network-locations i {
+    color: var(--blue);
+    font-size: 10px;
+}
+
+@media (max-width: 767px) {
+    .network-section {
+        padding-bottom: 55px;
+    }
+
+    .network-panel {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 23px;
+    }
+
+    .network-copy h2 {
+        font-size: 21px;
+    }
+
+    .network-locations {
+        justify-content: flex-start;
+    }
 }
 
 /* =========================================================

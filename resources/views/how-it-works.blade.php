@@ -124,11 +124,10 @@
                             <div class="how-step-number">04</div>
 
                             <div class="how-step-content">
-                                <h3>Complete the work & get paid</h3>
+                                <h3>Complete the accepted work</h3>
 
                                 <p>
-                                    Complete accepted work and receive payment
-                                    through the platform workflow.
+                                    Complete the accepted production work according to the agreed requirements and payment terms.
                                 </p>
                             </div>
                         </div>
@@ -243,11 +242,10 @@
                             <div class="how-step-number">04</div>
 
                             <div class="how-step-content">
-                                <h3>Confirm once accepted</h3>
+                                <h3>Confirm booking & payment terms</h3>
 
                                 <p>
-                                    Once the machine owner accepts your request,
-                                    confirm the production arrangement.
+                                    Once the machine owner accepts, review the agreed rate, schedule and payment terms before confirming the booking.
                                 </p>
                             </div>
                         </div>
@@ -356,7 +354,7 @@
             <div class="core-flow-item">
                 <span>05</span>
                 <strong>Pay</strong>
-                <small>Confirm production</small>
+                <small>Confirm payment terms</small>
             </div>
 
             <div class="core-flow-arrow">
@@ -380,6 +378,10 @@
             </div>
 
         </div>
+
+        <p class="core-flow-note">
+            Payment timing and payment protection should follow the final platform payment workflow; the current page does not assume escrow.
+        </p>
 
     </div>
 

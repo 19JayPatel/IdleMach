@@ -124,9 +124,13 @@
                                 Direct Utilization
                             </small>
 
-                            <strong class="blue-text">
+                            <strong class="blue-text" title="The machine rate shown is the listed rate.">
                                 Zero Markups
                             </strong>
+
+                            <small class="machine-info-note">
+                                Listed machine rate shown directly
+                            </small>
 
                         </div>
 
@@ -137,7 +141,7 @@
                             </small>
 
                             <strong>
-                                Escrow Assured
+                                Payment terms confirmed
                             </strong>
 
                         </div>
@@ -356,13 +360,13 @@
         <div class="network-panel">
             <div class="network-copy">
                 <span class="section-kicker">MANUFACTURING NETWORK</span>
-                <h2>Capacity discovery across real manufacturing hubs</h2>
-                <p>IdleMach is built to make machine capability, available hours and production requirements easier to discover across different manufacturing locations.</p>
+                <h2>Capacity discovery across Gujarat manufacturing hubs</h2>
+                <p>IdleMach helps buyers discover machine capability, available hours and production requirements across Gujarat manufacturing hubs.</p>
             </div>
             <div class="network-locations">
                 <span><i class="fa-solid fa-location-dot"></i> Rajkot</span>
-                <span><i class="fa-solid fa-location-dot"></i> Pune</span>
-                <span><i class="fa-solid fa-location-dot"></i> Coimbatore</span>
+                <span><i class="fa-solid fa-location-dot"></i> Ahmedabad</span>
+                <span><i class="fa-solid fa-location-dot"></i> Surat</span>
             </div>
         </div>
     </div>
@@ -401,30 +405,51 @@
 
         [
         'number' => '01',
-        'icon' => 'fa-solid fa-magnifying-glass',
+        'icon' => 'fa-solid fa-list',
         'title' => 'List',
-        'text' => 'Make available capacity visible.'
+        'text' => 'Make capacity visible.'
         ],
 
         [
         'number' => '02',
-        'icon' => 'fa-regular fa-clock',
-        'title' => 'Request',
-        'text' => 'Choose capacity and send requirements.'
+        'icon' => 'fa-solid fa-magnifying-glass',
+        'title' => 'Discover',
+        'text' => 'Find the right machine.'
         ],
 
         [
         'number' => '03',
-        'icon' => 'fa-regular fa-square-check',
-        'title' => 'Accept',
-        'text' => 'Owner reviews the request.'
+        'icon' => 'fa-solid fa-file-circle-check',
+        'title' => 'Request',
+        'text' => 'Submit your requirements.'
         ],
 
         [
         'number' => '04',
+        'icon' => 'fa-regular fa-square-check',
+        'title' => 'Accept',
+        'text' => 'Owner confirms the request.'
+        ],
+
+        [
+        'number' => '05',
+        'icon' => 'fa-solid fa-credit-card',
+        'title' => 'Pay',
+        'text' => 'Confirm payment terms.'
+        ],
+
+        [
+        'number' => '06',
         'icon' => 'fa-solid fa-box',
         'title' => 'Work',
-        'text' => 'Complete the agreed production work.'
+        'text' => 'Complete the agreed work.'
+        ],
+
+        [
+        'number' => '07',
+        'icon' => 'fa-solid fa-star',
+        'title' => 'Review',
+        'text' => 'Share feedback after completion.'
         ],
 
         ];
@@ -515,7 +540,7 @@
         'title' => '5-Axis CNC Vertical Machining Center',
         'owner' => 'Precision Works',
         'location' => 'Rajkot, Gujarat',
-        'capacity' => '6 hours / day',
+        'capacity' => '6 hours available',
         'rate' => '₹1,400',
         ],
 
@@ -524,8 +549,8 @@
         'category' => 'CNC Turning',
         'title' => 'Heavy-Duty CNC Turning Machine',
         'owner' => 'Apex Industrial Solutions',
-        'location' => 'Pune, Maharashtra',
-        'capacity' => '4 hours / day',
+        'location' => 'Ahmedabad, Gujarat',
+        'capacity' => '4 hours available',
         'rate' => '₹800',
         ],
 
@@ -534,8 +559,8 @@
         'category' => 'Sheet Metal Cutting',
         'title' => 'High-Speed Fiber Laser Cutting Machine',
         'owner' => 'Synergy Fab & Form',
-        'location' => 'Coimbatore, Tamil Nadu',
-        'capacity' => '8 hours / day',
+        'location' => 'Surat, Gujarat',
+        'capacity' => '8 hours available',
         'rate' => '₹1,850',
         ],
 

@@ -2633,3 +2633,27 @@ select:focus-visible {
     margin-top: 28px;
     text-align: center;
 }
+
+
+/* Compact marketplace machine cards */
+.marketplace-machine-image {
+    height: 220px;
+}
+
+.marketplace-machine-body {
+    padding: 18px 20px;
+}
+
+.marketplace-machine-owner {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+
+.marketplace-machine-owner-rating {
+    margin-left: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}

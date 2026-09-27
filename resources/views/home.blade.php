@@ -391,102 +391,88 @@
             </h2>
 
             <p>
-                A transparent workflow designed around machine
-                availability, technical requirements and
-                production predictability.
+                A simple path from available machine capacity
+                to completed production work.
             </p>
 
         </div>
 
 
-        @php
-
-        $steps = [
-
-        [
-        'number' => '01',
-        'icon' => 'fa-solid fa-list',
-        'title' => 'List',
-        'text' => 'Make capacity visible.'
-        ],
-
-        [
-        'number' => '02',
-        'icon' => 'fa-solid fa-magnifying-glass',
-        'title' => 'Discover',
-        'text' => 'Find the right machine.'
-        ],
-
-        [
-        'number' => '03',
-        'icon' => 'fa-solid fa-file-circle-check',
-        'title' => 'Request',
-        'text' => 'Submit your requirements.'
-        ],
-
-        [
-        'number' => '04',
-        'icon' => 'fa-regular fa-square-check',
-        'title' => 'Accept',
-        'text' => 'Owner confirms the request.'
-        ],
-
-        [
-        'number' => '05',
-        'icon' => 'fa-solid fa-credit-card',
-        'title' => 'Pay',
-        'text' => 'Confirm payment terms.'
-        ],
-
-        [
-        'number' => '06',
-        'icon' => 'fa-solid fa-box',
-        'title' => 'Work',
-        'text' => 'Complete the agreed work.'
-        ],
-
-        [
-        'number' => '07',
-        'icon' => 'fa-solid fa-star',
-        'title' => 'Review',
-        'text' => 'Share feedback after completion.'
-        ],
-
-        ];
-
-        @endphp
-
-
         <div class="workflow-grid">
-
-            @foreach ($steps as $step)
 
             <div class="workflow-card">
 
                 <div class="workflow-top">
-
-                    <span>
-                        {{ $step['number'] }}
-                    </span>
-
-                    <i class="{{ $step['icon'] }}"></i>
-
+                    <span>01</span>
+                    <i class="fa-solid fa-list"></i>
                 </div>
 
-
-                <h3>
-                    {{ $step['title'] }}
-                </h3>
-
+                <h3>List</h3>
 
                 <p>
-                    {{ $step['text'] }}
+                    Make available machine capacity visible.
                 </p>
 
             </div>
 
-            @endforeach
 
+            <div class="workflow-card">
+
+                <div class="workflow-top">
+                    <span>02</span>
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+
+                <h3>Discover</h3>
+
+                <p>
+                    Find the right machine for the job.
+                </p>
+
+            </div>
+
+
+            <div class="workflow-card">
+
+                <div class="workflow-top">
+                    <span>03</span>
+                    <i class="fa-regular fa-square-check"></i>
+                </div>
+
+                <h3>Agree</h3>
+
+                <p>
+                    Confirm the work, schedule and payment terms.
+                </p>
+
+            </div>
+
+
+            <div class="workflow-card">
+
+                <div class="workflow-top">
+                    <span>04</span>
+                    <i class="fa-solid fa-box"></i>
+                </div>
+
+                <h3>Produce</h3>
+
+                <p>
+                    Complete the agreed production work.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="workflow-link-wrap">
+            <a
+                href="{{ url('/how-it-works') }}"
+                class="view-all-link">
+                See the full step-by-step process
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
         </div>
 
     </div>

@@ -127,7 +127,7 @@
                                 <h3>Complete the accepted work</h3>
 
                                 <p>
-                                    Complete the accepted production work according to the agreed requirements and payment terms.
+                                    Complete the accepted production work according to the agreed requirements. Payment is handled according to the agreed payment terms for the work.
                                 </p>
                             </div>
                         </div>

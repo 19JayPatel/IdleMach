@@ -402,29 +402,29 @@
         [
         'number' => '01',
         'icon' => 'fa-solid fa-magnifying-glass',
-        'title' => 'Discovery & Listing',
-        'text' => 'Owners list verified machine specifications and available production capacity.'
+        'title' => 'List',
+        'text' => 'Make available capacity visible.'
         ],
 
         [
         'number' => '02',
         'icon' => 'fa-regular fa-clock',
-        'title' => 'Capacity & Request',
-        'text' => 'Buyers select available hours and submit a structured production request.'
+        'title' => 'Request',
+        'text' => 'Choose capacity and send requirements.'
         ],
 
         [
         'number' => '03',
         'icon' => 'fa-regular fa-square-check',
-        'title' => 'Owner Review',
-        'text' => 'Machine owners review technical requirements and approve the request.'
+        'title' => 'Accept',
+        'text' => 'Owner reviews the request.'
         ],
 
         [
         'number' => '04',
         'icon' => 'fa-solid fa-box',
-        'title' => 'Production & Settlement',
-        'text' => 'Production is completed against agreed capacity and requirements.'
+        'title' => 'Work',
+        'text' => 'Complete the agreed production work.'
         ],
 
         ];

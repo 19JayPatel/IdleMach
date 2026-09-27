@@ -163,6 +163,24 @@
                 </div>
 
 
+                {{-- SORT --}}
+                <div class="marketplace-filter-group marketplace-sort-group">
+
+                    <label for="machine-sort">
+                        Sort by
+                    </label>
+
+                    <select id="machine-sort" name="sort">
+                        <option value="">Recommended</option>
+                        <option value="price_asc" @selected(request('sort') === 'price_asc')>Price: Low to High</option>
+                        <option value="price_desc" @selected(request('sort') === 'price_desc')>Price: High to Low</option>
+                        <option value="rating_desc" @selected(request('sort') === 'rating_desc')>Rating</option>
+                        <option value="availability" @selected(request('sort') === 'availability')>Availability</option>
+                    </select>
+
+                </div>
+
+
                 {{-- FILTER BUTTON --}}
                 <button
                     type="submit"
@@ -266,6 +284,23 @@
 
             @endphp
 
+            @php
+                $sort = request('sort');
+
+                if ($sort === 'price_asc') {
+                    usort($machines, fn ($a, $b) => $a['rate'] <=> $b['rate']);
+                } elseif ($sort === 'price_desc') {
+                    usort($machines, fn ($a, $b) => $b['rate'] <=> $a['rate']);
+                } elseif ($sort === 'rating_desc') {
+                    usort($machines, fn ($a, $b) => $b['rating'] <=> $a['rating']);
+                } elseif ($sort === 'availability') {
+                    usort($machines, function ($a, $b) {
+                        return ($a['status'] === 'Available' ? 0 : 1)
+                            <=> ($b['status'] === 'Available' ? 0 : 1);
+                    });
+                }
+            @endphp
+
 
             {{-- RESULTS HEADER --}}
             <div class="marketplace-results-header">
@@ -276,7 +311,7 @@
                     </h2>
 
                     <span>
-                        {{ count($machines) }} machines currently listed
+                        Showing all {{ count($machines) }} currently listed machines
                     </span>
                 </div>
 
@@ -374,6 +409,15 @@
                                 </strong>
 
                             </div>
+
+                            @if ($machine['status'] !== 'Available')
+                                <a
+                                    href="mailto:?subject={{ rawurlencode('IdleMach availability request: ' . $machine['name']) }}&body={{ rawurlencode('I would like to be notified when ' . $machine['name'] . ' is available.') }}"
+                                    class="marketplace-notify-link">
+                                    <i class="fa-regular fa-bell"></i>
+                                    Notify me when available
+                                </a>
+                            @endif
 
 
                             {{-- FOOTER --}}

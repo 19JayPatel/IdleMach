@@ -102,6 +102,8 @@
                     </div>
 
 
+                    <div class="machine-info-heading">Why manufacturers use IdleMach</div>
+
                     <div class="machine-info">
 
                         <div>
@@ -251,13 +253,7 @@
                             Zero listing fees for shops
                         </span>
 
-                        <a href="{{ url('/register') }}">
-
-                            List Your Machine
-
-                            <i class="fa-solid fa-arrow-right"></i>
-
-                        </a>
+                        
 
                     </div>
 
@@ -335,13 +331,7 @@
                             Instant specification filtering
                         </span>
 
-                        <a href="{{ url('/browse-machines') }}">
-
-                            Explore Marketplace
-
-                            <i class="fa-solid fa-arrow-right"></i>
-
-                        </a>
+                        
 
                     </div>
 
@@ -356,6 +346,27 @@
 </section>
 
 
+
+{{-- =========================================================
+    MANUFACTURING NETWORK
+========================================================= --}}
+
+<section class="network-section">
+    <div class="container">
+        <div class="network-panel">
+            <div class="network-copy">
+                <span class="section-kicker">MANUFACTURING NETWORK</span>
+                <h2>Capacity discovery across real manufacturing hubs</h2>
+                <p>IdleMach is built to make machine capability, available hours and production requirements easier to discover across different manufacturing locations.</p>
+            </div>
+            <div class="network-locations">
+                <span><i class="fa-solid fa-location-dot"></i> Rajkot</span>
+                <span><i class="fa-solid fa-location-dot"></i> Pune</span>
+                <span><i class="fa-solid fa-location-dot"></i> Coimbatore</span>
+            </div>
+        </div>
+    </div>
+</section>
 
 {{-- =========================================================
     WORKFLOW

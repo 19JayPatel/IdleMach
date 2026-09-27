@@ -167,16 +167,25 @@
                 <div class="marketplace-filter-group marketplace-sort-group">
 
                     <label for="machine-sort">
-                        Sort by
+                        Sort results
                     </label>
 
-                    <select id="machine-sort" name="sort">
+                    <select
+                        id="machine-sort"
+                        name="sort"
+                        aria-label="Sort machine results"
+                        onchange="this.form.submit()">
                         <option value="">Recommended</option>
                         <option value="price_asc" @selected(request('sort') === 'price_asc')>Price: Low to High</option>
                         <option value="price_desc" @selected(request('sort') === 'price_desc')>Price: High to Low</option>
                         <option value="rating_desc" @selected(request('sort') === 'rating_desc')>Rating</option>
                         <option value="availability" @selected(request('sort') === 'availability')>Availability</option>
                     </select>
+
+                    <small class="marketplace-sort-hint">
+                        <i class="fa-solid fa-check"></i>
+                        Applied automatically
+                    </small>
 
                 </div>
 

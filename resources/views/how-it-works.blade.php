@@ -380,7 +380,7 @@
         </div>
 
         <p class="core-flow-note">
-            Payment timing and payment protection should follow the final platform payment workflow; the current page does not assume escrow.
+            Payment terms are confirmed before work begins.
         </p>
 
     </div>

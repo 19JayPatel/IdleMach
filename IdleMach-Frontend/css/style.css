@@ -4285,9 +4285,17 @@ textarea.form-control {
 /* --------------------------------------------------------------------------
    20. Dashboard layout and shared components (Phase 3.1)
    -------------------------------------------------------------------------- */
+:root {
+  --dashboard-sidebar-width: 240px;
+  --dashboard-sidebar-mobile-width: min(280px, calc(100vw - 56px));
+}
+
 .dashboard-layout {
   display: flex;
+  width: 100%;
+  min-width: 0;
   min-height: 100vh;
+  align-items: stretch;
   background-color: var(--color-background);
   color: var(--color-text);
 }
@@ -4300,8 +4308,11 @@ textarea.form-control {
   left: 0;
   z-index: 1040;
   display: flex;
+  flex: 0 0 var(--dashboard-sidebar-width);
   flex-direction: column;
-  width: 240px;
+  width: var(--dashboard-sidebar-width);
+  height: 100vh;
+  height: 100dvh;
   background-color: var(--color-navy);
   color: #d1dde3;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -4375,8 +4386,10 @@ textarea.form-control {
 
 .dashboard-sidebar-nav {
   flex: 1 1 auto;
+  min-width: 0;
   min-height: 0;
   padding: 0.5rem;
+  overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
 }
@@ -4556,12 +4569,14 @@ button.dashboard-nav-link {
 
 /* Main content container */
 .dashboard-main {
-  flex: 1 1 auto;
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
+  width: calc(100% - var(--dashboard-sidebar-width));
+  max-width: calc(100% - var(--dashboard-sidebar-width));
   min-width: 0;
   min-height: 100vh;
-  margin-left: 240px;
+  margin-left: var(--dashboard-sidebar-width);
 }
 
 /* Top navigation bar */
@@ -4570,6 +4585,7 @@ button.dashboard-nav-link {
   top: 0;
   z-index: 1020;
   display: flex;
+  min-width: 0;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
@@ -4708,7 +4724,9 @@ button.dashboard-nav-link {
 
 /* Dashboard content body */
 .dashboard-content {
-  flex: 1 1 auto;
+  flex: 1 0 auto;
+  width: 100%;
+  min-width: 0;
   padding: 1.75rem;
 }
 
@@ -4931,6 +4949,7 @@ button.dashboard-nav-link {
 
 /* Dashboard Card (General Panel) */
 .dashboard-card {
+  min-width: 0;
   margin-bottom: 1.75rem;
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -4967,11 +4986,13 @@ button.dashboard-nav-link {
 
 .dashboard-card-actions {
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
 }
 
 .dashboard-card-body {
+  min-width: 0;
   padding: 1.25rem;
 }
 
@@ -5006,8 +5027,10 @@ button.dashboard-nav-link {
 }
 
 .table-responsive {
+  width: 100%;
+  max-width: 100%;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: visible;
   -webkit-overflow-scrolling: touch;
   border-radius: calc(var(--radius-card) - 1px);
 }
@@ -5783,7 +5806,8 @@ button.dashboard-nav-link {
 /* Responsive queries for dashboard */
 @media (max-width: 991.98px) {
   .dashboard-sidebar {
-    width: min(280px, calc(100vw - 56px));
+    flex-basis: var(--dashboard-sidebar-mobile-width);
+    width: var(--dashboard-sidebar-mobile-width);
     transform: translateX(-100%);
   }
 
@@ -5807,6 +5831,8 @@ button.dashboard-nav-link {
   }
 
   .dashboard-main {
+    width: 100%;
+    max-width: 100%;
     margin-left: 0;
   }
 
@@ -5848,7 +5874,7 @@ button.dashboard-nav-link {
   }
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 991.98px) {
   .dashboard-stats-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

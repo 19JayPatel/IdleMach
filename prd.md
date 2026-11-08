@@ -255,7 +255,7 @@ The main business flow is:
 4.  Owner defines its hourly rate and available capacity.
 5.  Machine is submitted for admin review.
 6.  Admin approves or rejects the machine.
-7.  Approved and active machine is shown in the marketplace.
+7.  A machine with `approval_status = approved` is shown in the marketplace. It can receive booking requests only when `operational_status = active`.
 8.  Buyer searches for a machine.
 9.  Buyer opens the machine details and checks availability.
 10. Buyer sends a booking request with work requirements.
@@ -335,8 +335,7 @@ Laravel version used by the project.
 
 ### 9.1 Marketplace purpose
 
-The marketplace lets buyers discover approved and active machine
-listings.
+The marketplace lets buyers discover all machine listings with `approval_status = approved`. A listing remains visible when its operational status is `inactive` or `maintenance`, but it is not bookable in those states.
 
 ### 9.2 Machine listing information
 
@@ -409,8 +408,7 @@ The machine details page should contain:
 -   Reviews
 -   Request Booking action
 
-Only approved and active machines should be displayed as bookable
-marketplace listings.
+Only machines with `approval_status = approved` are displayed in the marketplace. A machine is eligible to receive a booking request only when `approval_status = approved` and `operational_status = active`.
 
 ## 10. Owner requirements
 
@@ -452,7 +450,7 @@ source:
 -   Description
 -   Logo
 
-A company belongs to a user and can have multiple machines.
+Each user can own exactly one company, and each company belongs to exactly one user. Enforce this one-to-one relationship with a unique constraint on `companies.user_id`. A company can have multiple machines.
 
 ### 10.3 Add and manage machines
 
@@ -482,22 +480,34 @@ subject to the platform's status and business rules.
 
 ### 10.4 Machine status
 
-Statuses specified in the source:
+Machine approval and operational condition are separate concepts and must be stored in separate fields.
+
+**Approval field: `approval_status`**
 
 -   `pending`
 -   `approved`
 -   `rejected`
+
+**Operational field: `operational_status`**
+
 -   `active`
 -   `inactive`
 -   `maintenance`
 
-Recommended approval flow:
+Approval is controlled by the admin. Operational status describes whether the approved machine is currently available to accept new booking requests.
 
-**Owner creates machine → Pending → Admin reviews → Approve or Reject**
+Approval flow:
 
-The source separately states that only approved/active machines should
-appear in the marketplace. The exact transition between `approved` and
-`active` should be defined consistently during implementation.
+**Owner creates machine → `approval_status = pending` → Admin reviews → `approved` or `rejected`**
+
+Visibility and booking eligibility:
+
+-   Only machines with `approval_status = approved` are visible in the public marketplace.
+-   Approved machines remain visible when their `operational_status` is `inactive` or `maintenance`, but must be clearly shown as unavailable for booking.
+-   A machine can receive a booking request only when `approval_status = approved` and `operational_status = active`.
+-   Pending and rejected machines are not visible and cannot receive booking requests.
+
+Do not combine these fields into one status column or treat approval and operational status as interchangeable.
 
 ### 10.5 Machine images
 
@@ -646,10 +656,7 @@ payment and cancellation handling.
 
 ### 11.7 Work completion and review
 
-The buyer can mark work completed and submit a review after completion,
-according to the source's completion and review flow. The exact
-interaction between owner marking completion and buyer confirmation is
-**To be decided**.
+The owner marks the work as completed, after which the buyer may submit a review of the machine owner. Only the buyer can review the owner; owners cannot review buyers. Reviews are available only for completed bookings. The exact interaction between owner marking completion and buyer confirmation is **To be decided**.
 
 ## 12. Booking requirements
 
@@ -792,8 +799,7 @@ After the owner accepts a booking:
 
 **Booking Amount → Payment → Payment Successful → Booking Confirmed**
 
-The first version may use a payment record/demo payment flow. A real
-gateway such as Razorpay can be added later.
+The MVP must use demo payment records only. The demo flow records a simulated payment outcome and must clearly identify it as a demo; it must not charge real money or imply that real funds were received. Real payment gateway integration is deferred to a later phase.
 
 ### 13.2 Payment example
 
@@ -824,15 +830,11 @@ Each payment should store:
 
 ### 13.5 Payment gateway direction
 
-Razorpay or Stripe are optional technologies identified in the source.
-Do not require a real gateway for the first prototype. Gateway
-selection, settlement, commission, refund handling, and payment-provider
-compliance remain to be decided.
+Real payment gateway integration is out of scope for the MVP and may be considered in a later phase. Gateway selection, settlement, commission, refund handling, and payment-provider compliance remain future decisions.
 
 ## 14. Reviews and ratings
 
-After completion, the buyer can review the owner. The source also says
-the owner can review the buyer.
+After a booking is completed, the buyer may submit one review of the machine owner. Owners cannot review buyers. A review must be linked to its completed booking, and duplicate reviews for the same booking must be prevented.
 
 Example review dimensions:
 
@@ -1023,8 +1025,7 @@ Proposed fields:
 -   `created_at`
 -   `updated_at`
 
-Relationship: User has one Company; Company belongs to User. One company
-can have multiple machines.
+Relationship: User has exactly one Company; Company belongs to exactly one User. Enforce one company per user with a unique constraint on `companies.user_id`. One company can have multiple machines.
 
 ### 17.3 Machines table
 
@@ -1039,7 +1040,8 @@ Proposed fields:
 -   `description`
 -   `location`
 -   `hourly_rate`
--   `status`
+-   `approval_status` (`pending`, `approved`, `rejected`)
+-   `operational_status` (`active`, `inactive`, `maintenance`)
 -   `created_at`
 -   `updated_at`
 
@@ -1157,7 +1159,7 @@ Proposed fields:
 -   `created_at`
 -   `updated_at`
 
-Relationship: Booking has many Reviews.
+Relationship: Booking has one buyer-submitted Review. Enforce at most one review per booking with a unique constraint on `reviews.booking_id`. The reviewer must be the buyer for that booking, and the reviewee must be its machine owner.
 
 ### 17.10 Notifications
 

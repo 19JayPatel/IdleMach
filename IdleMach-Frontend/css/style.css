@@ -5030,7 +5030,7 @@ button.dashboard-nav-link {
   width: 100%;
   max-width: 100%;
   overflow-x: auto;
-  overflow-y: visible;
+  overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   border-radius: calc(var(--radius-card) - 1px);
 }
@@ -6314,4 +6314,37 @@ button.dashboard-nav-link {
   .buyer-review-form {
     padding: 1rem;
   }
+}
+
+
+/* --------------------------------------------------------------------------
+   Dashboard scrollbar treatment
+   Keep native scrolling and keyboard/touch interaction, but hide the visual
+   scrollbar tracks so they do not distract from the dashboard layout.
+   -------------------------------------------------------------------------- */
+.dashboard-layout,
+.dashboard-layout * {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.dashboard-layout *::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* The document itself remains scrollable; only its scrollbar is hidden on
+   pages that contain a dashboard workspace. */
+html:has(.dashboard-layout),
+body:has(.dashboard-layout) {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html:has(.dashboard-layout)::-webkit-scrollbar,
+body:has(.dashboard-layout)::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }

@@ -6370,3 +6370,20 @@ body:has(.dashboard-layout)::-webkit-scrollbar {
   padding: 0.625rem 0.75rem;
   line-height: 1.35;
 }
+
+
+/* Admin sidebar: add breathing room between management links without
+   changing the shared Buyer and Owner navigation spacing. */
+#admin-dashboard .dashboard-nav-item {
+  margin-bottom: 0.375rem;
+}
+
+#admin-dashboard .dashboard-nav-link {
+  min-height: 44px;
+  padding: 0.625rem 0.75rem;
+}
+
+#admin-dashboard .dashboard-nav-heading {
+  margin-top: 1.125rem;
+  margin-bottom: 0.625rem;
+}

@@ -6348,3 +6348,25 @@ body:has(.dashboard-layout)::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
+
+
+/* Admin sidebar: add clearer breathing room between navigation links. */
+#admin-dashboard .dashboard-nav-heading {
+  margin-top: 1.25rem;
+  margin-bottom: 0.625rem;
+}
+
+#admin-dashboard .dashboard-nav-list {
+  display: grid;
+  gap: 0.375rem;
+}
+
+#admin-dashboard .dashboard-nav-item {
+  margin-bottom: 0;
+}
+
+#admin-dashboard .dashboard-nav-link {
+  min-height: 46px;
+  padding: 0.625rem 0.75rem;
+  line-height: 1.35;
+}

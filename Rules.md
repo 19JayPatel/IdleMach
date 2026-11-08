@@ -175,7 +175,7 @@ IdleMach has three primary roles:
 
 ### 7.2 Machine Owner
 
--   Manage their account and company profile.
+-   Manage their account and their single company profile.
 -   Create and manage their machine listings.
 -   Add machine images, specifications, rates, capacity, and
     availability.
@@ -192,7 +192,14 @@ IdleMach has three primary roles:
 -   Submit booking requests with required work details.
 -   Upload relevant drawings or documents.
 -   Track bookings and payments.
--   Complete the work confirmation and review steps where permitted.
+-   Complete the work confirmation step and review the machine owner after an eligible booking is completed.
+
+Company ownership rules:
+
+-   Each user may own exactly one company.
+-   Each company belongs to exactly one user.
+-   Enforce the one-to-one relationship in the database with a unique constraint on `companies.user_id`.
+-   A company may own multiple machines.
 
 Access rules:
 
@@ -208,32 +215,26 @@ Access rules:
 
 ## 8. Machine Listing and Approval Rules
 
-Use the machine status terms defined by the project:
+Store machine approval and operational condition in two separate fields:
 
--   `pending`
--   `approved`
--   `rejected`
--   `active`
--   `inactive`
--   `maintenance`
+**`approval_status`:** `pending`, `approved`, `rejected`.
+
+**`operational_status`:** `active`, `inactive`, `maintenance`.
 
 Rules:
 
-1.  A newly submitted machine listing must follow the project's approval
-    process.
-2.  Only approved machines should appear in the marketplace.
-3.  Only active machines can receive booking requests.
-4.  Inactive or maintenance machines must not accept new booking
-    requests.
-5.  Do not treat `approved` and `active` as interchangeable. Preserve
-    both statuses.
-6.  Do not invent the exact transition between `approved` and `active`;
-    follow the final approved workflow.
-7.  Owners may manage only their own machine listings.
-8.  Validate required machine information before accepting a listing.
-9.  Machine specifications must be based on owner-provided information.
-    Do not invent technical capabilities.
-10. Machine images and uploaded files must be validated before storage.
+1.  A newly submitted machine listing must have `approval_status = pending`.
+2.  Only an admin may approve or reject a submitted machine listing.
+3.  Only machines with `approval_status = approved` may appear in the marketplace.
+4.  Approved machines remain visible when inactive or under maintenance, but must be identified as unavailable for booking.
+5.  A machine may receive booking requests only when `approval_status = approved` AND `operational_status = active`.
+6.  Pending and rejected machines must not appear in the marketplace or receive booking requests.
+7.  Inactive and maintenance machines must not accept new booking requests.
+8.  Never combine approval and operational condition into one status field or treat them as interchangeable.
+9.  Owners may manage only their own machine listings and may update operational status only within authorized rules; owners cannot approve their own listings.
+10. Validate required machine information before accepting a listing.
+11. Machine specifications must be based on owner-provided information. Do not invent technical capabilities.
+12. Machine images and uploaded files must be validated before storage.
 
 ## 9. Capacity and Availability Rules
 
@@ -318,34 +319,27 @@ Use the payment statuses defined by the project:
 
 Rules:
 
-1.  The initial implementation may use a demo payment record if that is
-    the approved MVP approach.
-2.  Do not claim that a demo payment is a real online payment.
-3.  Do not mark a booking confirmed when payment is pending or failed.
-4.  Record payment status and the related booking consistently.
-5.  Do not store card numbers, CVV values, passwords, or other sensitive
-    payment credentials in the application database.
-6.  A real payment gateway such as Razorpay or Stripe is an optional
-    integration until approved.
-7.  Refund behaviour, payment deadlines, platform fees, commissions,
-    taxes, and payout rules must not be invented. Treat them as open
-    decisions until confirmed.
-8.  Never expose private payment information in public pages or logs.
+1.  The MVP must use demo payment records; real payment gateway integration is deferred to a later phase.
+2.  Clearly label the payment flow as a demo/simulation. It must not charge real money or imply that real funds were received.
+3.  Do not claim that a demo payment is a real online payment.
+4.  Do not mark a booking confirmed when its demo payment is pending or failed; confirmation requires a successful demo payment record.
+5.  Record the demo payment outcome and related booking consistently.
+6.  Do not store card numbers, CVV values, passwords, or other sensitive payment credentials in the application database.
+7.  Keep the payment design sufficiently separated from provider-specific logic so a real gateway can be integrated in a later phase.
+8.  Refund behaviour, demo payment deadlines/timeouts, multiple attempts, future platform fees, commissions, taxes, and payout rules remain open decisions. Do not invent them.
+9.  Never expose private payment information in public pages or logs.
 
 ## 12. Reviews and Notifications
 
-1.  Only completed bookings may receive the final review, as defined in
-    the project requirements.
-2.  A user must not review a booking they are not authorized to review.
-3.  Prevent duplicate reviews for the same eligible booking unless a
-    revised policy allows them.
-4.  Do not create fake reviews or ratings for demonstration.
-5.  Notifications must relate to real platform events, such as booking
-    requests, owner decisions, payment updates, or booking progress.
-6.  Do not claim email, SMS, or WhatsApp notifications are active unless
-    they are implemented and configured.
-7.  Keep notification content clear and do not expose private
-    information to the wrong user.
+1.  Only completed bookings may receive a review.
+2.  Only the buyer associated with a completed booking may review that booking's machine owner.
+3.  Owners must not review buyers; reviews are one-way from buyer to owner.
+4.  Link each review to its booking and validate that the reviewer is that booking's buyer and the reviewee is its machine owner.
+5.  Allow at most one review per booking and enforce this with a unique constraint on `reviews.booking_id`.
+6.  Do not create fake reviews or ratings for demonstration.
+7.  Notifications must relate to real platform events, such as booking requests, owner decisions, payment updates, or booking progress.
+8.  Do not claim email, SMS, or WhatsApp notifications are active unless they are implemented and configured.
+9.  Keep notification content clear and do not expose private information to the wrong user.
 
 ## 13. Forms, Validation, and File Uploads
 
@@ -567,13 +561,14 @@ Do not treat these as required for the first version unless approved:
 The following details require an explicit product decision if they are
 not already defined in the approved PRD:
 
-1.  Exact process for moving a machine from `approved` to `active`.
-2.  Capacity units and detailed availability scheduling rules.
-3.  Booking cancellation deadlines, penalties, and refund rules.
-4.  Payment gateway, payment deadline, commission, tax, and owner payout
-    rules.
+1.  Capacity units and detailed availability scheduling rules.
+2.  Booking cancellation deadlines, penalties, and refund rules.
+3.  Demo payment failure/timeout handling and whether multiple demo
+    payment attempts are allowed.
+4.  Future payment gateway selection, commission, tax, settlement, and
+    owner payout rules.
 5.  Supported drawing/document file types and upload size limits.
-6.  Whether reviews can be edited or removed and how disputes are
+6.  Whether buyer reviews can be edited or removed and how disputes are
     handled.
 7.  Exact notification channels and delivery guarantees.
 8.  Machine verification requirements and any related badges.

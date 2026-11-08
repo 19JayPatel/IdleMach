@@ -1,0 +1,4049 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="IdleMach machine owner dashboard prototype for managing company details, machine listings, capacity, booking requests, ongoing work, earnings, and reviews. All records are illustrative demo data and no backend is connected."
+    />
+    <meta name="theme-color" content="#0f5c6b" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Machine Owner Dashboard — IdleMach</title>
+
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <div class="dashboard-layout" id="owner-dashboard">
+      <!-- ================= Sidebar ================= -->
+      <aside
+        class="dashboard-sidebar"
+        id="dashboard-sidebar"
+        aria-label="Machine owner navigation"
+      >
+        <div class="dashboard-sidebar-brand">
+          <a
+            class="dashboard-brand-link"
+            href="owner-dashboard.html"
+            aria-label="IdleMach machine owner dashboard"
+          >
+            <img
+              src="assets/icons/favicon.svg"
+              width="30"
+              height="30"
+              alt=""
+            />
+            <span>IdleMach</span>
+          </a>
+          <span class="dashboard-role-badge">Owner</span>
+          <button
+            class="dashboard-sidebar-close"
+            type="button"
+            data-sidebar-close
+            aria-label="Close machine owner navigation"
+          >
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <nav class="dashboard-sidebar-nav" aria-label="Machine owner sections">
+          <p class="dashboard-nav-heading">Overview</p>
+          <ul class="dashboard-nav-list">
+            <li class="dashboard-nav-item">
+              <a
+                class="dashboard-nav-link active"
+                href="#top"
+                aria-current="page"
+              >
+                <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
+                Dashboard
+              </a>
+            </li>
+          </ul>
+
+          <p class="dashboard-nav-heading">My Business</p>
+          <ul class="dashboard-nav-list">
+            <li class="dashboard-nav-item">
+              <button
+                class="dashboard-nav-link"
+                type="button"
+                data-action="owner-company-profile"
+              >
+                <i class="fa-solid fa-building" aria-hidden="true"></i>
+                Company Profile
+              </button>
+            </li>
+            <li class="dashboard-nav-item">
+              <a class="dashboard-nav-link" href="#my-machines">
+                <i class="fa-solid fa-gears" aria-hidden="true"></i>
+                My Machines
+              </a>
+            </li>
+            <li class="dashboard-nav-item">
+              <button
+                class="dashboard-nav-link"
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#modal-add-machine"
+              >
+                <i class="fa-solid fa-circle-plus" aria-hidden="true"></i>
+                Add Machine
+              </button>
+            </li>
+            <li class="dashboard-nav-item">
+              <a class="dashboard-nav-link" href="#machine-availability">
+                <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+                Machine Availability
+              </a>
+            </li>
+          </ul>
+
+          <p class="dashboard-nav-heading">Bookings</p>
+          <ul class="dashboard-nav-list">
+            <li class="dashboard-nav-item">
+              <a class="dashboard-nav-link" href="#booking-requests">
+                <i class="fa-solid fa-inbox" aria-hidden="true"></i>
+                Booking Requests
+                <span
+                  class="dashboard-nav-badge"
+                  id="sidebar-owner-requests-badge"
+                  >2</span
+                >
+              </a>
+            </li>
+            <li class="dashboard-nav-item">
+              <a class="dashboard-nav-link" href="#accepted-bookings">
+                <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
+                Accepted Bookings
+              </a>
+            </li>
+            <li class="dashboard-nav-item">
+              <a class="dashboard-nav-link" href="#ongoing-work">
+                <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
+                Ongoing Work
+              </a>
+            </li>
+            <li class="dashboard-nav-item">
+              <a class="dashboard-nav-link" href="#completed-work">
+                <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                Completed Work
+              </a>
+            </li>
+          </ul>
+
+          <p class="dashboard-nav-heading">Financial</p>
+          <ul class="dashboard-nav-list">
+            <li class="dashboard-nav-item">
+              <a class="dashboard-nav-link" href="#earnings">
+                <i class="fa-solid fa-indian-rupee-sign" aria-hidden="true"></i>
+                Earnings
+              </a>
+            </li>
+            <li class="dashboard-nav-item">
+              <a class="dashboard-nav-link" href="#payment-history">
+                <i class="fa-solid fa-receipt" aria-hidden="true"></i>
+                Payment History
+              </a>
+            </li>
+          </ul>
+
+          <p class="dashboard-nav-heading">Other</p>
+          <ul class="dashboard-nav-list">
+            <li class="dashboard-nav-item">
+              <a class="dashboard-nav-link" href="#reviews">
+                <i class="fa-solid fa-star" aria-hidden="true"></i>
+                Reviews
+              </a>
+            </li>
+            <li class="dashboard-nav-item">
+              <button
+                class="dashboard-nav-link"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#notifications-offcanvas"
+                aria-controls="notifications-offcanvas"
+              >
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                Notifications
+              </button>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="dashboard-sidebar-footer">
+          <div class="dashboard-user-card">
+            <span class="dashboard-user-avatar" aria-hidden="true">PE</span>
+            <div class="dashboard-user-info">
+              <p class="dashboard-user-name">Patel Engineering</p>
+              <p class="dashboard-user-role">Machine Owner</p>
+            </div>
+          </div>
+          <button
+            class="dashboard-logout-btn"
+            type="button"
+            data-action="owner-logout"
+          >
+            <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
+            Sign out (demo)
+          </button>
+        </div>
+      </aside>
+
+      <div class="dashboard-backdrop" id="dashboard-backdrop"></div>
+
+      <!-- ================= Main area ================= -->
+      <div class="dashboard-main">
+        <header class="dashboard-topbar">
+          <div class="dashboard-topbar-left">
+            <button
+              class="dashboard-sidebar-toggle"
+              type="button"
+              data-sidebar-toggle
+              aria-controls="dashboard-sidebar"
+              aria-expanded="false"
+              aria-label="Open machine owner navigation"
+            >
+              <i class="fa-solid fa-bars" aria-hidden="true"></i>
+            </button>
+
+            <nav class="dashboard-breadcrumb" aria-label="Breadcrumb">
+              <span class="dashboard-breadcrumb-item">
+                <a href="owner-dashboard.html">Owner</a>
+                <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+              </span>
+              <span class="dashboard-breadcrumb-item" aria-current="page"
+                >Dashboard</span
+              >
+            </nav>
+          </div>
+
+          <div class="dashboard-topbar-right">
+            <a
+              class="btn-im btn-im-outline btn-im-sm d-none d-lg-inline-flex"
+              href="machines.html"
+            >
+              <i class="fa-solid fa-store" aria-hidden="true"></i>
+              View marketplace
+            </a>
+
+            <button
+              class="topbar-btn"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#notifications-offcanvas"
+              aria-controls="notifications-offcanvas"
+              aria-label="Open sample notifications (3 unread)"
+            >
+              <i class="fa-regular fa-bell" aria-hidden="true"></i>
+              <span class="topbar-badge-dot" aria-hidden="true"></span>
+            </button>
+
+            <div class="dropdown">
+              <button
+                class="topbar-profile-toggle dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <span class="topbar-avatar-small" aria-hidden="true">PE</span>
+                <span class="d-none d-md-inline">Patel Engineering</span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <span class="dropdown-header d-block">Owner account</span>
+                </li>
+                <li>
+                  <span class="dropdown-item-text small text-muted"
+                    >Patel Engineering · Machine Owner</span
+                  >
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <button
+                    class="dropdown-item"
+                    type="button"
+                    data-action="owner-company-profile"
+                  >
+                    <i class="fa-solid fa-building me-2" aria-hidden="true"></i>
+                    Company profile
+                  </button>
+                </li>
+                <li>
+                  <button
+                    class="dropdown-item"
+                    type="button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modal-add-machine"
+                  >
+                    <i class="fa-solid fa-circle-plus me-2" aria-hidden="true"></i>
+                    Add machine
+                  </button>
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <button
+                    class="dropdown-item text-danger"
+                    type="button"
+                    data-action="owner-logout"
+                  >
+                    <i
+                      class="fa-solid fa-right-from-bracket me-2"
+                      aria-hidden="true"
+                    ></i>
+                    Sign out (demo)
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </header>
+
+        <main class="dashboard-content" id="main">
+          <div class="dashboard-demo-banner" role="note">
+            <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+            <div>
+              <strong>Prototype owner workspace.</strong> Every machine, request,
+              booking, payment, review, capacity figure, and availability
+              schedule below is illustrative demo data for Patel Engineering.
+              No database, payment gateway, file upload, or notification service
+              is connected. Actions change only this page&rsquo;s local preview
+              state.
+            </div>
+          </div>
+
+          <div class="dashboard-header">
+            <div>
+              <p class="eyebrow">Machine owner workspace</p>
+              <h1 class="dashboard-title">Machine Owner Dashboard</h1>
+              <p class="dashboard-subtitle">
+                Review incoming requests, manage listed capacity, and track
+                accepted, ongoing, completed work, earnings, and buyer reviews.
+              </p>
+            </div>
+            <div class="dashboard-header-actions">
+              <a class="btn-im btn-im-outline" href="machines.html">
+                <i class="fa-solid fa-store" aria-hidden="true"></i>
+                View marketplace
+              </a>
+              <button
+                class="btn-im btn-im-primary"
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#modal-add-machine"
+              >
+                <i class="fa-solid fa-circle-plus" aria-hidden="true"></i>
+                Add machine
+              </button>
+            </div>
+          </div>
+
+          <!-- Priority section: incoming booking requests -->
+          <section
+            class="dashboard-card"
+            id="booking-requests"
+            aria-labelledby="booking-requests-heading"
+          >
+            <div class="dashboard-card-header">
+              <h2
+                class="dashboard-card-title"
+                id="booking-requests-heading"
+              >
+                <i class="fa-solid fa-inbox" aria-hidden="true"></i>
+                Booking requests
+              </h2>
+              <div class="dashboard-card-actions">
+                <span class="text-muted small" id="owner-pending-requests-count"
+                  >2 pending review</span
+                >
+                <button
+                  class="btn-im btn-im-outline btn-im-sm"
+                  type="button"
+                  id="btn-reset-owner-requests"
+                >
+                  <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+                  Reset demo
+                </button>
+              </div>
+            </div>
+            <div class="dashboard-card-body dashboard-card-body-flush">
+              <span class="table-scroll-hint" hidden>
+                <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
+                Scroll the table sideways to see all columns.
+              </span>
+              <div
+                class="table-responsive"
+                tabindex="0"
+                role="region"
+                aria-label="Sample incoming booking requests table"
+              >
+                <table class="im-table table-requests">
+                  <caption class="visually-hidden">
+                    Three sample booking requests. BR-2041 is accepted and
+                    awaiting payment; BR-2042 and BR-2043 await an owner
+                    decision.
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Booking ID</th>
+                      <th scope="col">Buyer / company</th>
+                      <th scope="col">Machine</th>
+                      <th scope="col">Requested date</th>
+                      <th scope="col">Start time</th>
+                      <th scope="col">Hours</th>
+                      <th scope="col">Material / quantity</th>
+                      <th scope="col">Work description</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr data-request-id="BR-2041">
+                      <td>
+                        <p class="table-cell-title mb-0">BR-2041</p>
+                        <span class="table-cell-id">Submitted 27 Oct 2026</span>
+                        <span class="demo-inline-tag">Demo</span>
+                      </td>
+                      <td>
+                        Apex Auto Components
+                        <span class="d-block table-cell-subtext"
+                          >Rajesh Sharma</span
+                        >
+                      </td>
+                      <td>
+                        Haas CNC Turning Machine ST-20
+                        <span class="d-block table-cell-subtext">M-1001</span>
+                      </td>
+                      <td>28 Oct 2026</td>
+                      <td>10:00 AM &ndash; 06:00 PM</td>
+                      <td>8 hours</td>
+                      <td>
+                        Mild Steel EN8
+                        <span class="d-block table-cell-subtext"
+                          >120 pieces</span
+                        >
+                      </td>
+                      <td class="request-desc-cell">
+                        CNC turning of precision stepped shafts with keyway
+                        slots. Tolerance &plusmn;0.015 mm.
+                      </td>
+                      <td class="request-status-cell">
+                        <span class="status-badge status-payment-pending">
+                          <i class="fa-regular fa-clock" aria-hidden="true"></i>
+                          Payment Pending
+                        </span>
+                      </td>
+                      <td class="request-actions-cell">
+                        <div class="table-actions">
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-view-request"
+                            data-request-id="BR-2041"
+                          >
+                            <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                            View
+                          </button>
+                          <span
+                            class="badge bg-info-subtle text-info-emphasis border border-info-subtle px-2 py-1"
+                            ><i class="fa-solid fa-check me-1"></i>Accepted
+                            &middot; Awaiting Buyer Payment</span
+                          >
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr data-request-id="BR-2042">
+                      <td>
+                        <p class="table-cell-title mb-0">BR-2042</p>
+                        <span class="table-cell-id">Submitted 27 Oct 2026</span>
+                        <span class="demo-inline-tag">Demo</span>
+                      </td>
+                      <td>
+                        Kavita Hydraulics
+                        <span class="d-block table-cell-subtext"
+                          >Dharmesh Mehta</span
+                        >
+                      </td>
+                      <td>
+                        ACE Micromatic VMC 850V
+                        <span class="d-block table-cell-subtext">M-1002</span>
+                      </td>
+                      <td>28 Oct 2026</td>
+                      <td>08:00 AM &ndash; 08:00 PM</td>
+                      <td>12 hours</td>
+                      <td>
+                        Aluminium 6061-T6
+                        <span class="d-block table-cell-subtext">30 sets</span>
+                      </td>
+                      <td class="request-desc-cell">
+                        Milling and surface profiling of hydraulic manifold
+                        blocks with M12 tapped port holes.
+                      </td>
+                      <td class="request-status-cell">
+                        <span class="status-badge status-pending">
+                          <i class="fa-regular fa-clock" aria-hidden="true"></i>
+                          Pending
+                        </span>
+                      </td>
+                      <td class="request-actions-cell">
+                        <div class="table-actions">
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-view-request"
+                            data-request-id="BR-2042"
+                          >
+                            <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                            View
+                          </button>
+                          <button
+                            class="btn-im btn-im-primary btn-im-sm"
+                            type="button"
+                            data-action="owner-accept-request"
+                            data-request-id="BR-2042"
+                          >
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Accept
+                          </button>
+                          <button
+                            class="btn-im btn-im-danger btn-im-sm"
+                            type="button"
+                            data-action="owner-reject-request"
+                            data-request-id="BR-2042"
+                          >
+                            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                            Reject
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr data-request-id="BR-2043">
+                      <td>
+                        <p class="table-cell-title mb-0">BR-2043</p>
+                        <span class="table-cell-id">Submitted 28 Oct 2026</span>
+                        <span class="demo-inline-tag">Demo</span>
+                      </td>
+                      <td>
+                        Delta Gears &amp; Shafts
+                        <span class="d-block table-cell-subtext"
+                          >Vijay Chawla</span
+                        >
+                      </td>
+                      <td>
+                        Haas VF-2 CNC Vertical Milling
+                        <span class="d-block table-cell-subtext">M-1003</span>
+                      </td>
+                      <td>30 Oct 2026</td>
+                      <td>02:00 PM &ndash; 06:00 PM</td>
+                      <td>4 hours</td>
+                      <td>
+                        Cast Steel Grade 2
+                        <span class="d-block table-cell-subtext">15 pieces</span>
+                      </td>
+                      <td class="request-desc-cell">
+                        Keyway slotting and bolt pattern face milling on pinion
+                        drive blanks.
+                      </td>
+                      <td class="request-status-cell">
+                        <span class="status-badge status-pending">
+                          <i class="fa-regular fa-clock" aria-hidden="true"></i>
+                          Pending
+                        </span>
+                      </td>
+                      <td class="request-actions-cell">
+                        <div class="table-actions">
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-view-request"
+                            data-request-id="BR-2043"
+                          >
+                            <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                            View
+                          </button>
+                          <button
+                            class="btn-im btn-im-primary btn-im-sm"
+                            type="button"
+                            data-action="owner-accept-request"
+                            data-request-id="BR-2043"
+                          >
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Accept
+                          </button>
+                          <button
+                            class="btn-im btn-im-danger btn-im-sm"
+                            type="button"
+                            data-action="owner-reject-request"
+                            data-request-id="BR-2043"
+                          >
+                            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                            Reject
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="dashboard-card-footer">
+              <span
+                >Workflow order: request &rarr; owner acceptance &rarr; buyer
+                payment &rarr; confirmed booking. Acceptance sets
+                <code>payment_pending</code>, never <code>confirmed</code>.
+                BR-2042 exceeds the current available capacity on M-1002 and
+                cannot be accepted.</span
+              >
+              <span class="stat-demo-badge">Sample records</span>
+            </div>
+          </section>
+
+          <!-- Priority section: machine availability -->
+          <section
+            class="dashboard-card"
+            id="machine-availability"
+            aria-labelledby="machine-availability-heading"
+          >
+            <div class="dashboard-card-header">
+              <h2
+                class="dashboard-card-title"
+                id="machine-availability-heading"
+              >
+                <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+                Machine availability and capacity
+              </h2>
+              <div class="dashboard-card-actions">
+                <span class="stat-demo-badge">Demo schedule</span>
+              </div>
+            </div>
+            <div class="dashboard-card-body">
+              <div class="row g-4 align-items-start">
+                <div class="col-lg-8">
+                  <div class="capacity-grid">
+                    <div class="capacity-card">
+                      <div class="capacity-card-head">
+                        <div>
+                          <p class="capacity-card-title">
+                            Haas CNC Turning Machine ST-20
+                          </p>
+                          <p class="capacity-card-sub">
+                            M-1001 &middot; CNC Turning &middot; Active
+                          </p>
+                        </div>
+                        <span class="status-badge status-active">
+                          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                          Active
+                        </span>
+                      </div>
+                      <div
+                        class="capacity-visual-bar"
+                        role="img"
+                        aria-label="2 of 10 daily hours booked, 8 hours available"
+                      >
+                        <span
+                          class="capacity-segment segment-booked"
+                          style="width: 20%"
+                        ></span>
+                        <span
+                          class="capacity-segment segment-available"
+                          style="width: 80%"
+                        ></span>
+                      </div>
+                      <div class="capacity-legend">
+                        <span class="capacity-legend-item">
+                          <span
+                            class="capacity-legend-dot segment-booked"
+                            aria-hidden="true"
+                          ></span>
+                          Booked 2 hrs
+                        </span>
+                        <span class="capacity-legend-item">
+                          <span
+                            class="capacity-legend-dot segment-available"
+                            aria-hidden="true"
+                          ></span>
+                          Available 8 hrs
+                        </span>
+                      </div>
+                      <div class="capacity-value-row">
+                        <div class="capacity-value">
+                          <span>Total capacity</span>
+                          <strong>10 hrs/day</strong>
+                        </div>
+                        <div class="capacity-value">
+                          <span>Booked capacity</span>
+                          <strong>2 hrs/day</strong>
+                        </div>
+                        <div class="capacity-value">
+                          <span>Available capacity</span>
+                          <strong>8 hrs/day</strong>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="capacity-card">
+                      <div class="capacity-card-head">
+                        <div>
+                          <p class="capacity-card-title">
+                            ACE Micromatic VMC 850V
+                          </p>
+                          <p class="capacity-card-sub">
+                            M-1002 &middot; 3-Axis VMC &middot; Active, fully
+                            booked
+                          </p>
+                        </div>
+                        <span class="status-badge status-active">
+                          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                          Active
+                        </span>
+                      </div>
+                      <div
+                        class="capacity-visual-bar"
+                        role="img"
+                        aria-label="All 12 daily hours booked, 0 hours available"
+                      >
+                        <span
+                          class="capacity-segment segment-booked"
+                          style="width: 100%"
+                        ></span>
+                      </div>
+                      <div class="capacity-legend">
+                        <span class="capacity-legend-item">
+                          <span
+                            class="capacity-legend-dot segment-booked"
+                            aria-hidden="true"
+                          ></span>
+                          Booked 12 hrs
+                        </span>
+                        <span class="capacity-legend-item">
+                          <span
+                            class="capacity-legend-dot segment-available"
+                            aria-hidden="true"
+                          ></span>
+                          Available 0 hrs
+                        </span>
+                      </div>
+                      <div class="capacity-value-row">
+                        <div class="capacity-value">
+                          <span>Total capacity</span>
+                          <strong>12 hrs/day</strong>
+                        </div>
+                        <div class="capacity-value">
+                          <span>Booked capacity</span>
+                          <strong>12 hrs/day</strong>
+                        </div>
+                        <div class="capacity-value">
+                          <span>Available capacity</span>
+                          <strong>0 hrs/day</strong>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="capacity-card">
+                      <div class="capacity-card-head">
+                        <div>
+                          <p class="capacity-card-title">
+                            Haas VF-2 CNC Vertical Milling
+                          </p>
+                          <p class="capacity-card-sub">
+                            M-1003 &middot; CNC Milling &middot; Active
+                          </p>
+                        </div>
+                        <span class="status-badge status-active">
+                          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                          Active
+                        </span>
+                      </div>
+                      <div
+                        class="capacity-visual-bar"
+                        role="img"
+                        aria-label="2 of 8 daily hours booked, 6 hours available"
+                      >
+                        <span
+                          class="capacity-segment segment-booked"
+                          style="width: 25%"
+                        ></span>
+                        <span
+                          class="capacity-segment segment-available"
+                          style="width: 75%"
+                        ></span>
+                      </div>
+                      <div class="capacity-legend">
+                        <span class="capacity-legend-item">
+                          <span
+                            class="capacity-legend-dot segment-booked"
+                            aria-hidden="true"
+                          ></span>
+                          Booked 2 hrs
+                        </span>
+                        <span class="capacity-legend-item">
+                          <span
+                            class="capacity-legend-dot segment-available"
+                            aria-hidden="true"
+                          ></span>
+                          Available 6 hrs
+                        </span>
+                      </div>
+                      <div class="capacity-value-row">
+                        <div class="capacity-value">
+                          <span>Total capacity</span>
+                          <strong>8 hrs/day</strong>
+                        </div>
+                        <div class="capacity-value">
+                          <span>Booked capacity</span>
+                          <strong>2 hrs/day</strong>
+                        </div>
+                        <div class="capacity-value">
+                          <span>Available capacity</span>
+                          <strong>6 hrs/day</strong>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="capacity-card capacity-card-muted">
+                      <div class="capacity-card-head">
+                        <div>
+                          <p class="capacity-card-title">
+                            Lokesh Heavy Duty Industrial Lathe 260
+                          </p>
+                          <p class="capacity-card-sub">
+                            M-1004 &middot; Industrial Lathe &middot;
+                            Maintenance
+                          </p>
+                        </div>
+                        <span class="status-badge status-maintenance">
+                          <i class="fa-solid fa-wrench" aria-hidden="true"></i>
+                          Maintenance
+                        </span>
+                      </div>
+                      <div
+                        class="capacity-visual-bar"
+                        role="img"
+                        aria-label="8 daily hours unavailable for maintenance"
+                      >
+                        <span
+                          class="capacity-segment segment-maintenance"
+                          style="width: 100%"
+                        ></span>
+                      </div>
+                      <div class="capacity-legend">
+                        <span class="capacity-legend-item">
+                          <span
+                            class="capacity-legend-dot segment-maintenance"
+                            aria-hidden="true"
+                          ></span>
+                          Maintenance 8 hrs
+                        </span>
+                        <span class="capacity-legend-item">
+                          <span
+                            class="capacity-legend-dot segment-available"
+                            aria-hidden="true"
+                          ></span>
+                          Available 0 hrs
+                        </span>
+                      </div>
+                      <p class="capacity-unavailable-note">
+                        <i class="fa-solid fa-wrench me-1" aria-hidden="true"></i>
+                        Unavailable 27&ndash;29 Oct 2026. Excluded from active
+                        capacity totals; cannot receive new requests.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="im-alert im-alert-info mt-4" role="note">
+                    <i class="fa-solid fa-calculator" aria-hidden="true"></i>
+                    <div>
+                      <strong>Capacity formula:</strong>
+                      Available Capacity = Total Capacity &minus; Booked
+                      Capacity. The three active sample lines show 30 hrs/day
+                      total, 16 hrs/day booked, and 14 hrs/day available. The
+                      maintenance line is excluded from these totals.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-4">
+                  <figure class="owner-capacity-figure-wrap mb-0">
+                    <img
+                      class="owner-capacity-figure"
+                      src="assets/images/owner-capacity.svg"
+                      alt="Illustration of an owner capacity plan with weekly working hours."
+                      width="720"
+                      height="560"
+                      loading="lazy"
+                    />
+                    <figcaption class="preview-footnote mt-2 mb-0">
+                      Existing project illustration. Demonstration capacity
+                      plan only; no live booking calendar is connected.
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+
+              <div class="dashboard-availability-week mt-4">
+                <div class="dashboard-overview-head">
+                  <h3 class="dashboard-overview-title" id="weekly-availability-heading">
+                    Weekly availability &mdash; Haas CNC Turning Machine ST-20
+                  </h3>
+                  <span class="stat-demo-badge">Sample schedule</span>
+                </div>
+                <span class="table-scroll-hint" hidden>
+                  <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
+                  Scroll the table sideways to see all columns.
+                </span>
+                <div
+                  class="table-responsive"
+                  tabindex="0"
+                  role="region"
+                  aria-labelledby="weekly-availability-heading"
+                >
+                  <table class="im-table availability-week-table">
+                    <caption class="visually-hidden">
+                      Sample weekly availability for machine M-1001.
+                    </caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">Day</th>
+                        <th scope="col">Working window</th>
+                        <th scope="col">Booked window</th>
+                        <th scope="col">Availability state</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Monday</td>
+                        <td>09:00 AM &ndash; 06:00 PM</td>
+                        <td>No sample booking</td>
+                        <td>
+                          <span class="status-badge status-available">
+                            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                            Available
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Tuesday</td>
+                        <td>09:00 AM &ndash; 06:00 PM</td>
+                        <td>No sample booking</td>
+                        <td>
+                          <span class="status-badge status-available">
+                            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                            Available
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Wednesday</td>
+                        <td>09:00 AM &ndash; 06:00 PM</td>
+                        <td>10:00 AM &ndash; 12:00 PM (2 hrs)</td>
+                        <td>
+                          <span class="status-badge status-booked">
+                            <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
+                            Partially booked
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Thursday</td>
+                        <td>09:00 AM &ndash; 06:00 PM</td>
+                        <td>No sample booking</td>
+                        <td>
+                          <span class="status-badge status-available">
+                            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                            Available
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Friday</td>
+                        <td>09:00 AM &ndash; 06:00 PM</td>
+                        <td>No sample booking</td>
+                        <td>
+                          <span class="status-badge status-available">
+                            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                            Available
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Saturday</td>
+                        <td>09:00 AM &ndash; 02:00 PM</td>
+                        <td>Maintenance window</td>
+                        <td>
+                          <span class="status-badge status-maintenance">
+                            <i class="fa-solid fa-wrench" aria-hidden="true"></i>
+                            Maintenance
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Sunday</td>
+                        <td>Closed</td>
+                        <td>Unavailable</td>
+                        <td>
+                          <span class="status-badge status-unavailable">
+                            <i class="fa-solid fa-circle-minus" aria-hidden="true"></i>
+                            Unavailable
+                          </span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p class="preview-footnote mt-2 mb-0">
+                  Demonstration schedule only. Editing capacity in this
+                  prototype does not create a live calendar or reserve hours.
+                </p>
+              </div>
+            </div>
+            <div class="dashboard-card-footer">
+              <span
+                >Only approved and active machines can receive new booking
+                requests. Maintenance, inactive, pending, and rejected listings
+                remain blocked.</span
+              >
+              <span class="stat-demo-badge">Sample capacity</span>
+            </div>
+          </section>
+
+          <!-- Business overview -->
+          <section class="dashboard-overview" aria-labelledby="overview-heading">
+            <div class="dashboard-overview-head">
+              <h2 class="dashboard-overview-title" id="overview-heading">
+                Business overview
+              </h2>
+              <span class="stat-demo-badge">Illustrative demo data</span>
+            </div>
+            <div class="dashboard-stats-grid">
+              <div class="stat-card">
+                <div class="stat-card-head">
+                  <p class="stat-card-label">Total Machines</p>
+                  <span class="stat-card-icon stat-icon-machines">
+                    <i class="fa-solid fa-gears" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <p class="stat-card-value" id="stat-owner-total-machines">5</p>
+                <p class="stat-card-meta">
+                  Includes one pending listing
+                  <span class="stat-demo-badge">Demo value</span>
+                </p>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-card-head">
+                  <p class="stat-card-label">Active Machines</p>
+                  <span class="stat-card-icon stat-icon-machines">
+                    <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <p class="stat-card-value" id="stat-owner-active-machines">3</p>
+                <p class="stat-card-meta">
+                  Eligible for new requests
+                  <span class="stat-demo-badge">Demo value</span>
+                </p>
+              </div>
+
+              <div class="stat-card stat-card-alert">
+                <div class="stat-card-head">
+                  <p class="stat-card-label">Pending Approvals</p>
+                  <span class="stat-card-icon stat-icon-approvals">
+                    <i class="fa-solid fa-clipboard-check" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <p class="stat-card-value" id="stat-owner-pending-approvals">1</p>
+                <p class="stat-card-meta">
+                  Awaiting admin review
+                  <span class="stat-demo-badge">Demo value</span>
+                </p>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-card-head">
+                  <p class="stat-card-label">Available Capacity</p>
+                  <span class="stat-card-icon stat-icon-bookings">
+                    <i class="fa-solid fa-hourglass-half" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <p class="stat-card-value" id="stat-owner-available-capacity">
+                  14 hrs/day
+                </p>
+                <p class="stat-card-meta">
+                  Across active sample lines
+                  <span class="stat-demo-badge">Demo value</span>
+                </p>
+              </div>
+
+              <div class="stat-card stat-card-alert">
+                <div class="stat-card-head">
+                  <p class="stat-card-label">Pending Requests</p>
+                  <span class="stat-card-icon stat-icon-approvals">
+                    <i class="fa-solid fa-inbox" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <p class="stat-card-value" id="stat-owner-pending-requests">2</p>
+                <p class="stat-card-meta">
+                  Awaiting an owner decision
+                  <span class="stat-demo-badge">Demo value</span>
+                </p>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-card-head">
+                  <p class="stat-card-label">Accepted Bookings</p>
+                  <span class="stat-card-icon stat-icon-bookings">
+                    <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <p class="stat-card-value" id="stat-owner-accepted-bookings">
+                  1
+                </p>
+                <p class="stat-card-meta">
+                  Confirmed and awaiting work
+                  <span class="stat-demo-badge">Demo value</span>
+                </p>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-card-head">
+                  <p class="stat-card-label">Ongoing Work</p>
+                  <span class="stat-card-icon stat-icon-machines">
+                    <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <p class="stat-card-value" id="stat-owner-ongoing-work">1</p>
+                <p class="stat-card-meta">
+                  Paid and in progress
+                  <span class="stat-demo-badge">Demo value</span>
+                </p>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-card-head">
+                  <p class="stat-card-label">Completed Bookings</p>
+                  <span class="stat-card-icon stat-icon-bookings">
+                    <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <p class="stat-card-value" id="stat-owner-completed-bookings">
+                  25
+                </p>
+                <p class="stat-card-meta">
+                  Sample historical total
+                  <span class="stat-demo-badge">Demo value</span>
+                </p>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-card-head">
+                  <p class="stat-card-label">Total Earnings</p>
+                  <span class="stat-card-icon stat-icon-payments">
+                    <i class="fa-solid fa-indian-rupee-sign" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <p class="stat-card-value">&#8377;1,84,600</p>
+                <p class="stat-card-meta">
+                  All-time illustrative total
+                  <span class="stat-demo-badge">Demo value</span>
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- My machines -->
+          <section
+            class="dashboard-card"
+            id="my-machines"
+            aria-labelledby="my-machines-heading"
+          >
+            <div class="dashboard-card-header">
+              <h2 class="dashboard-card-title" id="my-machines-heading">
+                <i class="fa-solid fa-gears" aria-hidden="true"></i>
+                My machines
+              </h2>
+              <div class="dashboard-card-actions">
+                <span class="text-muted small">5 sample listings</span>
+                <button
+                  class="btn-im btn-im-primary btn-im-sm"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modal-add-machine"
+                >
+                  <i class="fa-solid fa-circle-plus" aria-hidden="true"></i>
+                  Add machine
+                </button>
+              </div>
+            </div>
+            <div class="dashboard-card-body dashboard-card-body-flush">
+              <span class="table-scroll-hint" hidden>
+                <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
+                Scroll the table sideways to see all columns.
+              </span>
+              <div
+                class="table-responsive"
+                tabindex="0"
+                role="region"
+                aria-label="Sample owner machine listings table"
+              >
+                <table class="im-table table-machines" id="my-machines-table">
+                  <caption class="visually-hidden">
+                    Five sample machine listings, with type, process, location,
+                    rate, available capacity, listing status, and prototype
+                    actions.
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Machine</th>
+                      <th scope="col">Type / process</th>
+                      <th scope="col">Location</th>
+                      <th scope="col">Rate / capacity</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr data-owner-machine-id="M-1001">
+                      <td>
+                        <div class="machine-name-cell">
+                          <img
+                            class="machine-thumb"
+                            src="assets/images/machine-turning.svg"
+                            alt="Sample illustration of a CNC turning machine."
+                            width="48"
+                            height="48"
+                            loading="lazy"
+                          />
+                          <div>
+                            <p class="table-cell-title mb-0">
+                              Haas CNC Turning Machine ST-20
+                            </p>
+                            <span class="table-cell-subtext d-block"
+                              >Haas (ST-20)</span
+                            >
+                            <span class="table-cell-id">ID: M-1001</span>
+                            <span class="demo-inline-tag">Demo</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="badge bg-light text-dark border mb-1"
+                          >CNC Turning</span
+                        >
+                        <span class="table-cell-subtext d-block"
+                          >Process: Turning</span
+                        >
+                      </td>
+                      <td>Rajkot, Gujarat</td>
+                      <td>
+                        <div
+                          class="fw-semibold text-dark machine-rate-text"
+                        >
+                          &#8377;800/hr
+                        </div>
+                        <div class="table-cell-subtext machine-capacity-text">
+                          8 hrs/day available
+                        </div>
+                      </td>
+                      <td class="machine-status-cell">
+                        <span class="status-badge status-active">
+                          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                          Active
+                        </span>
+                      </td>
+                      <td class="machine-actions-cell">
+                        <div class="table-actions">
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-view-machine"
+                            data-machine-id="M-1001"
+                          >
+                            <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                            View
+                          </button>
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-edit-machine"
+                            data-machine-id="M-1001"
+                          >
+                            <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
+                            Edit
+                          </button>
+                          <a
+                            class="btn-im btn-im-outline btn-im-sm"
+                            href="#machine-availability"
+                          >
+                            <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+                            Availability
+                          </a>
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-toggle-active"
+                            data-machine-id="M-1001"
+                          >
+                            <i class="fa-solid fa-pause" aria-hidden="true"></i>
+                            <span>Deactivate</span>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr data-owner-machine-id="M-1002">
+                      <td>
+                        <div class="machine-name-cell">
+                          <img
+                            class="machine-thumb"
+                            src="assets/images/machine-milling.svg"
+                            alt="Sample illustration of a vertical machining centre."
+                            width="48"
+                            height="48"
+                            loading="lazy"
+                          />
+                          <div>
+                            <p class="table-cell-title mb-0">
+                              ACE Micromatic VMC 850V
+                            </p>
+                            <span class="table-cell-subtext d-block"
+                              >ACE Micromatic (VMC-850V)</span
+                            >
+                            <span class="table-cell-id">ID: M-1002</span>
+                            <span class="demo-inline-tag">Demo</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="badge bg-light text-dark border mb-1"
+                          >3-Axis VMC</span
+                        >
+                        <span class="table-cell-subtext d-block"
+                          >Process: Milling</span
+                        >
+                      </td>
+                      <td>Rajkot, Gujarat</td>
+                      <td>
+                        <div
+                          class="fw-semibold text-dark machine-rate-text"
+                        >
+                          &#8377;1,200/hr
+                        </div>
+                        <div class="table-cell-subtext machine-capacity-text">
+                          0 hrs/day available
+                        </div>
+                      </td>
+                      <td class="machine-status-cell">
+                        <span class="status-badge status-active">
+                          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                          Active
+                        </span>
+                      </td>
+                      <td class="machine-actions-cell">
+                        <div class="table-actions">
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-view-machine"
+                            data-machine-id="M-1002"
+                          >
+                            <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                            View
+                          </button>
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-edit-machine"
+                            data-machine-id="M-1002"
+                          >
+                            <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
+                            Edit
+                          </button>
+                          <a
+                            class="btn-im btn-im-outline btn-im-sm"
+                            href="#machine-availability"
+                          >
+                            <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+                            Availability
+                          </a>
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-toggle-active"
+                            data-machine-id="M-1002"
+                          >
+                            <i class="fa-solid fa-pause" aria-hidden="true"></i>
+                            <span>Deactivate</span>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr data-owner-machine-id="M-1003">
+                      <td>
+                        <div class="machine-name-cell">
+                          <img
+                            class="machine-thumb"
+                            src="assets/images/machine-milling.svg"
+                            alt="Sample illustration of a CNC milling machine."
+                            width="48"
+                            height="48"
+                            loading="lazy"
+                          />
+                          <div>
+                            <p class="table-cell-title mb-0">
+                              Haas VF-2 CNC Vertical Milling
+                            </p>
+                            <span class="table-cell-subtext d-block"
+                              >Haas (VF-2)</span
+                            >
+                            <span class="table-cell-id">ID: M-1003</span>
+                            <span class="demo-inline-tag">Demo</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="badge bg-light text-dark border mb-1"
+                          >CNC Milling</span
+                        >
+                        <span class="table-cell-subtext d-block"
+                          >Process: Vertical milling</span
+                        >
+                      </td>
+                      <td>Rajkot, Gujarat</td>
+                      <td>
+                        <div
+                          class="fw-semibold text-dark machine-rate-text"
+                        >
+                          &#8377;900/hr
+                        </div>
+                        <div class="table-cell-subtext machine-capacity-text">
+                          6 hrs/day available
+                        </div>
+                      </td>
+                      <td class="machine-status-cell">
+                        <span class="status-badge status-active">
+                          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                          Active
+                        </span>
+                      </td>
+                      <td class="machine-actions-cell">
+                        <div class="table-actions">
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-view-machine"
+                            data-machine-id="M-1003"
+                          >
+                            <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                            View
+                          </button>
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-edit-machine"
+                            data-machine-id="M-1003"
+                          >
+                            <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
+                            Edit
+                          </button>
+                          <a
+                            class="btn-im btn-im-outline btn-im-sm"
+                            href="#machine-availability"
+                          >
+                            <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+                            Availability
+                          </a>
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-toggle-active"
+                            data-machine-id="M-1003"
+                          >
+                            <i class="fa-solid fa-pause" aria-hidden="true"></i>
+                            <span>Deactivate</span>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr data-owner-machine-id="M-1004">
+                      <td>
+                        <div class="machine-name-cell">
+                          <img
+                            class="machine-thumb"
+                            src="assets/images/machine-fabrication.svg"
+                            alt="Sample illustration of a heavy industrial machine."
+                            width="48"
+                            height="48"
+                            loading="lazy"
+                          />
+                          <div>
+                            <p class="table-cell-title mb-0">
+                              Lokesh Heavy Duty Industrial Lathe 260
+                            </p>
+                            <span class="table-cell-subtext d-block"
+                              >Lokesh Machines (260 Heavy)</span
+                            >
+                            <span class="table-cell-id">ID: M-1004</span>
+                            <span class="demo-inline-tag">Demo</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="badge bg-light text-dark border mb-1"
+                          >Industrial Lathe</span
+                        >
+                        <span class="table-cell-subtext d-block"
+                          >Process: Turning</span
+                        >
+                      </td>
+                      <td>Rajkot, Gujarat</td>
+                      <td>
+                        <div
+                          class="fw-semibold text-dark machine-rate-text"
+                        >
+                          &#8377;650/hr
+                        </div>
+                        <div class="table-cell-subtext machine-capacity-text">
+                          0 hrs/day &middot; maintenance
+                        </div>
+                      </td>
+                      <td class="machine-status-cell">
+                        <span class="status-badge status-maintenance">
+                          <i class="fa-solid fa-wrench" aria-hidden="true"></i>
+                          Maintenance
+                        </span>
+                      </td>
+                      <td class="machine-actions-cell">
+                        <div class="table-actions">
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-view-machine"
+                            data-machine-id="M-1004"
+                          >
+                            <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                            View
+                          </button>
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-edit-machine"
+                            data-machine-id="M-1004"
+                          >
+                            <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
+                            Edit
+                          </button>
+                          <a
+                            class="btn-im btn-im-outline btn-im-sm"
+                            href="#machine-availability"
+                          >
+                            <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+                            Availability
+                          </a>
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-toggle-active"
+                            data-machine-id="M-1004"
+                            title="Maintenance period is active"
+                          >
+                            <i class="fa-solid fa-wrench" aria-hidden="true"></i>
+                            <span>Maintenance</span>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr data-owner-machine-id="M-1005">
+                      <td>
+                        <div class="machine-name-cell">
+                          <img
+                            class="machine-thumb"
+                            src="assets/images/machine-turning.svg"
+                            alt="Sample illustration of a CNC turning centre."
+                            width="48"
+                            height="48"
+                            loading="lazy"
+                          />
+                          <div>
+                            <p class="table-cell-title mb-0">
+                              Jyoti CNC Turning Center DX-200
+                            </p>
+                            <span class="table-cell-subtext d-block"
+                              >Jyoti CNC (DX-200)</span
+                            >
+                            <span class="table-cell-id">ID: M-1005</span>
+                            <span class="demo-inline-tag">Demo</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="badge bg-light text-dark border mb-1"
+                          >CNC Turning</span
+                        >
+                        <span class="table-cell-subtext d-block"
+                          >Process: Turning</span
+                        >
+                      </td>
+                      <td>Rajkot, Gujarat</td>
+                      <td>
+                        <div
+                          class="fw-semibold text-dark machine-rate-text"
+                        >
+                          &#8377;950/hr
+                        </div>
+                        <div class="table-cell-subtext machine-capacity-text">
+                          5 hrs/day &middot; awaiting review
+                        </div>
+                      </td>
+                      <td class="machine-status-cell">
+                        <span class="status-badge status-pending">
+                          <i class="fa-regular fa-clock" aria-hidden="true"></i>
+                          Pending Approval
+                        </span>
+                      </td>
+                      <td class="machine-actions-cell">
+                        <div class="table-actions">
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-view-machine"
+                            data-machine-id="M-1005"
+                          >
+                            <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                            View
+                          </button>
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-edit-machine"
+                            data-machine-id="M-1005"
+                          >
+                            <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
+                            Edit
+                          </button>
+                          <a
+                            class="btn-im btn-im-outline btn-im-sm"
+                            href="#machine-availability"
+                          >
+                            <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+                            Availability
+                          </a>
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            disabled
+                            title="Awaiting admin approval"
+                          >
+                            <i class="fa-solid fa-lock" aria-hidden="true"></i>
+                            <span>Pending</span>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="dashboard-card-footer dashboard-card-footer-stack">
+              <span
+                >Status terms are preserved exactly: <code>pending</code>,
+                <code>approved</code>, <code>rejected</code>, <code>active</code>,
+                <code>inactive</code>, <code>maintenance</code>. Only approved
+                machines appear in the marketplace, and only active machines can
+                receive requests.</span
+              >
+              <span class="stat-demo-badge">Sample listings</span>
+            </div>
+          </section>
+
+          <!-- Accepted bookings -->
+          <section
+            class="dashboard-card"
+            id="accepted-bookings"
+            aria-labelledby="accepted-bookings-heading"
+          >
+            <div class="dashboard-card-header">
+              <h2
+                class="dashboard-card-title"
+                id="accepted-bookings-heading"
+              >
+                <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
+                Accepted bookings
+              </h2>
+              <div class="dashboard-card-actions">
+                <span class="text-muted small">1 confirmed &middot; awaiting work</span>
+                <span class="stat-demo-badge">Demo records</span>
+              </div>
+            </div>
+            <div class="dashboard-card-body dashboard-card-body-flush">
+              <span class="table-scroll-hint" hidden>
+                <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
+                Scroll the table sideways to see all columns.
+              </span>
+              <div
+                class="table-responsive"
+                tabindex="0"
+                role="region"
+                aria-label="Sample accepted bookings table"
+              >
+                <table class="im-table table-bookings" id="accepted-bookings-table">
+                  <caption class="visually-hidden">
+                    One sample accepted and confirmed booking awaiting work.
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Booking</th>
+                      <th scope="col">Buyer / company</th>
+                      <th scope="col">Machine</th>
+                      <th scope="col">Schedule</th>
+                      <th scope="col">Hours / amount</th>
+                      <th scope="col">Payment</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p class="table-cell-title mb-0">CS-10027</p>
+                        <span class="table-cell-id">Confirmed 28 Sep 2026</span>
+                        <span class="demo-inline-tag">Demo</span>
+                      </td>
+                      <td>
+                        Siddhivinayak Fabricators
+                        <span class="d-block table-cell-subtext"
+                          >Amit Verma</span
+                        >
+                      </td>
+                      <td>
+                        Haas VF-2 CNC Vertical Milling
+                        <span class="d-block table-cell-subtext">M-1003</span>
+                      </td>
+                      <td>
+                        28 Sep 2026
+                        <span class="d-block table-cell-subtext"
+                          >10:00 AM &ndash; 04:00 PM</span
+                        >
+                      </td>
+                      <td>
+                        6 hours
+                        <span class="d-block table-cell-subtext"
+                          >&#8377;5,400</span
+                        >
+                      </td>
+                      <td>
+                        <span class="status-badge status-successful">
+                          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                          Successful
+                        </span>
+                      </td>
+                      <td>
+                        <span class="status-badge status-confirmed">
+                          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                          Confirmed
+                        </span>
+                      </td>
+                      <td>
+                        <div class="table-actions">
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-view-booking"
+                            data-booking-id="CS-10027"
+                            data-booking-buyer="Siddhivinayak Fabricators (Amit Verma)"
+                            data-booking-machine="Haas VF-2 CNC Vertical Milling (M-1003)"
+                            data-booking-date="28 Sep 2026, 10:00 AM – 04:00 PM"
+                            data-booking-hours="6 hours"
+                            data-booking-rate="₹900/hr"
+                            data-booking-total="₹5,400"
+                            data-booking-payment="successful"
+                            data-booking-status="confirmed"
+                            data-booking-progress="Not started"
+                            data-booking-note="Payment is successful and the booking is confirmed. Work is scheduled to start on 28 Sep 2026."
+                          >
+                            <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                            View booking
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="dashboard-card-footer">
+              <span
+                >BR-2041 remains in Booking Requests with status
+                <code>payment_pending</code>. It becomes an accepted booking only
+                after successful buyer payment. Payment is never shown before
+                owner acceptance.</span
+              >
+              <span class="stat-demo-badge">Sample record</span>
+            </div>
+          </section>
+
+          <!-- Ongoing work -->
+          <section
+            class="dashboard-card"
+            id="ongoing-work"
+            aria-labelledby="ongoing-work-heading"
+          >
+            <div class="dashboard-card-header">
+              <h2 class="dashboard-card-title" id="ongoing-work-heading">
+                <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
+                Ongoing work
+              </h2>
+              <div class="dashboard-card-actions">
+                <span class="text-muted small">1 in progress</span>
+                <span class="stat-demo-badge">Demo record</span>
+              </div>
+            </div>
+            <div class="dashboard-card-body dashboard-card-body-flush">
+              <span class="table-scroll-hint" hidden>
+                <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
+                Scroll the table sideways to see all columns.
+              </span>
+              <div
+                class="table-responsive"
+                tabindex="0"
+                role="region"
+                aria-label="Sample ongoing work table"
+              >
+                <table class="im-table table-ongoing" id="ongoing-work-table">
+                  <caption class="visually-hidden">
+                    One sample paid booking currently in progress.
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Booking</th>
+                      <th scope="col">Buyer / company</th>
+                      <th scope="col">Machine</th>
+                      <th scope="col">Schedule</th>
+                      <th scope="col">Progress</th>
+                      <th scope="col">Payment</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr data-ongoing-booking-id="CS-10026">
+                      <td>
+                        <p class="table-cell-title mb-0">CS-10026</p>
+                        <span class="table-cell-id">Started 27 Sep 2026, 08:00 AM</span>
+                        <span class="demo-inline-tag">Demo</span>
+                      </td>
+                      <td>
+                        Metro Engineering Works
+                        <span class="d-block table-cell-subtext"
+                          >Sunil Rao</span
+                        >
+                      </td>
+                      <td>
+                        ACE Micromatic VMC 850V
+                        <span class="d-block table-cell-subtext">M-1002</span>
+                      </td>
+                      <td>
+                        27 Sep 2026
+                        <span class="d-block table-cell-subtext"
+                          >08:00 AM &ndash; 12:00 AM &middot; 16 hours</span
+                        >
+                      </td>
+                      <td>
+                        <div class="work-progress">
+                          <div
+                            class="progress work-progress-bar"
+                            role="progressbar"
+                            aria-label="Work progress"
+                            aria-valuenow="60"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                          >
+                            <div
+                              class="progress-bar"
+                              style="width: 60%"
+                            ></div>
+                          </div>
+                          <span class="table-cell-subtext">60% complete</span>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="status-badge status-successful">
+                          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                          Successful
+                        </span>
+                      </td>
+                      <td class="booking-status-cell">
+                        <span class="status-badge status-in-progress">
+                          <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
+                          In Progress
+                        </span>
+                      </td>
+                      <td class="booking-actions-cell">
+                        <div class="table-actions">
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-view-booking"
+                            data-booking-id="CS-10026"
+                            data-booking-buyer="Metro Engineering Works (Sunil Rao)"
+                            data-booking-machine="ACE Micromatic VMC 850V (M-1002)"
+                            data-booking-date="27 Sep 2026, 08:00 AM – 12:00 AM"
+                            data-booking-hours="16 hours"
+                            data-booking-rate="₹1,200/hr"
+                            data-booking-total="₹19,200"
+                            data-booking-payment="successful"
+                            data-booking-status="in_progress"
+                            data-booking-progress="60% complete"
+                            data-booking-note="VMC milling of aluminium 6061-T6 die plates is in progress. The sample booking covers 20 sets."
+                          >
+                            <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                            View
+                          </button>
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-update-progress"
+                            data-booking-id="CS-10026"
+                          >
+                            <i class="fa-solid fa-list-check" aria-hidden="true"></i>
+                            Update progress
+                          </button>
+                          <button
+                            class="btn-im btn-im-primary btn-im-sm"
+                            type="button"
+                            data-action="owner-complete-work"
+                            data-booking-id="CS-10026"
+                            data-booking-machine="ACE Micromatic VMC 850V (M-1002)"
+                            data-booking-buyer="Metro Engineering Works (Sunil Rao)"
+                          >
+                            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                            Mark completed
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="dashboard-card-footer">
+              <span
+                >Only a paid, confirmed, or in-progress booking can receive
+                progress updates or be marked completed. Completion also requires
+                a separate confirmation that the physical work is finished.</span
+              >
+              <span class="stat-demo-badge">Sample record</span>
+            </div>
+          </section>
+
+          <!-- Completed work -->
+          <section
+            class="dashboard-card"
+            id="completed-work"
+            aria-labelledby="completed-work-heading"
+          >
+            <div class="dashboard-card-header">
+              <h2 class="dashboard-card-title" id="completed-work-heading">
+                <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                Completed work
+              </h2>
+              <div class="dashboard-card-actions">
+                <span class="text-muted small">3 recent of 25 sample completions</span>
+                <span class="stat-demo-badge">Demo records</span>
+              </div>
+            </div>
+            <div class="dashboard-card-body dashboard-card-body-flush">
+              <span class="table-scroll-hint" hidden>
+                <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
+                Scroll the table sideways to see all columns.
+              </span>
+              <div
+                class="table-responsive"
+                tabindex="0"
+                role="region"
+                aria-label="Sample completed work table"
+              >
+                <table class="im-table table-completed" id="completed-work-table">
+                  <caption class="visually-hidden">
+                    Three recent sample completed bookings. Only completed
+                    bookings are eligible for buyer reviews.
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Booking</th>
+                      <th scope="col">Buyer / company</th>
+                      <th scope="col">Machine</th>
+                      <th scope="col">Completed</th>
+                      <th scope="col">Hours / amount</th>
+                      <th scope="col">Payment</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p class="table-cell-title mb-0">CS-10024</p>
+                        <span class="table-cell-id">Completed 21 Oct 2026</span>
+                        <span class="demo-inline-tag">Demo</span>
+                      </td>
+                      <td>
+                        Delta Gears &amp; Shafts
+                        <span class="d-block table-cell-subtext"
+                          >Vijay Chawla</span
+                        >
+                      </td>
+                      <td>
+                        ACE Micromatic VMC 850V
+                        <span class="d-block table-cell-subtext">M-1002</span>
+                      </td>
+                      <td>21 Oct 2026</td>
+                      <td>
+                        9 hours
+                        <span class="d-block table-cell-subtext"
+                          >&#8377;10,800</span
+                        >
+                      </td>
+                      <td>
+                        <span class="status-badge status-successful">
+                          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                          Successful
+                        </span>
+                      </td>
+                      <td>
+                        <span class="status-badge status-completed">
+                          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                          Completed
+                        </span>
+                      </td>
+                      <td>
+                        <div class="table-actions">
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-view-booking"
+                            data-booking-id="CS-10024"
+                            data-booking-buyer="Delta Gears &amp; Shafts (Vijay Chawla)"
+                            data-booking-machine="ACE Micromatic VMC 850V (M-1002)"
+                            data-booking-date="20 Oct 2026, 09:00 AM – 06:00 PM"
+                            data-booking-hours="9 hours"
+                            data-booking-rate="₹1,200/hr"
+                            data-booking-total="₹10,800"
+                            data-booking-payment="successful"
+                            data-booking-status="completed"
+                            data-booking-progress="100% complete"
+                            data-booking-note="Work completed and accepted by the buyer. A sample review is available in the Reviews section."
+                          >
+                            <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                            View
+                          </button>
+                          <a
+                            class="btn-im btn-im-outline btn-im-sm"
+                            href="#reviews"
+                          >
+                            <i class="fa-solid fa-star" aria-hidden="true"></i>
+                            Review
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <p class="table-cell-title mb-0">CS-10022</p>
+                        <span class="table-cell-id">Completed 19 Oct 2026</span>
+                        <span class="demo-inline-tag">Demo</span>
+                      </td>
+                      <td>
+                        Shree Shakti Engineering
+                        <span class="d-block table-cell-subtext"
+                          >Mehul Joshi</span
+                        >
+                      </td>
+                      <td>
+                        Haas CNC Turning Machine ST-20
+                        <span class="d-block table-cell-subtext">M-1001</span>
+                      </td>
+                      <td>19 Oct 2026</td>
+                      <td>
+                        8 hours
+                        <span class="d-block table-cell-subtext"
+                          >&#8377;6,400</span
+                        >
+                      </td>
+                      <td>
+                        <span class="status-badge status-successful">
+                          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                          Successful
+                        </span>
+                      </td>
+                      <td>
+                        <span class="status-badge status-completed">
+                          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                          Completed
+                        </span>
+                      </td>
+                      <td>
+                        <div class="table-actions">
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-view-booking"
+                            data-booking-id="CS-10022"
+                            data-booking-buyer="Shree Shakti Engineering (Mehul Joshi)"
+                            data-booking-machine="Haas CNC Turning Machine ST-20 (M-1001)"
+                            data-booking-date="18 Oct 2026, 09:00 AM – 05:00 PM"
+                            data-booking-hours="8 hours"
+                            data-booking-rate="₹800/hr"
+                            data-booking-total="₹6,400"
+                            data-booking-payment="successful"
+                            data-booking-status="completed"
+                            data-booking-progress="100% complete"
+                            data-booking-note="Work completed and accepted by the buyer. A sample review is available in the Reviews section."
+                          >
+                            <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                            View
+                          </button>
+                          <a
+                            class="btn-im btn-im-outline btn-im-sm"
+                            href="#reviews"
+                          >
+                            <i class="fa-solid fa-star" aria-hidden="true"></i>
+                            Review
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <p class="table-cell-title mb-0">CS-10018</p>
+                        <span class="table-cell-id">Completed 14 Oct 2026</span>
+                        <span class="demo-inline-tag">Demo</span>
+                      </td>
+                      <td>
+                        Apex Auto Components
+                        <span class="d-block table-cell-subtext"
+                          >Rajesh Sharma</span
+                        >
+                      </td>
+                      <td>
+                        Haas VF-2 CNC Vertical Milling
+                        <span class="d-block table-cell-subtext">M-1003</span>
+                      </td>
+                      <td>14 Oct 2026</td>
+                      <td>
+                        6 hours
+                        <span class="d-block table-cell-subtext"
+                          >&#8377;5,400</span
+                        >
+                      </td>
+                      <td>
+                        <span class="status-badge status-successful">
+                          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                          Successful
+                        </span>
+                      </td>
+                      <td>
+                        <span class="status-badge status-completed">
+                          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                          Completed
+                        </span>
+                      </td>
+                      <td>
+                        <div class="table-actions">
+                          <button
+                            class="btn-im btn-im-outline btn-im-sm"
+                            type="button"
+                            data-action="owner-view-booking"
+                            data-booking-id="CS-10018"
+                            data-booking-buyer="Apex Auto Components (Rajesh Sharma)"
+                            data-booking-machine="Haas VF-2 CNC Vertical Milling (M-1003)"
+                            data-booking-date="13 Oct 2026, 10:00 AM – 04:00 PM"
+                            data-booking-hours="6 hours"
+                            data-booking-rate="₹900/hr"
+                            data-booking-total="₹5,400"
+                            data-booking-payment="successful"
+                            data-booking-status="completed"
+                            data-booking-progress="100% complete"
+                            data-booking-note="Work completed and accepted by the buyer. A sample review is available in the Reviews section."
+                          >
+                            <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                            View
+                          </button>
+                          <a
+                            class="btn-im btn-im-outline btn-im-sm"
+                            href="#reviews"
+                          >
+                            <i class="fa-solid fa-star" aria-hidden="true"></i>
+                            Review
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="dashboard-card-footer">
+              <span
+                >Completed work is the only source of eligible buyer reviews.
+                Historical sample total is 25 completions; three recent records
+                are shown.</span
+              >
+              <span class="stat-demo-badge">Sample records</span>
+            </div>
+          </section>
+
+          <!-- Earnings overview -->
+          <section
+            class="dashboard-card"
+            id="earnings"
+            aria-labelledby="earnings-heading"
+          >
+            <div class="dashboard-card-header">
+              <h2 class="dashboard-card-title" id="earnings-heading">
+                <i class="fa-solid fa-indian-rupee-sign" aria-hidden="true"></i>
+                Earnings overview
+              </h2>
+              <div class="dashboard-card-actions">
+                <span class="stat-demo-badge">Illustrative amounts</span>
+              </div>
+            </div>
+            <div class="dashboard-card-body">
+              <div class="dashboard-stats-grid owner-earnings-grid mb-0">
+                <div class="stat-card">
+                  <div class="stat-card-head">
+                    <p class="stat-card-label">Total Earnings</p>
+                    <span class="stat-card-icon stat-icon-payments">
+                      <i
+                        class="fa-solid fa-indian-rupee-sign"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  </div>
+                  <p class="stat-card-value">&#8377;1,84,600</p>
+                  <p class="stat-card-meta">
+                    All-time illustrative total
+                    <span class="stat-demo-badge">Demo value</span>
+                  </p>
+                </div>
+
+                <div class="stat-card">
+                  <div class="stat-card-head">
+                    <p class="stat-card-label">Successful Payments</p>
+                    <span class="stat-card-icon stat-icon-bookings">
+                      <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                  <p class="stat-card-value">&#8377;41,800</p>
+                  <p class="stat-card-meta">
+                    Four recent sample records
+                    <span class="stat-demo-badge">Demo value</span>
+                  </p>
+                </div>
+
+                <div class="stat-card stat-card-alert">
+                  <div class="stat-card-head">
+                    <p class="stat-card-label">Pending Payments</p>
+                    <span class="stat-card-icon stat-icon-approvals">
+                      <i class="fa-regular fa-clock" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                  <p class="stat-card-value">&#8377;6,400</p>
+                  <p class="stat-card-meta">
+                    One recent sample record
+                    <span class="stat-demo-badge">Demo value</span>
+                  </p>
+                </div>
+              </div>
+
+              <div class="im-alert im-alert-info mt-4 mb-0" role="note">
+                <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                <div>
+                  <strong>Demonstration ledger.</strong> Summary totals are
+                  illustrative all-time figures. The payment history below is a
+                  partial recent sample. Commission, tax, withdrawal, and invoice
+                  calculations are not represented because they are not defined
+                  by the project documents.
+                </div>
+              </div>
+            </div>
+            <div class="dashboard-card-footer">
+              <span
+                >Failed and refunded payments are shown for status
+                demonstration only and are excluded from successful totals.</span
+              >
+              <span class="stat-demo-badge">Sample amounts</span>
+            </div>
+          </section>
+
+          <!-- Payment history -->
+          <section
+            class="dashboard-card"
+            id="payment-history"
+            aria-labelledby="payment-history-heading"
+          >
+            <div class="dashboard-card-header">
+              <h2 class="dashboard-card-title" id="payment-history-heading">
+                <i class="fa-solid fa-receipt" aria-hidden="true"></i>
+                Payment history
+              </h2>
+              <div class="dashboard-card-actions">
+                <span class="text-muted small">Recent partial sample ledger</span>
+                <span class="stat-demo-badge">Demo records</span>
+              </div>
+            </div>
+            <div class="dashboard-card-body dashboard-card-body-flush">
+              <span class="table-scroll-hint" hidden>
+                <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
+                Scroll the table sideways to see all columns.
+              </span>
+              <div
+                class="table-responsive"
+                tabindex="0"
+                role="region"
+                aria-label="Sample payment history table"
+              >
+                <table class="im-table table-payments" id="payment-history-table">
+                  <caption class="visually-hidden">
+                    Seven sample payment records using pending, successful,
+                    failed, and refunded statuses.
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Payment ID</th>
+                      <th scope="col">Booking / request</th>
+                      <th scope="col">Buyer / company</th>
+                      <th scope="col">Amount</th>
+                      <th scope="col">Method</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p class="table-cell-title mb-0">TXN-88219502</p>
+                        <span class="table-cell-id">Payment record</span>
+                        <span class="demo-inline-tag">Demo</span>
+                      </td>
+                      <td>BR-2041</td>
+                      <td>Apex Auto Components</td>
+                      <td>&#8377;6,400</td>
+                      <td>UPI</td>
+                      <td>28 Oct 2026</td>
+                      <td>
+                        <span class="status-badge status-pending">
+                          <i class="fa-regular fa-clock" aria-hidden="true"></i>
+                          Pending
+                        </span>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <p class="table-cell-title mb-0">TXN-88219445</p>
+                        <span class="table-cell-id">Payment record</span>
+                        <span class="demo-inline-tag">Demo</span>
+                      </td>
+                      <td>CS-10026</td>
+                      <td>Metro Engineering Works</td>
+                      <td>&#8377;19,200</td>
+                      <td>UPI</td>
+                      <td>26 Sep 2026</td>
+                      <td>
+                        <span class="status-badge status-successful">
+                          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                          Successful
+                        </span>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <p class="table-cell-title mb-0">TXN-88219390</p>
+                        <span class="table-cell-id">Payment record</span>
+                        <span class="demo-inline-tag">Demo</span>
+                      </td>
+                      <td>CS-10027</td>
+                      <td>Siddhivinayak Fabricators</td>
+                      <td>&#8377;5,400</td>
+                      <td>Card</td>
+                      <td>27 Sep 2026</td>
+                      <td>
+                        <span class="status-badge status-successful">
+                          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                          Successful
+                        </span>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <p class="table-cell-title mb-0">TXN-88219412</p>
+                        <span class="table-cell-id">Payment record</span>
+                        <span class="demo-inline-tag">Demo</span>
+                      </td>
+                      <td>CS-10024</td>
+                      <td>Delta Gears &amp; Shafts</td>
+                      <td>&#8377;10,800</td>
+                      <td>Net Banking</td>
+                      <td>20 Oct 2026</td>
+                      <td>
+                        <span class="status-badge status-successful">
+                          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                          Successful
+                        </span>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <p class="table-cell-title mb-0">TXN-88219321</p>
+                        <span class="table-cell-id">Payment record</span>
+                        <span class="demo-inline-tag">Demo</span>
+                      </td>
+                      <td>CS-10022</td>
+                      <td>Shree Shakti Engineering</td>
+                      <td>&#8377;6,400</td>
+                      <td>UPI</td>
+                      <td>18 Oct 2026</td>
+                      <td>
+                        <span class="status-badge status-successful">
+                          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                          Successful
+                        </span>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <p class="table-cell-title mb-0">TXN-88219112</p>
+                        <span class="table-cell-id">Payment record</span>
+                        <span class="demo-inline-tag">Demo</span>
+                      </td>
+                      <td>CS-10019</td>
+                      <td>Kiran Toolcraft</td>
+                      <td>&#8377;4,800</td>
+                      <td>Card</td>
+                      <td>12 Oct 2026</td>
+                      <td>
+                        <span class="status-badge status-failed">
+                          <i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>
+                          Failed
+                        </span>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <p class="table-cell-title mb-0">TXN-88218990</p>
+                        <span class="table-cell-id">Payment record</span>
+                        <span class="demo-inline-tag">Demo</span>
+                      </td>
+                      <td>CS-10017</td>
+                      <td>Apex Auto Components</td>
+                      <td>&#8377;3,600</td>
+                      <td>UPI</td>
+                      <td>08 Oct 2026</td>
+                      <td>
+                        <span class="status-badge status-refunded">
+                          <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+                          Refunded
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="dashboard-card-footer">
+              <span
+                >Four successful sample records total &#8377;41,800. One pending
+                record is &#8377;6,400. Failed (&#8377;4,800) and refunded
+                (&#8377;3,600) records are excluded from successful totals.</span
+              >
+              <span class="stat-demo-badge">Sample ledger</span>
+            </div>
+          </section>
+
+          <!-- Reviews -->
+          <section
+            class="dashboard-card"
+            id="reviews"
+            aria-labelledby="reviews-heading"
+          >
+            <div class="dashboard-card-header">
+              <h2 class="dashboard-card-title" id="reviews-heading">
+                <i class="fa-solid fa-star" aria-hidden="true"></i>
+                Reviews received
+              </h2>
+              <div class="dashboard-card-actions">
+                <span class="text-muted small">3 sample reviews</span>
+                <span class="stat-demo-badge">Demo feedback</span>
+              </div>
+            </div>
+            <div class="dashboard-card-body">
+              <div class="row g-4">
+                <div class="col-lg-8">
+                  <article class="review-card">
+                    <div class="review-header">
+                      <div>
+                        <h3 class="review-buyer-name">Delta Gears &amp; Shafts</h3>
+                        <p class="table-cell-subtext mb-0">
+                          ACE Micromatic VMC 850V &middot; Booking CS-10024
+                        </p>
+                      </div>
+                      <span
+                        class="review-stars"
+                        role="img"
+                        aria-label="Rated 5 out of 5"
+                      >
+                        <i class="fa-solid fa-star" aria-hidden="true"></i>
+                        <i class="fa-solid fa-star" aria-hidden="true"></i>
+                        <i class="fa-solid fa-star" aria-hidden="true"></i>
+                        <i class="fa-solid fa-star" aria-hidden="true"></i>
+                        <i class="fa-solid fa-star" aria-hidden="true"></i>
+                        <span class="visually-hidden">5 out of 5</span>
+                      </span>
+                    </div>
+                    <p class="review-comment">
+                      &ldquo;Manifold blocks met the drawing tolerances and the
+                      surface finish was consistent. Communication during the run
+                      was clear.&rdquo;
+                    </p>
+                    <p class="review-meta mb-0">
+                      <span class="status-badge status-completed">
+                        <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                        Completed booking
+                      </span>
+                      <span>21 Oct 2026</span>
+                      <span class="demo-inline-tag">Sample review</span>
+                    </p>
+                  </article>
+
+                  <article class="review-card">
+                    <div class="review-header">
+                      <div>
+                        <h3 class="review-buyer-name">
+                          Shree Shakti Engineering
+                        </h3>
+                        <p class="table-cell-subtext mb-0">
+                          Haas CNC Turning Machine ST-20 &middot; Booking
+                          CS-10022
+                        </p>
+                      </div>
+                      <span
+                        class="review-stars"
+                        role="img"
+                        aria-label="Rated 4 out of 5"
+                      >
+                        <i class="fa-solid fa-star" aria-hidden="true"></i>
+                        <i class="fa-solid fa-star" aria-hidden="true"></i>
+                        <i class="fa-solid fa-star" aria-hidden="true"></i>
+                        <i class="fa-solid fa-star" aria-hidden="true"></i>
+                        <i class="fa-regular fa-star" aria-hidden="true"></i>
+                        <span class="visually-hidden">4 out of 5</span>
+                      </span>
+                    </div>
+                    <p class="review-comment">
+                      &ldquo;Turning quality was good and the batch was ready on
+                      schedule. Packaging could be improved for longer transit,
+                      but the machined parts were accurate.&rdquo;
+                    </p>
+                    <p class="review-meta mb-0">
+                      <span class="status-badge status-completed">
+                        <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                        Completed booking
+                      </span>
+                      <span>19 Oct 2026</span>
+                      <span class="demo-inline-tag">Sample review</span>
+                    </p>
+                  </article>
+
+                  <article class="review-card mb-0">
+                    <div class="review-header">
+                      <div>
+                        <h3 class="review-buyer-name">Apex Auto Components</h3>
+                        <p class="table-cell-subtext mb-0">
+                          Haas VF-2 CNC Vertical Milling &middot; Booking
+                          CS-10018
+                        </p>
+                      </div>
+                      <span
+                        class="review-stars"
+                        role="img"
+                        aria-label="Rated 5 out of 5"
+                      >
+                        <i class="fa-solid fa-star" aria-hidden="true"></i>
+                        <i class="fa-solid fa-star" aria-hidden="true"></i>
+                        <i class="fa-solid fa-star" aria-hidden="true"></i>
+                        <i class="fa-solid fa-star" aria-hidden="true"></i>
+                        <i class="fa-solid fa-star" aria-hidden="true"></i>
+                        <span class="visually-hidden">5 out of 5</span>
+                      </span>
+                    </div>
+                    <p class="review-comment">
+                      &ldquo;Keyway slots and bolt patterns were completed to
+                      specification. The owner shared a clear completion update
+                      before handover.&rdquo;
+                    </p>
+                    <p class="review-meta mb-0">
+                      <span class="status-badge status-completed">
+                        <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                        Completed booking
+                      </span>
+                      <span>14 Oct 2026</span>
+                      <span class="demo-inline-tag">Sample review</span>
+                    </p>
+                  </article>
+                </div>
+
+                <div class="col-lg-4">
+                  <div class="review-summary">
+                    <p class="stat-card-label mb-1">Average sample rating</p>
+                    <p class="review-summary-value mb-1">
+                      4.7<span>/5</span>
+                    </p>
+                    <span
+                      class="review-stars d-block mb-2"
+                      role="img"
+                      aria-label="Average rating 4.7 out of 5"
+                    >
+                      <i class="fa-solid fa-star" aria-hidden="true"></i>
+                      <i class="fa-solid fa-star" aria-hidden="true"></i>
+                      <i class="fa-solid fa-star" aria-hidden="true"></i>
+                      <i class="fa-solid fa-star" aria-hidden="true"></i>
+                      <i class="fa-solid fa-star-half-stroke" aria-hidden="true"></i>
+                    </span>
+                    <p class="table-cell-subtext mb-3">
+                      Based on the three sample reviews shown for completed
+                      bookings CS-10024, CS-10022, and CS-10018.
+                    </p>
+                    <div class="dashboard-demo-banner mb-0" role="note">
+                      <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                      <div>
+                        <strong>Demonstration feedback.</strong> These entries
+                        are sample records, not real customer testimonials. Only
+                        completed bookings are eligible for review.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="dashboard-card-footer">
+              <span
+                >Reviews are associated only with completed sample bookings.
+                Incomplete, rejected, cancelled, or unpaid bookings are not
+                review-eligible.</span
+              >
+              <span class="stat-demo-badge">Sample reviews</span>
+            </div>
+          </section>
+
+          <!-- Business rules reference -->
+          <section
+            class="dashboard-card dashboard-reference"
+            id="owner-rules"
+            aria-labelledby="owner-rules-heading"
+          >
+            <div class="dashboard-card-header">
+              <h2 class="dashboard-card-title" id="owner-rules-heading">
+                <i class="fa-solid fa-scale-balanced" aria-hidden="true"></i>
+                Owner workflow reference
+              </h2>
+              <span class="stat-demo-badge">Business rules</span>
+            </div>
+            <div class="dashboard-card-body">
+              <ul class="rules-reference-list">
+                <li class="rules-reference-item">
+                  <i class="fa-solid fa-check" aria-hidden="true"></i>
+                  <span>Only approved machines appear in the marketplace.</span>
+                </li>
+                <li class="rules-reference-item">
+                  <i class="fa-solid fa-check" aria-hidden="true"></i>
+                  <span>Only active machines can receive booking requests.</span>
+                </li>
+                <li class="rules-reference-item">
+                  <i class="fa-solid fa-check" aria-hidden="true"></i>
+                  <span
+                    >Available Capacity = Total Capacity &minus; Booked
+                    Capacity.</span
+                  >
+                </li>
+                <li class="rules-reference-item">
+                  <i class="fa-solid fa-check" aria-hidden="true"></i>
+                  <span
+                    >Owner acceptance precedes buyer payment; payment precedes
+                    booking confirmation.</span
+                  >
+                </li>
+                <li class="rules-reference-item">
+                  <i class="fa-solid fa-check" aria-hidden="true"></i>
+                  <span
+                    >Completion requires successful payment, a confirmed or
+                    in-progress booking, and finished work.</span
+                  >
+                </li>
+                <li class="rules-reference-item">
+                  <i class="fa-solid fa-check" aria-hidden="true"></i>
+                  <span
+                    >Reviews are permitted only after a booking is
+                    completed.</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="dashboard-card-footer">
+              <span
+                >These rules describe the documented IdleMach workflow. This
+                prototype does not enforce them on a server.</span
+              >
+              <span class="stat-demo-badge">Reference only</span>
+            </div>
+          </section>
+        </main>
+
+        <footer class="dashboard-page-footer">
+          <span>&copy; 2026 IdleMach frontend prototype</span>
+          <span class="dashboard-footer-links">
+            <a href="machines.html">Marketplace</a>
+            <a href="login.html">Login</a>
+          </span>
+        </footer>
+      </div>
+    </div>
+
+    <!-- ================= View machine modal ================= -->
+    <div
+      class="modal fade"
+      role="dialog"
+      id="modal-owner-view-machine"
+      tabindex="-1"
+      aria-labelledby="ovm-title"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"
+      >
+        <div class="modal-content">
+          <div class="modal-header">
+            <div>
+              <p class="eyebrow mb-1">Machine details</p>
+              <h2 class="modal-title h5 mb-0" id="ovm-title">
+                Sample machine listing
+              </h2>
+            </div>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close machine details"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+              <span class="status-badge status-active" id="ovm-status-badge">
+                <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                ACTIVE
+              </span>
+              <span class="stat-demo-badge">Demo record</span>
+            </div>
+
+            <dl class="row mb-0">
+              <dt class="col-sm-4">Machine ID</dt>
+              <dd class="col-sm-8"><span id="ovm-id">M-1001</span></dd>
+
+              <dt class="col-sm-4">Machine type</dt>
+              <dd class="col-sm-8" id="ovm-type">CNC Turning</dd>
+
+              <dt class="col-sm-4">Brand / model</dt>
+              <dd class="col-sm-8" id="ovm-brand-model">Haas (ST-20)</dd>
+
+              <dt class="col-sm-4">Location</dt>
+              <dd class="col-sm-8" id="ovm-location">Rajkot, Gujarat</dd>
+
+              <dt class="col-sm-4">Hourly rate</dt>
+              <dd class="col-sm-8" id="ovm-rate">&#8377;800/hr</dd>
+
+              <dt class="col-sm-4">Available capacity</dt>
+              <dd class="col-sm-8" id="ovm-capacity">8 hrs/day</dd>
+
+              <dt class="col-sm-4">Work envelope</dt>
+              <dd class="col-sm-8" id="ovm-envelope">
+                Max Dia: 320 mm &middot; Max Length: 500 mm
+              </dd>
+
+              <dt class="col-sm-4">Specifications</dt>
+              <dd class="col-sm-8" id="ovm-specs">
+                Haas CNC Control &middot; 4,000 RPM &middot; 12-Station Turret
+              </dd>
+
+              <dt class="col-sm-4">Materials</dt>
+              <dd class="col-sm-8 mb-0" id="ovm-materials">
+                Mild Steel, Alloy Steel, Aluminium, Brass
+              </dd>
+            </dl>
+
+            <div class="dashboard-demo-banner mb-0 mt-3" role="note">
+              <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+              <div>
+                Sample specifications are owner-provided demonstration values.
+                Only approved machines appear in the marketplace, and only
+                active machines can receive new requests.
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn-im btn-im-outline"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= Edit machine modal ================= -->
+    <div
+      class="modal fade"
+      role="dialog"
+      id="modal-owner-edit-machine"
+      tabindex="-1"
+      aria-labelledby="modal-owner-edit-machine-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div>
+              <p class="eyebrow mb-1">Listing maintenance</p>
+              <h2 class="modal-title h5 mb-0" id="modal-owner-edit-machine-label">
+                Edit machine (demo)
+              </h2>
+            </div>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close edit machine form"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="form-owner-edit-machine">
+              <div class="row g-3">
+                <div class="col-12">
+                  <p class="table-cell-subtext mb-0">
+                    Machine ID:
+                    <span class="table-cell-id" id="edit-m-id">M-1001</span>
+                  </p>
+                </div>
+                <div class="col-md-7">
+                  <label class="form-label" for="edit-m-name">Machine name</label>
+                  <input
+                    class="form-control"
+                    id="edit-m-name"
+                    name="machine_name"
+                    type="text"
+                    required
+                  />
+                </div>
+                <div class="col-md-5">
+                  <label class="form-label" for="edit-m-rate"
+                    >Hourly rate (&#8377;)</label
+                  >
+                  <input
+                    class="form-control"
+                    id="edit-m-rate"
+                    name="hourly_rate"
+                    type="number"
+                    min="1"
+                    step="1"
+                    required
+                  />
+                </div>
+                <div class="col-md-5">
+                  <label class="form-label" for="edit-m-capacity"
+                    >Available capacity (hrs/day)</label
+                  >
+                  <input
+                    class="form-control"
+                    id="edit-m-capacity"
+                    name="available_capacity"
+                    type="number"
+                    min="0"
+                    max="24"
+                    step="1"
+                    required
+                  />
+                </div>
+                <div class="col-12">
+                  <label class="form-label" for="edit-m-specs"
+                    >Specifications</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="edit-m-specs"
+                    name="specifications"
+                    rows="3"
+                  ></textarea>
+                </div>
+                <div class="col-12">
+                  <label class="form-label" for="edit-m-image"
+                    >Machine image (prototype)</label
+                  >
+                  <input
+                    class="form-control"
+                    id="edit-m-image"
+                    name="machine_image"
+                    type="file"
+                    accept="image/*"
+                    disabled
+                    aria-describedby="edit-m-image-help"
+                  />
+                  <p class="form-text" id="edit-m-image-help">
+                    File uploads are disabled in this frontend-only prototype.
+                    Existing project illustrations remain in use.
+                  </p>
+                </div>
+              </div>
+              <div class="dashboard-demo-banner mb-0 mt-3" role="note">
+                <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                <div>
+                  Saving updates only this page&rsquo;s sample data. Status,
+                  approval, and marketplace state are not changed by this form.
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn-im btn-im-outline"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              class="btn-im btn-im-primary"
+              type="submit"
+              form="form-owner-edit-machine"
+            >
+              <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
+              Save demo changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= Add machine modal ================= -->
+    <div
+      class="modal fade"
+      role="dialog"
+      id="modal-add-machine"
+      tabindex="-1"
+      aria-labelledby="modal-add-machine-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div>
+              <p class="eyebrow mb-1">New listing</p>
+              <h2 class="modal-title h5 mb-0" id="modal-add-machine-label">
+                Add machine for admin review (demo)
+              </h2>
+            </div>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close add machine form"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="im-alert im-alert-info mb-3" role="note">
+              <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+              <div>
+                A new listing starts as <code>pending</code>. Only approved
+                machines appear in the marketplace; activation is a separate
+                step. Nothing is uploaded or saved to a database.
+              </div>
+            </div>
+            <form id="form-add-machine">
+              <div class="row g-3">
+                <div class="col-md-7">
+                  <label class="form-label form-required" for="add-m-name"
+                    >Machine name</label
+                  >
+                  <input
+                    class="form-control"
+                    id="add-m-name"
+                    name="machine_name"
+                    type="text"
+                    placeholder="Example: Haas CNC Turning Machine ST-20"
+                    required
+                  />
+                </div>
+                <div class="col-md-5">
+                  <label class="form-label form-required" for="add-m-type"
+                    >Machine type</label
+                  >
+                  <select class="form-select" id="add-m-type" name="machine_type" required>
+                    <option value="" selected disabled>Select machine type</option>
+                    <option value="CNC Turning">CNC Turning</option>
+                    <option value="3-Axis VMC">3-Axis VMC</option>
+                    <option value="CNC Milling">CNC Milling</option>
+                    <option value="Industrial Lathe">Industrial Lathe</option>
+                    <option value="Fabrication">Fabrication</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label" for="add-m-brand">Brand</label>
+                  <input
+                    class="form-control"
+                    id="add-m-brand"
+                    name="brand"
+                    type="text"
+                    placeholder="Example: Haas"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label" for="add-m-model">Model</label>
+                  <input
+                    class="form-control"
+                    id="add-m-model"
+                    name="model"
+                    type="text"
+                    placeholder="Example: ST-20"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label" for="add-m-rate"
+                    >Hourly rate (&#8377;)</label
+                  >
+                  <input
+                    class="form-control"
+                    id="add-m-rate"
+                    name="hourly_rate"
+                    type="number"
+                    min="1"
+                    step="1"
+                    placeholder="850"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label" for="add-m-capacity"
+                    >Available capacity (hrs/day)</label
+                  >
+                  <input
+                    class="form-control"
+                    id="add-m-capacity"
+                    name="available_capacity"
+                    type="number"
+                    min="0"
+                    max="24"
+                    step="1"
+                    placeholder="4"
+                  />
+                </div>
+                <div class="col-12">
+                  <label class="form-label" for="add-m-envelope"
+                    >Work envelope</label
+                  >
+                  <input
+                    class="form-control"
+                    id="add-m-envelope"
+                    name="work_envelope"
+                    type="text"
+                    placeholder="Max Dia: 320 mm · Max Length: 500 mm"
+                  />
+                </div>
+                <div class="col-12">
+                  <label class="form-label" for="add-m-specs"
+                    >Specifications</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="add-m-specs"
+                    name="specifications"
+                    rows="2"
+                    placeholder="Owner-provided control, spindle, accuracy, and table details."
+                  ></textarea>
+                </div>
+                <div class="col-12">
+                  <label class="form-label" for="add-m-materials">Materials</label>
+                  <input
+                    class="form-control"
+                    id="add-m-materials"
+                    name="materials"
+                    type="text"
+                    placeholder="Mild Steel, Aluminium 6061, Brass"
+                  />
+                </div>
+                <div class="col-12">
+                  <label class="form-label" for="add-m-image"
+                    >Machine image (prototype)</label
+                  >
+                  <input
+                    class="form-control"
+                    id="add-m-image"
+                    name="machine_image"
+                    type="file"
+                    accept="image/*"
+                    disabled
+                    aria-describedby="add-m-image-help"
+                  />
+                  <p class="form-text" id="add-m-image-help">
+                    File upload is disabled in this prototype. A sample project
+                    illustration is shown for demonstration records instead.
+                  </p>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn-im btn-im-outline"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              class="btn-im btn-im-primary"
+              type="submit"
+              form="form-add-machine"
+            >
+              <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+              Submit for approval (demo)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= View booking request modal ================= -->
+    <div
+      class="modal fade"
+      role="dialog"
+      id="modal-owner-view-request"
+      tabindex="-1"
+      aria-labelledby="ovr-title"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"
+      >
+        <div class="modal-content">
+          <div class="modal-header">
+            <div>
+              <p class="eyebrow mb-1">Incoming request</p>
+              <h2 class="modal-title h5 mb-0" id="ovr-title">
+                Booking request <span id="ovr-id">BR-2043</span>
+              </h2>
+            </div>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close request details"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+              <span class="status-badge status-pending" id="ovr-status-badge">
+                <i class="fa-regular fa-clock" aria-hidden="true"></i>
+                PENDING
+              </span>
+              <span class="stat-demo-badge">Demo record</span>
+            </div>
+
+            <dl class="row mb-0">
+              <dt class="col-sm-4">Buyer / company</dt>
+              <dd class="col-sm-8" id="ovr-buyer">
+                Delta Gears &amp; Shafts (Vijay Chawla)
+              </dd>
+
+              <dt class="col-sm-4">Machine</dt>
+              <dd class="col-sm-8" id="ovr-machine">
+                Haas VF-2 CNC Vertical Milling
+              </dd>
+
+              <dt class="col-sm-4">Requested date</dt>
+              <dd class="col-sm-8" id="ovr-date">
+                30 Oct 2026, 02:00 PM &ndash; 06:00 PM
+              </dd>
+
+              <dt class="col-sm-4">Requested hours</dt>
+              <dd class="col-sm-8" id="ovr-hours">4 hours</dd>
+
+              <dt class="col-sm-4">Rate</dt>
+              <dd class="col-sm-8" id="ovr-rate">&#8377;900/hr</dd>
+
+              <dt class="col-sm-4">Expected amount</dt>
+              <dd class="col-sm-8" id="ovr-total">&#8377;3,600</dd>
+
+              <dt class="col-sm-4">Material</dt>
+              <dd class="col-sm-8" id="ovr-material">Cast Steel Grade 2</dd>
+
+              <dt class="col-sm-4">Quantity</dt>
+              <dd class="col-sm-8" id="ovr-quantity">15 pieces</dd>
+
+              <dt class="col-sm-4">Work description</dt>
+              <dd class="col-sm-8" id="ovr-desc">
+                Keyway slotting and bolt pattern face milling on pinion drive
+                blanks.
+              </dd>
+
+              <dt class="col-sm-4">Drawing reference</dt>
+              <dd class="col-sm-8 mb-0" id="ovr-drawing">
+                PinionBlank_FaceMill.dwg (sample reference)
+              </dd>
+            </dl>
+
+            <div class="dashboard-demo-banner mb-0 mt-3" role="note">
+              <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+              <div>
+                The owner reviews the request before any payment step. Accepting
+                moves it to <code>payment_pending</code>; it is confirmed only
+                after successful buyer payment. Document files are not
+                downloadable in this prototype.
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn-im btn-im-outline"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= Accept request modal ================= -->
+    <div
+      class="modal fade"
+      role="dialog"
+      id="modal-owner-accept-request"
+      tabindex="-1"
+      aria-labelledby="modal-owner-accept-request-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2
+              class="modal-title h5"
+              id="modal-owner-accept-request-label"
+            >
+              Accept booking request (demo)
+            </h2>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close acceptance confirmation"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Accepting moves request
+              <strong id="accept-req-id">BR-2043</strong> to
+              <strong>payment_pending</strong>. The buyer is prompted to pay
+              next. The booking is confirmed only after successful payment.
+            </p>
+            <dl class="row mb-0">
+              <dt class="col-sm-4">Buyer</dt>
+              <dd class="col-sm-8" id="accept-req-buyer">
+                Delta Gears &amp; Shafts (Vijay Chawla)
+              </dd>
+              <dt class="col-sm-4">Machine</dt>
+              <dd class="col-sm-8" id="accept-req-machine">
+                Haas VF-2 CNC Vertical Milling
+              </dd>
+              <dt class="col-sm-4">Expected amount</dt>
+              <dd class="col-sm-8 mb-0" id="accept-req-total">&#8377;3,600</dd>
+            </dl>
+            <div class="dashboard-demo-banner mb-0 mt-3" role="note">
+              <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+              <div>
+                No payment is collected or recorded here. This action changes
+                only the local demo status and does not modify a database.
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn-im btn-im-outline"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn-im btn-im-primary"
+              id="btn-confirm-accept-request"
+            >
+              <i class="fa-solid fa-check" aria-hidden="true"></i>
+              Accept and request payment
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= Reject request modal ================= -->
+    <div
+      class="modal fade"
+      role="dialog"
+      id="modal-owner-reject-request"
+      tabindex="-1"
+      aria-labelledby="modal-owner-reject-request-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2
+              class="modal-title h5"
+              id="modal-owner-reject-request-label"
+            >
+              Reject booking request (demo)
+            </h2>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close rejection form"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p class="mb-3">
+              Request <strong id="reject-req-id">BR-2043</strong> from
+              <strong id="reject-req-buyer">Delta Gears &amp; Shafts</strong>
+              for <strong id="reject-req-machine"
+                >Haas VF-2 CNC Vertical Milling</strong
+              >
+              will be marked rejected. No payment record is created.
+            </p>
+            <div class="mb-3">
+              <label class="form-label" for="reject-req-reason-select"
+                >Reason (demo)</label
+              >
+              <select
+                class="form-select"
+                id="reject-req-reason-select"
+                name="rejection_reason"
+              >
+                <option value="Capacity already booked for another order">
+                  Capacity already booked for another order
+                </option>
+                <option value="Machine scheduled for maintenance">
+                  Machine scheduled for maintenance
+                </option>
+                <option value="Requested material is outside supported range">
+                  Requested material is outside supported range
+                </option>
+                <option value="Requested timeline cannot be met">
+                  Requested timeline cannot be met
+                </option>
+                <option value="Other demonstration reason">
+                  Other demonstration reason
+                </option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" for="reject-req-notes"
+                >Notes to buyer (optional)</label
+              >
+              <textarea
+                class="form-control"
+                id="reject-req-notes"
+                name="rejection_notes"
+                rows="3"
+                placeholder="This note is not sent in the prototype."
+              ></textarea>
+            </div>
+            <div class="dashboard-demo-banner mb-0 mt-3" role="note">
+              <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+              <div>
+                Rejection is final for this demonstration session until the
+                sample request state is reset. No database is modified.
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn-im btn-im-outline"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn-im btn-im-danger"
+              id="btn-confirm-reject-request"
+            >
+              <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+              Reject request (demo)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= View booking modal ================= -->
+    <div
+      class="modal fade"
+      role="dialog"
+      id="modal-owner-view-booking"
+      tabindex="-1"
+      aria-labelledby="ovb-title"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"
+      >
+        <div class="modal-content">
+          <div class="modal-header">
+            <div>
+              <p class="eyebrow mb-1">Booking details</p>
+              <h2 class="modal-title h5 mb-0" id="ovb-title">
+                Booking <span id="ovb-id">CS-10026</span>
+              </h2>
+            </div>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close booking details"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+              <span
+                class="status-badge status-in-progress"
+                id="ovb-status-badge"
+              >
+                <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
+                IN PROGRESS
+              </span>
+              <span
+                class="status-badge status-successful"
+                id="ovb-payment-badge"
+              >
+                <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                SUCCESSFUL
+              </span>
+              <span class="stat-demo-badge">Demo record</span>
+            </div>
+
+            <dl class="row mb-0">
+              <dt class="col-sm-4">Buyer / company</dt>
+              <dd class="col-sm-8" id="ovb-buyer">
+                Metro Engineering Works (Sunil Rao)
+              </dd>
+
+              <dt class="col-sm-4">Machine</dt>
+              <dd class="col-sm-8" id="ovb-machine">
+                ACE Micromatic VMC 850V (M-1002)
+              </dd>
+
+              <dt class="col-sm-4">Schedule</dt>
+              <dd class="col-sm-8" id="ovb-date">
+                27 Sep 2026, 08:00 AM &ndash; 12:00 AM
+              </dd>
+
+              <dt class="col-sm-4">Duration</dt>
+              <dd class="col-sm-8" id="ovb-hours">16 hours</dd>
+
+              <dt class="col-sm-4">Rate</dt>
+              <dd class="col-sm-8" id="ovb-rate">&#8377;1,200/hr</dd>
+
+              <dt class="col-sm-4">Total</dt>
+              <dd class="col-sm-8" id="ovb-total">&#8377;19,200</dd>
+
+              <dt class="col-sm-4">Work progress</dt>
+              <dd class="col-sm-8" id="ovb-progress">60% complete</dd>
+
+              <dt class="col-sm-4">Status note</dt>
+              <dd class="col-sm-8 mb-0" id="ovb-note">
+                VMC milling of aluminium 6061-T6 die plates is in progress. The
+                sample booking covers 20 sets.
+              </dd>
+            </dl>
+
+            <div class="dashboard-demo-banner mb-0 mt-3" role="note">
+              <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+              <div>
+                Booking details are read-only in this view. Progress and
+                completion actions are available only from the Ongoing Work
+                table and remain local demonstration interactions.
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn-im btn-im-outline"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= Complete work modal ================= -->
+    <div
+      class="modal fade"
+      role="dialog"
+      id="modal-owner-complete-work"
+      tabindex="-1"
+      aria-labelledby="modal-owner-complete-work-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title h5" id="modal-owner-complete-work-label">
+              Mark work completed (demo)
+            </h2>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close completion confirmation"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Confirm that the physical work for booking
+              <strong id="complete-work-id">CS-10026</strong> is finished.
+              Completion is allowed only for a paid, confirmed, or in-progress
+              booking.
+            </p>
+            <dl class="row mb-3">
+              <dt class="col-sm-4">Machine</dt>
+              <dd class="col-sm-8" id="complete-work-machine">
+                Haas VF-2 CNC Vertical Milling (M-1003)
+              </dd>
+              <dt class="col-sm-4">Buyer</dt>
+              <dd class="col-sm-8 mb-0" id="complete-work-buyer">
+                Kavita Hydraulics (Dharmesh Mehta)
+              </dd>
+            </dl>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="complete-work-confirm"
+              />
+              <label class="form-check-label" for="complete-work-confirm">
+                I confirm that the machining work is physically finished and
+                ready for buyer review.
+              </label>
+            </div>
+            <div class="dashboard-demo-banner mb-0 mt-3" role="note">
+              <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+              <div>
+                Completing this demo booking marks it review-eligible. It does
+                not settle a real payout or update a database.
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn-im btn-im-outline"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn-im btn-im-primary"
+              id="btn-confirm-complete-work"
+            >
+              <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+              Confirm completion
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= Update progress modal ================= -->
+    <div
+      class="modal fade"
+      role="dialog"
+      id="modal-owner-progress"
+      tabindex="-1"
+      aria-labelledby="modal-owner-progress-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title h5" id="modal-owner-progress-label">
+              Update work progress (demo)
+            </h2>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close progress form"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="form-owner-progress">
+              <p class="mb-3">
+                Booking
+                <strong id="progress-booking-id">CS-10026</strong>
+                is in progress and paid.
+              </p>
+              <div class="mb-3">
+                <label class="form-label" for="progress-note-input"
+                  >Progress note</label
+                >
+                <textarea
+                  class="form-control"
+                  id="progress-note-input"
+                  name="progress_note"
+                  rows="4"
+                  placeholder="Example: Facing complete; keyway slotting in progress."
+                ></textarea>
+              </div>
+              <div class="dashboard-demo-banner mb-0" role="note">
+                <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                <div>
+                  The note is shown only in the prototype notice. It is not sent
+                  to the buyer and does not change a stored booking record.
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn-im btn-im-outline"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              class="btn-im btn-im-primary"
+              type="submit"
+              form="form-owner-progress"
+            >
+              <i class="fa-solid fa-list-check" aria-hidden="true"></i>
+              Log demo progress
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= Company profile modal ================= -->
+    <div
+      class="modal fade"
+      role="dialog"
+      id="modal-owner-company-profile"
+      tabindex="-1"
+      aria-labelledby="modal-owner-company-profile-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div>
+              <p class="eyebrow mb-1">My business</p>
+              <h2
+                class="modal-title h5 mb-0"
+                id="modal-owner-company-profile-label"
+              >
+                Company profile (demo)
+              </h2>
+            </div>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close company profile"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+              <span class="status-badge status-approved">
+                <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                Sample owner account
+              </span>
+              <span class="stat-demo-badge">Demo profile</span>
+            </div>
+            <form id="form-owner-company-profile">
+              <div class="row g-3">
+                <div class="col-md-7">
+                  <label class="form-label" for="company-name"
+                    >Company name</label
+                  >
+                  <input
+                    class="form-control"
+                    id="company-name"
+                    name="company_name"
+                    type="text"
+                    value="Patel Engineering"
+                  />
+                </div>
+                <div class="col-md-5">
+                  <label class="form-label" for="company-contact"
+                    >Contact person</label
+                  >
+                  <input
+                    class="form-control"
+                    id="company-contact"
+                    name="contact_person"
+                    type="text"
+                    value="Nilesh Patel"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label" for="company-email"
+                    >Email (demonstration)</label
+                  >
+                  <input
+                    class="form-control"
+                    id="company-email"
+                    name="email"
+                    type="email"
+                    value="owner@example.test"
+                    autocomplete="off"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label" for="company-phone"
+                    >Phone (demonstration)</label
+                  >
+                  <input
+                    class="form-control"
+                    id="company-phone"
+                    name="phone"
+                    type="tel"
+                    value="+91 00000 00000"
+                    autocomplete="off"
+                  />
+                </div>
+                <div class="col-12">
+                  <label class="form-label" for="company-address">Address</label>
+                  <input
+                    class="form-control"
+                    id="company-address"
+                    name="address"
+                    type="text"
+                    value="Plot 42, GIDC Industrial Estate"
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label" for="company-city">City</label>
+                  <input
+                    class="form-control"
+                    id="company-city"
+                    name="city"
+                    type="text"
+                    value="Rajkot"
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label" for="company-state">State</label>
+                  <input
+                    class="form-control"
+                    id="company-state"
+                    name="state"
+                    type="text"
+                    value="Gujarat"
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label" for="company-pincode">Pincode</label>
+                  <input
+                    class="form-control"
+                    id="company-pincode"
+                    name="pincode"
+                    type="text"
+                    value="360004"
+                    inputmode="numeric"
+                  />
+                </div>
+                <div class="col-12">
+                  <label class="form-label" for="company-description"
+                    >Business description</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="company-description"
+                    name="description"
+                    rows="3"
+                  >Precision CNC turning and milling workshop serving industrial buyers with unused daily capacity.</textarea>
+                </div>
+                <div class="col-12">
+                  <label class="form-label" for="company-logo"
+                    >Company logo (prototype)</label
+                  >
+                  <input
+                    class="form-control"
+                    id="company-logo"
+                    name="company_logo"
+                    type="file"
+                    accept="image/*"
+                    disabled
+                    aria-describedby="company-logo-help"
+                  />
+                  <p class="form-text" id="company-logo-help">
+                    File uploads are disabled. No profile information is stored
+                    or transmitted.
+                  </p>
+                </div>
+              </div>
+              <div class="dashboard-demo-banner mb-0 mt-3" role="note">
+                <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                <div>
+                  Demonstration fields only. Do not enter real personal,
+                  financial, or registration information. Saving changes only
+                  shows a local preview notice.
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn-im btn-im-outline"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              class="btn-im btn-im-primary"
+              type="submit"
+              form="form-owner-company-profile"
+            >
+              <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
+              Save demo profile
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= Owner logout modal ================= -->
+    <div
+      class="modal fade"
+      role="dialog"
+      id="modal-owner-logout"
+      tabindex="-1"
+      aria-labelledby="modal-owner-logout-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title h5" id="modal-owner-logout-label">
+              Sign out of the owner dashboard? (demo)
+            </h2>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close sign-out confirmation"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              This prototype has no authentication or active session. Signing
+              out only demonstrates the intended navigation back to the login
+              interface.
+            </p>
+            <div class="dashboard-demo-banner mb-0" role="note">
+              <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+              <div>
+                No credentials are stored. No server session is created or
+                destroyed.
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn-im btn-im-outline"
+              data-bs-dismiss="modal"
+            >
+              Stay on dashboard
+            </button>
+            <button
+              type="button"
+              class="btn-im btn-im-danger"
+              id="btn-confirm-owner-logout"
+            >
+              <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
+              Simulate sign out
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= Notifications offcanvas ================= -->
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      role="dialog"
+      id="notifications-offcanvas"
+      aria-labelledby="notifications-offcanvas-label"
+    >
+      <div class="offcanvas-header">
+        <div>
+          <h2 class="offcanvas-title h5 mb-0" id="notifications-offcanvas-label">
+            Notifications
+          </h2>
+          <p class="small text-muted mb-0">Sample owner inbox</p>
+        </div>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close notifications"
+        ></button>
+      </div>
+      <div class="offcanvas-body p-0">
+        <div
+          class="d-flex align-items-center justify-content-between gap-2 border-bottom px-3 py-2"
+        >
+          <span class="small text-muted">Demo notifications</span>
+          <span class="badge text-bg-light border" id="notifications-count-badge"
+            >3 unread</span
+          >
+        </div>
+
+        <div class="notification-item unread">
+          <span
+            class="notification-icon activity-icon-info"
+            aria-hidden="true"
+          >
+            <i class="fa-solid fa-inbox"></i>
+          </span>
+          <div class="notification-body">
+            <p class="notification-title">
+              New booking request BR-2043 from Delta Gears &amp; Shafts
+            </p>
+            <span class="notification-time">Today, 10:15 AM</span>
+          </div>
+        </div>
+
+        <div class="notification-item unread">
+          <span
+            class="notification-icon activity-icon-warning"
+            aria-hidden="true"
+          >
+            <i class="fa-regular fa-clock"></i>
+          </span>
+          <div class="notification-body">
+            <p class="notification-title">
+              BR-2041 is awaiting buyer payment
+            </p>
+            <span class="notification-time">Today, 09:40 AM</span>
+          </div>
+        </div>
+
+        <div class="notification-item unread">
+          <span
+            class="notification-icon activity-icon-warning"
+            aria-hidden="true"
+          >
+            <i class="fa-solid fa-clipboard-check"></i>
+          </span>
+          <div class="notification-body">
+            <p class="notification-title">
+              Machine M-1005 is awaiting admin approval
+            </p>
+            <span class="notification-time">Yesterday, 04:20 PM</span>
+          </div>
+        </div>
+
+        <div class="notification-item">
+          <span
+            class="notification-icon activity-icon-success"
+            aria-hidden="true"
+          >
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+          </span>
+          <div class="notification-body">
+            <p class="notification-title">
+              Booking CS-10026 moved to in progress
+            </p>
+            <span class="notification-time">Today, 08:05 AM</span>
+          </div>
+        </div>
+      </div>
+      <div class="border-top p-3">
+        <button
+          class="btn-im btn-im-outline w-100"
+          type="button"
+          id="btn-mark-notifications-read"
+          aria-label="Mark all notifications as read (demo)"
+        >
+          <i class="fa-solid fa-envelope-open-text" aria-hidden="true"></i>
+          Mark all as read (demo)
+        </button>
+        <p class="small text-muted mt-2 mb-0">
+          Prototype only. Notifications are not stored or sent.
+        </p>
+      </div>
+    </div>
+
+    <!-- Preview-only toast -->
+    <div
+      class="preview-toast"
+      id="preview-toast"
+      role="status"
+      aria-live="polite"
+      hidden
+    >
+      <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+      <div class="preview-toast-message" id="preview-toast-message"></div>
+      <button
+        class="preview-toast-close"
+        type="button"
+        aria-label="Dismiss preview notice"
+      >
+        &times;
+      </button>
+    </div>
+
+    <script
+      src="assets/vendor/bootstrap/bootstrap.bundle.min.js"
+      defer
+    ></script>
+    <script src="js/script.js" defer></script>
+  </body>
+</html>

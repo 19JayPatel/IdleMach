@@ -1,0 +1,1277 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="IdleMach design foundation: provisional colour, typography, spacing, and shared interface components for the frontend prototype.">
+    <meta name="theme-color" content="#0f5c6b">
+    <title>Design Foundation — IdleMach</title>
+
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="site-header">
+      <nav class="navbar navbar-expand-lg" aria-label="Primary navigation">
+        <div class="container-im">
+          <a class="site-brand" href="index.html" aria-label="IdleMach home">
+            <img
+              class="brand-mark"
+              src="assets/icons/favicon.svg"
+              width="36"
+              height="36"
+              alt="">
+            <span>IdleMach</span>
+          </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#siteNav"
+            aria-controls="siteNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="siteNav">
+            <ul class="navbar-nav site-nav ms-auto align-items-lg-center">
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="index.html"
+                  data-nav-match="index.html"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="styleguide.html"
+                  data-nav-match="styleguide.html"
+                  >Design System</a
+                >
+              </li>
+              <li class="nav-item nav-cta">
+                <a class="btn-im btn-im-outline" href="index.html">
+                  Back to start
+                  <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <!-- Page header -->
+      <section class="sg-hero">
+        <div class="container-im">
+          <p class="eyebrow">Phase 1 · Frontend design foundation</p>
+          <h1 class="page-title">Shared design system</h1>
+          <p class="hero-lead mb-0">
+            Colour, typography, spacing, and reusable interface components for
+            the IdleMach frontend prototype. All sample data on this page is
+            illustrative and clearly labelled.
+          </p>
+
+          <ul class="sg-index" aria-label="Design system sections">
+            <li><a href="#colour">Colour</a></li>
+            <li><a href="#typography">Typography</a></li>
+            <li><a href="#spacing">Spacing and layout</a></li>
+            <li><a href="#buttons">Buttons</a></li>
+            <li><a href="#forms">Forms</a></li>
+            <li><a href="#cards">Cards</a></li>
+            <li><a href="#status">Status badges</a></li>
+            <li><a href="#alerts">Alerts and states</a></li>
+          </ul>
+
+          <div class="im-alert im-alert-warning mt-4" role="note">
+            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+            <div>
+              <strong>Provisional values.</strong>
+              The final logo, palette, and font family are awaiting approval.
+              Every token is declared once at the top of
+              <code>css/style.css</code> so an approved brand update can replace
+              it in one place.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="container-im">
+        <!-- Colour -->
+        <section class="sg-section" id="colour" aria-labelledby="colour-title">
+          <div class="sg-section-head">
+            <p class="eyebrow">01 · Colour</p>
+            <h2 class="section-title" id="colour-title">Provisional palette</h2>
+            <p class="text-muted-im mb-0">
+              Muted industrial tones keep the interface practical and readable.
+              Status colours are reserved for machine availability, booking, and
+              payment states so meaning stays consistent across the product.
+            </p>
+          </div>
+
+          <h3 class="sg-subhead">Brand and surface</h3>
+          <div class="sg-swatch-grid">
+            <div class="sg-swatch">
+              <div
+                class="sg-swatch-colour"
+                style="background-color: #0f5c6b"
+              ></div>
+              <div class="sg-swatch-meta">
+                <p class="sg-swatch-name">Primary</p>
+                <p class="sg-swatch-value">--color-primary · #0F5C6B</p>
+              </div>
+            </div>
+            <div class="sg-swatch">
+              <div
+                class="sg-swatch-colour"
+                style="background-color: #0a414c"
+              ></div>
+              <div class="sg-swatch-meta">
+                <p class="sg-swatch-name">Primary dark</p>
+                <p class="sg-swatch-value">--color-primary-dark · #0A414C</p>
+              </div>
+            </div>
+            <div class="sg-swatch">
+              <div
+                class="sg-swatch-colour"
+                style="background-color: #e6f2f3"
+              ></div>
+              <div class="sg-swatch-meta">
+                <p class="sg-swatch-name">Primary soft</p>
+                <p class="sg-swatch-value">--color-primary-soft · #E6F2F3</p>
+              </div>
+            </div>
+            <div class="sg-swatch">
+              <div
+                class="sg-swatch-colour"
+                style="background-color: #9a5b0b"
+              ></div>
+              <div class="sg-swatch-meta">
+                <p class="sg-swatch-name">Accent</p>
+                <p class="sg-swatch-value">--color-accent · #9A5B0B</p>
+              </div>
+            </div>
+            <div class="sg-swatch">
+              <div
+                class="sg-swatch-colour"
+                style="background-color: #10202b"
+              ></div>
+              <div class="sg-swatch-meta">
+                <p class="sg-swatch-name">Navy / footer</p>
+                <p class="sg-swatch-value">--color-navy · #10202B</p>
+              </div>
+            </div>
+            <div class="sg-swatch">
+              <div
+                class="sg-swatch-colour"
+                style="background-color: #eef2f3"
+              ></div>
+              <div class="sg-swatch-meta">
+                <p class="sg-swatch-name">Surface alt</p>
+                <p class="sg-swatch-value">--color-surface-alt · #EEF2F3</p>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="sg-subhead">Text and borders</h3>
+          <div class="sg-swatch-grid">
+            <div class="sg-swatch">
+              <div
+                class="sg-swatch-colour"
+                style="background-color: #1b252c"
+              ></div>
+              <div class="sg-swatch-meta">
+                <p class="sg-swatch-name">Body text</p>
+                <p class="sg-swatch-value">--color-text · #1B252C</p>
+              </div>
+            </div>
+            <div class="sg-swatch">
+              <div
+                class="sg-swatch-colour"
+                style="background-color: #5b6a72"
+              ></div>
+              <div class="sg-swatch-meta">
+                <p class="sg-swatch-name">Muted text</p>
+                <p class="sg-swatch-value">--color-muted · #5B6A72</p>
+              </div>
+            </div>
+            <div class="sg-swatch">
+              <div
+                class="sg-swatch-colour"
+                style="background-color: #d7dfe2"
+              ></div>
+              <div class="sg-swatch-meta">
+                <p class="sg-swatch-name">Border</p>
+                <p class="sg-swatch-value">--color-border · #D7DFE2</p>
+              </div>
+            </div>
+            <div class="sg-swatch">
+              <div
+                class="sg-swatch-colour"
+                style="background-color: #f5f7f8"
+              ></div>
+              <div class="sg-swatch-meta">
+                <p class="sg-swatch-name">Page background</p>
+                <p class="sg-swatch-value">--color-background · #F5F7F8</p>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="sg-subhead">Status colours</h3>
+          <div class="sg-swatch-grid">
+            <div class="sg-swatch">
+              <div
+                class="sg-swatch-colour"
+                style="background-color: #1b6e45"
+              ></div>
+              <div class="sg-swatch-meta">
+                <p class="sg-swatch-name">Success</p>
+                <p class="sg-swatch-value">--color-success · #1B6E45</p>
+              </div>
+            </div>
+            <div class="sg-swatch">
+              <div
+                class="sg-swatch-colour"
+                style="background-color: #7a4e00"
+              ></div>
+              <div class="sg-swatch-meta">
+                <p class="sg-swatch-name">Warning</p>
+                <p class="sg-swatch-value">--color-warning · #7A4E00</p>
+              </div>
+            </div>
+            <div class="sg-swatch">
+              <div
+                class="sg-swatch-colour"
+                style="background-color: #a83232"
+              ></div>
+              <div class="sg-swatch-meta">
+                <p class="sg-swatch-name">Danger</p>
+                <p class="sg-swatch-value">--color-danger · #A83232</p>
+              </div>
+            </div>
+            <div class="sg-swatch">
+              <div
+                class="sg-swatch-colour"
+                style="background-color: #2364a3"
+              ></div>
+              <div class="sg-swatch-meta">
+                <p class="sg-swatch-name">Info</p>
+                <p class="sg-swatch-value">--color-info · #2364A3</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="sg-note">
+            Contrast note: body and muted text meet normal-text contrast against
+            their intended backgrounds. Status colours are paired with a text
+            label and an icon so colour is never the only signal.
+          </p>
+        </section>
+
+        <!-- Typography -->
+        <section
+          class="sg-section"
+          id="typography"
+          aria-labelledby="typography-title"
+        >
+          <div class="sg-section-head">
+            <p class="eyebrow">02 · Typography</p>
+            <h2 class="section-title" id="typography-title">Type scale</h2>
+            <p class="text-muted-im mb-0">
+              A system font stack is used provisionally so the prototype has no
+              external font dependency. Numeric data uses tabular figures for
+              easier scanning in tables and cards.
+            </p>
+          </div>
+
+          <div class="sg-type-row">
+            <p class="display-title sg-type-sample mb-2">
+              Turn Idle Capacity Into Opportunity.
+            </p>
+            <p class="sg-type-meta">
+              .display-title — hero headline, clamped 2.1rem to 3.5rem, weight
+              700
+            </p>
+          </div>
+          <div class="sg-type-row">
+            <p class="page-title sg-type-sample mb-2">Page title</p>
+            <p class="sg-type-meta">
+              .page-title — interior page heading, clamped 1.8rem to 2.6rem,
+              weight 700
+            </p>
+          </div>
+          <div class="sg-type-row">
+            <p class="section-title sg-type-sample mb-2">Section title</p>
+            <p class="sg-type-meta">
+              .section-title — clamped 1.4rem to 1.85rem, weight 700
+            </p>
+          </div>
+          <div class="sg-type-row">
+            <p class="sg-type-sample h5 mb-2">Card and panel heading</p>
+            <p class="sg-type-meta">.im-card-title — 1.0625rem, weight 600</p>
+          </div>
+          <div class="sg-type-row">
+            <p class="sg-type-sample mb-2">
+              Body copy uses a comfortable 1rem size with 1.6 line height. It
+              keeps long descriptions readable without making the interface feel
+              loose.
+            </p>
+            <p class="sg-type-meta">body — 1rem / 1.6</p>
+          </div>
+          <div class="sg-type-row">
+            <p class="lead sg-type-sample mb-2">
+              Lead paragraphs introduce a page or section at 1.0625rem to
+              1.1875rem with muted colour.
+            </p>
+            <p class="sg-type-meta">
+              .lead / .hero-lead — 1.0625rem to 1.1875rem, muted
+            </p>
+          </div>
+          <div class="sg-type-row">
+            <p class="sg-type-sample mb-2">
+              <span class="meta-label d-inline-block mb-0">Meta label</span>
+              <span class="text-muted-im"
+                >— uppercase, 0.75rem, letter-spaced</span
+              >
+            </p>
+            <p class="sg-type-meta">
+              .meta-label / .eyebrow — small uppercase labels
+            </p>
+          </div>
+          <div class="sg-type-row">
+            <p class="sg-type-sample mb-2 num">
+              ₹800 / hour · 4 hours/day · 2026-11-05
+            </p>
+            <p class="sg-type-meta">
+              .num — tabular figures for rates, dates, and quantities
+            </p>
+          </div>
+        </section>
+
+        <!-- Spacing and layout -->
+        <section
+          class="sg-section"
+          id="spacing"
+          aria-labelledby="spacing-title"
+        >
+          <div class="sg-section-head">
+            <p class="eyebrow">03 · Spacing and layout</p>
+            <h2 class="section-title" id="spacing-title">
+              Spacing scale and containers
+            </h2>
+            <p class="text-muted-im mb-0">
+              A 4px-based spacing scale keeps rhythm consistent. Containers cap
+              content at 1180px and expand their side padding on larger screens.
+            </p>
+          </div>
+
+          <div class="sg-grid">
+            <div>
+              <h3 class="sg-subhead mt-0">Spacing tokens</h3>
+              <div class="sg-spacing-row">
+                <span class="sg-spacing-label">--space-1</span>
+                <span class="sg-spacing-bar" style="width: 4px"></span>
+                <span class="sg-type-meta">4px</span>
+              </div>
+              <div class="sg-spacing-row">
+                <span class="sg-spacing-label">--space-2</span>
+                <span class="sg-spacing-bar" style="width: 8px"></span>
+                <span class="sg-type-meta">8px</span>
+              </div>
+              <div class="sg-spacing-row">
+                <span class="sg-spacing-label">--space-3</span>
+                <span class="sg-spacing-bar" style="width: 12px"></span>
+                <span class="sg-type-meta">12px</span>
+              </div>
+              <div class="sg-spacing-row">
+                <span class="sg-spacing-label">--space-4</span>
+                <span class="sg-spacing-bar" style="width: 16px"></span>
+                <span class="sg-type-meta">16px</span>
+              </div>
+              <div class="sg-spacing-row">
+                <span class="sg-spacing-label">--space-5</span>
+                <span class="sg-spacing-bar" style="width: 24px"></span>
+                <span class="sg-type-meta">24px</span>
+              </div>
+              <div class="sg-spacing-row">
+                <span class="sg-spacing-label">--space-6</span>
+                <span class="sg-spacing-bar" style="width: 32px"></span>
+                <span class="sg-type-meta">32px</span>
+              </div>
+              <div class="sg-spacing-row">
+                <span class="sg-spacing-label">--space-7</span>
+                <span class="sg-spacing-bar" style="width: 48px"></span>
+                <span class="sg-type-meta">48px</span>
+              </div>
+              <div class="sg-spacing-row mb-0">
+                <span class="sg-spacing-label">--space-8</span>
+                <span class="sg-spacing-bar" style="width: 64px"></span>
+                <span class="sg-type-meta">64px</span>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="sg-subhead mt-0">Radii, borders, shadows</h3>
+              <ul class="check-list">
+                <li>
+                  <i class="fa-solid fa-square" aria-hidden="true"></i>
+                  <span
+                    ><code>--radius-control</code> 6px for buttons, inputs, and
+                    alerts.</span
+                  >
+                </li>
+                <li>
+                  <i class="fa-solid fa-square" aria-hidden="true"></i>
+                  <span
+                    ><code>--radius-card</code> 10px for cards, panels, and the
+                    preview toast.</span
+                  >
+                </li>
+                <li>
+                  <i class="fa-solid fa-border-all" aria-hidden="true"></i>
+                  <span
+                    >Borders use <code>--color-border</code>; interactive
+                    borders use <code>--color-border-strong</code>.</span
+                  >
+                </li>
+                <li>
+                  <i class="fa-regular fa-clone" aria-hidden="true"></i>
+                  <span
+                    ><code>--shadow-card</code> for resting surfaces;
+                    <code>--shadow-raised</code> for overlays only.</span
+                  >
+                </li>
+                <li>
+                  <i
+                    class="fa-solid fa-arrows-left-right"
+                    aria-hidden="true"
+                  ></i>
+                  <span
+                    >Grid relies on Bootstrap 5 rows and columns, not custom
+                    layout frameworks.</span
+                  >
+                </li>
+              </ul>
+
+              <div class="im-card mt-4">
+                <div class="im-card-body">
+                  <p class="meta-label mb-2">Container preview</p>
+                  <p class="mb-0">
+                    This panel sits inside <code>.container-im</code>. At 1180px
+                    and above it stops growing; below that it keeps 16px side
+                    padding, rising to 24px from 576px.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Buttons -->
+        <section
+          class="sg-section"
+          id="buttons"
+          aria-labelledby="buttons-title"
+        >
+          <div class="sg-section-head">
+            <p class="eyebrow">04 · Buttons</p>
+            <h2 class="section-title" id="buttons-title">Button styles</h2>
+            <p class="text-muted-im mb-0">
+              All buttons use a minimum 44px target height, a visible focus
+              ring, and consistent padding. Labels describe the action; sample
+              buttons announce that they are preview-only.
+            </p>
+          </div>
+
+          <h3 class="sg-subhead mt-0">Variants</h3>
+          <div class="sg-component-row">
+            <button
+              class="btn-im btn-im-primary"
+              type="button"
+              data-preview-action="Primary button"
+            >
+              Primary action
+            </button>
+            <button
+              class="btn-im btn-im-secondary"
+              type="button"
+              data-preview-action="Secondary button"
+            >
+              Secondary action
+            </button>
+            <button
+              class="btn-im btn-im-outline"
+              type="button"
+              data-preview-action="Outline button"
+            >
+              Outline action
+            </button>
+            <button
+              class="btn-im btn-im-danger"
+              type="button"
+              data-preview-action="Danger button"
+            >
+              Danger action
+            </button>
+          </div>
+
+          <h3 class="sg-subhead">Sizes and states</h3>
+          <div class="sg-component-row">
+            <button
+              class="btn-im btn-im-primary btn-im-sm"
+              type="button"
+              data-preview-action="Small button"
+            >
+              Small
+            </button>
+            <button
+              class="btn-im btn-im-primary"
+              type="button"
+              data-preview-action="Default button"
+            >
+              Default
+            </button>
+            <button
+              class="btn-im btn-im-primary btn-im-lg"
+              type="button"
+              data-preview-action="Large button"
+            >
+              Large
+            </button>
+            <button class="btn-im btn-im-primary" type="button" disabled>
+              Disabled
+            </button>
+          </div>
+
+          <h3 class="sg-subhead">With icon and link style</h3>
+          <div class="sg-component-row">
+            <button
+              class="btn-im btn-im-primary"
+              type="button"
+              data-preview-action="Request capacity"
+            >
+              <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
+              Request capacity
+            </button>
+            <a
+              class="btn-im btn-im-outline"
+              href="#forms"
+              data-preview-action="Continue to forms"
+            >
+              Continue to forms
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+            <button class="btn-im btn-im-outline" type="button">
+              <i class="fa-solid fa-sliders" aria-hidden="true"></i>
+              <span>Filters</span>
+            </button>
+          </div>
+
+          <p class="sg-note">
+            Buttons at this stage trigger the preview notice in the bottom-right
+            corner. They do not submit data, create bookings, or start payments.
+          </p>
+        </section>
+
+        <!-- Forms -->
+        <section class="sg-section" id="forms" aria-labelledby="forms-title">
+          <div class="sg-section-head">
+            <p class="eyebrow">05 · Forms</p>
+            <h2 class="section-title" id="forms-title">
+              Form controls and validation
+            </h2>
+            <p class="text-muted-im mb-0">
+              Labels sit above inputs, required fields are marked, and
+              validation messages appear directly beneath the affected field.
+              Submit the sample form to see local validation.
+            </p>
+          </div>
+
+          <div class="sg-grid">
+            <div class="im-card">
+              <div class="im-card-header">
+                <h3 class="im-card-title">Sample capacity request</h3>
+                <span class="status-badge status-neutral">
+                  <i class="fa-solid fa-pen-ruler" aria-hidden="true"></i>
+                  Preview form
+                </span>
+              </div>
+              <div class="im-card-body">
+                <form id="styleguide-form" novalidate>
+                  <div class="mb-3">
+                    <label class="form-label form-required" for="sg-name"
+                      >Contact name</label
+                    >
+                    <input
+                      class="form-control"
+                      id="sg-name"
+                      name="contact-name"
+                      type="text"
+                      placeholder="e.g. A. Patel"
+                      autocomplete="name"
+                      aria-describedby="sg-name-error"
+                      required>
+                    <div class="invalid-feedback" id="sg-name-error">
+                      Enter a contact name.
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label form-required" for="sg-email"
+                      >Work email</label
+                    >
+                    <input
+                      class="form-control"
+                      id="sg-email"
+                      name="work-email"
+                      type="email"
+                      placeholder="name@company.com"
+                      autocomplete="email"
+                      aria-describedby="sg-email-error"
+                      required>
+                    <div class="invalid-feedback" id="sg-email-error">
+                      Enter a valid work email address.
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label form-required" for="sg-process"
+                      >Process required</label
+                    >
+                    <select
+                      class="form-select"
+                      id="sg-process"
+                      name="process"
+                      aria-describedby="sg-process-error"
+                      required
+                    >
+                      <option value="">Select a process</option>
+                      <option value="turning">CNC turning</option>
+                      <option value="milling">CNC milling</option>
+                      <option value="fabrication">Fabrication</option>
+                      <option value="other">Other</option>
+                    </select>
+                    <div class="invalid-feedback" id="sg-process-error">
+                      Select the process you need.
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="sg-details"
+                      >Work details</label
+                    >
+                    <textarea
+                      class="form-control"
+                      id="sg-details"
+                      name="details"
+                      rows="3"
+                      placeholder="Quantity, material, tolerance, and delivery expectations"
+                      aria-describedby="sg-details-help"
+                    ></textarea>
+                    <div class="form-text" id="sg-details-help">
+                      Optional in this preview. Do not enter confidential
+                      information.
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        id="sg-terms"
+                        name="terms"
+                        type="checkbox"
+                        aria-describedby="sg-terms-error"
+                        required>
+                      <label class="form-check-label" for="sg-terms">
+                        I understand this form is a frontend preview and does
+                        not send data.
+                      </label>
+                      <div class="invalid-feedback" id="sg-terms-error">
+                        Confirm that you understand this is a preview.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-actions">
+                    <button class="btn-im btn-im-primary" type="submit">
+                      <i class="fa-solid fa-check" aria-hidden="true"></i>
+                      Validate sample form
+                    </button>
+                    <button class="btn-im btn-im-outline" type="reset">
+                      Reset
+                    </button>
+                  </div>
+                  <p class="form-note">
+                    No data leaves this browser. Nothing is stored.
+                  </p>
+                </form>
+
+                <div
+                  class="im-alert im-alert-success mt-3"
+                  id="demo-form-success"
+                  role="status"
+                  tabindex="-1"
+                  hidden
+                >
+                  <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                  <div>
+                    <strong>Validation passed.</strong>
+                    This is a preview form, so nothing was sent or saved.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="sg-subhead mt-0">Field states</h3>
+              <div class="mb-3">
+                <label class="form-label" for="sg-default">Default field</label>
+                <input
+                  class="form-control"
+                  id="sg-default"
+                  type="text"
+                  placeholder="Placeholder text">
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="sg-invalid">Invalid field</label>
+                <input
+                  class="form-control is-invalid"
+                  id="sg-invalid"
+                  type="text"
+                  value="ab"
+                  aria-invalid="true"
+                  aria-describedby="sg-invalid-error">
+                <div class="invalid-feedback" id="sg-invalid-error">
+                  Enter at least three characters.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="sg-disabled"
+                  >Disabled field</label
+                >
+                <input
+                  class="form-control"
+                  id="sg-disabled"
+                  type="text"
+                  value="Not editable in this state"
+                  disabled>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="sg-readonly"
+                  >Read-only field</label
+                >
+                <input
+                  class="form-control"
+                  id="sg-readonly"
+                  type="text"
+                  value="Reference only"
+                  readonly>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="sg-select">Select control</label>
+                <select class="form-select" id="sg-select">
+                  <option>Choose an option</option>
+                  <option>Available today</option>
+                  <option>Available this week</option>
+                </select>
+              </div>
+              <div class="form-check mb-2">
+                <input
+                  class="form-check-input"
+                  id="sg-check"
+                  type="checkbox"
+                  checked>
+                <label class="form-check-label" for="sg-check"
+                  >Checked checkbox</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  id="sg-radio"
+                  type="radio"
+                  name="sg-radio"
+                  checked>
+                <label class="form-check-label" for="sg-radio"
+                  >Selected radio option</label
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Cards -->
+        <section class="sg-section" id="cards" aria-labelledby="cards-title">
+          <div class="sg-section-head">
+            <p class="eyebrow">06 · Cards and panels</p>
+            <h2 class="section-title" id="cards-title">Content containers</h2>
+            <p class="text-muted-im mb-0">
+              Cards share the same border, radius, and resting shadow. The
+              machine card below uses the approved illustrative example only and
+              is not real marketplace data.
+            </p>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-md-6 col-xl-4">
+              <article class="im-card h-100">
+                <div class="im-card-header">
+                  <h3 class="im-card-title">Standard card</h3>
+                  <span class="status-badge status-info">
+                    <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                    Info
+                  </span>
+                </div>
+                <div class="im-card-body">
+                  <p>
+                    Use the standard card for summaries, settings groups, and
+                    short descriptions. Content padding stays consistent on
+                    every page.
+                  </p>
+                  <ul class="check-list">
+                    <li>
+                      <i
+                        class="fa-solid fa-circle-check"
+                        aria-hidden="true"
+                      ></i>
+                      <span>Optional header with a title and status.</span>
+                    </li>
+                    <li>
+                      <i
+                        class="fa-solid fa-circle-check"
+                        aria-hidden="true"
+                      ></i>
+                      <span>Flexible body for text, lists, or forms.</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="im-card-footer">
+                  <span class="small text-muted-im"
+                    >Footer for secondary detail</span
+                  >
+                  <button
+                    class="btn-im btn-im-outline btn-im-sm"
+                    type="button"
+                    data-preview-action="Card action"
+                  >
+                    Card action
+                  </button>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-md-6 col-xl-4">
+              <article class="im-card im-card-accent h-100">
+                <div class="im-card-body">
+                  <div class="feature-icon mb-3">
+                    <i class="fa-solid fa-industry" aria-hidden="true"></i>
+                  </div>
+                  <h3 class="im-card-title mb-2">Accent card</h3>
+                  <p class="text-muted-im mb-0">
+                    A 3px primary top border marks a highlighted panel without
+                    using gradients or decoration. Use it sparingly for one
+                    priority item in a group.
+                  </p>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-md-6 col-xl-4">
+              <article class="im-card h-100">
+                <div class="machine-card-media">
+                  <i class="fa-solid fa-image" aria-hidden="true"></i>
+                  <span>Sample image placeholder</span>
+                </div>
+                <div class="im-card-body">
+                  <h3 class="machine-card-title">Haas CNC Turning Machine</h3>
+                  <p class="machine-card-owner">Patel Engineering · Rajkot</p>
+
+                  <dl class="machine-card-facts">
+                    <div>
+                      <dt>Rate</dt>
+                      <dd>₹800 / hour</dd>
+                    </div>
+                    <div>
+                      <dt>Availability</dt>
+                      <dd>4 hours/day</dd>
+                    </div>
+                  </dl>
+
+                  <div
+                    class="d-flex flex-wrap gap-2 align-items-center justify-content-between"
+                  >
+                    <span class="status-badge status-available">
+                      <i
+                        class="fa-solid fa-circle-check"
+                        aria-hidden="true"
+                      ></i>
+                      Available
+                    </span>
+                    <button
+                      class="btn-im btn-im-primary btn-im-sm"
+                      type="button"
+                      data-preview-action="View machine"
+                    >
+                      View machine
+                    </button>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <p class="sg-note">
+            Machine example: Haas CNC Turning Machine, Patel Engineering,
+            Rajkot, ₹800/hour, 4 hours/day. This is the illustrative example
+            from the project documents. It is not a real listing, price, or
+            availability record.
+          </p>
+        </section>
+
+        <!-- Status badges -->
+        <section class="sg-section" id="status" aria-labelledby="status-title">
+          <div class="sg-section-head">
+            <p class="eyebrow">07 · Status indicators</p>
+            <h2 class="section-title" id="status-title">Status badges</h2>
+            <p class="text-muted-im mb-0">
+              Each badge combines colour, an icon, and a text label. The same
+              visual meaning applies to machines, bookings, and payments across
+              the product.
+            </p>
+          </div>
+
+          <div class="sg-badge-group">
+            <h3>Positive and complete</h3>
+            <div class="sg-badge-list">
+              <span class="status-badge status-available"
+                ><i class="fa-solid fa-circle-check" aria-hidden="true"></i
+                >Available</span
+              >
+              <span class="status-badge status-active"
+                ><i class="fa-solid fa-circle-check" aria-hidden="true"></i
+                >Active</span
+              >
+              <span class="status-badge status-completed"
+                ><i class="fa-solid fa-circle-check" aria-hidden="true"></i
+                >Completed</span
+              >
+              <span class="status-badge status-confirmed"
+                ><i class="fa-solid fa-circle-check" aria-hidden="true"></i
+                >Confirmed</span
+              >
+              <span class="status-badge status-successful"
+                ><i class="fa-solid fa-circle-check" aria-hidden="true"></i
+                >Payment successful</span
+              >
+            </div>
+          </div>
+
+          <div class="sg-badge-group">
+            <h3>In progress and informational</h3>
+            <div class="sg-badge-list">
+              <span class="status-badge status-approved"
+                ><i class="fa-solid fa-circle-info" aria-hidden="true"></i
+                >Approved</span
+              >
+              <span class="status-badge status-booked"
+                ><i class="fa-solid fa-calendar" aria-hidden="true"></i
+                >Booked</span
+              >
+              <span class="status-badge status-accepted"
+                ><i class="fa-solid fa-check" aria-hidden="true"></i
+                >Accepted</span
+              >
+              <span class="status-badge status-in-progress"
+                ><i class="fa-solid fa-gear" aria-hidden="true"></i>In
+                progress</span
+              >
+            </div>
+          </div>
+
+          <div class="sg-badge-group">
+            <h3>Waiting and attention</h3>
+            <div class="sg-badge-list">
+              <span class="status-badge status-pending"
+                ><i class="fa-solid fa-clock" aria-hidden="true"></i
+                >Pending</span
+              >
+              <span class="status-badge status-payment-pending"
+                ><i class="fa-solid fa-clock" aria-hidden="true"></i>Payment
+                pending</span
+              >
+              <span class="status-badge status-maintenance"
+                ><i class="fa-solid fa-wrench" aria-hidden="true"></i
+                >Maintenance</span
+              >
+            </div>
+          </div>
+
+          <div class="sg-badge-group">
+            <h3>Rejected, failed, and stopped</h3>
+            <div class="sg-badge-list">
+              <span class="status-badge status-rejected"
+                ><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i
+                >Rejected</span
+              >
+              <span class="status-badge status-failed"
+                ><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i
+                >Failed</span
+              >
+              <span class="status-badge status-cancelled"
+                ><i class="fa-solid fa-ban" aria-hidden="true"></i
+                >Cancelled</span
+              >
+              <span class="status-badge status-blocked"
+                ><i class="fa-solid fa-ban" aria-hidden="true"></i>Blocked</span
+              >
+            </div>
+          </div>
+
+          <div class="sg-badge-group">
+            <h3>Inactive and neutral</h3>
+            <div class="sg-badge-list">
+              <span class="status-badge status-inactive"
+                ><i class="fa-solid fa-circle-minus" aria-hidden="true"></i
+                >Inactive</span
+              >
+              <span class="status-badge status-unavailable"
+                ><i class="fa-solid fa-circle-minus" aria-hidden="true"></i
+                >Unavailable</span
+              >
+              <span class="status-badge status-refunded"
+                ><i class="fa-solid fa-rotate-left" aria-hidden="true"></i
+                >Refunded</span
+              >
+              <span class="status-badge status-neutral"
+                ><i class="fa-solid fa-minus" aria-hidden="true"></i>Draft</span
+              >
+            </div>
+          </div>
+        </section>
+
+        <!-- Alerts and states -->
+        <section class="sg-section" id="alerts" aria-labelledby="alerts-title">
+          <div class="sg-section-head">
+            <p class="eyebrow">08 · Alerts and states</p>
+            <h2 class="section-title" id="alerts-title">Feedback patterns</h2>
+            <p class="text-muted-im mb-0">
+              Alerts explain what happened and what to do next. Empty states
+              offer a clear next action, and confirmation panels confirm a
+              completed step without overstating it.
+            </p>
+          </div>
+
+          <div class="sg-grid">
+            <div>
+              <h3 class="sg-subhead mt-0">Alerts</h3>
+              <div class="d-grid gap-3">
+                <div class="im-alert im-alert-info" role="status">
+                  <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                  <div>
+                    <strong>Information.</strong>
+                    Owner acceptance is required before payment is requested.
+                  </div>
+                </div>
+                <div class="im-alert im-alert-success" role="status">
+                  <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                  <div>
+                    <strong>Success.</strong>
+                    The example record passed local validation.
+                  </div>
+                </div>
+                <div class="im-alert im-alert-warning" role="note">
+                  <i
+                    class="fa-solid fa-triangle-exclamation"
+                    aria-hidden="true"
+                  ></i>
+                  <div>
+                    <strong>Attention.</strong>
+                    Design tokens are provisional until the brand direction is
+                    approved.
+                  </div>
+                </div>
+                <div class="im-alert im-alert-danger" role="alert">
+                  <i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>
+                  <div>
+                    <strong>Error.</strong>
+                    This preview cannot submit data. Correct the highlighted
+                    fields and try again.
+                  </div>
+                </div>
+              </div>
+
+              <h3 class="sg-subhead">Confirmation panel</h3>
+              <div class="confirmation-panel">
+                <div class="confirmation-icon">
+                  <i class="fa-solid fa-check" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <h4>Example step confirmed</h4>
+                  <p class="text-muted-im">
+                    Use this panel after a completed action. In the real
+                    product, the wording must reflect the actual booking or
+                    payment state.
+                  </p>
+                  <div class="confirmation-actions">
+                    <button
+                      class="btn-im btn-im-primary btn-im-sm"
+                      type="button"
+                      data-preview-action="Continue"
+                    >
+                      Continue
+                    </button>
+                    <button
+                      class="btn-im btn-im-outline btn-im-sm"
+                      type="button"
+                      data-preview-action="Back"
+                    >
+                      Back
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="sg-subhead mt-0">Empty state</h3>
+              <div class="empty-state">
+                <div class="empty-state-icon">
+                  <i class="fa-solid fa-box-open" aria-hidden="true"></i>
+                </div>
+                <h3>No results in this preview</h3>
+                <p>
+                  When a search or filter returns nothing, explain why and offer
+                  a way forward. This example has no records because the
+                  marketplace is not connected yet.
+                </p>
+                <div class="mt-3">
+                  <button
+                    class="btn-im btn-im-outline btn-im-sm"
+                    type="button"
+                    data-preview-action="Clear filters"
+                  >
+                    Clear filters
+                  </button>
+                </div>
+              </div>
+
+              <h3 class="sg-subhead">Status sample</h3>
+              <div class="im-card">
+                <div
+                  class="im-card-body d-flex flex-wrap gap-3 align-items-center justify-content-between"
+                >
+                  <div>
+                    <p class="meta-label mb-1">Booking reference</p>
+                    <p class="mb-0 fw-semibold num">PREVIEW-0001</p>
+                  </div>
+                  <span class="status-badge status-payment-pending">
+                    <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                    Payment pending
+                  </span>
+                </div>
+                <div class="im-card-footer">
+                  <span class="small text-muted-im"
+                    >Illustrative reference only</span
+                  >
+                  <button
+                    class="btn-im btn-im-outline btn-im-sm"
+                    type="button"
+                    data-preview-action="View details"
+                  >
+                    View details
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container-im">
+        <div class="row g-4">
+          <div class="col-lg-5">
+            <a
+              class="site-brand footer-brand"
+              href="index.html"
+              aria-label="IdleMach home"
+            >
+              <img
+                class="brand-mark"
+                src="assets/icons/favicon.svg"
+                width="36"
+                height="36"
+                alt="">
+              <span>IdleMach</span>
+            </a>
+            <p class="footer-tagline">
+              A manufacturing-capacity marketplace that helps businesses turn
+              unused machine time into productive work.
+            </p>
+          </div>
+
+          <div class="col-6 col-lg-3">
+            <h2 class="footer-heading">Prototype pages</h2>
+            <ul class="footer-list">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="styleguide.html">Design System</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-lg-4">
+            <h2 class="footer-heading">Current stage</h2>
+            <p class="footer-note">
+              Phase 0.2 workspace and Phase 1 design foundation. No backend,
+              accounts, or live marketplace data are connected.
+            </p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>&copy; <span data-current-year>2026</span> IdleMach</span>
+          <span>Turn Idle Capacity Into Opportunity.</span>
+          <span>Frontend prototype</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Preview-only toast -->
+    <div
+      class="preview-toast"
+      id="preview-toast"
+      role="status"
+      aria-live="polite"
+      hidden
+    >
+      <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+      <div class="preview-toast-message" id="preview-toast-message"></div>
+      <button
+        class="preview-toast-close"
+        type="button"
+        aria-label="Dismiss preview notice"
+      >
+        &times;
+      </button>
+    </div>
+
+    <script
+      src="assets/vendor/bootstrap/bootstrap.bundle.min.js"
+      defer
+    ></script>
+    <script src="js/script.js" defer></script>
+  </body>
+</html>

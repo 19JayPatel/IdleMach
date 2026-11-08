@@ -1,0 +1,652 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Explore sample manufacturing capacity listings on IdleMach by machine name, process, owner, location, availability, and hourly rate.">
+    <meta name="theme-color" content="#0f5c6b">
+    <title>Explore Machines — IdleMach</title>
+
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="site-header">
+      <nav class="navbar navbar-expand-lg" aria-label="Primary navigation">
+        <div class="container-im">
+          <a class="site-brand" href="index.html" aria-label="IdleMach home">
+            <img
+              class="brand-mark"
+              src="assets/icons/favicon.svg"
+              width="36"
+              height="36"
+              alt="">
+            <span>IdleMach</span>
+          </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#siteNav"
+            aria-controls="siteNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="siteNav">
+            <ul class="navbar-nav site-nav ms-auto align-items-lg-center">
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="index.html"
+                  data-nav-match="index.html"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="machines.html"
+                  data-nav-match="machines.html"
+                  >Explore Machines</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="how-it-works.html"
+                  data-nav-match="how-it-works.html"
+                  >How It Works</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="about.html"
+                  data-nav-match="about.html"
+                  >About</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="contact.html"
+                  data-nav-match="contact.html"
+                  >Contact</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="login.html"
+                  data-nav-match="login.html"
+                  >Login</a
+                >
+              </li>
+              <li class="nav-item nav-cta">
+                <a
+                  class="btn-im btn-im-primary btn-im-sm"
+                  href="register.html"
+                  data-nav-match="register.html"
+                  >Register</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <!-- Page introduction -->
+      <section class="machines-hero" aria-labelledby="machines-title">
+        <div class="container-im">
+          <nav class="machine-breadcrumb" aria-label="Breadcrumb">
+            <ol>
+              <li><a href="index.html">Home</a></li>
+              <li aria-current="page">Explore Machines</li>
+            </ol>
+          </nav>
+
+          <div class="row g-4 g-lg-5 align-items-end">
+            <div class="col-lg-8">
+              <p class="eyebrow">Marketplace discovery</p>
+              <h1 class="page-title" id="machines-title">
+                Explore Manufacturing Capacity
+              </h1>
+              <p class="lead machines-intro">
+                Compare machine listings by machine, process, owner, location,
+                availability, and hourly rate. The records on this page are
+                sample data created to demonstrate how buyers will discover
+                manufacturing capacity — they are not live listings, quotes, or
+                bookings.
+              </p>
+            </div>
+
+            <div class="col-lg-4">
+              <div
+                class="machines-demo-panel"
+                role="note"
+                aria-label="Sample data notice"
+              >
+                <span class="status-badge status-warning">
+                  <i
+                    class="fa-solid fa-triangle-exclamation"
+                    aria-hidden="true"
+                  ></i>
+                  Demo data
+                </span>
+                <h2>Three sample records</h2>
+                <p>
+                  Every card below is labelled. Company names, rates, and
+                  capacity are illustrative only and do not represent real
+                  businesses or available work.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Search, filters, and results -->
+      <section
+        class="section machines-section"
+        aria-labelledby="machine-filters-title"
+      >
+        <div class="container-im">
+          <noscript>
+            <div
+              class="im-alert im-alert-warning machines-noscript"
+              role="note"
+            >
+              <i
+                class="fa-solid fa-triangle-exclamation"
+                aria-hidden="true"
+              ></i>
+              <div>
+                <strong>JavaScript is required to filter listings.</strong>
+                All three sample records are shown below without filtering.
+              </div>
+            </div>
+          </noscript>
+
+          <div class="machine-filter-panel">
+            <div class="machine-filter-head">
+              <div>
+                <h2 class="section-title" id="machine-filters-title">
+                  Search and filter listings
+                </h2>
+                <p class="machine-filter-lead">
+                  All fields are optional. Results update as you search or
+                  change a filter.
+                </p>
+              </div>
+              <button
+                class="btn-im btn-im-outline btn-im-sm"
+                type="button"
+                id="machines-reset-filters"
+              >
+                <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+                Clear all filters
+              </button>
+            </div>
+
+            <form
+              id="machines-search-form"
+              role="search"
+              aria-label="Search sample machine listings"
+              aria-describedby="machine-filter-note"
+            >
+              <div class="row g-3">
+                <div class="col-12">
+                  <label class="form-label" for="machine-keyword"
+                    >Machine, process, or owner</label
+                  >
+                  <div class="search-input">
+                    <i
+                      class="fa-solid fa-magnifying-glass"
+                      aria-hidden="true"
+                    ></i>
+                    <input
+                      class="form-control"
+                      id="machine-keyword"
+                      name="keyword"
+                      type="search"
+                      placeholder="e.g. CNC turning, Patel Engineering, Rajkot"
+                      autocomplete="off">
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                  <label class="form-label" for="filter-process">Process</label>
+                  <select
+                    class="form-select"
+                    id="filter-process"
+                    name="process"
+                  >
+                    <option value="">All processes</option>
+                    <option value="turning">CNC turning</option>
+                    <option value="milling">CNC milling</option>
+                    <option value="fabrication">Fabrication</option>
+                  </select>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                  <label class="form-label" for="filter-location"
+                    >Location</label
+                  >
+                  <select
+                    class="form-select"
+                    id="filter-location"
+                    name="location"
+                  >
+                    <option value="">All locations</option>
+                    <option value="rajkot">Rajkot</option>
+                    <option value="coimbatore">Coimbatore</option>
+                    <option value="pune">Pune</option>
+                  </select>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                  <label class="form-label" for="filter-availability"
+                    >Availability</label
+                  >
+                  <select
+                    class="form-select"
+                    id="filter-availability"
+                    name="availability"
+                  >
+                    <option value="">Any availability</option>
+                    <option value="available">Available</option>
+                    <option value="limited">Limited availability</option>
+                  </select>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                  <label class="form-label" for="filter-rate"
+                    >Hourly rate</label
+                  >
+                  <select class="form-select" id="filter-rate" name="rate">
+                    <option value="">Any hourly rate</option>
+                    <option value="up-to-900">Up to ₹900 / hour</option>
+                    <option value="901-1000">₹901 – ₹1,000 / hour</option>
+                    <option value="above-1000">₹1,001 / hour and above</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="machine-filter-actions">
+                <button class="btn-im btn-im-primary" type="submit">
+                  <i
+                    class="fa-solid fa-magnifying-glass"
+                    aria-hidden="true"
+                  ></i>
+                  Search sample listings
+                </button>
+                <p class="search-note mb-0" id="machine-filter-note">
+                  Demo search — filters only the 3 sample records on this page.
+                </p>
+              </div>
+            </form>
+          </div>
+
+          <div class="results-toolbar">
+            <div>
+              <h2
+                class="results-heading"
+                id="machine-results-heading"
+                tabindex="-1"
+              >
+                Sample machine listings
+              </h2>
+              <p
+                class="results-summary"
+                id="machines-results-summary"
+                role="status"
+                aria-live="polite"
+              >
+                Showing all 3 sample listings.
+              </p>
+            </div>
+
+            <div class="sort-control">
+              <label class="form-label" for="machine-sort">Sort by</label>
+              <select class="form-select" id="machine-sort">
+                <option value="recommended">Recommended order</option>
+                <option value="rate-asc">Hourly rate: low to high</option>
+                <option value="rate-desc">Hourly rate: high to low</option>
+                <option value="name-asc">Machine name: A to Z</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row g-4" id="machine-results">
+            <div
+              class="col-md-6 col-lg-4"
+              data-machine-listing
+              data-name="haas cnc turning machine st-20"
+              data-process="turning"
+              data-location="rajkot"
+              data-availability="available"
+              data-rate="800"
+              data-search="haas cnc turning machine st-20 lathe cnc turning turning patel engineering rajkot"
+            >
+              <article class="im-card machine-card h-100">
+                <div class="machine-card-media-img">
+                  <img
+                    src="assets/images/machine-turning.svg"
+                    width="640"
+                    height="400"
+                    alt="Illustration of a CNC turning machine."
+                    loading="lazy"
+                    decoding="async">
+                  <span class="sample-ribbon">Sample data</span>
+                </div>
+                <div class="im-card-body">
+                  <h3 class="machine-card-title">Haas CNC Turning Machine ST-20</h3>
+                  <p class="machine-card-owner">
+                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                    Patel Engineering · Rajkot
+                  </p>
+
+                  <dl class="machine-card-facts">
+                    <div>
+                      <dt>Process</dt>
+                      <dd>CNC turning</dd>
+                    </div>
+                    <div>
+                      <dt>Hourly rate</dt>
+                      <dd>₹800 / hour</dd>
+                    </div>
+                    <div>
+                      <dt>Available capacity</dt>
+                      <dd>8 hours/day</dd>
+                    </div>
+                  </dl>
+
+                  <p class="sample-caption">
+                    <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                    Sample data only — not a real listing.
+                  </p>
+                </div>
+                <div class="im-card-footer">
+                  <span class="status-badge status-available">
+                    <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                    Available
+                  </span>
+                  <a
+                    class="btn-im btn-im-outline btn-im-sm"
+                    href="machine-details.html?id=1"
+                  >
+                    <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                    View details<span class="visually-hidden">
+                      for Haas CNC Turning Machine ST-20</span
+                    >
+                  </a>
+                </div>
+              </article>
+            </div>
+
+            <div
+              class="col-md-6 col-lg-4"
+              data-machine-listing
+              data-name="vertical machining centre"
+              data-process="milling"
+              data-location="coimbatore"
+              data-availability="available"
+              data-rate="1150"
+              data-search="vertical machining centre vmc cnc milling machine cnc milling milling sample precision works coimbatore"
+            >
+              <article class="im-card machine-card h-100">
+                <div class="machine-card-media-img">
+                  <img
+                    src="assets/images/machine-milling.svg"
+                    width="640"
+                    height="400"
+                    alt="Illustration of a vertical machining centre."
+                    loading="lazy"
+                    decoding="async">
+                  <span class="sample-ribbon">Sample data</span>
+                </div>
+                <div class="im-card-body">
+                  <h3 class="machine-card-title">Vertical Machining Centre</h3>
+                  <p class="machine-card-owner">
+                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                    Sample Precision Works · Coimbatore
+                  </p>
+
+                  <dl class="machine-card-facts">
+                    <div>
+                      <dt>Process</dt>
+                      <dd>CNC milling</dd>
+                    </div>
+                    <div>
+                      <dt>Hourly rate</dt>
+                      <dd>₹1,150 / hour</dd>
+                    </div>
+                    <div>
+                      <dt>Available capacity</dt>
+                      <dd>6 hours/day</dd>
+                    </div>
+                  </dl>
+
+                  <p class="sample-caption">
+                    <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                    Sample data only — not a real listing.
+                  </p>
+                </div>
+                <div class="im-card-footer">
+                  <span class="status-badge status-available">
+                    <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                    Available
+                  </span>
+                  <a
+                    class="btn-im btn-im-outline btn-im-sm"
+                    href="machine-details.html?id=2"
+                  >
+                    <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                    View details<span class="visually-hidden">
+                      for Vertical Machining Centre</span
+                    >
+                  </a>
+                </div>
+              </article>
+            </div>
+
+            <div
+              class="col-md-6 col-lg-4"
+              data-machine-listing
+              data-name="hydraulic press brake"
+              data-process="fabrication"
+              data-location="pune"
+              data-availability="limited"
+              data-rate="950"
+              data-search="hydraulic press brake sheet metal fabrication fabrication sample fabrication co pune"
+            >
+              <article class="im-card machine-card h-100">
+                <div class="machine-card-media-img">
+                  <img
+                    src="assets/images/machine-fabrication.svg"
+                    width="640"
+                    height="400"
+                    alt="Illustration of a hydraulic press brake bending sheet metal."
+                    loading="lazy"
+                    decoding="async">
+                  <span class="sample-ribbon">Sample data</span>
+                </div>
+                <div class="im-card-body">
+                  <h3 class="machine-card-title">Hydraulic Press Brake</h3>
+                  <p class="machine-card-owner">
+                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                    Sample Fabrication Co. · Pune
+                  </p>
+
+                  <dl class="machine-card-facts">
+                    <div>
+                      <dt>Process</dt>
+                      <dd>Fabrication</dd>
+                    </div>
+                    <div>
+                      <dt>Hourly rate</dt>
+                      <dd>₹950 / hour</dd>
+                    </div>
+                    <div>
+                      <dt>Available capacity</dt>
+                      <dd>3 hours/day</dd>
+                    </div>
+                  </dl>
+
+                  <p class="sample-caption">
+                    <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                    Sample data only — not a real listing.
+                  </p>
+                </div>
+                <div class="im-card-footer">
+                  <span class="status-badge status-warning">
+                    <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                    Limited availability
+                  </span>
+                  <a
+                    class="btn-im btn-im-outline btn-im-sm"
+                    href="machine-details.html?id=3"
+                  >
+                    <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                    View details<span class="visually-hidden">
+                      for Hydraulic Press Brake</span
+                    >
+                  </a>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="empty-state machines-empty" id="machines-empty" hidden>
+            <div class="empty-state-icon">
+              <i class="fa-solid fa-filter-circle-xmark" aria-hidden="true"></i>
+            </div>
+            <h3>No sample listings match these filters</h3>
+            <p>
+              Try a different keyword, process, location, availability, or rate
+              range. This search only covers the three sample records on this
+              page.
+            </p>
+            <button
+              class="btn-im btn-im-outline btn-im-sm mt-3"
+              type="button"
+              id="machines-empty-clear"
+            >
+              Clear all filters
+            </button>
+          </div>
+
+          <p class="preview-footnote machines-footnote">
+            Sample data is included to show the listing structure. Each card
+            opens a matching Machine Details page, where the booking request
+            interface is a frontend demonstration only.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container-im">
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <a
+              class="site-brand footer-brand"
+              href="index.html"
+              aria-label="IdleMach home"
+            >
+              <img
+                class="brand-mark"
+                src="assets/icons/favicon.svg"
+                width="36"
+                height="36"
+                alt="">
+              <span>IdleMach</span>
+            </a>
+            <p class="footer-tagline">
+              A manufacturing-capacity marketplace that helps businesses turn
+              unused machine time into productive work.
+            </p>
+          </div>
+
+          <div class="col-6 col-lg-2">
+            <h2 class="footer-heading">Explore</h2>
+            <ul class="footer-list">
+              <li><a href="machines.html">Explore Machines</a></li>
+              <li>
+                <a href="index.html#marketplace-preview">Marketplace preview</a>
+              </li>
+              <li><a href="how-it-works.html">How It Works</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-lg-2">
+            <h2 class="footer-heading">Participate</h2>
+            <ul class="footer-list">
+              <li><a href="how-it-works.html#for-owners">For machine owners</a></li>
+              <li><a href="how-it-works.html#for-buyers">For buyers</a></li>
+              <li><a href="about.html">About IdleMach</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4" id="contact">
+            <h2 class="footer-heading">Contact</h2>
+            <p class="footer-contact-note">
+              Official contact details will be published before launch. The
+              contact form is a prototype and is not connected to a live
+              messaging system.
+            </p>
+            <p class="footer-note">
+              <a href="contact.html">Contact IdleMach</a> or read the
+              <a href="how-it-works.html">How It Works</a> guide.
+            </p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>&copy; <span data-current-year>2026</span> IdleMach</span>
+          <span>Turn Idle Capacity Into Opportunity.</span>
+          <span>Frontend prototype · Phase 2.6</span>
+          <a href="#top">Back to top</a>
+        </div>
+      </div>
+    </footer>
+
+
+    <!-- Preview-only toast -->
+    <div
+      class="preview-toast"
+      id="preview-toast"
+      role="status"
+      aria-live="polite"
+      hidden
+    >
+      <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+      <div class="preview-toast-message" id="preview-toast-message"></div>
+      <button
+        class="preview-toast-close"
+        type="button"
+        aria-label="Dismiss preview notice"
+      >
+        &times;
+      </button>
+    </div>
+
+    <script
+      src="assets/vendor/bootstrap/bootstrap.bundle.min.js"
+      defer
+    ></script>
+    <script src="js/script.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 560" role="img" aria-labelledby="buyerTitle buyerDesc">
+  <title id="buyerTitle">Illustration of a work request and capacity search</title>
+  <desc id="buyerDesc">A technical drawing of a machined part with dimension lines beside a capacity search panel on a dark blueprint background.</desc>
+
+  <defs>
+    <pattern id="buyerGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.06"/>
+    </pattern>
+    <pattern id="buyerHatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#7fb4bb" stroke-width="2" opacity="0.55"/>
+    </pattern>
+    <marker id="arrowHead" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0 0l8 4-8 4z" fill="#d9a55a"/>
+    </marker>
+  </defs>
+
+  <rect width="720" height="560" fill="#10202b"/>
+  <rect width="720" height="560" fill="url(#buyerGrid)"/>
+
+  <!-- Drawing frame -->
+  <rect x="26" y="26" width="668" height="508" rx="10" fill="none" stroke="#3b5662" stroke-width="1.5"/>
+  <path d="M26 78h668M26 432h668" fill="none" stroke="#3b5662" stroke-width="1.5"/>
+  <text x="44" y="56" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="2" fill="#8fc4cc">WORK REQUEST</text>
+  <text x="562" y="56" font-family="Segoe UI, Arial, sans-serif" font-size="10" letter-spacing="1.4" fill="#7f98a1">ILLUSTRATION</text>
+
+  <!-- Front view of flange -->
+  <g transform="translate(146 216)">
+    <circle r="86" fill="#17323d" stroke="#dce7e9" stroke-width="2"/>
+    <circle r="60" fill="none" stroke="#7fb4bb" stroke-width="1.5" stroke-dasharray="4 5"/>
+    <circle r="30" fill="#10202b" stroke="#dce7e9" stroke-width="2"/>
+    <circle r="30" fill="url(#buyerHatch)" opacity="0.7"/>
+    <g fill="#10202b" stroke="#dce7e9" stroke-width="2">
+      <circle cx="0" cy="-68" r="8"/>
+      <circle cx="59" cy="-34" r="8"/>
+      <circle cx="59" cy="34" r="8"/>
+      <circle cx="0" cy="68" r="8"/>
+      <circle cx="-59" cy="34" r="8"/>
+      <circle cx="-59" cy="-34" r="8"/>
+    </g>
+    <path d="M-100 0h200M0-100v200" fill="none" stroke="#d9a55a" stroke-width="1" stroke-dasharray="6 6" opacity="0.75"/>
+    <text x="-104" y="112" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#8fa6ad">FRONT VIEW</text>
+  </g>
+
+  <!-- Section view: stepped shaft -->
+  <g transform="translate(316 178)">
+    <path d="M0 36h38v-14h62v22h58v-40h70v54h58v-30h54v66h-54v-18h-58v42h-70v-28h-58v10h-62v-22H0z"
+          fill="#17323d" stroke="#dce7e9" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M38 36h62v-14h58v22h70v-40h58v54h54v66h-54v-18h-58v42h-70v-28h-58v10H38z"
+          fill="url(#buyerHatch)" opacity="0.45"/>
+    <path d="M-8 58h372" fill="none" stroke="#d9a55a" stroke-width="1.5" stroke-dasharray="10 5" opacity="0.9"/>
+    <text x="338" y="54" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#d9a55a">CENTRE LINE</text>
+
+    <!-- Dimension lines -->
+    <g stroke="#d9a55a" stroke-width="1.5" fill="none">
+      <path d="M0 -24v-22M0 -35h162M162 -24v-22" marker-start="url(#arrowHead)" marker-end="url(#arrowHead)"/>
+      <path d="M208 -24v-22M208 -35h104M312 -24v-22" marker-start="url(#arrowHead)" marker-end="url(#arrowHead)"/>
+    </g>
+    <text x="66" y="-42" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#d9a55a">LENGTH</text>
+    <text x="244" y="-42" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#d9a55a">STEP</text>
+
+    <g stroke="#7fb4bb" stroke-width="1" fill="none" opacity="0.7">
+      <path d="M0 26h330M0 90h330M0 126h330"/>
+    </g>
+  </g>
+
+  <!-- Callout note -->
+  <g transform="translate(94 350)">
+    <path d="M0 0h12v18H0z" fill="#0f5c6b"/>
+    <text x="22" y="8" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#dce7e9">WORK DETAILS</text>
+    <text x="22" y="23" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#8fa6ad">Process, material, quantity, timing</text>
+  </g>
+
+  <!-- Search bar -->
+  <g transform="translate(44 456)">
+    <rect x="4" y="6" width="632" height="58" rx="10" fill="#0a1820" opacity="0.65"/>
+    <rect width="632" height="58" rx="10" fill="#ffffff"/>
+    <circle cx="34" cy="29" r="11" fill="none" stroke="#0f5c6b" stroke-width="2.5"/>
+    <path d="M42 37l9 9" fill="none" stroke="#0f5c6b" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="62" y="25" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#10202b">Search manufacturing capacity</text>
+    <text x="62" y="41" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#5b6a72">Machine, process, location, or available hours</text>
+    <rect x="536" y="12" width="80" height="34" rx="5" fill="#0f5c6b"/>
+    <text x="576" y="33" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">SEARCH</text>
+  </g>
+</svg>

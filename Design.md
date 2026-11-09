@@ -130,26 +130,15 @@ final brand colours.
 
 ### Status colour mapping
 
-  -----------------------------------------------------------------------
-  Status meaning                      Suggested treatment
-  ----------------------------------- -----------------------------------
-  Available / active / successful /   Success
-  completed                           
+| Status meaning | Suggested treatment |
+|---|---|
+| Available / active / successful / completed | Success |
+| Pending / awaiting action / payment pending | Warning |
+| Rejected / failed / blocked / cancelled | Danger or neutral-danger |
+| Informational update | Info |
+| Inactive / unavailable / maintenance | Neutral or warning, according to context |
 
-  Pending / awaiting action / payment Warning
-  pending                             
-
-  Rejected / failed / blocked /       Danger or neutral-danger
-  cancelled                           
-
-  Informational update                Info
-
-  Inactive / unavailable /            Neutral or warning, according to
-  maintenance                         context
-  -----------------------------------------------------------------------
-
-The exact visual treatment must remain readable and consistent. The
-underlying status text must always be visible.
+Machine approval and operational condition are separate status dimensions. Show both where users need to understand a listing's state; never use one badge or one combined status value to hide that distinction. Always pair colour with readable status text.
 
 ## 4. Typography
 
@@ -303,16 +292,17 @@ Use cards only when they help group related information.
 
 A machine card may show, when available:
 
--   Machine image.
--   Machine name and type.
--   Location.
--   Key specifications.
--   Rate.
--   Availability summary.
--   Link to machine details.
+- Machine image.
+- Machine name and type.
+- Location.
+- Key specifications.
+- Rate.
+- Operational availability summary.
+- Link to machine details.
 
-Do not invent missing specifications, prices, availability, or ratings.
-If a field is unknown, omit it or label it appropriately.
+Marketplace visibility is controlled only by approval_status: show all approved listings, including machines that are inactive or under maintenance. Show the operational state clearly on the card and details page. An inactive or maintenance machine remains discoverable but must not show an enabled new-booking action.
+
+Do not show pending or rejected listings in public marketplace results. Do not invent missing specifications, prices, availability, or ratings. If a field is unknown, omit it or label it appropriately.
 
 ### 6.6 Tables
 
@@ -400,24 +390,28 @@ only where the corresponding data and filter behaviour exist.
 
 Recommended content hierarchy:
 
-1.  Machine name and current listing status where appropriate.
-2.  Machine image gallery.
-3.  Owner/company information that is approved for display.
-4.  Machine type and technical specifications.
-5.  Location.
-6.  Rate and capacity information.
-7.  Availability summary or calendar.
-8.  Booking/request action for eligible buyers.
-9.  Relevant supporting information.
+1. Machine name and operational availability label.
+2. Machine image gallery.
+3. Owner/company information that is approved for display.
+4. Machine type and technical specifications.
+5. Location.
+6. Rate and capacity information.
+7. Availability summary or calendar.
+8. Booking/request action state.
+9. Relevant supporting information.
 
 Rules:
 
--   Keep the booking action easy to find.
--   Do not show private owner information.
--   Do not invent machine specifications or capacity.
--   Make unavailable or inactive states clear.
--   Do not allow a frontend prototype to imply that a booking has been
-    saved to a real database.
+- Keep the booking action easy to find when the machine is eligible.
+- Do not show private owner information.
+- Do not invent machine specifications or capacity.
+- Display approval state only where appropriate for the current role; never expose pending/rejected listings publicly.
+- An approved and active machine may show a booking action, subject to date/time capacity checks.
+- An approved but inactive machine remains visible with an "Unavailable" state and a disabled booking action.
+- An approved machine under maintenance remains visible with an "Under maintenance" state and a disabled booking action.
+- Pending and rejected machines must not appear on public marketplace pages.
+- A visible machine is not automatically bookable; the booking action must also check operational status and availability.
+- Do not allow a frontend prototype to imply that a booking has been saved to a real database.
 
 ### 7.4 How It Works page
 
@@ -518,14 +512,19 @@ not invent analytics metrics or chart data.
 
 Use the project's defined statuses consistently.
 
-### Machine statuses
+### Machine status fields
 
--   `pending`
--   `approved`
--   `rejected`
--   `active`
--   `inactive`
--   `maintenance`
+**Approval status (approval_status):**
+- pending
+- approved
+- rejected
+
+**Operational status (operational_status):**
+- active
+- inactive
+- maintenance
+
+These are independent fields, not one combined status list.
 
 ### Availability statuses
 
@@ -554,16 +553,18 @@ Use the project's defined statuses consistently.
 
 Design rules:
 
-1.  Display understandable labels to users; internal status values may
-    remain in code and database.
-2.  Keep the same status meaning and visual treatment across all pages.
-3.  Show the next action only to the role allowed to perform it.
-4.  Use a timeline or step indicator only when it helps users understand
-    progress.
-5.  Do not imply a booking is confirmed before successful payment.
-6.  Do not imply payment is available before owner acceptance.
-7.  Make rejected, failed, cancelled, and unavailable states clear
-    without relying on colour alone.
+1. Display understandable labels to users; internal status values may remain in code and database.
+2. Keep the same status meaning and visual treatment across all pages.
+3. Show the next action only to the role allowed to perform it.
+4. Use a timeline or step indicator only when it helps users understand progress.
+5. Do not imply a booking is confirmed before a successful demo payment record is saved in the MVP.
+6. Do not imply payment is available before owner acceptance; clearly label the MVP payment flow as a demo/simulation with no real charge.
+7. Marketplace results include all approved machines, even when inactive or under maintenance.
+8. Only approved AND active machines may display an enabled new-booking action; date/time capacity must still be checked.
+9. Approved inactive machines display "Unavailable"; approved machines under maintenance display "Under maintenance"; both have disabled booking actions.
+10. Pending and rejected machines are hidden from public marketplace pages.
+11. Keep approval and operational labels distinct where both are shown.
+12. Make rejected, failed, cancelled, and unavailable states clear without relying on colour alone.
 
 ## 10. Responsive Behaviour
 

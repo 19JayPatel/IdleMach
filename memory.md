@@ -176,80 +176,88 @@ prototype.
 
 ## 5. Important Status Values
 
-Preserve these exact internal status values from the project
-requirements.
+Preserve these exact internal values. Machine approval and operational condition are two separate database fields.
 
-### Machine statuses
+### Machine approval: `approval_status`
 
--   `pending`
--   `approved`
--   `rejected`
--   `active`
--   `inactive`
--   `maintenance`
+- `pending`
+- `approved`
+- `rejected`
 
-Rules: - Only approved machines should appear in the marketplace. - Only
-active machines can receive booking requests. - Do not treat `approved`
-and `active` as interchangeable. - The exact transition from `approved`
-to `active` is an open decision.
+### Machine operational condition: `operational_status`
+
+- `active`
+- `inactive`
+- `maintenance`
+
+Rules:
+- New machine listings start with `approval_status = pending`.
+- Only admins approve or reject listings.
+- Only approved machines appear in the marketplace.
+- Approved machines remain visible when inactive or under maintenance, but are unavailable for new booking requests.
+- A machine can receive a new booking request only when it is both approved and active, and the requested capacity/time is available.
+- Approval does not automatically change operational status. Who may change operational status and the allowed transitions remain to be decided.
+- Never combine these two fields or treat their values as interchangeable.
 
 ### Availability statuses
 
--   `available`
--   `booked`
--   `maintenance`
--   `unavailable`
+- `available`
+- `booked`
+- `maintenance`
+- `unavailable`
 
 ### Booking statuses
 
--   `pending`
--   `accepted`
--   `rejected`
--   `payment_pending`
--   `confirmed`
--   `in_progress`
--   `completed`
--   `cancelled`
+- `pending`
+- `accepted`
+- `rejected`
+- `payment_pending`
+- `confirmed`
+- `in_progress`
+- `completed`
+- `cancelled`
 
 ### Payment statuses
 
--   `pending`
--   `successful`
--   `failed`
--   `refunded`
+- `pending`
+- `successful`
+- `failed`
+- `refunded`
+
+MVP payments are simulated/demo records only; no real money is charged. A booking is confirmed only after a successful demo payment record is saved.
 
 ### User statuses
 
--   `active`
--   `blocked`
+- `active`
+- `blocked`
 
-Display clear user-friendly labels in the UI, but preserve the defined
-internal values.
+Display clear user-friendly labels in the UI, but preserve the defined internal values.
 
 ## 6. Key Business Rules
 
-1.  Only approved machines appear in the marketplace.
-2.  Only active machines can receive booking requests.
-3.  Buyers cannot request unavailable capacity.
-4.  Prevent overlapping and double bookings.
-5.  Owner acceptance must happen before payment.
-6.  Booking confirmation requires successful payment.
-7.  Rejected bookings must not proceed to payment or work.
-8.  Only completed bookings are eligible for the final review step.
-9.  Users can access only records they are authorized to view or change.
-10. Admin can monitor platform records according to admin permissions.
-11. Owners can manage only their own machines and related records.
-12. Buyers can access only their own private booking records.
-13. Check capacity and availability on the server, not only in the
-    browser.
-14. Keep booking, payment, and availability data consistent.
+1. Only machines with `approval_status = approved` appear in the marketplace, including inactive and maintenance listings.
+2. Only machines with `approval_status = approved` AND `operational_status = active` can receive new booking requests.
+3. Buyers cannot request unavailable capacity; check availability and capacity on the server.
+4. Prevent overlapping and double bookings.
+5. Owner acceptance must happen before payment.
+6. The MVP payment flow is a clearly labelled demo/simulation. It must not charge real money or imply that real funds were received.
+7. A booking is confirmed only after a successful demo payment record is saved; pending or failed demo payments do not confirm bookings.
+8. Rejected bookings must not proceed to payment or work.
+9. Only completed bookings are eligible for a review.
+10. Only the buyer associated with a completed booking may review the machine owner; owners cannot review buyers.
+11. Allow at most one review per booking and enforce it with a unique constraint on `reviews.booking_id`.
+12. Each user owns exactly one company; each company belongs to one user. Enforce this with a unique constraint on `companies.user_id`. A company may have many machines.
+13. Users can access only records they are authorized to view or change.
+14. Admin can monitor platform records according to admin permissions.
+15. Owners can manage only their own machines and related records.
+16. Buyers can access only their own private booking records.
+17. Keep booking, payment, and availability data consistent.
 
 Capacity calculation:
 
 **Available Capacity = Total Capacity - Booked Capacity**
 
-The capacity unit and detailed availability scheduling rules must be
-explicitly defined. Do not assume them.
+The capacity unit and detailed availability scheduling rules must be explicitly defined. Do not assume them.
 
 ## 7. Booking Request Information
 
@@ -272,30 +280,28 @@ file-size limits must follow the approved requirements.
 
 The planned core tables/entities are:
 
--   `users`
--   `companies`
--   `machines`
--   `machine_images`
--   `machine_availabilities`
--   `bookings`
--   `booking_documents`
--   `payments`
--   `reviews`
--   `notifications`
+- `users`
+- `companies`
+- `machines`
+- `machine_images`
+- `machine_availabilities`
+- `bookings`
+- `booking_documents`
+- `payments`
+- `reviews`
+- `notifications`
 
-Proposed relationships from the project notes:
+Approved relationships and constraints:
 
--   User has one Company.
--   User has many Bookings as buyer.
--   User has many Reviews and Notifications.
--   Company belongs to User and has many Machines.
--   Machine belongs to Company.
--   Machine has many Images, Availabilities, and Bookings.
--   Booking belongs to Machine and Buyer.
--   Booking has one Payment and may have many Documents and Reviews.
+- User has one Company; enforce one-to-one ownership with a unique constraint on `companies.user_id`.
+- Company belongs to User and has many Machines.
+- Machine belongs to Company and has many Images, Availabilities, and Bookings.
+- Booking belongs to one Machine and one Buyer (User).
+- Booking has many Documents and associated Payment records. Whether multiple demo payment attempts are allowed remains an open decision; do not assume the final payment-attempt cardinality yet.
+- Booking has at most one Review; enforce a unique constraint on `reviews.booking_id`.
+- The Review reviewer must be the booking's Buyer, and the reviewee must be the owner of the booked Machine.
 
-Treat the detailed Architecture document and approved database design as
-authoritative before implementing schema changes.
+Treat the detailed Architecture document and approved database design as authoritative before implementing schema changes.
 
 ## 9. Route and View Organization
 
@@ -430,21 +436,23 @@ These are not automatically part of the first MVP:
 
 ## 14. Open Decisions --- Never Guess
 
-Ask for clarification or record an explicit assumption before
-implementing features that depend on these decisions:
+Ask for clarification or record an explicit assumption before implementing features that depend on these decisions:
 
-1.  Exact process for moving a machine from `approved` to `active`.
-2.  Capacity units and detailed availability scheduling rules.
-3.  Booking cancellation and rescheduling rules.
-4.  Refund policy and payment deadlines.
-5.  Payment gateway, commission, tax, and owner payout rules.
-6.  Supported drawing/document file formats and upload size limits.
-7.  Review editing/removal and dispute rules.
-8.  Notification channels and delivery expectations.
-9.  Machine verification requirements and badges.
-10. Hosting, deployment, backup, and data-retention policies.
-11. Final brand identity and exact design tokens.
-12. Final prototype sitemap and dashboard page scope.
+1. Who may change a machine's `operational_status` and which transitions between `active`, `inactive`, and `maintenance` are allowed.
+2. Capacity units and detailed availability scheduling rules.
+3. Booking cancellation and rescheduling rules.
+4. Refund policy and payment deadlines.
+5. Demo payment failure/timeout handling and whether multiple demo payment attempts are allowed.
+6. Future payment gateway, commission, tax, and owner payout rules.
+7. Supported drawing/document file formats and upload size limits.
+8. Review editing/removal and dispute rules.
+9. Notification channels and delivery expectations.
+10. Machine verification requirements and badges.
+11. Hosting, deployment, backup, and data-retention policies.
+12. Final brand identity and exact design tokens.
+13. Final public sitemap and any remaining dashboard/profile page scope.
+
+Do not reopen decisions that are already approved in the PRD and Rules. In particular, the separate machine status fields, approved-machine marketplace visibility, one-company-per-user relationship, demo-only MVP payments, and buyer-only reviews of owners are settled decisions.
 
 ## 15. Project Document References
 
@@ -513,8 +521,4 @@ Before starting any IdleMach task:
 
 ## One-Sentence Project Memory
 
-**IdleMach is a Laravel-based manufacturing-capacity marketplace
-prototype-first project that connects machine owners with unused
-capacity to buyers who need manufacturing work, with admin approval and
-a strict request → owner acceptance → payment → booking confirmation →
-work completion → review workflow.**
+**IdleMach is a prototype-first Laravel manufacturing-capacity marketplace: approved machines are discoverable, only approved + active machines are bookable, demo payment success confirms an owner-accepted booking, and only the buyer may review the owner after completion.**

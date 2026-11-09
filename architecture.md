@@ -440,33 +440,25 @@ Machine information includes:
 A machine belongs to a company and can have many images, availability
 records, and bookings.
 
-### 7.4 Machine approval
+### 7.4 Machine approval and operational status
 
-Machine submission and review flow:
+Keep listing approval separate from the machine's operational condition. These are two independent database fields:
 
-``` text
-Owner creates machine
-        |
-        v
-     Pending
-        |
-        v
-   Admin reviews
-      /     \
- Approve   Reject
-    |
-    v
-Marketplace (when approved and active)
-```
+- **approval_status:** pending, approved, rejected.
+- **operational_status:** active, inactive, maintenance.
 
-The source lists `pending`, `approved`, `rejected`, `active`,
-`inactive`, and `maintenance` as machine statuses. It also says only
-approved/active machines should appear in the marketplace and only
-active machines can receive booking requests.
+A newly submitted listing starts with approval_status = pending. Only an admin may approve or reject it. Approval does not automatically change operational_status; do not assume an automatic activation transition.
 
-The exact status transition policy---especially whether approval
-automatically activates a machine---must be decided before
-implementation.
+Marketplace and booking rules:
+
+1. Only machines with approval_status = approved appear in the marketplace.
+2. Approved machines remain visible when operational_status is inactive or maintenance; show a clear unavailable state.
+3. A machine can receive a new booking request only when approval_status = approved AND operational_status = active.
+4. Pending and rejected listings are hidden from the marketplace and cannot receive booking requests.
+5. Inactive and maintenance machines remain discoverable but cannot receive new booking requests.
+6. Admin approval/rejection and operational status are separate permissions/actions. Owners cannot approve their own listings.
+
+The exact rules for who may change operational_status, and the allowed status transitions, must follow the approved PRD/Rules and be finalized before implementation.
 
 ### 7.5 Machine images and documents
 
@@ -485,25 +477,15 @@ upload limits, and allowed file types must be defined for each use case.
 
 ### 7.6 Marketplace and search
 
-Buyer discovery supports search by:
+Buyer discovery supports search by machine name, machine type, location, and company. Potential filters include machine type, location, price range, available date, available hours, material, and process.
 
--   Machine name
--   Machine type
--   Location
--   Company
+The marketplace query must include every machine whose approval_status is approved, regardless of operational status. Operational status controls the booking action, not marketplace visibility:
 
-Potential filters:
+- Active: show as available for booking, subject to date/time capacity.
+- Inactive: show as unavailable; disable new booking requests.
+- Maintenance: show as under maintenance/unavailable; disable new booking requests.
 
--   Machine type
--   Location
--   Price range
--   Available date
--   Available hours
--   Material
--   Process
-
-Only approved and active machines are publicly listed as available for
-booking.
+Pending and rejected listings must not be returned in public marketplace results. Never infer availability from approval status alone.
 
 ### 7.7 Capacity and availability
 
@@ -630,47 +612,16 @@ technical decision for the Laravel build stage.
 
 ### 7.10 Payment management
 
-Payment follows owner acceptance.
+Payment follows owner acceptance. The MVP uses simulated/demo payment outcomes only; it must not charge real money or imply that real funds were received.
 
-``` text
-Owner accepts booking
-        |
-        v
-Payment pending
-        |
-        v
-Payment attempt
-    /       \
-Success    Failure
-   |          |
-   v          v
-Confirmed   Failed/payment retry policy (to be decided)
-```
+Flow: Owner accepts booking → Payment pending → Demo payment simulation.
 
-The first version may record a demo payment. A real Razorpay or Stripe
-integration is optional for a later stage.
+- On success: save a successful demo payment record, then confirm the booking.
+- On failure or pending outcome: keep the booking unconfirmed.
 
-Payment fields proposed:
+A booking becomes confirmed only after a successful demo payment record has been saved and associated with that booking. Clearly label the interface and records as demo/simulation. Keep payment handling separate from provider-specific gateway code so a real gateway can be considered in a later phase. Do not implement a real gateway in the MVP.
 
--   Booking ID
--   Buyer ID
--   Amount
--   Payment method
--   Transaction ID
--   Status
--   Paid at
--   Created at
--   Updated at
-
-Payment statuses:
-
--   `pending`
--   `successful`
--   `failed`
--   `refunded`
-
-Payment timeout, retries, refunds, gateway callbacks, fees, commissions,
-and settlement behavior are not fully defined in the source.
+Demo failure/timeout handling and whether multiple attempts are allowed remain open decisions.
 
 ### 7.11 Work progress and completion
 
@@ -683,20 +634,17 @@ confirmation sequence between owner and buyer must be decided.
 
 ### 7.12 Reviews
 
-After a booking is completed, the buyer can review the owner. The owner
-can also review the buyer.
+After a booking is completed, only the buyer associated with that booking may review the machine owner. Reviews are one-way: owners do not review buyers.
 
 Review fields proposed:
 
--   Booking ID
--   Reviewer ID
--   Reviewee ID
--   Rating
--   Comment
+- Booking ID
+- Reviewer ID (the booking's buyer)
+- Reviewee ID (the machine owner's user)
+- Rating
+- Comment
 
-The source gives example review dimensions: overall rating, machine
-quality, work quality, and timeliness. Whether these are stored as
-separate fields or only displayed as form inputs is **To be decided**.
+Enforce at most one review per booking with a unique constraint on reviews.booking_id. The server must verify that the booking is completed, the authenticated reviewer is the booking buyer, and the reviewee is the owner of the booked machine. Example rating dimensions such as machine quality, work quality, and timeliness remain subject to the approved review design.
 
 ### 7.13 Notifications
 
@@ -746,56 +694,25 @@ notifications
 
 ### 8.2 Entity relationship overview
 
-``` text
-USER
-  |
-  | hasOne
-  v
-COMPANY
-  |
-  | hasMany
-  v
-MACHINE
-  |        |             |
-  |        |             |
-  v        v             v
-MACHINE  AVAILABILITY  BOOKING
-IMAGES                    |
-                          | hasOne
-                          v
-                       PAYMENT
-                          |
-                          |
-                    BOOKING DOCUMENTS
-                          |
-                          v
-                        REVIEWS
-```
+User has one Company (unique companies.user_id). Company has many Machines. A Machine has many Images, Availabilities, and Bookings. Each Booking belongs to one Machine and one Buyer (User), and has many Documents and Payment records. A completed Booking may have at most one Review (unique reviews.booking_id); the reviewer is the Buyer and the reviewee is the Machine Owner.
 
-This is a conceptual relationship view, not a complete database ERD. In
-the source model, Booking belongs to Machine and Buyer (User), has one
-Payment, has many Documents, and has many Reviews. User has many
-Bookings and Reviews. Review references reviewer and reviewee users.
+This is a conceptual relationship view, not a complete database ERD. Payment-attempt cardinality must remain aligned with the still-open demo retry decision.
 
 ### 8.3 Relationship summary
 
-  Model     Relationship
-  --------- -------------------------------------------------------
-  User      Has one Company
-  User      Has many Bookings (buyer relationship in the example)
-  User      Has many Reviews
-  User      Has many Notifications
-  Company   Belongs to User
-  Company   Has many Machines
-  Machine   Belongs to Company
-  Machine   Has many Images
-  Machine   Has many Availabilities
-  Machine   Has many Bookings
-  Booking   Belongs to Machine
-  Booking   Belongs to Buyer
-  Booking   Has one Payment
-  Booking   Has many Documents
-  Booking   Has many Reviews
+| Model | Relationship |
+|---|---|
+| User | Has one Company; has many buyer Bookings; has many authored Reviews; has many Notifications |
+| Company | Belongs to User; has many Machines |
+| Machine | Belongs to Company; has many Images, Availabilities, and Bookings |
+| Booking | Belongs to Machine and Buyer (User); has many Documents and Payment records; has at most one Review |
+| Payment | Belongs to Booking |
+| Review | Belongs to Booking; reviewer is the Buyer; reviewee is the Machine Owner |
+
+Database constraints:
+- Add a unique constraint to companies.user_id to enforce one company per user.
+- Add a unique constraint to reviews.booking_id to enforce at most one review per booking.
+- Keep payment-attempt cardinality aligned with the still-open demo retry decision; do not assume one payment per booking without resolving that decision.
 
 ### 8.4 Key data ownership
 
@@ -1226,32 +1143,24 @@ These are not prerequisites for the first working version.
 
 ## 18. Architecture decisions still required
 
-The source documents leave these decisions open:
+The following details remain open and must not be guessed:
 
-1.  Exact Laravel version and authentication starter approach.
-2.  Final public route access for guests and buyers.
-3.  Final machine status transition rules, especially `approved` versus
-    `active`.
-4.  Whether accepted or payment-pending bookings reserve capacity, and
-    for how long.
-5.  Booking overlap handling for multi-day bookings, overnight shifts,
-    and concurrent requests.
-6.  Payment timeout, retries, refunds, gateway callbacks, fees, and
-    commission.
-7.  Cancellation rules and refund policy.
-8.  Whether one booking can cover one machine only or multiple machines.
-9.  Work completion confirmation by owner, buyer, or both.
-10. Review direction, dimensions, and duplicate-review rules.
-11. File storage provider, private/public access, retention, and upload
-    rules.
-12. Notification delivery timing and email requirements.
-13. Whether one user can own more than one company.
-14. Exact buyer dashboard and profile requirements.
-15. Final database indexes, constraints, and deletion policies.
-16. Hosting, backups, logging, monitoring, privacy, and production
-    operations.
-
-Do not implement these as settled requirements until they are decided.
+1. Exact Laravel version and authentication starter approach.
+2. Final public route access for guests and buyers.
+3. Who may change a machine's operational status and the allowed transitions.
+4. Whether accepted or payment-pending bookings reserve capacity, and for how long.
+5. Capacity units and detailed availability scheduling semantics.
+6. Booking overlap handling for multi-day bookings, overnight shifts, and concurrent requests.
+7. Demo payment failure/timeout handling and whether multiple demo payment attempts are allowed.
+8. Future gateway selection, refunds, callbacks, fees, commissions, taxes, and owner settlement.
+9. Cancellation rules and refund policy.
+10. Whether one booking can cover one machine only or multiple machines.
+11. Work completion confirmation by owner, buyer, or both.
+12. Review dimensions, edits/removal, and dispute handling.
+13. File storage provider, private/public access, retention, and upload rules.
+14. Notification delivery timing and email requirements.
+15. Exact buyer dashboard and profile requirements.
+16. Final database indexes, deletion policies, hosting, backups, logging, monitoring, privacy, and production operations.
 
 ## 19. Architecture completion criteria
 

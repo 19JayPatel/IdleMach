@@ -418,7 +418,7 @@ described.
 ## 3.1 Shared dashboard structure
 
 -   [x] Create a shared dashboard layout.
--   [!] Create role-specific navigation for Admin, Owner, and Buyer.
+-   [x] Create role-specific navigation for Admin, Owner, and Buyer.
 -   [x] Add a page title and breadcrumb pattern.
 -   [x] Add a responsive sidebar or mobile drawer.
 -   [x] Create consistent dashboard tables, filters, cards, and status
@@ -480,9 +480,11 @@ described.
 >   without creating a payment record. Reset restores the initial sample states.
 > - Adding a machine creates a sixth row with status `pending`, increments Pending
 >   Approvals to 2, and does not add to available capacity. Machine status words
->   remain exactly `pending`, `approved`, `rejected`, `active`, `inactive`, and
->   `maintenance`; only approved machines are marketplace-visible and only active
->   machines are request-eligible.
+>   are split into two fields: `approval_status` (`pending`, `approved`,
+>   `rejected`) and `operational_status` (`active`, `inactive`,
+>   `maintenance`). All approved machines are marketplace-visible, including
+>   inactive and maintenance listings; only approved + active machines can
+>   receive new booking requests.
 > - Completion was tested on paid, in-progress CS-10026. Confirming without the
 >   physical-work checkbox is blocked and leaves counts unchanged; with the
 >   checkbox the status becomes `completed`, Ongoing Work falls from 1 to 0,
@@ -628,8 +630,9 @@ described.
 >      material, photos count, and verification notes.
 >    - *Approve:* confirmation modal that updates local row status to approved,
 >      updates badge, disables buttons, decrements pending counters, and shows
->      demo feedback toast noting that approved machines move to the marketplace
->      after owner activation.
+>      demo feedback. Approved listings become marketplace-visible regardless
+>      of operational status; only approved + active listings can receive new
+>      booking requests.
 >    - *Reject:* rejection modal capturing structured reason and optional admin
 >      notes, updating local row status to rejected, decrementing pending
 >      counters, and showing demo feedback toast.
@@ -911,15 +914,20 @@ availability within their permissions.
 -   [ ] Implement machine approval.
 -   [ ] Implement machine rejection.
 -   [ ] Display listing status to the owner.
--   [ ] Ensure only approved machines appear in the marketplace.
--   [ ] Ensure only active machines can receive booking requests.
+-   [ ] Ensure all approved machines appear in the marketplace, including
+    inactive and maintenance listings.
+-   [ ] Ensure only approved + active machines can receive new booking
+    requests.
 -   [ ] Implement block/unblock actions with authorization.
 -   [ ] Implement booking, payment, and review monitoring.
 -   [ ] Implement reports/activity views based on defined data.
 -   [ ] Test admin permissions and status transitions.
 
-**Open dependency:** The exact transition from `approved` to `active`
-must be decided before implementing that part of the workflow.
+**Open dependency:** Approval and operational status are separate. The
+permission rules and allowed transitions for changing
+`operational_status` (`active`, `inactive`, `maintenance`) still
+need to be decided. Approval alone does not automatically activate a
+machine.
 
 **Exit check:** Admin actions are protected, recorded consistently, and
 reflected in the appropriate owner and marketplace views.
@@ -929,7 +937,12 @@ reflected in the appropriate owner and marketplace views.
 # Phase 9 --- Buyer Marketplace
 
 -   [ ] Build the machine marketplace using database records.
--   [ ] Show only approved machines in the marketplace.
+-   [ ] Show every approved machine in the marketplace, including listings
+    whose operational status is inactive or maintenance.
+-   [ ] Clearly label approved inactive/maintenance machines as unavailable
+    and disable their new-booking action.
+-   [ ] Allow new booking requests only for machines that are both approved
+    and active, subject to date/time capacity checks.
 -   [ ] Implement machine search.
 -   [ ] Implement the approved machine filters.
 -   [ ] Implement machine detail pages.
@@ -982,8 +995,11 @@ them without violating availability or access rules.
 -   [ ] Protect payment information.
 -   [ ] Test payment and booking status consistency.
 
-**Scope note:** A demo payment record is not a real payment gateway.
-Real Razorpay/Stripe integration is optional until approved.
+**Scope note:** The MVP uses demo/simulated payment outcomes only. It
+must not charge real money or imply that real funds were received. A
+booking is confirmed only after a successful demo payment record is
+saved. Real Razorpay/Stripe integration is deferred to a later phase;
+demo failure/timeout handling and multiple attempts remain open.
 
 **Exit check:** Payment records and booking confirmation follow the
 approved sequence and remain consistent.
@@ -996,12 +1012,13 @@ approved sequence and remain consistent.
 -   [ ] Implement the approved transition to `in_progress`.
 -   [ ] Allow the permitted completion action.
 -   [ ] Mark work completed only when the work is actually completed.
--   [ ] Allow eligible users to submit a review after completion.
--   [ ] Validate review content and rating according to the approved
-    rules.
--   [ ] Prevent unauthorized reviews.
--   [ ] Prevent duplicate reviews unless the approved policy allows
-    them.
+-   [ ] Allow only the buyer associated with a completed booking to review
+    the machine owner.
+-   [ ] Validate that the reviewer is the booking buyer and the reviewee is
+    the booked machine's owner.
+-   [ ] Enforce at most one review per booking with a unique
+    `reviews.booking_id` constraint.
+-   [ ] Prevent owners from reviewing buyers.
 -   [ ] Display reviews in the appropriate owner/machine views.
 -   [ ] Test the full booking-to-completion journey.
 
@@ -1110,12 +1127,16 @@ required product decisions are approved.
 
 Record decisions here before implementing features that depend on them.
 
--   [ ] Define the exact transition from machine `approved` to `active`.
+-   [ ] Define who may change machine `operational_status` and the
+    allowed transitions between `active`, `inactive`, and
+    `maintenance`.
 -   [ ] Confirm capacity units and detailed availability scheduling
     rules.
 -   [ ] Define booking cancellation, rescheduling, and refund policies.
--   [ ] Confirm payment gateway and payment deadlines, if required.
--   [ ] Define commission, tax, and owner payout rules, if applicable.
+-   [ ] Define demo payment failure/timeout handling and whether multiple
+    demo payment attempts are allowed.
+-   [ ] Select a future real payment gateway only when that phase is
+    approved; define related deadlines, fees, taxes, and owner payouts.
 -   [ ] Confirm supported drawing/document file types and upload limits.
 -   [ ] Define review editing/removal and dispute rules.
 -   [ ] Confirm notification channels and delivery expectations.
@@ -1125,8 +1146,10 @@ Record decisions here before implementing features that depend on them.
 -   [!] Confirm final brand identity and design tokens. *(Frontend uses
     clearly documented provisional values pending approval.)*
 -   [!] Confirm the final prototype sitemap and dashboard page scope.
-    *(Only the Phase 0.2/1 workspace and design-foundation pages are
-    currently defined.)*
+    *(Public pages and the three dashboard overview prototypes are
+    implemented; remaining Admin management sub-screens and Buyer profile
+    fields are not defined/implemented and remain outside the completed
+    dashboard overview scope.)*
 
 > **Phase 0.2 / Phase 1 blockers:** The logo/wordmark, final palette, and
 > brand font require approval. The current temporary values are isolated

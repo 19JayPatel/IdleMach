@@ -752,100 +752,200 @@ the correct role-specific actions, and work responsively.
 
 ------------------------------------------------------------------------
 
-# Phase 4 --- Frontend Interaction and Quality Checks
+# Phase 4 --- Frontend Review and Acceptance
 
-## 4.1 Interaction checks
+## 4.1 User review and interaction acceptance
 
--   [ ] Verify all navigation links point to the correct pages.
--   [ ] Verify all visible buttons perform their labelled prototype
-    action.
--   [ ] Verify mobile navigation opens and closes.
--   [ ] Verify dropdowns, tabs, modals, and galleries where present.
--   [ ] Verify search and filters update the displayed sample results.
--   [ ] Verify form validation and error messages.
--   [ ] Verify file upload controls show selected file information where
-    implemented.
--   [ ] Verify disabled controls look and behave as disabled.
--   [ ] Remove placeholder links such as `href="#"` from completed
-    pages.
+- [x] Review all 12 HTML pages.
+- [x] Confirm that the existing website design and section-wise content are acceptable.
+- [x] User confirms that the current prototype functionality is working as expected.
+- [x] User confirms that all current pages are responsive.
+- [x] Confirm that the existing public pages and Admin, Machine Owner, and Buyer dashboards are included in the review.
 
-## 4.2 Visual and responsive checks
+> **User review confirmation (2026-11-09):** The user reviewed all current website pages and confirmed that the design, section-wise content, responsiveness, and existing prototype functionality are satisfactory. The current layout and visual direction should be preserved during the upcoming content and image cleanup. This is user-reported acceptance, not a claim that every interaction has been independently retested in a live browser during this review.
 
--   [ ] Inspect every agreed page in an actual browser.
--   [ ] Check desktop layout.
--   [ ] Check tablet layout.
--   [ ] Check mobile layout.
--   [ ] Check for horizontal overflow.
--   [ ] Check alignment, spacing, typography, and image cropping.
--   [ ] Check empty, error, and success states where applicable.
--   [ ] Check that the public site and dashboard screens feel like one
-    product.
+## 4.2 Static source review
 
-## 4.3 Technical checks
+- [x] Inspect all 12 HTML pages.
+- [x] Check for duplicate actual HTML `id` attributes.
+- [x] Check local page links and fragment targets.
+- [x] Check for empty placeholder links such as `href="#"` and `javascript:`.
+- [x] Inspect shared CSS responsive breakpoints.
+- [x] Inspect shared JavaScript for browser storage and network calls.
+- [x] Record the limitations of static source inspection.
 
--   [ ] Check the browser console for JavaScript errors.
--   [ ] Check that CSS, JavaScript, fonts, icons, and images load
-    correctly.
--   [ ] Remove duplicate event listeners and unused code.
--   [ ] Check HTML structure and form labels.
--   [ ] Test keyboard navigation and visible focus.
--   [ ] Record any remaining prototype limitations.
+> **Static source review (2026-11-09):** The 12 HTML pages, shared `css/style.css`, shared `js/script.js`, and frontend README were inspected on branch `docs/stage-1-prd-rules`. No duplicate actual HTML IDs, broken local fragment targets, or empty placeholder links were found in the reviewed HTML. Responsive CSS rules include common desktop, tablet, and mobile breakpoints. The shared JavaScript review found no `localStorage`, `sessionStorage`, or `fetch()` calls.
+>
+> This was a source-level review, not a fresh live-browser test. It does not independently certify every visual state, every interaction, or every local asset path. The user has separately confirmed that the current pages are responsive and their functionality works.
 
-**Milestone:** Frontend prototype reviewed and approved before backend
-integration.
+## 4.3 Frontend acceptance status
+
+- [x] Existing page structure and section hierarchy accepted by the user.
+- [x] Existing visual design accepted by the user.
+- [x] Existing responsive behaviour accepted by the user.
+- [x] Existing prototype functionality accepted by the user.
+- [ ] Complete the upcoming demo-content and image cleanup.
+- [ ] Recheck all pages after content and image changes.
+- [ ] Record the final frontend cleanup results.
+
+**Phase 4 status:** The current frontend design and prototype are accepted as the baseline. Do not redesign or restructure the website without a separate requirement. The next task is controlled content and image cleanup.
+
+------------------------------------------------------------------------
+
+# Phase 4.5 --- Demo Content Cleanup and Image Integration
+
+> **Purpose:** Prepare the accepted frontend prototype for the next development stage by removing temporary demonstration content and replacing the current illustrative imagery with approved local images. Preserve the existing design, layout, sections, and working prototype interactions unless a specific change is required.
+
+## 4.5.1 Content and sample-data audit
+
+- [ ] Review all 12 HTML pages and identify demo, sample, dummy, and illustrative content.
+- [ ] Identify sample machine names, company names, user details, locations, prices, and capacities.
+- [ ] Identify sample dashboard statistics, booking records, payment records, earnings, reviews, and notifications.
+- [ ] Identify sample activity-feed entries and illustrative management records.
+- [ ] Identify demo-only success messages and prototype notices.
+- [ ] Separate actual product explanations and approved business rules from temporary sample records.
+- [ ] Prepare a page-wise list of content to remove, retain, or replace.
+- [ ] Do not invent real users, companies, machine listings, prices, ratings, transactions, or business statistics.
+
+## 4.5.2 Demo and sample content cleanup
+
+- [ ] Remove temporary sample machine records from the homepage and Explore Machines page.
+- [ ] Remove temporary sample machine records from the Machine Details page.
+- [ ] Remove illustrative user, company, and machine records from dashboard views where they are no longer required.
+- [ ] Remove sample booking, payment, earnings, review, notification, and activity records.
+- [ ] Remove fake statistics and totals that could be mistaken for actual platform data.
+- [ ] Remove sample names, locations, rates, capacities, and other invented business information.
+- [ ] Retain approved product explanations, section headings, workflow descriptions, and business rules.
+- [ ] Use clear empty states where real backend data is not available.
+- [ ] Keep prototype-only notices wherever a form or action is still not connected to a backend.
+- [ ] Do not imply that login, registration, booking, payment, file upload, messaging, or notifications are connected to a live service.
+- [ ] Do not remove required UI sections simply because their future backend data is not available.
+
+## 4.5.3 Local image folder preparation
+
+- [ ] Prepare the approved image collection inside `IdleMach-Frontend/assets/images/`.
+- [ ] Organize images into meaningful folders such as `logo/`, `hero/`, `machines/`, `industries/`, `about/`, `team/`, and `common/`, as applicable.
+- [ ] Confirm the actual image filenames and extensions before referencing them.
+- [ ] Prefer descriptive, consistent, lowercase filenames.
+- [ ] Use only images supplied or approved for the project.
+- [ ] Do not invent image filenames or reference files that do not exist.
+- [ ] Remove old illustrative or external placeholder image references after replacement images are confirmed.
+- [ ] Use local relative image paths that work from the relevant HTML pages.
+- [ ] Add meaningful alternative text to informative images and empty alternative text to decorative images.
+- [ ] Preserve appropriate image aspect ratios, cropping, and responsive behaviour.
+- [ ] Provide a graceful fallback for missing or failed images where appropriate.
+
+## 4.5.4 Page-wise image integration
+
+- [ ] Home page: replace temporary hero and section imagery.
+- [ ] Explore Machines: replace temporary machine-card imagery.
+- [ ] Machine Details: replace temporary gallery and machine imagery.
+- [ ] How It Works: review and replace illustrations where approved images are available.
+- [ ] About: use approved company or industry imagery only.
+- [ ] Contact: retain only imagery that supports the existing design.
+- [ ] Login and Registration: preserve the accepted layout; replace imagery only where applicable.
+- [ ] Admin Dashboard: remove temporary record imagery and use only approved interface assets.
+- [ ] Machine Owner Dashboard: remove temporary record imagery and use only approved interface assets.
+- [ ] Buyer Dashboard: remove temporary record imagery and use only approved interface assets.
+- [ ] Styleguide: update image examples if the shared image assets change.
+
+## 4.5.5 Empty states and prototype boundaries
+
+- [ ] Add a clear empty state when no real machine listings are available.
+- [ ] Add suitable empty states for bookings, payments, reviews, notifications, and activity sections.
+- [ ] Keep empty states consistent with the existing design system.
+- [ ] Do not display fabricated statistics to fill empty dashboard cards.
+- [ ] Do not show successful payment or booking confirmation without a real backend.
+- [ ] Keep existing frontend-only behaviour clearly identified as a prototype.
+- [ ] Do not create fake backend functionality or pretend that data is saved.
+
+## 4.5.6 Design preservation and regression checks
+
+- [ ] Preserve the existing page layouts and section order.
+- [ ] Preserve the existing shared CSS design system and responsive navigation.
+- [ ] Do not redesign the Admin, Machine Owner, or Buyer dashboards.
+- [ ] Do not modify unrelated JavaScript or CSS behaviour.
+- [ ] Check image loading and image dimensions on all relevant pages.
+- [ ] Check desktop, tablet, and mobile layouts after changes.
+- [ ] Check navigation, buttons, forms, filters, modals, and empty states.
+- [ ] Check browser console errors and failed asset requests.
+- [ ] Check for broken links, missing images, horizontal overflow, and layout regressions.
+- [ ] Update the frontend README after the cleanup is completed.
+
+**Phase 4.5 exit check:** Temporary demo content and illustrative imagery have been reviewed and cleaned up, approved local images are integrated, empty states are meaningful, and the accepted website design remains intact.
 
 ------------------------------------------------------------------------
 
 # Phase 5 --- Laravel Application Foundation
 
-> Start this phase after the frontend prototype and its scope are
-> reviewed.
+> Start this phase only after Phase 4.5 is completed and the cleaned frontend is reviewed.
 
 ## 5.1 Laravel setup
 
--   [ ] Create or prepare the Laravel application.
--   [ ] Configure the local development environment.
--   [ ] Configure MySQL connection through environment settings.
--   [ ] Confirm the application can connect to the database.
--   [ ] Set up the project's source control and ignore rules.
--   [ ] Confirm the Laravel version to use before implementation.
+- [ ] Create or prepare the Laravel application.
+- [ ] Configure the local development environment.
+- [ ] Configure the MySQL connection through environment settings.
+- [ ] Confirm the application can connect to the database.
+- [ ] Set up the project's source control and ignore rules.
+- [ ] Confirm the Laravel version to use before implementation.
 
 ## 5.2 Application structure
 
--   [ ] Create the agreed Blade layout structure.
--   [ ] Create shared header, footer, and navigation partials.
--   [ ] Organize public, admin, owner, and buyer views.
--   [ ] Move shared CSS and JavaScript into the Laravel asset structure.
--   [ ] Convert approved prototype pages into Blade templates.
--   [ ] Verify that the converted pages preserve the approved design.
+- [ ] Create the agreed Blade layout structure.
+- [ ] Create shared header, footer, and navigation partials.
+- [ ] Organize public, admin, owner, and buyer views.
+- [ ] Move approved shared CSS and JavaScript into the Laravel asset structure.
+- [ ] Convert the cleaned and approved prototype pages into Blade templates.
+- [ ] Integrate approved local images into the Laravel asset structure.
+- [ ] Verify that converted pages preserve the approved frontend design.
 
 ## 5.3 Database and migrations
 
 Create and verify migrations for the planned core entities:
 
--   [ ] `users`
--   [ ] `companies`
--   [ ] `machines`
--   [ ] `machine_images`
--   [ ] `machine_availabilities`
--   [ ] `bookings`
--   [ ] `booking_documents`
--   [ ] `payments`
--   [ ] `reviews`
--   [ ] `notifications`
+- [ ] `users`
+- [ ] `companies`
+- [ ] `machines`
+- [ ] `machine_images`
+- [ ] `machine_availabilities`
+- [ ] `bookings`
+- [ ] `booking_documents`
+- [ ] `payments`
+- [ ] `reviews`
+- [ ] `notifications`
 
 Additional tasks:
 
--   [ ] Define foreign keys and relationships from the approved data
-    model.
--   [ ] Add required indexes and constraints.
--   [ ] Define allowed status values and validation rules.
--   [ ] Run migrations on a clean development database.
--   [ ] Verify relationships and referential integrity.
--   [ ] Use demo/seed data only where it is clearly identified.
+- [ ] Define foreign keys and relationships from the approved data model.
+- [ ] Add required indexes and constraints.
+- [ ] Define allowed status values and validation rules.
+- [ ] Run migrations on a clean development database.
+- [ ] Verify relationships and referential integrity.
+- [ ] Use seed data only when it is intentionally required for development and clearly identified as test data.
 
-**Exit check:** Laravel runs, MySQL is connected, migrations succeed on
-a clean database, and shared Blade layouts render.
+**Exit check:** Laravel runs, MySQL is connected, migrations succeed on a clean database, and shared Blade layouts render the approved frontend.
+
+------------------------------------------------------------------------
+
+# Definition of Done
+
+A task may be marked `[x]` only when all applicable conditions are met:
+
+1. The implementation matches the approved requirement.
+2. The correct role can access the feature and unauthorized roles cannot.
+3. Input and state changes are validated appropriately.
+4. The page or feature works in the browser.
+5. The layout is checked on desktop, tablet, and mobile where applicable.
+6. Relevant errors and empty states are handled.
+7. No known blocking console or application errors remain.
+8. Related pages and shared components have been checked for regressions.
+9. Any limitations or unimplemented parts are documented.
+
+------------------------------------------------------------------------
+
+## Final Project Rule
+
+**Complete the core IdleMach marketplace journey first: owners list capacity, admins review listings, buyers discover machines and request work, owners respond, successful payment confirms the booking, work is completed, and eligible users leave reviews. Keep each phase tested before moving to the next.**
 
 ------------------------------------------------------------------------
 

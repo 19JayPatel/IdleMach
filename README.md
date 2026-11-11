@@ -1,105 +1,78 @@
 # IdleMach — Frontend Prototype
 
-IdleMach is a manufacturing-capacity marketplace designed to connect machine owners who have unused manufacturing capacity with buyers who need manufacturing services.
-
 **Tagline:** Turn Idle Capacity Into Opportunity.
 
-This folder contains the static frontend prototype of IdleMach. It is built using HTML, CSS, JavaScript, Bootstrap 5, and Font Awesome.
+IdleMach is a manufacturing-capacity marketplace concept that connects machine owners who have unused manufacturing hours with buyers who need manufacturing work.
 
-The frontend is being prepared for a future Laravel, PHP, and MySQL implementation.
+This repository currently contains the static frontend prototype built using HTML, CSS, JavaScript, Bootstrap 5, and Font Awesome.
+
+The frontend demonstrates the public website, marketplace discovery, machine details, authentication interfaces, and role-based dashboard experiences.
+
+> **Important:** This is a frontend prototype, not a live marketplace. Laravel, PHP backend functionality, MySQL, real authentication, live bookings, file uploads, and real payment processing are not connected.
 
 ---
 
-## 1. Current Project Status
+## 1. Project Status
 
-| Area | Current status |
-|---|---|
-| Public website pages | Implemented |
-| Login and Registration UI | Implemented as frontend prototypes |
-| Admin Dashboard | Implemented as frontend prototype |
-| Machine Owner Dashboard | Implemented as frontend prototype |
-| Buyer Dashboard | Implemented as frontend prototype |
-| Shared CSS and JavaScript | Implemented |
-| Responsive layouts | Reviewed and accepted by the user |
-| Existing prototype interactions | Reviewed and accepted by the user |
-| Laravel backend | Not connected |
-| MySQL database | Not connected |
-| Real authentication | Not implemented |
-| Live payment gateway | Not connected |
-| Real machine listings and bookings | Not connected |
-| Demo content cleanup | Planned |
-| Approved local image integration | Planned |
+The frontend implementation currently covers:
 
-**Frontend review confirmation — 9 November 2026**
+- Phase 0.2 — Frontend Workspace Setup
+- Phase 1 — Frontend Design Foundation
+- Phase 2.1 — Home Page
+- Phase 2.2 — Explore Machines
+- Phase 2.3 — Machine Details
+- Phase 2.4 — How It Works
+- Phase 2.5 — About and Contact
+- Phase 2.6 — Login and Registration
+- Phase 3.1 — Admin Dashboard
+- Phase 3.2 — Machine Owner Dashboard
+- Phase 3.3 — Buyer Dashboard
+- Phase 3.4 — Dashboard Integration and Consistency
+- Phase 4 — Frontend Review and Acceptance
 
-The user has reviewed all current website pages and confirmed that the design, section-wise content, responsiveness, and existing prototype functionality are satisfactory.
+**Current next stage:** Phase 4.5 — Demo Content Cleanup and Image Integration.
 
-The current design and page structure must be preserved during the next cleanup stage. The upcoming work is focused on removing temporary demonstration content and replacing temporary imagery with approved local images, not redesigning the website.
+The frontend has been reviewed and accepted as a prototype. The remaining image cleanup and integration tasks must be completed before moving to the Laravel application foundation.
 
-A static source review was also performed on the project branch. It checked the 12 HTML pages, shared CSS, shared JavaScript, and local page links. Static inspection does not replace a complete live-browser test.
+Refer to the repository's `task.md` for detailed task progress and verification notes.
 
 ---
 
 ## 2. Technology Stack
 
-| Technology | Purpose |
-|---|---|
-| HTML5 | Page structure |
-| CSS3 | Custom styling and responsive layouts |
-| JavaScript | Frontend interactions |
-| Bootstrap 5.3.3 | Responsive grid and UI utilities |
-| Font Awesome 6.7.2 | Icons |
-| PHP local development server | Serving static frontend pages during development |
+| Technology         | Purpose                                  |
+| ------------------ | ---------------------------------------- |
+| HTML5              | Page structure and content               |
+| CSS3               | Custom styling and responsive layouts    |
+| JavaScript         | Frontend interactions and demo behaviour |
+| Bootstrap 5.3.3    | Responsive grid and UI components        |
+| Font Awesome 6.7.2 | Icons                                    |
+| SVG                | Custom industrial illustrations          |
 
-Bootstrap and Font Awesome are stored locally under `assets/vendor/`. This allows the frontend prototype to work without depending on external CDN requests for these libraries.
-
-No frontend framework or backend framework is connected in this stage.
+Bootstrap and Font Awesome are stored locally in the project. The frontend does not depend on external CDNs for these libraries.
 
 ---
 
-## 3. Pages Included
+## 3. How to Run Locally
 
-The current frontend contains 12 HTML pages.
+The frontend should be served through a local HTTP server rather than opened directly using `file://`.
 
-| File | Purpose |
-|---|---|
-| `index.html` | Homepage, marketplace introduction, owner and buyer journeys |
-| `machines.html` | Explore Machines, search, filters, sorting, and results |
-| `machine-details.html` | Machine information, image gallery, specifications, and booking-request UI |
-| `how-it-works.html` | Machine Owner and Buyer journeys and the marketplace workflow |
-| `about.html` | Marketplace purpose, roles, workflow, and principles |
-| `contact.html` | Contact information layout and frontend-only contact form |
-| `login.html` | Login interface and dashboard preview navigation |
-| `register.html` | Registration interface for Machine Owners and Buyers |
-| `admin-dashboard.html` | Admin overview, approval monitoring, booking monitoring, and business rules |
-| `owner-dashboard.html` | Company profile, machine management, capacity, availability, bookings, work, earnings, and reviews |
-| `buyer-dashboard.html` | Machine discovery, booking tracking, payments, completed work, and reviews |
-| `styleguide.html` | Design tokens and reusable UI component reference |
+### Option 1: PHP development server
 
-The public website and three role-based dashboards are part of the same frontend prototype.
-
----
-
-## 4. How to Run Locally
-
-The pages should be served through a local HTTP server instead of opening them directly using `file://`.
-
-### Option 1: PHP local server
-
-Open a terminal in the project root and run:
+Open a terminal in the project root:
 
 ```powershell
 cd IdleMach-Frontend
 php -S localhost:8000
 ```
 
-Open the following address:
+Open the following address in your browser:
 
 ```text
-http://localhost:8000/index.html
+http://localhost:8000/
 ```
 
-### Option 2: Python local server
+### Option 2: Python development server
 
 If PHP is unavailable:
 
@@ -111,296 +84,364 @@ python -m http.server 8000
 Then open:
 
 ```text
-http://localhost:8000/index.html
+http://localhost:8000/
 ```
 
-### Important
+Any other static HTTP server can also be used.
 
-- Keep the local server running while testing.
-- Use the correct relative asset paths.
-- Do not use `file://` for final testing.
-- The frontend does not require a MySQL database at this stage.
+---
+
+## 4. Available Pages
+
+| Page             | File                   | Purpose                                                                                                    |
+| ---------------- | ---------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Home             | `index.html`           | Marketplace introduction, hero, discovery preview, owner and buyer sections, and sample listings           |
+| Explore Machines | `machines.html`        | Search, filter, sort, and discover sample machine listings                                                 |
+| Machine Details  | `machine-details.html` | Machine information, gallery, specifications, capacity, availability, and demo booking form                |
+| How It Works     | `how-it-works.html`    | Owner journey, buyer journey, admin role, and nine-stage booking workflow                                  |
+| About            | `about.html`           | Marketplace purpose, platform principles, roles, and calls to action                                       |
+| Contact          | `contact.html`         | Contact enquiry form with local validation and demo feedback                                               |
+| Login            | `login.html`           | Login interface and dashboard preview links                                                                |
+| Register         | `register.html`        | Owner and buyer registration interface                                                                     |
+| Admin Dashboard  | `admin-dashboard.html` | Demo machine approvals, booking monitoring, and administrative overview                                    |
+| Owner Dashboard  | `owner-dashboard.html` | Company profile, machine management, capacity, availability, booking requests, work, earnings, and reviews |
+| Buyer Dashboard  | `buyer-dashboard.html` | Machine discovery, booking tracking, payment history, completed work, and reviews                          |
+| Styleguide       | `styleguide.html`      | Design tokens, reusable components, and frontend styling reference                                         |
+
+### Useful local routes
+
+```text
+http://localhost:8000/index.html
+http://localhost:8000/machines.html
+http://localhost:8000/machine-details.html?id=1
+http://localhost:8000/machine-details.html?id=2
+http://localhost:8000/machine-details.html?id=3
+http://localhost:8000/how-it-works.html
+http://localhost:8000/about.html
+http://localhost:8000/contact.html
+http://localhost:8000/login.html
+http://localhost:8000/register.html
+http://localhost:8000/admin-dashboard.html
+http://localhost:8000/owner-dashboard.html
+http://localhost:8000/buyer-dashboard.html
+http://localhost:8000/styleguide.html
+```
 
 ---
 
 ## 5. Project Folder Structure
 
-Current frontend structure:
-
 ```text
-IdleMach/
+IdleMach-Frontend/
 │
-├── IdleMach-Frontend/
-│   │
-│   ├── index.html
-│   ├── machines.html
-│   ├── machine-details.html
-│   ├── how-it-works.html
-│   ├── about.html
-│   ├── contact.html
-│   ├── login.html
-│   ├── register.html
-│   ├── admin-dashboard.html
-│   ├── owner-dashboard.html
-│   ├── buyer-dashboard.html
-│   ├── styleguide.html
-│   │
-│   ├── css/
-│   │   └── style.css
-│   │
-│   ├── js/
-│   │   └── script.js
-│   │
-│   ├── assets/
-│   │   ├── icons/
-│   │   │   └── favicon.svg
-│   │   │
-│   │   ├── images/
-│   │   │   └── Current prototype illustrations
-│   │   │
-│   │   └── vendor/
-│   │       ├── bootstrap/
-│   │       └── fontawesome/
-│   │
-│   └── README.md
+├── index.html
+├── machines.html
+├── machine-details.html
+├── how-it-works.html
+├── about.html
+├── contact.html
+├── login.html
+├── register.html
+├── admin-dashboard.html
+├── owner-dashboard.html
+├── buyer-dashboard.html
+├── styleguide.html
 │
-├── CapacityShare.md
-├── Design.md
-├── Rules.md
-├── architecture.md
-├── memory.md
-├── prd.md
-└── task.md
+├── robots.txt
+│
+├── css/
+│   └── style.css
+│
+├── js/
+│   └── script.js
+│
+├── assets/
+│   │
+│   ├── icons/
+│   │   └── favicon.svg
+│   │
+│   ├── images/
+│   │   ├── hero-workshop.svg
+│   │   ├── owner-capacity.svg
+│   │   ├── buyer-part.svg
+│   │   ├── machine-turning.svg
+│   │   ├── machine-milling.svg
+│   │   └── machine-fabrication.svg
+│   │
+│   └── vendor/
+│       ├── bootstrap/
+│       │   └── Bootstrap 5.3.3 files
+│       │
+│       └── fontawesome/
+│           ├── css/
+│           └── webfonts/
+│
+└── README.md
 ```
 
-The `assets/images/` directory currently contains the prototype's existing illustrations. Its contents will be reviewed and reorganized during Phase 4.5 after the approved image collection is provided.
-
-### Planned image organization
-
-The following is the proposed organization for the approved local images. Create only the folders that are actually needed.
-
-```text
-assets/
-└── images/
-    ├── logo/
-    ├── hero/
-    ├── machines/
-    ├── industries/
-    ├── about/
-    ├── team/
-    └── common/
-```
-
-Image filenames must be confirmed from the actual files before they are referenced in HTML or CSS.
+The image filenames above represent the existing illustrations referenced by the homepage. Keep any additional vendor files and assets already present in the repository.
 
 ---
 
-## 6. Design System
+## 6. Image and Visual Design Guidelines
 
-The shared design system is defined in:
+IdleMach uses an industrial B2B visual direction.
+
+The website should look clean, practical, professional, and trustworthy.
+
+### Existing homepage illustrations
+
+| Image                     | Purpose                                             |
+| ------------------------- | --------------------------------------------------- |
+| `hero-workshop.svg`       | CNC turning machine with weekly capacity board      |
+| `owner-capacity.svg`      | Machine owner capacity planning and weekly schedule |
+| `buyer-part.svg`          | Technical drawing and manufacturing capacity search |
+| `machine-turning.svg`     | CNC turning machine                                 |
+| `machine-milling.svg`     | Vertical machining centre                           |
+| `machine-fabrication.svg` | Hydraulic press brake                               |
+
+These SVGs are custom illustrations, not photographs of actual machines.
+
+### Planned image integration
+
+The About page may receive an additional industrial manufacturing workspace image.
+
+**Status:** Pending image generation, review, and integration.
+
+The image should:
+
+- Represent a believable manufacturing environment.
+- Use realistic industrial equipment and proportions.
+- Match the existing website's visual direction.
+- Avoid excessive effects and artificial-looking details.
+- Work well within the existing responsive layout.
+
+### Image consistency rules
+
+- Maintain one consistent visual direction across the website.
+- Do not mix unrelated illustration styles.
+- Avoid random stock photos.
+- Do not use distorted machine images or artificial-looking factory scenes.
+- Use real machine photography for marketplace listings only when appropriate and available.
+- Keep image dimensions and aspect ratios suitable for their page sections.
+- Use meaningful alternative text for informative images.
+- Do not add decorative images that make the layout unnecessarily crowded.
+
+---
+
+## 7. Design System
+
+The shared design system is maintained in:
 
 ```text
 css/style.css
 ```
 
-It contains:
+The main design tokens are defined under `:root`.
 
-- CSS custom properties and design tokens.
-- Page containers and section spacing.
-- Typography and text styles.
-- Buttons and form controls.
-- Cards and content panels.
-- Status badges.
-- Alerts and empty states.
-- Public website navigation and footer.
-- Dashboard layout and responsive sidebars.
-- Table styles and responsive table wrappers.
-- Modal and confirmation styles.
-- Mobile and tablet responsive rules.
+### Current provisional colour palette
 
-The existing design system and section hierarchy have been accepted as the current design baseline.
+| Colour       | Value     | Usage                          |
+| ------------ | --------- | ------------------------------ |
+| Primary Teal | `#0F5C6B` | Main brand and primary actions |
+| Dark Teal    | `#0A414C` | Darker interactive states      |
+| Soft Teal    | `#E6F2F3` | Soft backgrounds               |
+| Accent Amber | `#9A5B0B` | Secondary accents              |
+| Navy         | `#10202B` | Headings and dark elements     |
+| Background   | `#F5F7F8` | Main page background           |
+| White        | `#FFFFFF` | Cards and content surfaces     |
 
-**Do not redesign existing pages during the content and image cleanup.**
+**Note:** The palette, logo mark, and font family remain provisional until formally approved.
 
-Any future visual change must be limited to the specific requirement being addressed.
+### Shared styling components
 
----
+| Component         | Main classes                                                                           |
+| ----------------- | -------------------------------------------------------------------------------------- |
+| Layout            | `.container-im`, `.section`                                                            |
+| Typography        | `.display-title`, `.page-title`, `.section-title`, `.eyebrow`                          |
+| Buttons           | `.btn-im`, `.btn-im-primary`, `.btn-im-secondary`, `.btn-im-outline`, `.btn-im-danger` |
+| Forms             | Bootstrap form controls, `.form-required`, `.invalid-feedback`                         |
+| Cards             | `.im-card`, `.im-card-header`, `.im-card-body`, `.im-card-footer`                      |
+| Status            | `.status-badge`, `.status-available`, `.status-pending`, `.status-rejected`            |
+| Feedback          | `.im-alert`, `.empty-state`, `.confirmation-panel`                                     |
+| Homepage          | `.home-hero`, `.hero-roles`, `.discovery-panel`, `.journey-panel`, `.cta-band`         |
+| Explore           | `.machines-hero`, `.machine-filter-panel`, `.results-toolbar`                          |
+| Machine Details   | `.machine-detail-hero`, `.detail-gallery`, `.booking-panel`                            |
+| How It Works      | `.hiw-hero`, `.hiw-steps`, `.hiw-rules-panel`                                          |
+| About and Contact | `.page-hero`, `.page-hero-panel`, `.purpose-steps`, `.contact-form-panel`              |
 
-## 7. JavaScript Functionality
-
-Shared JavaScript is maintained in:
-
-```text
-js/script.js
-```
-
-The frontend currently includes prototype interactions such as:
-
-- Active navigation and mobile navigation.
-- Sticky header behaviour.
-- Homepage search and suggestion filters.
-- Explore Machines search, filters, sorting, and empty state.
-- Machine Details rendering from the current sample records.
-- Machine Details gallery interactions.
-- Frontend-only booking request validation.
-- Contact form validation.
-- Login and Registration form validation.
-- Password visibility controls.
-- Admin Dashboard prototype approval and rejection actions.
-- Machine Owner Dashboard machine and booking interactions.
-- Buyer Dashboard discovery, booking, payment, and review preview interactions.
-- Dashboard notifications and modal interactions.
-- Responsive dashboard sidebar and mobile drawer behaviour.
-
-These interactions are frontend demonstrations. They do not create or update real database records.
-
-During Phase 4.5, existing interactions should be reviewed when their underlying sample data is removed. Do not leave broken buttons or controls that depend on deleted records.
+Dashboard-specific styles are also maintained in the same shared stylesheet.
 
 ---
 
-## 8. Prototype Limitations
+## 8. Frontend Functionality
 
-The current frontend is not a live marketplace.
+The frontend demonstrates the following interactions:
 
-The following features are not connected to a real backend:
+### Public website
 
-1. User registration and authentication.
-2. Login sessions and role-based authorization.
-3. Company profile persistence.
-4. Machine listing creation and management.
-5. Real machine image uploads.
-6. Database-backed machine availability.
-7. Real booking requests and owner acceptance.
-8. Real payment processing.
-9. Payment confirmation and refunds.
-10. Work progress and completion persistence.
-11. Real reviews and ratings.
-12. Live notifications and messaging.
-13. Admin management of real users, machines, and bookings.
+- Responsive navigation.
+- Active navigation highlighting.
+- Sticky header scroll behaviour.
+- Homepage machine search and filters.
+- Marketplace discovery.
+- Machine details rendering from sample records.
+- Local form validation.
+- Prototype notices and feedback.
 
-The frontend uses local prototype behaviour only.
+### Machine marketplace
 
-No button, form, notification, payment, booking, or success message should imply that a real transaction or database update has occurred.
+- Keyword search.
+- Process and location filters.
+- Availability and rate filters.
+- Sorting.
+- Result count updates.
+- Empty states.
+- Machine details navigation.
 
----
+### Authentication interfaces
 
-## 9. Phase 4.5 — Demo Content and Image Cleanup
+- Login form validation.
+- Password visibility toggle.
+- Owner and buyer registration selection.
+- Dynamic company fields.
+- Prototype-only feedback.
 
-The next frontend task is to prepare the existing accepted design for a more realistic project presentation.
+### Admin Dashboard
 
-### 9.1 Demo and sample content
+- Dashboard overview.
+- Machine approval and rejection demonstration.
+- Booking audit views.
+- Recent activity.
+- Business rules reference.
+- Responsive sidebar navigation.
 
-Review all 12 pages and identify:
+### Machine Owner Dashboard
 
-- Sample machine listings.
-- Dummy company and user information.
-- Illustrative prices, locations, and capacities.
-- Fake dashboard statistics.
-- Sample booking and payment records.
-- Sample earnings and reviews.
-- Sample notifications and activity records.
-- Other temporary demonstration information.
+- Company profile demonstration.
+- Machine listing management.
+- Add Machine form.
+- Capacity calculations.
+- Weekly availability matrix.
+- Booking request review.
+- Booking progress.
+- Work completion confirmation.
+- Demo earnings ledger.
+- Completed booking feedback.
 
-Remove temporary records where they are no longer needed.
+### Buyer Dashboard
 
-Do not invent actual business information to replace them.
+- Machine discovery.
+- Search and filtering.
+- Booking request status tracking.
+- Booking details modal.
+- Demo payment history.
+- Completed work.
+- Review eligibility.
+- Local review feedback.
+- Notifications and demo sign-out.
 
-### 9.2 Empty states
-
-When actual backend data is unavailable, retain the existing section layout and display meaningful empty states.
-
-Examples:
-
-- No machines available yet.
-- No booking requests found.
-- No payment records available.
-- No completed work yet.
-- No reviews received.
-- No new notifications.
-
-Empty states should use the existing design system.
-
-### 9.3 Image replacement
-
-- Use the approved images supplied for IdleMach.
-- Store images under `assets/images/`.
-- Use local relative paths.
-- Replace temporary external or illustrative image references where appropriate.
-- Preserve image dimensions, cropping, and responsive behaviour.
-- Do not reference filenames that do not exist.
-- Keep suitable fallback behaviour for unavailable images.
-
-### 9.4 Design preservation
-
-- Keep all existing page sections unless a specific requirement says otherwise.
-- Preserve the accepted page layouts.
-- Preserve the existing dashboard navigation and structure.
-- Avoid unrelated CSS and JavaScript changes.
-- Test all affected pages after each controlled change.
-
-### 9.5 Final review
-
-After cleanup:
-
-- Review all 12 pages.
-- Check image loading.
-- Check empty states.
-- Check navigation and internal links.
-- Check existing prototype interactions.
-- Check desktop, tablet, and mobile layouts.
-- Check the browser console and failed asset requests.
-- Update this README with the actual final image folder structure and cleanup status.
+All dashboard records and interactions are illustrative.
 
 ---
 
-## 10. Development Roadmap
+## 9. Accessibility and Responsive Design
 
-| Phase | Description | Status |
-|---|---|---|
-| Phase 0 | Project setup and requirement review | Completed |
-| Phase 1 | Frontend design foundation | Completed; final brand decisions remain open |
-| Phase 2 | Public website prototype | Implemented |
-| Phase 3 | Dashboard frontend prototype | Implemented |
-| Phase 3.4 | Dashboard integration and consistency testing | Completed |
-| Phase 4 | Frontend review and acceptance | User accepted; static source review recorded |
-| Phase 4.5 | Demo content cleanup and image integration | Next task |
-| Phase 5 | Laravel application foundation | Not started |
-| Phase 6 | Authentication and role access | Not started |
-| Phase 7 | Machine Owner module | Not started |
-| Phase 8 | Admin module and machine approval | Not started |
-| Phase 9 | Buyer marketplace | Not started |
-| Phase 10 | Booking workflow | Not started |
-| Phase 11 | Demo payment records and booking confirmation | Not started |
-| Phase 12 | Work progress, completion, and reviews | Not started |
-| Phase 13 | Notifications | Not started |
+The frontend follows these design practices:
 
-Refer to the root `task.md` for detailed tasks and completion criteria.
+- Responsive layouts for desktop, tablet, and mobile.
+- Skip links to main content.
+- Keyboard-accessible interactive elements.
+- Visible focus indicators.
+- Appropriate labels for form fields.
+- Accessible status messages.
+- Meaningful image alternative text.
+- Reduced-motion preference support.
+- Consistent spacing and readable typography.
+- Mobile navigation and dashboard drawer behaviour.
+
+The frontend review includes responsive checks and static source inspections. Refer to `task.md` for the recorded verification details.
 
 ---
 
-## 11. Important Development Rules
+## 10. Prototype Limitations
 
-1. Preserve the accepted frontend design.
-2. Do not redesign all pages when only content or images need changing.
-3. Do not modify unrelated CSS or JavaScript.
-4. Do not invent real business data, users, companies, prices, or statistics.
-5. Do not claim prototype actions are connected to a backend.
-6. Keep empty states clear and consistent.
-7. Use only approved local image assets.
-8. Verify actual filenames and paths before using images.
-9. Test affected pages after each change.
-10. Keep the public website and all three dashboards visually consistent.
-11. Follow the approved product rules in `prd.md` and `Rules.md`.
-12. Update `task.md` and this README when a development phase is completed.
+The following features are not connected to a backend:
+
+- Real user registration and login.
+- Authentication and session management.
+- MySQL database operations.
+- Real machine listing creation.
+- Actual image uploads.
+- Live marketplace search.
+- Real booking requests.
+- Owner acceptance stored on a server.
+- Real payment gateway integration.
+- Actual payment collection or refunds.
+- Email and SMS notifications.
+- Real-time messaging.
+- Persistent user-generated reviews.
+
+The prototype uses sample data and local interface behaviour only.
+
+A successful demo interaction does not mean that data has been saved to a database or that a real transaction has occurred.
 
 ---
 
-## 12. Next Development Step
+## 11. Development Roadmap
 
-**Complete Phase 4.5 — Demo Content Cleanup and Image Integration.**
+The next development stages are planned as follows:
 
-The current website design and page structure are accepted. The next work should focus on removing temporary sample content, organizing approved images, replacing temporary imagery, and adding meaningful empty states.
+| Phase     | Description                                   |
+| --------- | --------------------------------------------- |
+| Phase 4.5 | Demo Content Cleanup and Image Integration    |
+| Phase 5   | Laravel Application Foundation                |
+| Phase 6   | Authentication and Role Access                |
+| Phase 7   | Machine Owner Module                          |
+| Phase 8   | Admin Module and Machine Approval             |
+| Phase 9   | Buyer Marketplace                             |
+| Phase 10  | Booking Workflow                              |
+| Phase 11  | Demo Payment Records and Booking Confirmation |
+| Phase 12  | Work Progress, Completion, and Reviews        |
+| Phase 13  | Notifications                                 |
+| Phase 14  | Security, Testing, and Release Preparation    |
+| Phase 15  | Optional Future Enhancements                  |
 
-Once the cleaned frontend is reviewed and approved, begin Phase 5 and convert the approved frontend into Laravel Blade templates.
+For detailed tasks, dependencies, open decisions, and completion criteria, refer to the root-level `task.md`.
 
-**Do not begin backend integration before the frontend cleanup and final review are complete.**
+---
+
+## 12. Project Documentation
+
+The repository contains additional documentation for product and technical decisions.
+
+| Document           | Purpose                                              |
+| ------------------ | ---------------------------------------------------- |
+| `prd.md`           | Product requirements and MVP scope                   |
+| `Rules.md`         | Mandatory project, coding, and security rules        |
+| `architecture.md`  | Technical architecture and application structure     |
+| `Design.md`        | UI and visual design guidance                        |
+| `memory.md`        | Concise project context                              |
+| `task.md`          | Development roadmap, task status, and open decisions |
+| `CapacityShare.md` | Original project notes and historical requirements   |
+
+Follow the documented decision hierarchy when requirements conflict. Do not invent missing business rules or silently expand the approved MVP scope.
+
+---
+
+## 13. Important Development Rules
+
+1. Preserve the existing page structure unless a change is required.
+2. Reuse shared CSS components wherever possible.
+3. Avoid unnecessary duplicate CSS and JavaScript.
+4. Do not modify unrelated dashboards when working on a specific page.
+5. Keep all prototype behaviour clearly labelled.
+6. Do not claim that demo interactions perform real backend operations.
+7. Do not invent machine specifications, company information, ratings, or testimonials.
+8. Keep the existing design consistent across all public pages.
+9. Test desktop, tablet, and mobile layouts after UI changes.
+10. Follow `Rules.md`, `Design.md`, `architecture.md`, and `prd.md` before implementing new functionality.
+
+---
+
+**IdleMach — Turn Idle Capacity Into Opportunity.**

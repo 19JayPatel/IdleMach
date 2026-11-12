@@ -7,8 +7,15 @@
 **Document basis:** The uploaded `CapacityShare.md` (82 numbered
 sections plus project overview; 83 sections in total).\
 **Product type:** Web-based manufacturing capacity marketplace\
-**Initial implementation direction:** Frontend prototype first; Laravel
-application afterwards.
+**Initial implementation direction:** Frontend prototype first; Laravel 13 application afterwards.
+
+**Approved backend framework:** Laravel 13.
+
+**Backend database:** MySQL.
+
+**Presentation layer:** Laravel Blade with HTML, CSS, JavaScript, Bootstrap, and Font Awesome.
+
+The Laravel application will integrate the accepted frontend without an unapproved redesign or removal of existing approved content.
 
 ------------------------------------------------------------------------
 

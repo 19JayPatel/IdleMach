@@ -783,111 +783,86 @@ the correct role-specific actions, and work responsively.
 - [x] Existing page structure and section hierarchy accepted by the user.
 - [x] Existing visual design accepted by the user.
 - [x] Existing responsive behaviour accepted by the user.
-- [x] Existing prototype functionality accepted by the user.
-- [ ] Complete the upcoming demo-content and image cleanup.
-- [ ] Recheck all pages after content and image changes.
-- [ ] Record the final frontend cleanup results.
+- [x] Existing frontend interactions accepted by the user.
+- [x] Approved visitor-facing demo/prototype disclosure wording cleanup completed.
+- [x] Existing sample records, reviews, ratings, listings, and images retained.
+- [x] Latest approved frontend changes committed to `WebUI_Sample`.
 
-**Phase 4 status:** The current frontend design and prototype are accepted as the baseline. Do not redesign or restructure the website without a separate requirement. The next task is controlled content and image cleanup.
-
-------------------------------------------------------------------------
-
-# Phase 4.5 --- Demo Content Cleanup and Image Integration
-
-> **Purpose:** Prepare the accepted frontend prototype for the next development stage by removing temporary demonstration content and replacing the current illustrative imagery with approved local images. Preserve the existing design, layout, sections, and working prototype interactions unless a specific change is required.
-
-## 4.5.1 Content and sample-data audit
-
-- [ ] Review all 12 HTML pages and identify demo, sample, dummy, and illustrative content.
-- [ ] Identify sample machine names, company names, user details, locations, prices, and capacities.
-- [ ] Identify sample dashboard statistics, booking records, payment records, earnings, reviews, and notifications.
-- [ ] Identify sample activity-feed entries and illustrative management records.
-- [ ] Identify demo-only success messages and prototype notices.
-- [ ] Separate actual product explanations and approved business rules from temporary sample records.
-- [ ] Prepare a page-wise list of content to remove, retain, or replace.
-- [ ] Do not invent real users, companies, machine listings, prices, ratings, transactions, or business statistics.
-
-## 4.5.2 Demo and sample content cleanup
-
-- [ ] Remove temporary sample machine records from the homepage and Explore Machines page.
-- [ ] Remove temporary sample machine records from the Machine Details page.
-- [ ] Remove illustrative user, company, and machine records from dashboard views where they are no longer required.
-- [ ] Remove sample booking, payment, earnings, review, notification, and activity records.
-- [ ] Remove fake statistics and totals that could be mistaken for actual platform data.
-- [ ] Remove sample names, locations, rates, capacities, and other invented business information.
-- [ ] Retain approved product explanations, section headings, workflow descriptions, and business rules.
-- [ ] Use clear empty states where real backend data is not available.
-- [ ] Keep prototype-only notices wherever a form or action is still not connected to a backend.
-- [ ] Do not imply that login, registration, booking, payment, file upload, messaging, or notifications are connected to a live service.
-- [ ] Do not remove required UI sections simply because their future backend data is not available.
-
-## 4.5.3 Local image folder preparation
-
-- [ ] Prepare the approved image collection inside `IdleMach-Frontend/assets/images/`.
-- [ ] Organize images into meaningful folders such as `logo/`, `hero/`, `machines/`, `industries/`, `about/`, `team/`, and `common/`, as applicable.
-- [ ] Confirm the actual image filenames and extensions before referencing them.
-- [ ] Prefer descriptive, consistent, lowercase filenames.
-- [ ] Use only images supplied or approved for the project.
-- [ ] Do not invent image filenames or reference files that do not exist.
-- [ ] Remove old illustrative or external placeholder image references after replacement images are confirmed.
-- [ ] Use local relative image paths that work from the relevant HTML pages.
-- [ ] Add meaningful alternative text to informative images and empty alternative text to decorative images.
-- [ ] Preserve appropriate image aspect ratios, cropping, and responsive behaviour.
-- [ ] Provide a graceful fallback for missing or failed images where appropriate.
-
-## 4.5.4 Page-wise image integration
-
-- [ ] Home page: replace temporary hero and section imagery.
-- [ ] Explore Machines: replace temporary machine-card imagery.
-- [ ] Machine Details: replace temporary gallery and machine imagery.
-- [ ] How It Works: review and replace illustrations where approved images are available.
-- [ ] About: use approved company or industry imagery only.
-- [ ] Contact: retain only imagery that supports the existing design.
-- [ ] Login and Registration: preserve the accepted layout; replace imagery only where applicable.
-- [ ] Admin Dashboard: remove temporary record imagery and use only approved interface assets.
-- [ ] Machine Owner Dashboard: remove temporary record imagery and use only approved interface assets.
-- [ ] Buyer Dashboard: remove temporary record imagery and use only approved interface assets.
-- [ ] Styleguide: update image examples if the shared image assets change.
-
-## 4.5.5 Empty states and prototype boundaries
-
-- [ ] Add a clear empty state when no real machine listings are available.
-- [ ] Add suitable empty states for bookings, payments, reviews, notifications, and activity sections.
-- [ ] Keep empty states consistent with the existing design system.
-- [ ] Do not display fabricated statistics to fill empty dashboard cards.
-- [ ] Do not show successful payment or booking confirmation without a real backend.
-- [ ] Keep existing frontend-only behaviour clearly identified as a prototype.
-- [ ] Do not create fake backend functionality or pretend that data is saved.
-
-## 4.5.6 Design preservation and regression checks
-
-- [ ] Preserve the existing page layouts and section order.
-- [ ] Preserve the existing shared CSS design system and responsive navigation.
-- [ ] Do not redesign the Admin, Machine Owner, or Buyer dashboards.
-- [ ] Do not modify unrelated JavaScript or CSS behaviour.
-- [ ] Check image loading and image dimensions on all relevant pages.
-- [ ] Check desktop, tablet, and mobile layouts after changes.
-- [ ] Check navigation, buttons, forms, filters, modals, and empty states.
-- [ ] Check browser console errors and failed asset requests.
-- [ ] Check for broken links, missing images, horizontal overflow, and layout regressions.
-- [ ] Update the frontend README after the cleanup is completed.
-
-**Phase 4.5 exit check:** Temporary demo content and illustrative imagery have been reviewed and cleaned up, approved local images are integrated, empty states are meaningful, and the accepted website design remains intact.
+**Phase 4 status:** The accepted frontend is the baseline for Laravel integration. Preserve its design, layouts, sample content, images, and approved business rules. Do not redesign, delete sample records, or replace images without a separate approved requirement.
 
 ------------------------------------------------------------------------
 
-# Phase 5 --- Laravel Application Foundation
+# Phase 4.5 --- Demo Content Disclosure Cleanup and Frontend Preparation
 
-> Start this phase only after Phase 4.5 is completed and the cleaned frontend is reviewed.
+**Status: Completed**
+
+> Purpose: Prepare the accepted frontend for Laravel integration while preserving its existing design, layouts, sample content, records, images, and approved interactions.
+
+## 4.5.1 Visitor-facing wording cleanup
+
+- [x] Review frontend pages for visitor-facing demo, sample, illustrative, and prototype wording.
+- [x] Identify outdated phase references displayed to visitors.
+- [x] Preserve genuine product explanations and approved business rules.
+- [x] Remove the approved visitor-facing demo/prototype disclosure wording.
+- [x] Remove outdated visitor-facing phase labels.
+
+## 4.5.2 Content and record preservation
+
+- [x] Retain existing machine listings and sample records.
+- [x] Retain existing company and user records.
+- [x] Retain booking, payment, earnings, and activity records.
+- [x] Retain existing reviews and ratings.
+- [x] Retain existing dashboard statistics and content.
+- [x] Preserve existing machine IDs and their approved mappings.
+- [x] Preserve existing frontend interactions.
+
+## 4.5.3 Image preservation
+
+- [x] Retain existing machine and website images.
+- [x] Preserve existing image paths and references.
+- [x] Do not replace or regenerate images as part of this phase.
+- [x] Preserve existing image presentation and layout.
+
+## 4.5.4 Design and functionality preservation
+
+- [x] Preserve the accepted public website design.
+- [x] Preserve Admin, Machine Owner, and Buyer dashboard layouts.
+- [x] Retain the original repository colour palette.
+- [x] Preserve shared CSS and existing responsive behaviour.
+- [x] Avoid unrelated JavaScript and CSS changes.
+- [x] Preserve existing navigation and frontend interactions.
+
+## 4.5.5 Frontend-to-backend boundary
+
+- [x] Keep backend limitations clear where technically necessary.
+- [x] Do not claim that authentication or database operations are connected.
+- [x] Do not claim that bookings or payments are processed by a live service.
+- [x] Do not claim that uploads, messaging, or notifications are persisted.
+
+## 4.5.6 Final review and repository status
+
+- [x] Review the latest committed frontend changes.
+- [x] Verify the original shared colour tokens.
+- [x] Verify the latest frontend commit is present on `WebUI_Sample`.
+- [x] Preserve the existing frontend as the baseline for Laravel integration.
+
+**Phase 4.5 exit status:** Completed. The accepted frontend is ready for Laravel integration. Sample data, reviews, ratings, machine listings, images, and the accepted design remain in place. No further demo-data deletion or image replacement is authorized by this phase.
+
+------------------------------------------------------------------------
+
+# Phase 5 --- Laravel 13 Application Foundation
+
+> Phase 4.5 is completed. The accepted frontend is the baseline for Laravel integration. Preserve its existing design, sample content, images, and approved business rules.
 
 ## 5.1 Laravel setup
 
-- [ ] Create or prepare the Laravel application.
-- [ ] Configure the local development environment.
+- [ ] Create or prepare the Laravel 13 application.
+- [ ] Verify the installed Laravel version is 13.x.
+- [ ] Configure the local PHP and Composer environment.
 - [ ] Configure the MySQL connection through environment settings.
 - [ ] Confirm the application can connect to the database.
 - [ ] Set up the project's source control and ignore rules.
-- [ ] Confirm the Laravel version to use before implementation.
+- [ ] Verify the Laravel application runs successfully locally.
 
 ## 5.2 Application structure
 

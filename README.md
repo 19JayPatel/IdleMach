@@ -30,9 +30,13 @@ The frontend implementation currently covers:
 - Phase 3.4 — Dashboard Integration and Consistency
 - Phase 4 — Frontend Review and Acceptance
 
-**Current next stage:** Phase 4.5 — Demo Content Cleanup and Image Integration.
+**Frontend status:** Phase 4.5 — Demo Content Disclosure Cleanup and Frontend Preparation — completed.
 
-The frontend has been reviewed and accepted as a prototype. The remaining image cleanup and integration tasks must be completed before moving to the Laravel application foundation.
+The accepted frontend design, layouts, dashboards, sample records, reviews, ratings, machine listings, and existing images are retained. Visitor-facing wording that identified the website or its content as demo, sample, illustrative, or prototype has been cleaned up where approved.
+
+The frontend remains a static frontend and is not connected to a Laravel backend. Authentication, database persistence, bookings, payments, uploads, and notifications are not connected to live backend services.
+
+**Current next stage:** Phase 5 — Laravel 13 Application Foundation.
 
 Refer to the repository's `task.md` for detailed task progress and verification notes.
 
@@ -202,19 +206,9 @@ The website should look clean, practical, professional, and trustworthy.
 
 These SVGs are custom illustrations, not photographs of actual machines.
 
-### Planned image integration
+### Existing image status
 
-The About page may receive an additional industrial manufacturing workspace image.
-
-**Status:** Pending image generation, review, and integration.
-
-The image should:
-
-- Represent a believable manufacturing environment.
-- Use realistic industrial equipment and proportions.
-- Match the existing website's visual direction.
-- Avoid excessive effects and artificial-looking details.
-- Work well within the existing responsive layout.
+The current website images and their references are retained as part of the accepted frontend baseline. Phase 4.5 does not require image replacement, image generation, or image integration. Any future image change must be handled as a separate, explicitly approved requirement.
 
 ### Image consistency rules
 
@@ -394,8 +388,8 @@ The next development stages are planned as follows:
 
 | Phase     | Description                                   |
 | --------- | --------------------------------------------- |
-| Phase 4.5 | Demo Content Cleanup and Image Integration    |
-| Phase 5   | Laravel Application Foundation                |
+| Phase 4.5 | Demo Content Disclosure Cleanup and Frontend Preparation |
+| Phase 5   | Laravel 13 Application Foundation             |
 | Phase 6   | Authentication and Role Access                |
 | Phase 7   | Machine Owner Module                          |
 | Phase 8   | Admin Module and Machine Approval             |
@@ -435,7 +429,7 @@ Follow the documented decision hierarchy when requirements conflict. Do not inve
 2. Reuse shared CSS components wherever possible.
 3. Avoid unnecessary duplicate CSS and JavaScript.
 4. Do not modify unrelated dashboards when working on a specific page.
-5. Keep all prototype behaviour clearly labelled.
+5. Keep backend limitations clear and do not present frontend-only interactions as live services.
 6. Do not claim that demo interactions perform real backend operations.
 7. Do not invent machine specifications, company information, ratings, or testimonials.
 8. Keep the existing design consistent across all public pages.

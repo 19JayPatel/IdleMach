@@ -6,8 +6,7 @@
 **Architecture type:** Web-based, role-based manufacturing capacity
 marketplace\
 **Primary source:** `CapacityShare.md` and the project PRD (`prd.md`)\
-**Implementation approach:** Frontend prototype first, Laravel
-application afterwards
+**Implementation approach:** Accepted static frontend prototype followed by Laravel 13 application development.
 
 ------------------------------------------------------------------------
 
@@ -143,21 +142,22 @@ prototype, as requested for the initial frontend project.
 
 ### 4.2 Laravel application stage
 
-The supplied project documentation identifies this stack:
+The approved application stack is:
 
-  Layer                     Technology
-  ------------------------- ------------------------------
-  Server-side application   Laravel / PHP
-  Database                  MySQL
-  Presentation              Blade, HTML, CSS, JavaScript
-  UI framework              Bootstrap
-  Icons                     Font Awesome
-  Data access               Eloquent ORM
-  Authentication            Laravel Authentication
-  Authorization             Laravel Middleware
-  Validation                Laravel Validation
-  Notifications             Laravel Notifications
-  Email                     Laravel Mail
+| Layer | Technology |
+|---|---|
+| Server-side application | Laravel 13 |
+| Programming language | PHP |
+| Database | MySQL |
+| Presentation | Blade, HTML, CSS, JavaScript |
+| UI framework | Bootstrap |
+| Icons | Font Awesome |
+| Data access | Eloquent ORM |
+| Authentication | Laravel authentication approach (to be selected) |
+| Authorization | Middleware and policies where appropriate |
+| Validation | Laravel Validation |
+| Notifications | Laravel Notifications |
+| Email | Laravel Mail |
 
 Optional technologies identified for later consideration:
 
@@ -1145,7 +1145,7 @@ These are not prerequisites for the first working version.
 
 The following details remain open and must not be guessed:
 
-1. Exact Laravel version and authentication starter approach.
+1. Authentication starter approach and authentication implementation details.
 2. Final public route access for guests and buyers.
 3. Who may change a machine's operational status and the allowed transitions.
 4. Whether accepted or payment-pending bookings reserve capacity, and for how long.

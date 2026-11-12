@@ -152,7 +152,7 @@
           <div class="dashboard-user-card">
             <span class="dashboard-user-avatar" aria-hidden="true">AD</span>
             <div class="dashboard-user-info">
-              <p class="dashboard-user-name">Demo Admin</p>
+              <p class="dashboard-user-name">Admin</p>
               <p class="dashboard-user-role">Platform Administrator</p>
             </div>
           </div>
@@ -162,7 +162,7 @@
             data-action="admin-logout"
           >
             <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
-            Sign out (demo)
+            Sign out
           </button>
         </div>
       </aside>
@@ -210,7 +210,7 @@
               data-bs-toggle="offcanvas"
               data-bs-target="#notifications-offcanvas"
               aria-controls="notifications-offcanvas"
-              aria-label="Open sample notifications (3 unread)"
+              aria-label="Open notifications (3 unread)"
             >
               <i class="fa-regular fa-bell" aria-hidden="true"></i>
               <span class="topbar-badge-dot" aria-hidden="true"></span>
@@ -224,7 +224,7 @@
                 aria-expanded="false"
               >
                 <span class="topbar-avatar-small" aria-hidden="true">AD</span>
-                <span class="d-none d-md-inline">Demo Admin</span>
+                <span class="d-none d-md-inline">Admin</span>
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li>
@@ -232,7 +232,7 @@
                 </li>
                 <li>
                   <span class="dropdown-item-text small text-muted"
-                    >Demo Admin · Platform Administrator</span
+                    >Admin · Platform Administrator</span
                   >
                 </li>
                 <li><hr class="dropdown-divider" /></li>
@@ -259,7 +259,7 @@
                       class="fa-solid fa-right-from-bracket me-2"
                       aria-hidden="true"
                     ></i>
-                    Sign out (demo)
+                    Sign out
                   </button>
                 </li>
               </ul>
@@ -268,23 +268,12 @@
         </header>
 
         <main class="dashboard-content" id="main">
-          <div class="dashboard-demo-banner" role="note">
-            <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
-            <div>
-              <strong>Prototype dashboard.</strong> Every figure, user,
-              machine, booking, payment, review, and notification below is
-              illustrative demo data. No database or backend is connected.
-              Approval, rejection, reset, notification, and sign-out controls
-              change only this page&rsquo;s local preview state.
-            </div>
-          </div>
-
           <div class="dashboard-header">
             <div>
               <p class="eyebrow">Platform administration</p>
               <h1 class="dashboard-title">Admin Dashboard</h1>
               <p class="dashboard-subtitle">
-                Monitor sample users, listings, approvals, bookings, payments,
+                Monitor users, listings, approvals, bookings, payments,
                 reviews, and platform activity.
               </p>
             </div>
@@ -326,7 +315,7 @@
                   id="btn-reset-approvals"
                 >
                   <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
-                  Reset demo
+                  Reset
                 </button>
               </div>
             </div>
@@ -339,12 +328,11 @@
                 class="table-responsive"
                 tabindex="0"
                 role="region"
-                aria-label="Sample pending machine approvals table"
+                aria-label="Pending machine approvals table"
               >
                 <table class="im-table table-approvals">
                   <caption class="visually-hidden">
-                    Three sample machine listings awaiting illustrative admin
-                    review.
+                    Three machine listings awaiting admin review.
                   </caption>
                   <thead>
                     <tr>
@@ -364,7 +352,6 @@
                           ACE Micromatic VMC 850V
                         </p>
                         <span class="table-cell-id">M-1014</span>
-                        <span class="demo-inline-tag">Demo</span>
                       </td>
                       <td>Apex Precision Works, Ahmedabad</td>
                       <td>3-Axis Vertical Machining Center (VMC)</td>
@@ -420,7 +407,6 @@
                           Lokesh Heavy Duty Industrial Lathe 260
                         </p>
                         <span class="table-cell-id">M-1015</span>
-                        <span class="demo-inline-tag">Demo</span>
                       </td>
                       <td>Shree Shakti Engineering, Vadodara</td>
                       <td>Industrial Conventional Lathe</td>
@@ -476,7 +462,6 @@
                           Jyoti CNC Turning Center DX-200
                         </p>
                         <span class="table-cell-id">M-1016</span>
-                        <span class="demo-inline-tag">Demo</span>
                       </td>
                       <td>Kiran Toolcraft, Rajkot</td>
                       <td>CNC Turning Center</td>
@@ -531,11 +516,10 @@
             </div>
             <div class="dashboard-card-footer">
               <span
-                >Showing 3 of 12 illustrative pending approvals. Only approved
+                >Showing 3 of 12 pending approvals. Only approved
                 listings can reach the marketplace; activation is a separate
                 owner action.</span
               >
-              <span class="stat-demo-badge">Sample records</span>
             </div>
           </section>
 
@@ -551,7 +535,6 @@
                 Recent bookings
               </h2>
               <div class="dashboard-card-actions">
-                <span class="stat-demo-badge">Sample records</span>
                 <button
                   class="btn-im btn-im-outline btn-im-sm"
                   type="button"
@@ -571,12 +554,12 @@
                 class="table-responsive"
                 tabindex="0"
                 role="region"
-                aria-label="Sample recent bookings table"
+                aria-label="Recent bookings table"
               >
                 <table class="im-table table-bookings">
                   <caption class="visually-hidden">
-                    Six sample bookings across the documented booking and
-                    payment statuses.
+                    Six bookings across the documented booking and payment
+                    statuses.
                   </caption>
                   <thead>
                     <tr>
@@ -592,7 +575,7 @@
                   </thead>
                   <tbody>
                     <tr data-booking-id="CS-10025">
-                      <td><span class="table-cell-id">CS-10025</span> <span class="demo-inline-tag">Demo</span></td>
+                      <td><span class="table-cell-id">CS-10025</span></td>
                       <td>Haas CNC Turning Machine ST-20</td>
                       <td>Apex Auto Components</td>
                       <td>25 Sep 2026</td>
@@ -629,7 +612,7 @@
                     </tr>
 
                     <tr data-booking-id="CS-10026">
-                      <td><span class="table-cell-id">CS-10026</span> <span class="demo-inline-tag">Demo</span></td>
+                      <td><span class="table-cell-id">CS-10026</span></td>
                       <td>ACE Micromatic VMC 850V</td>
                       <td>Metro Engineering Works</td>
                       <td>27 Sep 2026</td>
@@ -663,7 +646,7 @@
                     </tr>
 
                     <tr data-booking-id="CS-10027">
-                      <td><span class="table-cell-id">CS-10027</span> <span class="demo-inline-tag">Demo</span></td>
+                      <td><span class="table-cell-id">CS-10027</span></td>
                       <td>Haas VF-2 CNC Vertical Milling</td>
                       <td>Siddhivinayak Fabricators</td>
                       <td>28 Sep 2026</td>
@@ -697,7 +680,7 @@
                     </tr>
 
                     <tr data-booking-id="CS-10028">
-                      <td><span class="table-cell-id">CS-10028</span> <span class="demo-inline-tag">Demo</span></td>
+                      <td><span class="table-cell-id">CS-10028</span></td>
                       <td>Lokesh Heavy Duty Industrial Lathe</td>
                       <td>Kavita Hydraulics</td>
                       <td>29 Sep 2026</td>
@@ -728,7 +711,7 @@
                     </tr>
 
                     <tr data-booking-id="CS-10029">
-                      <td><span class="table-cell-id">CS-10029</span> <span class="demo-inline-tag">Demo</span></td>
+                      <td><span class="table-cell-id">CS-10029</span></td>
                       <td>Jyoti CNC Turning Center DX-200</td>
                       <td>Bhavani Forgings</td>
                       <td>30 Sep 2026</td>
@@ -759,7 +742,7 @@
                     </tr>
 
                     <tr data-booking-id="CS-10030">
-                      <td><span class="table-cell-id">CS-10030</span> <span class="demo-inline-tag">Demo</span></td>
+                      <td><span class="table-cell-id">CS-10030</span></td>
                       <td>Haas CNC Turning Machine ST-20</td>
                       <td>Delta Gears &amp; Shafts</td>
                       <td>01 Oct 2026</td>
@@ -798,7 +781,6 @@
                 &ldquo;payment pending&rdquo; until payment succeeds and is
                 only then confirmed.</span
               >
-              <span class="stat-demo-badge">Sample records</span>
             </div>
           </section>
 
@@ -808,7 +790,6 @@
               <h2 class="dashboard-overview-title" id="overview-heading">
                 Platform overview
               </h2>
-              <span class="stat-demo-badge">Illustrative demo data</span>
             </div>
             <div class="dashboard-stats-grid">
               <div class="stat-card">
@@ -821,7 +802,6 @@
                 <p class="stat-card-value">250</p>
                 <p class="stat-card-meta">
                   85 owners &middot; 165 buyers
-                  <span class="stat-demo-badge">Demo value</span>
                 </p>
               </div>
 
@@ -834,8 +814,7 @@
                 </div>
                 <p class="stat-card-value">85</p>
                 <p class="stat-card-meta">
-                  Sample owner accounts
-                  <span class="stat-demo-badge">Demo value</span>
+                  Owner accounts
                 </p>
               </div>
 
@@ -848,8 +827,7 @@
                 </div>
                 <p class="stat-card-value">165</p>
                 <p class="stat-card-meta">
-                  Sample buyer accounts
-                  <span class="stat-demo-badge">Demo value</span>
+                  Buyer accounts
                 </p>
               </div>
 
@@ -863,7 +841,6 @@
                 <p class="stat-card-value">180</p>
                 <p class="stat-card-meta">
                   Includes 12 pending reviews
-                  <span class="stat-demo-badge">Demo value</span>
                 </p>
               </div>
 
@@ -880,7 +857,6 @@
                 <p class="stat-card-value" id="stat-pending-approvals">12</p>
                 <p class="stat-card-meta">
                   Machines awaiting admin review
-                  <span class="stat-demo-badge">Demo value</span>
                 </p>
               </div>
 
@@ -893,8 +869,7 @@
                 </div>
                 <p class="stat-card-value">430</p>
                 <p class="stat-card-meta">
-                  390 completed in sample data
-                  <span class="stat-demo-badge">Demo value</span>
+                  390 completed
                 </p>
               </div>
 
@@ -907,8 +882,7 @@
                 </div>
                 <p class="stat-card-value">418</p>
                 <p class="stat-card-meta">
-                  &#8377;5.2L illustrative revenue
-                  <span class="stat-demo-badge">Demo value</span>
+                  &#8377;5.2L revenue
                 </p>
               </div>
 
@@ -921,8 +895,7 @@
                 </div>
                 <p class="stat-card-value">142</p>
                 <p class="stat-card-meta">
-                  4.8 average in sample data
-                  <span class="stat-demo-badge">Demo value</span>
+                  4.8 average
                 </p>
               </div>
             </div>
@@ -944,7 +917,6 @@
                     <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
                     Recent activity
                   </h2>
-                  <span class="stat-demo-badge">Sample activity</span>
                 </div>
                 <div class="dashboard-card-body">
                   <ol class="activity-feed-list">
@@ -961,7 +933,7 @@
                           850V) was submitted for admin review.
                         </p>
                         <p class="activity-feed-meta">
-                          Sample record &middot; Today, 09:30 AM
+                          Today, 09:30 AM
                         </p>
                       </div>
                     </li>
@@ -975,10 +947,10 @@
                       <div class="activity-feed-body">
                         <p class="activity-feed-text">
                           Booking <strong>CS-10027</strong> was confirmed after
-                          a successful sample payment.
+                          a successful payment.
                         </p>
                         <p class="activity-feed-meta">
-                          Sample record &middot; Today, 08:20 AM
+                          Today, 08:20 AM
                         </p>
                       </div>
                     </li>
@@ -995,7 +967,7 @@
                           successful for booking CS-10026.
                         </p>
                         <p class="activity-feed-meta">
-                          Sample record &middot; Yesterday, 06:10 PM
+                          Yesterday, 06:10 PM
                         </p>
                       </div>
                     </li>
@@ -1008,11 +980,11 @@
                       </span>
                       <div class="activity-feed-body">
                         <p class="activity-feed-text">
-                          A new sample buyer account completed registration;
+                          A new buyer account completed registration;
                           admin review is not required for buyers.
                         </p>
                         <p class="activity-feed-meta">
-                          Sample record &middot; Yesterday, 02:45 PM
+                          Yesterday, 02:45 PM
                         </p>
                       </div>
                     </li>
@@ -1025,11 +997,11 @@
                       </span>
                       <div class="activity-feed-body">
                         <p class="activity-feed-text">
-                          A 5-star review was added to completed sample booking
+                          A 5-star review was added to completed booking
                           <strong>CS-10025</strong>.
                         </p>
                         <p class="activity-feed-meta">
-                          Sample record &middot; Yesterday, 11:05 AM
+                          Yesterday, 11:05 AM
                         </p>
                       </div>
                     </li>
@@ -1037,8 +1009,7 @@
                 </div>
                 <div class="dashboard-card-footer">
                   <span
-                    >Activity is illustrative only. No live audit log is
-                    connected.</span
+                    >No live audit log is connected.</span
                   >
                   <button
                     class="btn-im btn-im-outline btn-im-sm"
@@ -1082,7 +1053,7 @@
                           >User Management</span
                         >
                         <span class="shortcut-meta d-block"
-                          >Sample accounts</span
+                          >Accounts</span
                         >
                       </span>
                       <i
@@ -1104,7 +1075,7 @@
                           >Machine Management</span
                         >
                         <span class="shortcut-meta d-block"
-                          >Sample listings</span
+                          >Listings</span
                         >
                       </span>
                       <i
@@ -1126,7 +1097,7 @@
                           >Payment Management</span
                         >
                         <span class="shortcut-meta d-block"
-                          >Sample payment records</span
+                          >Payment records</span
                         >
                       </span>
                       <i
@@ -1151,7 +1122,7 @@
                           >Review Management</span
                         >
                         <span class="shortcut-meta d-block"
-                          >Sample reviews</span
+                          >Reviews</span
                         >
                       </span>
                       <i
@@ -1164,8 +1135,8 @@
                 <div class="dashboard-card-footer">
                   <span
                     >Booking monitoring and reports are available in the
-                    sections above. Detailed management screens remain a later
-                    phase; these shortcuts show a prototype notice.</span
+                    sections above. Detailed management screens will be added
+                    later.</span
                   >
                 </div>
               </section>
@@ -1194,7 +1165,7 @@
                 activation, owner acceptance must precede payment, and a
                 booking is not confirmed until payment succeeds. These rules
                 and statuses are preserved from the project documentation and
-                are not enforced against live data in this prototype.
+                are not enforced against live data.
               </p>
 
               <div class="row g-4">
@@ -1239,8 +1210,8 @@
                     <li class="rules-reference-item">
                       <i class="fa-solid fa-check" aria-hidden="true"></i>
                       <span
-                        >The admin monitors platform records; this prototype
-                        does not change workflow states.</span
+                        >The admin monitors platform records and does not change
+                        workflow states.</span
                       >
                     </li>
                   </ul>
@@ -1326,8 +1297,7 @@
 
         <footer class="dashboard-page-footer">
           <span
-            >&copy; <span data-current-year>2026</span> IdleMach &middot;
-            Frontend prototype &middot; Phase 3.1</span
+            >&copy; <span data-current-year>2026</span> IdleMach</span
           >
           <span>Turn Idle Capacity Into Opportunity.</span>
           <a href="index.html">Public website</a>
@@ -1348,7 +1318,7 @@
           <h2 class="offcanvas-title h5 mb-0" id="notifications-offcanvas-label">
             Notifications
           </h2>
-          <p class="small text-muted mb-0">Sample prototype inbox</p>
+          <p class="small text-muted mb-0">Admin inbox</p>
         </div>
         <button
           type="button"
@@ -1361,7 +1331,7 @@
         <div
           class="d-flex align-items-center justify-content-between gap-2 border-bottom px-3 py-2"
         >
-          <span class="small text-muted">Demo notifications</span>
+          <span class="small text-muted">Notifications</span>
           <span class="badge text-bg-light border" id="notifications-count-badge"
             >3 unread</span
           >
@@ -1417,7 +1387,7 @@
             <i class="fa-solid fa-user-plus"></i>
           </span>
           <div class="notification-body">
-            <p class="notification-title">New sample buyer registration</p>
+            <p class="notification-title">New buyer registration</p>
             <span class="notification-time">Yesterday, 02:45 PM</span>
           </div>
         </div>
@@ -1427,13 +1397,13 @@
           class="btn-im btn-im-outline w-100"
           type="button"
           id="btn-mark-notifications-read"
-          aria-label="Mark all notifications as read (demo)"
+          aria-label="Mark all notifications as read"
         >
           <i class="fa-solid fa-envelope-open-text" aria-hidden="true"></i>
-          Mark all as read (demo)
+          Mark all as read
         </button>
         <p class="small text-muted mt-2 mb-0">
-          Prototype only. Notifications are not stored or sent.
+          Notifications are not stored or sent.
         </p>
       </div>
     </div>
@@ -1455,7 +1425,7 @@
             <div>
               <p class="eyebrow mb-1">Machine review</p>
               <h2 class="modal-title h5 mb-0" id="vm-title">
-                Sample machine listing
+                Machine listing
               </h2>
             </div>
             <button
@@ -1474,7 +1444,6 @@
                 <i class="fa-regular fa-clock" aria-hidden="true"></i>
                 Pending
               </span>
-              <span class="stat-demo-badge">Demo record</span>
             </div>
 
             <dl class="row mb-0">
@@ -1524,13 +1493,6 @@
               </dd>
             </dl>
 
-            <div class="dashboard-demo-banner mb-0 mt-3" role="note">
-              <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
-              <div>
-                Sample listing details only. No files, documents, or photos are
-                retrievable from this prototype.
-              </div>
-            </div>
           </div>
           <div class="modal-footer">
             <button
@@ -1558,7 +1520,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h2 class="modal-title h5" id="modal-approve-machine-label">
-              Approve machine listing (demo)
+              Approve machine listing
             </h2>
             <button
               type="button"
@@ -1569,22 +1531,14 @@
           </div>
           <div class="modal-body">
             <p>
-              Mark <strong id="approve-machine-name">Sample machine</strong>
-              (<span id="approve-machine-id">M-1014</span>) as approved in this
-              page preview?
+              Mark <strong id="approve-machine-name">machine</strong>
+              (<span id="approve-machine-id">M-1014</span>) as approved?
             </p>
             <p class="small text-muted mb-0">
               Approval makes a listing eligible for the marketplace. It does
               not activate the machine for booking requests; that is a separate
               owner-controlled status.
             </p>
-            <div class="dashboard-demo-banner mb-0 mt-3" role="note">
-              <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
-              <div>
-                This is a prototype action. No database record is changed and
-                no real machine is approved.
-              </div>
-            </div>
           </div>
           <div class="modal-footer">
             <button
@@ -1600,7 +1554,7 @@
               id="btn-confirm-approve"
             >
               <i class="fa-solid fa-check" aria-hidden="true"></i>
-              Confirm demo approval
+              Confirm approval
             </button>
           </div>
         </div>
@@ -1620,7 +1574,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h2 class="modal-title h5" id="modal-reject-machine-label">
-              Reject machine listing (demo)
+              Reject machine listing
             </h2>
             <button
               type="button"
@@ -1631,7 +1585,7 @@
           </div>
           <div class="modal-body">
             <p>
-              Reject <strong id="reject-machine-name">Sample machine</strong>
+              Reject <strong id="reject-machine-name">machine</strong>
               (<span id="reject-machine-id">M-1014</span>) from the approval
               queue?
             </p>
@@ -1657,17 +1611,10 @@
                 class="form-control"
                 id="reject-notes-field"
                 rows="3"
-                placeholder="Sample note for the owner"
+                placeholder="Note for the owner"
               ></textarea>
             </div>
 
-            <div class="dashboard-demo-banner mb-0 mt-3" role="note">
-              <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
-              <div>
-                This is a prototype action. No database record is changed and
-                no real listing is rejected.
-              </div>
-            </div>
           </div>
           <div class="modal-footer">
             <button
@@ -1683,7 +1630,7 @@
               id="btn-confirm-reject"
             >
               <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-              Confirm demo rejection
+              Confirm rejection
             </button>
           </div>
         </div>
@@ -1733,7 +1680,6 @@
                 <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
                 Successful
               </span>
-              <span class="stat-demo-badge">Demo record</span>
             </div>
 
             <dl class="row mb-0">
@@ -1773,7 +1719,7 @@
 
               <dt class="col-sm-4">Drawing reference</dt>
               <dd class="col-sm-8" id="vb-drawing">
-                Shaft_Drawing_RevB.pdf (sample reference)
+                Shaft_Drawing_RevB.pdf (reference)
               </dd>
 
               <dt class="col-sm-4">Transaction reference</dt>
@@ -1784,8 +1730,8 @@
               <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
               <div>
                 The admin monitors bookings and payments but does not change
-                booking workflow states from this prototype. Payment success is
-                required before a booking is confirmed.
+                booking workflow states. Payment success is required before a
+                booking is confirmed.
               </div>
             </div>
           </div>
@@ -1815,7 +1761,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h2 class="modal-title h5" id="modal-admin-logout-label">
-              Sign out of the admin dashboard? (demo)
+              Sign out of the admin dashboard?
             </h2>
             <button
               type="button"
@@ -1826,9 +1772,8 @@
           </div>
           <div class="modal-body">
             <p class="mb-0">
-              This prototype has no authentication or session. Continuing
-              returns to the login interface so the sign-out flow can be
-              previewed.
+              No authentication or session is active. Continuing returns to
+              the login interface.
             </p>
           </div>
           <div class="modal-footer">
@@ -1845,7 +1790,7 @@
               id="btn-confirm-logout"
             >
               <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
-              Simulate sign out
+              Sign out
             </button>
           </div>
         </div>

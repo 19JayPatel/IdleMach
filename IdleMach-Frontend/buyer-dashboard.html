@@ -169,7 +169,7 @@
             data-action="buyer-logout"
           >
             <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
-            Sign out (demo)
+            Sign out
           </button>
         </div>
       </aside>
@@ -217,7 +217,7 @@
               data-bs-toggle="offcanvas"
               data-bs-target="#notifications-offcanvas"
               aria-controls="notifications-offcanvas"
-              aria-label="Open sample notifications (3 unread)"
+              aria-label="Open notifications (3 unread)"
             >
               <i class="fa-regular fa-bell" aria-hidden="true"></i>
               <span class="topbar-badge-dot" aria-hidden="true"></span>
@@ -275,7 +275,7 @@
                       class="fa-solid fa-right-from-bracket me-2"
                       aria-hidden="true"
                     ></i>
-                    Sign out (demo)
+                    Sign out
                   </button>
                 </li>
               </ul>
@@ -284,19 +284,6 @@
         </header>
 
         <main class="dashboard-content" id="main">
-          <div class="dashboard-demo-banner" role="note">
-            <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
-            <div>
-              <strong>Prototype buyer workspace.</strong> Every machine,
-              booking, payment, review, capacity figure, and status below is
-              illustrative demo data for Apex Auto Components. No database,
-              payment gateway, file upload, authentication, or notification
-              service is connected. Actions change only this page&rsquo;s local
-              preview state. Cancellation and refund rules are not configured
-              because the project documents do not define them.
-            </div>
-          </div>
-
           <div class="dashboard-header">
             <div>
               <p class="eyebrow">Buyer workspace</p>
@@ -324,7 +311,6 @@
               <h2 class="dashboard-overview-title" id="overview-heading">
                 Booking overview
               </h2>
-              <span class="stat-demo-badge">Illustrative demo data</span>
             </div>
             <div class="dashboard-stats-grid buyer-stats-grid">
               <div class="stat-card">
@@ -336,8 +322,7 @@
                 </div>
                 <p class="stat-card-value" id="stat-buyer-total-requests">8</p>
                 <p class="stat-card-meta">
-                  All sample requests in this prototype
-                  <span class="stat-demo-badge">Demo value</span>
+                  All requests
                 </p>
               </div>
 
@@ -351,7 +336,6 @@
                 <p class="stat-card-value" id="stat-buyer-pending-requests">1</p>
                 <p class="stat-card-meta">
                   Awaiting an owner decision
-                  <span class="stat-demo-badge">Demo value</span>
                 </p>
               </div>
 
@@ -365,7 +349,6 @@
                 <p class="stat-card-value" id="stat-buyer-accepted-bookings">1</p>
                 <p class="stat-card-meta">
                   Owner accepted; no payment recorded yet
-                  <span class="stat-demo-badge">Demo value</span>
                 </p>
               </div>
 
@@ -381,7 +364,6 @@
                 >
                 <p class="stat-card-meta">
                   Confirmed by successful payment
-                  <span class="stat-demo-badge">Demo value</span>
                 </p>
               </div>
 
@@ -398,7 +380,6 @@
                 <p class="stat-card-value" id="stat-buyer-ongoing-work">1</p>
                 <p class="stat-card-meta">
                   Paid and currently in progress
-                  <span class="stat-demo-badge">Demo value</span>
                 </p>
               </div>
 
@@ -412,7 +393,6 @@
                 <p class="stat-card-value" id="stat-buyer-completed-bookings">2</p>
                 <p class="stat-card-meta">
                   Finished and eligible for review
-                  <span class="stat-demo-badge">Demo value</span>
                 </p>
               </div>
 
@@ -430,8 +410,7 @@
                   &#8377;15,000
                 </p>
                 <p class="stat-card-meta">
-                  Across 4 successful sample records
-                  <span class="stat-demo-badge">Demo value</span>
+                  Across 4 successful records
                 </p>
               </div>
             </div>
@@ -443,7 +422,6 @@
               <h2 class="dashboard-overview-title" id="discover-heading">
                 Discover manufacturing capacity
               </h2>
-              <span class="stat-demo-badge">3 sample listings</span>
             </div>
 
             <div class="machine-filter-panel mb-4">
@@ -453,10 +431,10 @@
                     class="dashboard-overview-title"
                     id="machine-filters-heading"
                   >
-                    Search sample machines
+                    Search machines
                   </h3>
                   <p class="machine-filter-lead">
-                    Search and filter the same three sample listings used on the
+                    Search and filter the same three listings used on the
                     public marketplace. Results update locally as you type or
                     change a filter.
                   </p>
@@ -474,7 +452,7 @@
               <form
                 id="machines-search-form"
                 role="search"
-                aria-label="Search sample machine listings"
+                aria-label="Search machine listings"
                 aria-describedby="machine-filter-note"
               >
                 <div class="row g-3">
@@ -566,11 +544,11 @@
                       class="fa-solid fa-magnifying-glass"
                       aria-hidden="true"
                     ></i>
-                    Search sample listings
+                    Search listings
                   </button>
                   <p class="search-note mb-0" id="machine-filter-note">
-                    Demo search &mdash; filters only the 3 sample records on this
-                    page. No live marketplace query is made.
+                    Filters only the 3 listings on this page. No live marketplace
+                    query is made.
                   </p>
                 </div>
               </form>
@@ -583,7 +561,7 @@
                   id="machine-results-heading"
                   tabindex="-1"
                 >
-                  Sample machine recommendations
+                  Machine recommendations
                 </h3>
                 <p
                   class="results-summary"
@@ -591,7 +569,7 @@
                   role="status"
                   aria-live="polite"
                 >
-                  Showing all 3 sample listings.
+                  Showing all 3 listings.
                 </p>
               </div>
 
@@ -627,7 +605,6 @@
                       loading="lazy"
                       decoding="async"
                     />
-                    <span class="sample-ribbon">Sample data</span>
                   </div>
                   <div class="im-card-body">
                     <h4 class="machine-card-title">Haas CNC Turning Machine ST-20</h4>
@@ -651,10 +628,6 @@
                       </div>
                     </dl>
 
-                    <p class="sample-caption">
-                      <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
-                      Sample data only &mdash; not a real listing.
-                    </p>
                   </div>
                   <div class="im-card-footer">
                     <span class="status-badge status-available">
@@ -694,7 +667,6 @@
                       loading="lazy"
                       decoding="async"
                     />
-                    <span class="sample-ribbon">Sample data</span>
                   </div>
                   <div class="im-card-body">
                     <h4 class="machine-card-title">Vertical Machining Centre</h4>
@@ -718,10 +690,6 @@
                       </div>
                     </dl>
 
-                    <p class="sample-caption">
-                      <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
-                      Sample data only &mdash; not a real listing.
-                    </p>
                   </div>
                   <div class="im-card-footer">
                     <span class="status-badge status-available">
@@ -761,7 +729,6 @@
                       loading="lazy"
                       decoding="async"
                     />
-                    <span class="sample-ribbon">Sample data</span>
                   </div>
                   <div class="im-card-body">
                     <h4 class="machine-card-title">Hydraulic Press Brake</h4>
@@ -785,10 +752,6 @@
                       </div>
                     </dl>
 
-                    <p class="sample-caption">
-                      <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
-                      Sample data only &mdash; not a real listing.
-                    </p>
                   </div>
                   <div class="im-card-footer">
                     <span class="status-badge status-warning">
@@ -813,11 +776,10 @@
               <div class="empty-state-icon">
                 <i class="fa-solid fa-filter-circle-xmark" aria-hidden="true"></i>
               </div>
-              <h3>No sample listings match these filters</h3>
+              <h3>No listings match these filters</h3>
               <p>
                 Try a different keyword, process, location, availability, or rate
-                range. This search only covers the three sample records on this
-                page.
+                range. This search only covers the three listings on this page.
               </p>
               <button
                 class="btn-im btn-im-outline btn-im-sm mt-3"
@@ -827,12 +789,6 @@
                 Clear all filters
               </button>
             </div>
-
-            <p class="preview-footnote">
-              Sample data is included to show the buyer discovery experience.
-              Each card opens the matching Machine Details page, where the
-              booking request interface is also a frontend demonstration only.
-            </p>
           </section>
 
           <!-- Booking requests -->
@@ -855,16 +811,15 @@
                   id="buyer-bookings-summary"
                   role="status"
                   aria-live="polite"
-                  >Showing all 8 sample bookings.</span
+                  >Showing all 8 bookings.</span
                 >
-                <span class="stat-demo-badge">Sample records</span>
               </div>
             </div>
             <div class="dashboard-card-body">
               <div
                 class="buyer-status-grid"
                 role="group"
-                aria-label="Filter sample bookings by documented status"
+                aria-label="Filter bookings by documented status"
               >
                 <button
                   class="buyer-status-filter is-selected"
@@ -957,13 +912,13 @@
                 class="table-responsive"
                 tabindex="0"
                 role="region"
-                aria-label="Sample buyer booking requests table"
+                aria-label="Buyer booking requests table"
               >
                 <table class="im-table table-buyer-bookings">
                   <caption class="visually-hidden">
-                    Eight sample buyer bookings covering pending, accepted,
+                    Eight buyer bookings covering pending, accepted,
                     payment_pending, confirmed, in_progress, completed, and
-                    rejected. No cancelled sample booking is shown because the
+                    rejected. No cancelled booking is shown because the
                     cancellation policy is not defined.
                   </caption>
                   <colgroup>
@@ -1005,12 +960,11 @@
                       <td>
                         <p class="table-cell-title mb-0">BR-3101</p>
                         <span class="table-cell-id">Submitted 02 Nov 2026</span>
-                        <span class="demo-inline-tag">Demo</span>
                       </td>
                       <td>
                         Haas CNC Turning Machine ST-20
                         <span class="d-block table-cell-subtext"
-                          >Sample listing 1</span
+                          >Listing 1</span
                         >
                       </td>
                       <td>
@@ -1062,12 +1016,11 @@
                       <td>
                         <p class="table-cell-title mb-0">BR-3102</p>
                         <span class="table-cell-id">Submitted 03 Nov 2026</span>
-                        <span class="demo-inline-tag">Demo</span>
                       </td>
                       <td>
                         Hydraulic Press Brake
                         <span class="d-block table-cell-subtext"
-                          >Sample listing 3</span
+                          >Listing 3</span
                         >
                       </td>
                       <td>
@@ -1122,12 +1075,11 @@
                       <td>
                         <p class="table-cell-title mb-0">BR-3103</p>
                         <span class="table-cell-id">Submitted 04 Nov 2026</span>
-                        <span class="demo-inline-tag">Demo</span>
                       </td>
                       <td>
                         Vertical Machining Centre
                         <span class="d-block table-cell-subtext"
-                          >Sample listing 2</span
+                          >Listing 2</span
                         >
                       </td>
                       <td>
@@ -1184,12 +1136,11 @@
                       <td>
                         <p class="table-cell-title mb-0">BR-3104</p>
                         <span class="table-cell-id">Submitted 05 Nov 2026</span>
-                        <span class="demo-inline-tag">Demo</span>
                       </td>
                       <td>
                         Vertical Machining Centre
                         <span class="d-block table-cell-subtext"
-                          >Sample listing 2</span
+                          >Listing 2</span
                         >
                       </td>
                       <td>
@@ -1252,12 +1203,11 @@
                       <td>
                         <p class="table-cell-title mb-0">BR-3105</p>
                         <span class="table-cell-id">Submitted 01 Nov 2026</span>
-                        <span class="demo-inline-tag">Demo</span>
                       </td>
                       <td>
                         Haas CNC Turning Machine ST-20
                         <span class="d-block table-cell-subtext"
-                          >Sample listing 1</span
+                          >Listing 1</span
                         >
                       </td>
                       <td>
@@ -1318,12 +1268,11 @@
                       <td>
                         <p class="table-cell-title mb-0">BR-3106</p>
                         <span class="table-cell-id">Submitted 24 Oct 2026</span>
-                        <span class="demo-inline-tag">Demo</span>
                       </td>
                       <td>
                         Hydraulic Press Brake
                         <span class="d-block table-cell-subtext"
-                          >Sample listing 3</span
+                          >Listing 3</span
                         >
                       </td>
                       <td>
@@ -1384,12 +1333,11 @@
                       <td>
                         <p class="table-cell-title mb-0">BR-3107</p>
                         <span class="table-cell-id">Submitted 18 Oct 2026</span>
-                        <span class="demo-inline-tag">Demo</span>
                       </td>
                       <td>
                         Haas CNC Turning Machine ST-20
                         <span class="d-block table-cell-subtext"
-                          >Sample listing 1</span
+                          >Listing 1</span
                         >
                       </td>
                       <td>
@@ -1460,12 +1408,11 @@
                       <td>
                         <p class="table-cell-title mb-0">BR-3108</p>
                         <span class="table-cell-id">Submitted 30 Oct 2026</span>
-                        <span class="demo-inline-tag">Demo</span>
                       </td>
                       <td>
                         Vertical Machining Centre
                         <span class="d-block table-cell-subtext"
-                          >Sample listing 2</span
+                          >Listing 2</span
                         >
                       </td>
                       <td>
@@ -1517,17 +1464,16 @@
                 <code>rejected</code>, <code>payment_pending</code>,
                 <code>confirmed</code>, <code>in_progress</code>,
                 <code>completed</code>, and <code>cancelled</code>. No cancelled
-                sample booking is shown, and no cancel action is offered, because
-                the project documents do not define who may cancel at each stage,
+                booking is shown, and no cancel action is offered, because the
+                project documents do not define who may cancel at each stage,
                 deadlines, or refund rules.
               </p>
             </div>
             <div class="dashboard-card-footer">
               <span
-                >These are demonstration records. No live booking, cancellation,
-                payment, or notification is created by this page.</span
+                >No live booking, cancellation, payment, or notification is
+                created by this page.</span
               >
-              <span class="stat-demo-badge">Sample bookings</span>
             </div>
           </section>
 
@@ -1543,8 +1489,7 @@
                 Payments and history
               </h2>
               <div class="dashboard-card-actions">
-                <span class="text-muted small">6 sample transaction records</span>
-                <span class="stat-demo-badge">Demo ledger</span>
+                <span class="text-muted small">6 transaction records</span>
               </div>
             </div>
             <div class="dashboard-card-body">
@@ -1552,7 +1497,7 @@
                 <div>
                   <span>Successful payments</span>
                   <strong>&#8377;15,000</strong>
-                  <span>4 sample records</span>
+                  <span>4 records</span>
                 </div>
                 <div>
                   <span>Pending payment</span>
@@ -1574,12 +1519,12 @@
                 class="table-responsive"
                 tabindex="0"
                 role="region"
-                aria-label="Sample buyer payment history table"
+                aria-label="Buyer payment history table"
               >
                 <table class="im-table table-buyer-payments">
                   <caption class="visually-hidden">
-                    Six sample payment records: four successful, one pending, and
-                    one failed attempt. No refunded record is shown because refund
+                    Six payment records: four successful, one pending, and one
+                    failed attempt. No refunded record is shown because refund
                     rules are not defined.
                   </caption>
                   <colgroup>
@@ -1603,7 +1548,6 @@
                       <td>
                         <p class="table-cell-title mb-0">BR-3103</p>
                         <span class="table-cell-id">PAY-7206</span>
-                        <span class="demo-inline-tag">Demo</span>
                       </td>
                       <td>Vertical Machining Centre</td>
                       <td>06 Nov 2026</td>
@@ -1623,7 +1567,6 @@
                       <td>
                         <p class="table-cell-title mb-0">BR-3103</p>
                         <span class="table-cell-id">PAY-7205</span>
-                        <span class="demo-inline-tag">Demo</span>
                       </td>
                       <td>Vertical Machining Centre</td>
                       <td>05 Nov 2026</td>
@@ -1646,7 +1589,6 @@
                       <td>
                         <p class="table-cell-title mb-0">BR-3104</p>
                         <span class="table-cell-id">PAY-7204</span>
-                        <span class="demo-inline-tag">Demo</span>
                       </td>
                       <td>Vertical Machining Centre</td>
                       <td>29 Oct 2026</td>
@@ -1669,7 +1611,6 @@
                       <td>
                         <p class="table-cell-title mb-0">BR-3105</p>
                         <span class="table-cell-id">PAY-7203</span>
-                        <span class="demo-inline-tag">Demo</span>
                       </td>
                       <td>Haas CNC Turning Machine ST-20</td>
                       <td>06 Nov 2026</td>
@@ -1692,7 +1633,6 @@
                       <td>
                         <p class="table-cell-title mb-0">BR-3106</p>
                         <span class="table-cell-id">PAY-7202</span>
-                        <span class="demo-inline-tag">Demo</span>
                       </td>
                       <td>Hydraulic Press Brake</td>
                       <td>28 Oct 2026</td>
@@ -1715,7 +1655,6 @@
                       <td>
                         <p class="table-cell-title mb-0">BR-3107</p>
                         <span class="table-cell-id">PAY-7201</span>
-                        <span class="demo-inline-tag">Demo</span>
                       </td>
                       <td>Haas CNC Turning Machine ST-20</td>
                       <td>23 Oct 2026</td>
@@ -1749,9 +1688,8 @@
             <div class="dashboard-card-footer">
               <span
                 >No commission, tax, invoice, payout, or gateway fee figures are
-                invented. This ledger is demonstration data only.</span
+                invented.</span
               >
-              <span class="stat-demo-badge">Sample payments</span>
             </div>
           </section>
 
@@ -1767,8 +1705,7 @@
                 Completed bookings
               </h2>
               <div class="dashboard-card-actions">
-                <span class="text-muted small">2 sample completions</span>
-                <span class="stat-demo-badge">Demo records</span>
+                <span class="text-muted small">2 completions</span>
               </div>
             </div>
             <div class="dashboard-card-body">
@@ -1780,12 +1717,12 @@
                 class="table-responsive"
                 tabindex="0"
                 role="region"
-                aria-label="Sample completed bookings table"
+                aria-label="Completed bookings table"
               >
                 <table class="im-table table-buyer-completed">
                   <caption class="visually-hidden">
-                    Two completed sample bookings. BR-3106 has a sample review;
-                    BR-3107 is completed and awaiting a review.
+                    Two completed bookings. BR-3106 has a review; BR-3107 is
+                    completed and awaiting a review.
                   </caption>
                   <colgroup>
                     <col />
@@ -1814,7 +1751,6 @@
                           Hydraulic Press Brake
                         </p>
                         <span class="table-cell-id">BR-3106</span>
-                        <span class="demo-inline-tag">Demo</span>
                       </td>
                       <td>Sample Fabrication Co. &middot; Pune</td>
                       <td>03 Nov 2026</td>
@@ -1851,7 +1787,6 @@
                           Haas CNC Turning Machine ST-20
                         </p>
                         <span class="table-cell-id">BR-3107</span>
-                        <span class="demo-inline-tag">Demo</span>
                       </td>
                       <td>Patel Engineering &middot; Rajkot</td>
                       <td>27 Oct 2026</td>
@@ -1900,8 +1835,7 @@
             </div>
             <div class="dashboard-card-footer">
               <span
-                >Completion and review statuses are sample values. No live
-                completion or review record is created.</span
+                >No live completion or review record is created.</span
               >
               <span class="stat-demo-badge">Completed work</span>
             </div>
@@ -1922,7 +1856,6 @@
                 <span class="text-muted small" id="buyer-review-summary"
                   >1 submitted &middot; 1 awaiting</span
                 >
-                <span class="stat-demo-badge">Demo feedback</span>
               </div>
             </div>
             <div class="dashboard-card-body">
@@ -1954,7 +1887,7 @@
                     <p class="review-comment">
                       &ldquo;The bends matched the drawing and the batch was ready
                       on the agreed date. Communication was clear throughout the
-                      sample job.&rdquo;
+                      job.&rdquo;
                     </p>
                     <p class="review-meta mb-0">
                       <span class="status-badge status-completed">
@@ -1965,26 +1898,24 @@
                         Completed booking
                       </span>
                       <span>03 Nov 2026</span>
-                      <span class="demo-inline-tag">Sample review</span>
                     </p>
                   </article>
 
                   <p class="small text-muted mb-0">
-                    One submitted sample review is shown above. Only completed
-                    bookings can be reviewed; BR-3107 is the remaining eligible
-                    sample booking.
+                    One submitted review is shown above. Only completed bookings
+                    can be reviewed; BR-3107 is the remaining eligible booking.
                   </p>
                 </div>
 
                 <div class="col-md-5">
                   <div class="review-summary buyer-review-summary">
                     <div>
-                      <p class="stat-card-label mb-1">Your sample rating</p>
+                      <p class="stat-card-label mb-1">Your rating</p>
                       <p class="review-summary-value mb-1">5.0<span>/5</span></p>
                       <span
                         class="review-stars d-block"
                         role="img"
-                        aria-label="Submitted sample rating 5 out of 5"
+                        aria-label="Submitted rating 5 out of 5"
                       >
                         <i class="fa-solid fa-star" aria-hidden="true"></i>
                         <i class="fa-solid fa-star" aria-hidden="true"></i>
@@ -1997,7 +1928,7 @@
                       class="table-cell-subtext mb-0"
                       id="buyer-review-score-note"
                     >
-                      Based on the one sample review shown for completed booking
+                      Based on the one review shown for completed booking
                       BR-3106.
                     </p>
                     <div class="buyer-review-queue">
@@ -2010,7 +1941,7 @@
                       </span>
                       <p class="small text-muted mt-2 mb-2">
                         Review access is limited to completed bookings. BR-3107
-                        is the only eligible sample booking.
+                        is the only eligible booking.
                       </p>
                       <button
                         class="btn-im btn-im-primary btn-im-sm"
@@ -2021,7 +1952,7 @@
                         data-review-summary-cta
                       >
                         <i class="fa-solid fa-star" aria-hidden="true"></i>
-                        Review BR-3107 (demo)
+                        Review BR-3107
                       </button>
                     </div>
                   </div>
@@ -2030,16 +1961,14 @@
             </div>
             <div class="dashboard-card-footer">
               <span
-                >Reviews are demonstration feedback only and are not real
-                testimonials. Nothing is saved, sent, edited, or deleted.</span
+                >Nothing is saved, sent, edited, or deleted.</span
               >
-              <span class="stat-demo-badge">Sample reviews</span>
             </div>
           </section>
         </main>
 
         <footer class="dashboard-page-footer">
-          <span>&copy; 2026 IdleMach frontend prototype</span>
+          <span>&copy; 2026 IdleMach</span>
           <span class="dashboard-footer-links">
             <a href="machines.html">Marketplace</a>
             <a href="login.html">Login</a>
@@ -2065,7 +1994,7 @@
             <div>
               <p class="eyebrow mb-1">Booking details</p>
               <h2 class="modal-title h5 mb-0" id="buyer-booking-details-label">
-                Sample booking record
+                Booking record
               </h2>
             </div>
             <button
@@ -2077,7 +2006,6 @@
           </div>
           <div class="modal-body">
             <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
-              <span class="stat-demo-badge">Demo record</span>
               <span class="text-muted small"
                 >Changes are not saved or sent.</span
               >
@@ -2133,8 +2061,7 @@
           </div>
           <div class="modal-footer">
             <p class="small text-muted mb-0 me-auto">
-              This modal shows sample data only. No booking, payment, or status
-              record is changed.
+              No booking, payment, or status record is changed.
             </p>
             <button
               type="button"
@@ -2175,7 +2102,6 @@
           </div>
           <div class="modal-body">
             <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
-              <span class="stat-demo-badge">Demo review</span>
               <span class="text-muted small"
                 >Haas CNC Turning Machine ST-20 &middot; Patel Engineering &middot;
                 completed 27 Oct 2026</span
@@ -2268,8 +2194,7 @@
                   placeholder="Describe the machine quality, work quality, and timeliness."
                 ></textarea>
                 <p class="form-text">
-                  Maximum 500 characters. This prototype does not store or send
-                  the comment.
+                  Maximum 500 characters. The comment is not stored or sent.
                 </p>
               </div>
 
@@ -2284,7 +2209,7 @@
               <div class="d-flex flex-wrap align-items-center gap-2">
                 <button class="btn-im btn-im-primary" type="submit">
                   <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
-                  Submit review (demo)
+                  Submit review
                 </button>
                 <button
                   type="button"
@@ -2295,8 +2220,8 @@
                 </button>
               </div>
               <p class="small text-muted mt-2 mb-0">
-                Prototype only. Review storage, editing, removal, and dispute
-                rules are not configured. No backend is connected.
+                Review storage, editing, removal, and dispute rules are not
+                configured. No backend is connected.
               </p>
             </form>
           </div>
@@ -2317,7 +2242,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h2 class="modal-title h5" id="buyer-logout-modal-label">
-              Sign out of the buyer dashboard? (demo)
+              Sign out of the buyer dashboard?
             </h2>
             <button
               type="button"
@@ -2328,9 +2253,8 @@
           </div>
           <div class="modal-body">
             <p>
-              This prototype has no authentication or active session. Signing out
-              only demonstrates the intended navigation back to the login
-              interface.
+              No authentication or session is active. Signing out returns to
+              the login interface.
             </p>
             <div class="dashboard-demo-banner mb-0" role="note">
               <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
@@ -2354,7 +2278,7 @@
               id="buyer-logout-confirm"
             >
               <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
-              Simulate sign out
+              Sign out
             </button>
           </div>
         </div>
@@ -2374,7 +2298,7 @@
           <h2 class="offcanvas-title h5 mb-0" id="notifications-offcanvas-label">
             Notifications
           </h2>
-          <p class="small text-muted mb-0">Sample buyer inbox</p>
+          <p class="small text-muted mb-0">Buyer inbox</p>
         </div>
         <button
           type="button"
@@ -2387,7 +2311,7 @@
         <div
           class="d-flex align-items-center justify-content-between gap-2 border-bottom px-3 py-2"
         >
-          <span class="small text-muted">Demo notifications</span>
+          <span class="small text-muted">Notifications</span>
           <span class="badge text-bg-light border" id="notifications-count-badge"
             >3 unread</span
           >
@@ -2458,13 +2382,13 @@
           class="btn-im btn-im-outline w-100"
           type="button"
           id="btn-mark-notifications-read"
-          aria-label="Mark all notifications as read (demo)"
+          aria-label="Mark all notifications as read"
         >
           <i class="fa-solid fa-envelope-open-text" aria-hidden="true"></i>
-          Mark all as read (demo)
+          Mark all as read
         </button>
         <p class="small text-muted mt-2 mb-0">
-          Prototype only. Notifications are not stored or sent.
+          Notifications are not stored or sent.
         </p>
       </div>
     </div>

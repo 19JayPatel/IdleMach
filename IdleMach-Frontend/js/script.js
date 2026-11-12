@@ -186,12 +186,12 @@
 
       if (resultsSummary) {
         if (visibleCount === listingItems.length) {
-          resultsSummary.textContent = "Showing all " + listingItems.length + " sample listings.";
+          resultsSummary.textContent = "Showing all " + listingItems.length + " listings.";
         } else if (visibleCount === 0) {
-          resultsSummary.textContent = "No sample listings match this search.";
+          resultsSummary.textContent = "No listings match this search.";
         } else {
           resultsSummary.textContent =
-            "Showing " + visibleCount + " of " + listingItems.length + " sample listings.";
+            "Showing " + visibleCount + " of " + listingItems.length + " listings.";
         }
       }
 
@@ -373,12 +373,12 @@
 
       if (machineSummary) {
         if (visibleCount === machineItems.length) {
-          machineSummary.textContent = "Showing all " + machineItems.length + " sample listings.";
+          machineSummary.textContent = "Showing all " + machineItems.length + " listings.";
         } else if (visibleCount === 0) {
-          machineSummary.textContent = "No sample listings match these filters.";
+          machineSummary.textContent = "No listings match these filters.";
         } else {
           machineSummary.textContent =
-            "Showing " + visibleCount + " of " + machineItems.length + " sample listings.";
+            "Showing " + visibleCount + " of " + machineItems.length + " listings.";
         }
       }
 
@@ -465,12 +465,12 @@
         rate: 800,
         capacityHours: 8,
         availabilityNote:
-          "This sample record lists 8 hours per day as available. No day-by-day time slots are included.",
+          "This listing has 8 hours per day available. No day-by-day time slots are included.",
         images: [
           {
             src: "assets/images/machine-turning.svg",
             alt: "Illustration of a CNC turning machine.",
-            caption: "Original prototype illustration — not a photograph of a specific machine."
+            caption: "Original illustration - not a photograph of a specific machine."
           }
         ]
       },
@@ -486,12 +486,12 @@
         rate: 1150,
         capacityHours: 6,
         availabilityNote:
-          "This sample record lists 6 hours per day as available. No day-by-day time slots are included.",
+          "This listing has 6 hours per day available. No day-by-day time slots are included.",
         images: [
           {
             src: "assets/images/machine-milling.svg",
             alt: "Illustration of a vertical machining centre.",
-            caption: "Original prototype illustration — not a photograph of a specific machine."
+            caption: "Original illustration - not a photograph of a specific machine."
           }
         ]
       },
@@ -507,18 +507,18 @@
         rate: 950,
         capacityHours: 3,
         availabilityNote:
-          "This sample record is marked limited availability and lists 3 hours per day as available. No specific dates or time slots are included.",
+          "This listing is marked limited availability and has 3 hours per day available. No specific dates or time slots are included.",
         images: [
           {
             src: "assets/images/machine-fabrication.svg",
             alt: "Illustration of a hydraulic press brake bending sheet metal.",
-            caption: "Original prototype illustration — not a photograph of a specific machine."
+            caption: "Original illustration - not a photograph of a specific machine."
           }
         ]
       }
     };
 
-    var notProvided = "Not provided in this sample record.";
+    var notProvided = "Not provided in this record.";
     var requestedMachineId = new URLSearchParams(window.location.search).get("id");
     var machineId =
       requestedMachineId && /^\d+$/.test(requestedMachineId)
@@ -571,29 +571,29 @@
       if (pageDescription) {
         pageDescription.setAttribute(
           "content",
-          "The requested sample machine is not available on this IdleMach frontend prototype."
+          "The requested machine is not available on IdleMach."
         );
       }
 
       if (detailMissingTitle) {
         detailMissingTitle.textContent = requestedMachineId
-          ? "That sample machine could not be found"
+          ? "That machine could not be found"
           : "No machine was selected";
       }
 
       if (detailMissingText) {
         detailMissingText.textContent = requestedMachineId
-          ? "The machine ID \"" + requestedMachineId + "\" is not in this prototype. Only three sample machines (IDs 1 to 3) are available."
-          : "This page needs a sample machine ID, such as machine-details.html?id=1. The prototype only includes sample machines 1 to 3.";
+          ? "The machine ID \"" + requestedMachineId + "\" is not available. Only three machines (IDs 1 to 3) are available."
+          : "This page needs a machine ID, such as machine-details.html?id=1. Only machines 1 to 3 are available.";
       }
     } else {
-      document.title = currentMachine.name + " — Sample Machine — IdleMach";
+      document.title = currentMachine.name + " — Machine Details — IdleMach";
 
       if (pageDescription) {
         pageDescription.setAttribute(
           "content",
-          "Sample IdleMach listing for " + currentMachine.name + " from " + currentMachine.owner +
-            " in " + currentMachine.location + ". Demonstration data only — not a live listing or booking."
+          "IdleMach listing for " + currentMachine.name + " from " + currentMachine.owner +
+            " in " + currentMachine.location + ". Not a live listing or booking."
         );
       }
 
@@ -710,12 +710,12 @@
       if (galleryNote) {
         if (galleryImages.length === 1) {
           galleryNote.textContent =
-            "Only one image is included in this sample record. The thumbnail selector appears when a listing provides more than one image.";
+            "Only one image is included in this record. The thumbnail selector appears when a listing provides more than one image.";
         } else if (galleryImages.length > 1) {
           galleryNote.textContent =
-            "Select a thumbnail to change the main image. All images are original prototype illustrations.";
+            "Select a thumbnail to change the main image. All images are original illustrations.";
         } else {
-          galleryNote.textContent = "No image is available for this sample record.";
+          galleryNote.textContent = "No image is available for this record.";
         }
       }
 
@@ -760,7 +760,7 @@
 
       if (bookingHoursHelp) {
         bookingHoursHelp.textContent =
-          "This sample record lists " + currentMachine.capacityHours +
+          "This record has " + currentMachine.capacityHours +
           " hours/day as available. Enter 1 to " + currentMachine.capacityHours + " hours.";
       }
 
@@ -790,10 +790,10 @@
           message = "Requested hours must be at least 1.";
         } else if (hours > currentMachine.capacityHours) {
           message =
-            "This sample listing has only " + currentMachine.capacityHours +
+            "This listing has only " + currentMachine.capacityHours +
             " hours/day available.";
         } else if (Math.floor(hours) !== hours) {
-          message = "Use whole hours in this prototype form.";
+          message = "Use whole hours.";
         }
 
         bookingHours.setCustomValidity(message);
@@ -883,7 +883,7 @@
           }
 
           showPreviewNotice(
-            "Demo only: the booking form passed local validation. Nothing was sent, stored, or booked."
+            "The booking form passed local validation. Nothing was sent, stored, or booked."
           );
         });
 
@@ -1233,7 +1233,7 @@
   if (loginForm) {
     setupAuthForm(loginForm, "login-success", {
       successMessage:
-        "Demo only: the login form passed local validation. No account was checked and no session was created."
+        "The login form passed local validation. No account was checked and no session was created."
     });
   }
 
@@ -1252,7 +1252,7 @@
       roleFieldset: registerRoleFieldset,
       requestedRole: requestedRole,
       successMessage:
-        "Demo only: the registration form passed local validation. No account was created and nothing was stored or sent."
+        "The registration form passed local validation. No account was created and nothing was stored or sent."
     });
   }
 
@@ -1310,7 +1310,7 @@
       }
 
       showPreviewNotice(
-        "Demo only: the form passed local validation, but no message was sent or stored."
+        "The form passed local validation, but no message was sent or stored."
       );
     });
 
@@ -1630,10 +1630,10 @@
         if (buyerBookingSummary) {
           buyerBookingSummary.textContent =
             status === "all"
-              ? "Showing all " + visibleCount + " sample bookings."
+              ? "Showing all " + visibleCount + " bookings."
               : visibleCount === 0
-                ? "No sample bookings currently have status “" + status + "”."
-                : "Showing " + visibleCount + " sample booking" +
+                ? "No bookings currently have status “" + status + "”."
+                : "Showing " + visibleCount + " booking" +
                   (visibleCount === 1 ? "" : "s") + " with status “" + status + "”.";
         }
       };
@@ -1667,7 +1667,7 @@
           var machine = row && buyerMachineDetails[row.getAttribute("data-machine-id")];
 
           if (!row || !machine) {
-            showPreviewNotice("This sample booking detail is unavailable.");
+            showPreviewNotice("This booking detail is unavailable.");
             return;
           }
 
@@ -1701,16 +1701,16 @@
             pending: "Await the machine owner’s decision. Payment is not due before acceptance.",
             accepted: "The owner accepted this request. Payment follows acceptance; it is not confirmed until payment succeeds.",
             payment_pending: "Owner acceptance is recorded, but payment is pending. This booking is not confirmed.",
-            confirmed: "Payment succeeded and the booking is confirmed. Work has not yet started in this sample.",
+            confirmed: "Payment succeeded and the booking is confirmed. Work has not yet started.",
             in_progress: "Payment succeeded and the owner has marked this booking in progress.",
             completed: "Work is complete. A review is allowed only if this booking has not already been reviewed.",
             rejected: "This request was rejected. No payment record was created.",
-            cancelled: "Cancellation policy and permitted transitions are not configured in this prototype."
+            cancelled: "Cancellation policy and permitted transitions are not configured."
           };
           var nextStep = document.getElementById("buyer-detail-next-step");
           if (nextStep) {
             nextStep.textContent = nextStepMessages[bookingStatus] ||
-              "This is a demonstration record; no live booking action is available.";
+              "No live booking action is available.";
           }
 
           if (buyerBookingModal) {
@@ -1739,7 +1739,7 @@
             reviewBooking.getAttribute("data-review") !== "eligible"
           ) {
             showPreviewNotice(
-              "Only a completed, not-yet-reviewed sample booking can receive a review."
+              "Only a completed, not-yet-reviewed booking can receive a review."
             );
             return;
           }
@@ -1758,7 +1758,7 @@
           if (reviewLink) {
             var reviewNote = document.createElement("span");
             reviewNote.className = "table-cell-subtext";
-            reviewNote.textContent = "Review submitted (demo)";
+            reviewNote.textContent = "Review submitted";
             reviewLink.replaceWith(reviewNote);
           }
 
@@ -1770,7 +1770,7 @@
           if (completedReviewStatus) {
             completedReviewStatus.className = "status-badge status-successful";
             completedReviewStatus.innerHTML =
-              '<i class="fa-solid fa-star" aria-hidden="true"></i> Reviewed (demo)';
+              '<i class="fa-solid fa-star" aria-hidden="true"></i> Reviewed';
           }
 
           var completedReviewAction =
@@ -1778,7 +1778,7 @@
           if (completedReviewAction) {
             var completedNote = document.createElement("span");
             completedNote.className = "table-cell-subtext";
-            completedNote.textContent = "Submitted (demo)";
+            completedNote.textContent = "Submitted";
             completedReviewAction.replaceWith(completedNote);
           }
 
@@ -1793,13 +1793,13 @@
           if (reviewQueueStatus) {
             reviewQueueStatus.className = "status-badge status-successful";
             reviewQueueStatus.innerHTML =
-              '<i class="fa-solid fa-circle-check" aria-hidden="true"></i> Review submitted (demo)';
+              '<i class="fa-solid fa-circle-check" aria-hidden="true"></i> Review submitted';
           }
 
           var reviewScoreNote = document.getElementById("buyer-review-score-note");
           if (reviewScoreNote) {
             reviewScoreNote.textContent =
-              "Based on the two submitted sample reviews for this buyer.";
+              "Based on the two submitted reviews for this buyer.";
           }
 
           var reviewSummaryCta = dashboard.querySelector(
@@ -1808,7 +1808,7 @@
           if (reviewSummaryCta) {
             reviewSummaryCta.disabled = true;
             reviewSummaryCta.innerHTML =
-              '<i class="fa-solid fa-circle-check" aria-hidden="true"></i> Review submitted (demo)';
+              '<i class="fa-solid fa-circle-check" aria-hidden="true"></i> Review submitted';
           }
 
           buyerReviewForm.querySelectorAll("input, textarea, button").forEach(function (field) {
@@ -1817,7 +1817,7 @@
           if (feedback) {
             feedback.hidden = false;
             feedback.textContent =
-              "Preview only: your " + rating.value + "-star review is shown as submitted for " +
+              "Your " + rating.value + "-star review is shown as submitted for " +
               reviewBookingId + " on this page. Nothing was stored or sent.";
           }
         });
@@ -1991,7 +1991,7 @@
 
           var actionsCell = row.querySelector(".machine-actions-cell");
           if (actionsCell) {
-            actionsCell.innerHTML = '<button class="btn-im btn-im-outline btn-im-sm" type="button" data-action="view-machine" data-machine-id="' + currentActionMachineId + '"><i class="fa-solid fa-eye" aria-hidden="true"></i> View</button> <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1"><i class="fa-solid fa-check me-1"></i>Approved (Demo)</span>';
+            actionsCell.innerHTML = '<button class="btn-im btn-im-outline btn-im-sm" type="button" data-action="view-machine" data-machine-id="' + currentActionMachineId + '"><i class="fa-solid fa-eye" aria-hidden="true"></i> View</button> <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1"><i class="fa-solid fa-check me-1"></i>Approved</span>';
             // Re-bind view action for this button
             var newViewBtn = actionsCell.querySelector("[data-action='view-machine']");
             if (newViewBtn) {
@@ -2030,7 +2030,7 @@
           approveMachineModal.hide();
         }
 
-        showPreviewNotice("Demo only: Machine " + currentActionMachineId + " marked approved locally. In production, listing appears in marketplace after owner activation. No database modified.");
+        showPreviewNotice("Machine " + currentActionMachineId + " marked approved locally. In production, listing appears in marketplace after owner activation. No database modified.");
         currentActionMachineId = null;
       });
     }
@@ -2084,7 +2084,7 @@
 
           var actionsCell = row.querySelector(".machine-actions-cell");
           if (actionsCell) {
-            actionsCell.innerHTML = '<button class="btn-im btn-im-outline btn-im-sm" type="button" data-action="view-machine" data-machine-id="' + currentActionMachineId + '"><i class="fa-solid fa-eye" aria-hidden="true"></i> View</button> <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1"><i class="fa-solid fa-xmark me-1"></i>Rejected (Demo)</span>';
+            actionsCell.innerHTML = '<button class="btn-im btn-im-outline btn-im-sm" type="button" data-action="view-machine" data-machine-id="' + currentActionMachineId + '"><i class="fa-solid fa-eye" aria-hidden="true"></i> View</button> <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1"><i class="fa-solid fa-xmark me-1"></i>Rejected</span>';
             var newViewBtn = actionsCell.querySelector("[data-action='view-machine']");
             if (newViewBtn) {
               newViewBtn.addEventListener("click", function () {
@@ -2122,7 +2122,7 @@
           rejectMachineModal.hide();
         }
 
-        showPreviewNotice("Demo only: Machine " + currentActionMachineId + " marked rejected locally (" + reason + "). No database modified.");
+        showPreviewNotice("Machine " + currentActionMachineId + " marked rejected locally (" + reason + "). No database modified.");
         currentActionMachineId = null;
       });
     }
@@ -2152,7 +2152,7 @@
 
         // Re-attach listeners to reset buttons
         setupMachineActions();
-        showPreviewNotice("Approvals demo reset: sample machine rows restored to pending review status. No database modified.");
+        showPreviewNotice("Approvals reset: machine rows restored to pending review status. No database modified.");
       });
     }
 
@@ -2223,7 +2223,7 @@
         rate: "₹800/hr",
         total: "₹8,000",
         workDesc: "Turned shafts (mild steel EN8), 150 pieces, precision tolerance ±0.02 mm.",
-        drawing: "Shaft_Drawing_RevB.pdf (Sample drawing attached)",
+        drawing: "Shaft_Drawing_RevB.pdf (Drawing attached)",
         status: "completed",
         paymentStatus: "successful",
         txnId: "TXN-88219401"
@@ -2349,7 +2349,7 @@
     document.querySelectorAll("[data-management-preview]").forEach(function (btn) {
       btn.addEventListener("click", function () {
         var name = btn.getAttribute("data-management-preview") || "Management module";
-        showPreviewNotice("Prototype preview: " + name + " screens are scheduled for Phase 3.4 / Phase 8. The admin dashboard currently provides top-level monitoring.");
+        showPreviewNotice("Screens for " + name + " are not included yet. The admin dashboard currently provides top-level monitoring.");
       });
     });
 
@@ -2374,7 +2374,7 @@
         if (notificationTrigger) {
           notificationTrigger.setAttribute("aria-label", "Open notifications");
         }
-        showPreviewNotice("Sample notifications marked as read for this demonstration session.");
+        showPreviewNotice("Notifications marked as read for this session.");
       });
     }
 
@@ -2598,7 +2598,7 @@
         }
 
         updateOwnerAvailableCapacity();
-        showPreviewNotice("Demo only: Machine " + currentEditingMachineId + " details updated locally. No database modified.");
+        showPreviewNotice("Machine " + currentEditingMachineId + " details updated locally. No database modified.");
         currentEditingMachineId = null;
       });
     }
@@ -2663,7 +2663,7 @@
             }
             if (activeMachinesCount > 0) activeMachinesCount--;
             if (statActive) statActive.textContent = activeMachinesCount;
-            showPreviewNotice("Demo only: Machine " + id + " deactivated locally. It will not receive new booking requests. No database modified.");
+            showPreviewNotice("Machine " + id + " deactivated locally. It will not receive new booking requests. No database modified.");
           } else if (m.status === "inactive") {
             m.status = "active";
             if (row) {
@@ -2677,7 +2677,7 @@
             }
             activeMachinesCount++;
             if (statActive) statActive.textContent = activeMachinesCount;
-            showPreviewNotice("Demo only: Machine " + id + " activated locally. Open for marketplace booking requests. No database modified.");
+            showPreviewNotice("Machine " + id + " activated locally. Open for marketplace booking requests. No database modified.");
           }
 
           updateOwnerAvailableCapacity();
@@ -2742,11 +2742,11 @@
           var safeCapacity = escapeOwnerHtml(capacity);
 
           tr.innerHTML = '<td><div class="machine-name-cell">' +
-            '<img class="machine-thumb" src="assets/images/machine-turning.svg" alt="Sample machine illustration." width="48" height="48" loading="lazy" />' +
+            '<img class="machine-thumb" src="assets/images/machine-turning.svg" alt="Machine illustration." width="48" height="48" loading="lazy" />' +
             '<div><p class="table-cell-title mb-0">' + safeName + '</p>' +
             '<span class="table-cell-subtext d-block">' + safeBrand + ' (' + safeModel + ')</span>' +
             '<span class="table-cell-id">ID: ' + newId + ' &middot; Just added</span>' +
-            '<span class="demo-inline-tag">Demo</span></div></div></td>' +
+            '</div></div></td>' +
             '<td><span class="badge bg-light text-dark border mb-1">' + safeType + '</span><span class="table-cell-subtext d-block">Process: ' + safeType + '</span></td>' +
             '<td>Rajkot, Gujarat</td>' +
             '<td><div class="fw-semibold text-dark machine-rate-text">&#8377;' + safeRate + '/hr</div><div class="table-cell-subtext machine-capacity-text">' + safeCapacity + ' hrs/day</div></td>' +
@@ -2779,7 +2779,7 @@
         bindOwnerMachineEditButtons();
         bindOwnerMachineToggleButtons();
 
-        showPreviewNotice("Demo only: Machine " + newId + " (" + name + ") submitted for admin approval with status 'pending'. Only approved machines appear in marketplace. No database modified.");
+        showPreviewNotice("Machine " + newId + " (" + name + ") submitted for admin approval with status 'pending'. Only approved machines appear in marketplace. No database modified.");
       });
     }
 
@@ -2923,14 +2923,14 @@
           if (!id) return;
 
           document.getElementById("ovb-id").textContent = id;
-          document.getElementById("ovb-buyer").textContent = btn.getAttribute("data-booking-buyer") || "Sample buyer";
-          document.getElementById("ovb-machine").textContent = btn.getAttribute("data-booking-machine") || "Sample machine";
-          document.getElementById("ovb-date").textContent = btn.getAttribute("data-booking-date") || "Sample schedule";
-          document.getElementById("ovb-hours").textContent = btn.getAttribute("data-booking-hours") || "Sample duration";
-          document.getElementById("ovb-rate").textContent = btn.getAttribute("data-booking-rate") || "Sample rate";
-          document.getElementById("ovb-total").textContent = btn.getAttribute("data-booking-total") || "Sample amount";
+          document.getElementById("ovb-buyer").textContent = btn.getAttribute("data-booking-buyer") || "Buyer";
+          document.getElementById("ovb-machine").textContent = btn.getAttribute("data-booking-machine") || "Machine";
+          document.getElementById("ovb-date").textContent = btn.getAttribute("data-booking-date") || "Schedule";
+          document.getElementById("ovb-hours").textContent = btn.getAttribute("data-booking-hours") || "Duration";
+          document.getElementById("ovb-rate").textContent = btn.getAttribute("data-booking-rate") || "Rate";
+          document.getElementById("ovb-total").textContent = btn.getAttribute("data-booking-total") || "Amount";
           document.getElementById("ovb-progress").textContent = btn.getAttribute("data-booking-progress") || "Not started";
-          document.getElementById("ovb-note").textContent = btn.getAttribute("data-booking-note") || "Sample booking note.";
+          document.getElementById("ovb-note").textContent = btn.getAttribute("data-booking-note") || "Booking note.";
 
           var status = btn.getAttribute("data-booking-status") || "confirmed";
           var statusClass = status.replace(/_/g, "-");
@@ -2969,7 +2969,7 @@
           currentActionRequestId = btn.getAttribute("data-request-id");
           var r = sampleOwnerRequests[currentActionRequestId];
           if (!r || r.status !== "pending") {
-            showPreviewNotice("Only pending demo requests can be accepted.");
+            showPreviewNotice("Only pending requests can be accepted.");
             currentActionRequestId = null;
             return;
           }
@@ -2999,7 +2999,7 @@
         var r = sampleOwnerRequests[currentActionRequestId];
         if (!r || r.status !== "pending") {
           if (ownerAcceptRequestModal) ownerAcceptRequestModal.hide();
-          showPreviewNotice("Only pending demo requests can be accepted.");
+          showPreviewNotice("Only pending requests can be accepted.");
           currentActionRequestId = null;
           return;
         }
@@ -3052,7 +3052,7 @@
           ownerAcceptRequestModal.hide();
         }
 
-        showPreviewNotice("Demo only: Request " + currentActionRequestId + " accepted locally. Status set to 'payment_pending'. Buyer notified to complete payment. Booking confirmed upon payment. No database modified.");
+        showPreviewNotice("Request " + currentActionRequestId + " accepted locally. Status set to 'payment_pending'. Buyer notified to complete payment. Booking confirmed upon payment. No database modified.");
         currentActionRequestId = null;
       });
     }
@@ -3093,7 +3093,7 @@
         var r = sampleOwnerRequests[currentActionRequestId];
         if (!r || r.status !== "pending") {
           if (ownerRejectRequestModal) ownerRejectRequestModal.hide();
-          showPreviewNotice("Only pending demo requests can be rejected.");
+          showPreviewNotice("Only pending requests can be rejected.");
           currentActionRequestId = null;
           return;
         }
@@ -3111,7 +3111,7 @@
 
           var actionCell = row.querySelector(".request-actions-cell");
           if (actionCell) {
-            actionCell.innerHTML = '<button class="btn-im btn-im-outline btn-im-sm" type="button" data-action="owner-view-request" data-request-id="' + currentActionRequestId + '"><i class="fa-solid fa-eye me-1" aria-hidden="true"></i><span>View</span></button> <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1"><i class="fa-solid fa-xmark me-1"></i>Rejected (Demo)</span>';
+            actionCell.innerHTML = '<button class="btn-im btn-im-outline btn-im-sm" type="button" data-action="owner-view-request" data-request-id="' + currentActionRequestId + '"><i class="fa-solid fa-eye me-1" aria-hidden="true"></i><span>View</span></button> <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1"><i class="fa-solid fa-xmark me-1"></i>Rejected</span>';
           }
         }
 
@@ -3124,7 +3124,7 @@
           ownerRejectRequestModal.hide();
         }
 
-        showPreviewNotice("Demo only: Request " + currentActionRequestId + " marked rejected locally (" + reason + "). No database modified.");
+        showPreviewNotice("Request " + currentActionRequestId + " marked rejected locally (" + reason + "). No database modified.");
         currentActionRequestId = null;
       });
     }
@@ -3163,7 +3163,7 @@
         bindOwnerRequestAcceptButtons();
         bindOwnerRequestRejectButtons();
 
-        showPreviewNotice("Demo request states reset: BR-2041 remains accepted awaiting payment, and two requests await an owner decision. No database modified.");
+        showPreviewNotice("Request states reset: BR-2041 remains accepted awaiting payment, and two requests await an owner decision. No database modified.");
       });
     }
 
@@ -3216,7 +3216,7 @@
 
         var completeConfirm = document.getElementById("complete-work-confirm");
         if (!completeConfirm || !completeConfirm.checked) {
-          showPreviewNotice("Confirm that the physical work is finished before marking this demo booking completed.");
+          showPreviewNotice("Confirm that the physical work is finished before marking this booking completed.");
           return;
         }
 
@@ -3254,7 +3254,7 @@
           ownerCompleteWorkModal.hide();
         }
 
-        showPreviewNotice("Demo only: Booking " + currentCompletingBookingId + " marked as completed locally. Work finished. Job is now eligible for buyer review and payout settlement. No database modified.");
+        showPreviewNotice("Booking " + currentCompletingBookingId + " marked as completed locally. Work finished. Job is now eligible for buyer review and payout settlement. No database modified.");
         currentCompletingBookingId = null;
       });
     }
@@ -3289,7 +3289,7 @@
         if (ownerProgressModal) {
           ownerProgressModal.hide();
         }
-        showPreviewNotice("Demo only: Progress logged for " + currentProgressBookingId + ": '" + note + "'. No database modified.");
+        showPreviewNotice("Progress logged for " + currentProgressBookingId + ": '" + note + "'. No database modified.");
         currentProgressBookingId = null;
       });
     }
@@ -3313,7 +3313,7 @@
         if (companyProfileModal) {
           companyProfileModal.hide();
         }
-        showPreviewNotice("Demo only: Company profile updated locally for Patel Engineering. No database modified.");
+        showPreviewNotice("Company profile updated locally for Patel Engineering. No database modified.");
       });
     }
 

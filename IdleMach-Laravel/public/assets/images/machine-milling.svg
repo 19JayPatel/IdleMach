@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="millingTitle millingDesc">
+  <title id="millingTitle">Illustration of a vertical machining centre</title>
+  <desc id="millingDesc">A flat illustration of an enclosed vertical machining centre with a spindle, working table, and control panel.</desc>
+
+  <defs>
+    <pattern id="millingGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#d3e2e4" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="640" height="400" fill="#eef2f3"/>
+  <rect width="640" height="400" fill="url(#millingGrid)" opacity="0.65"/>
+  <rect y="320" width="640" height="80" fill="#dfe8ea"/>
+  <path d="M0 320h640" fill="none" stroke="#b9c6cb" stroke-width="2"/>
+  <path d="M70 356h500" fill="none" stroke="#d9a55a" stroke-width="3" stroke-dasharray="14 12" opacity="0.65"/>
+
+  <!-- Machine -->
+  <g>
+    <rect x="138" y="304" width="388" height="18" rx="9" fill="#c4d4d8"/>
+    <rect x="158" y="288" width="348" height="26" rx="5" fill="#0a414c"/>
+    <g fill="#d9a55a">
+      <rect x="172" y="296" width="14" height="8"/>
+      <rect x="200" y="296" width="14" height="8"/>
+      <rect x="228" y="296" width="14" height="8"/>
+      <rect x="256" y="296" width="14" height="8"/>
+      <rect x="284" y="296" width="14" height="8"/>
+      <rect x="312" y="296" width="14" height="8"/>
+      <rect x="340" y="296" width="14" height="8"/>
+      <rect x="368" y="296" width="14" height="8"/>
+      <rect x="396" y="296" width="14" height="8"/>
+      <rect x="424" y="296" width="14" height="8"/>
+      <rect x="452" y="296" width="14" height="8"/>
+      <rect x="480" y="296" width="14" height="8"/>
+    </g>
+
+    <!-- Enclosure -->
+    <rect x="174" y="86" width="312" height="206" rx="12" fill="#0f5c6b"/>
+    <rect x="174" y="86" width="312" height="20" rx="12" fill="#0a414c"/>
+    <rect x="174" y="96" width="312" height="10" fill="#0a414c"/>
+    <text x="190" y="126" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="1.6" fill="#dce7e9">VMC</text>
+
+    <!-- Window -->
+    <rect x="192" y="138" width="188" height="118" rx="4" fill="#f5f7f8" stroke="#0a414c" stroke-width="2"/>
+    <rect x="202" y="148" width="148" height="98" rx="3" fill="#17323d"/>
+    <path d="M208 154l44-1-34 87-10 0z" fill="#ffffff" opacity="0.08"/>
+
+    <!-- Spindle and table -->
+    <rect x="258" y="156" width="34" height="24" rx="3" fill="#0a414c"/>
+    <rect x="268" y="180" width="14" height="28" rx="2" fill="#93a7ac"/>
+    <path d="M274 208l-6 16h12z" fill="#d9a55a"/>
+    <rect x="214" y="226" width="124" height="10" rx="2" fill="#93a7ac"/>
+    <rect x="236" y="214" width="42" height="12" rx="2" fill="#e3eaec" stroke="#93a7ac"/>
+    <rect x="248" y="206" width="18" height="8" rx="1" fill="#9a5b0b"/>
+    <path d="M214 244h124" fill="none" stroke="#0a414c" stroke-width="4" opacity="0.55"/>
+
+    <!-- Door handle -->
+    <rect x="342" y="184" width="7" height="38" rx="3" fill="#93a7ac"/>
+    <path d="M352 256h132" fill="none" stroke="#0a414c" stroke-width="2" opacity="0.4"/>
+
+    <!-- Control panel -->
+    <rect x="398" y="154" width="70" height="118" rx="5" fill="#dce7e9" stroke="#0a414c" stroke-width="2"/>
+    <rect x="407" y="166" width="52" height="32" rx="2" fill="#10202b"/>
+    <path d="M414 178h26M414 187h18" fill="none" stroke="#7fb4bb" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="416" cy="216" r="4" fill="#1b6e45"/>
+    <circle cx="432" cy="216" r="4" fill="#d9a55a"/>
+    <circle cx="448" cy="216" r="4" fill="#93a7ac"/>
+    <rect x="410" y="230" width="44" height="7" rx="2" fill="#93a7ac"/>
+    <rect x="410" y="242" width="44" height="7" rx="2" fill="#93a7ac"/>
+    <rect x="410" y="254" width="28" height="7" rx="2" fill="#93a7ac"/>
+
+    <!-- Top details -->
+    <rect x="196" y="74" width="88" height="12" rx="4" fill="#0a414c"/>
+    <circle cx="240" cy="68" r="8" fill="#93a7ac" stroke="#0a414c" stroke-width="2"/>
+    <circle cx="240" cy="68" r="3" fill="#0a414c"/>
+    <circle cx="460" cy="76" r="6" fill="#d9a55a" stroke="#0a414c" stroke-width="2"/>
+    <rect x="457" y="82" width="6" height="5" fill="#0a414c"/>
+  </g>
+
+  <!-- Chip conveyor -->
+  <g>
+    <rect x="498" y="248" width="54" height="44" rx="4" fill="#dce7e9" stroke="#93a7ac" stroke-width="2"/>
+    <path d="M508 260h32M508 270h24M508 280h28" fill="none" stroke="#93a7ac" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="490" y="292" width="70" height="7" rx="3" fill="#93a7ac"/>
+  </g>
+</svg>

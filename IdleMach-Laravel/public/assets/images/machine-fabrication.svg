@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="fabTitle fabDesc">
+  <title id="fabTitle">Illustration of a hydraulic press brake</title>
+  <desc id="fabDesc">A flat illustration of a press brake bending a sheet metal part, with an upper beam, lower bed, and control panel.</desc>
+
+  <defs>
+    <pattern id="fabGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#d3e2e4" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="640" height="400" fill="#eef2f3"/>
+  <rect width="640" height="400" fill="url(#fabGrid)" opacity="0.65"/>
+  <rect y="320" width="640" height="80" fill="#dfe8ea"/>
+  <path d="M0 320h640" fill="none" stroke="#b9c6cb" stroke-width="2"/>
+  <path d="M66 356h510" fill="none" stroke="#d9a55a" stroke-width="3" stroke-dasharray="14 12" opacity="0.65"/>
+
+  <!-- Press brake frame -->
+  <g>
+    <rect x="134" y="310" width="372" height="14" rx="7" fill="#c4d4d8"/>
+    <rect x="150" y="294" width="340" height="22" rx="4" fill="#0a414c"/>
+    <g fill="#d9a55a">
+      <rect x="164" y="302" width="14" height="8"/>
+      <rect x="192" y="302" width="14" height="8"/>
+      <rect x="220" y="302" width="14" height="8"/>
+      <rect x="248" y="302" width="14" height="8"/>
+      <rect x="276" y="302" width="14" height="8"/>
+      <rect x="304" y="302" width="14" height="8"/>
+      <rect x="332" y="302" width="14" height="8"/>
+      <rect x="360" y="302" width="14" height="8"/>
+      <rect x="388" y="302" width="14" height="8"/>
+      <rect x="416" y="302" width="14" height="8"/>
+      <rect x="444" y="302" width="14" height="8"/>
+    </g>
+
+    <!-- C-frame -->
+    <path d="M170 294V120c0-22 18-40 40-40h196c22 0 40 18 40 40v52H306V138H222v156z" fill="#0f5c6b"/>
+    <path d="M170 294V120c0-22 18-40 40-40h196c22 0 40 18 40 40v20H222v154z" fill="#0a414c"/>
+    <path d="M222 138h178v18H222z" fill="#0f5c6b"/>
+
+    <!-- Hydraulic cylinders -->
+    <g>
+      <rect x="224" y="62" width="26" height="50" rx="4" fill="#93a7ac" stroke="#0a414c" stroke-width="2"/>
+      <rect x="232" y="112" width="10" height="30" rx="2" fill="#c8d4d7" stroke="#0a414c" stroke-width="2"/>
+      <rect x="374" y="62" width="26" height="50" rx="4" fill="#93a7ac" stroke="#0a414c" stroke-width="2"/>
+      <rect x="382" y="112" width="10" height="30" rx="2" fill="#c8d4d7" stroke="#0a414c" stroke-width="2"/>
+      <rect x="250" y="58" width="148" height="10" rx="4" fill="#0a414c"/>
+    </g>
+
+    <!-- Upper beam and tooling -->
+    <rect x="206" y="154" width="192" height="34" rx="4" fill="#0a414c"/>
+    <path d="M260 188h84l-12 30h-60z" fill="#93a7ac" stroke="#0a414c" stroke-width="2"/>
+
+    <!-- Lower bed and tooling -->
+    <rect x="206" y="244" width="192" height="28" rx="4" fill="#0a414c"/>
+    <path d="M266 244h72l-10-18h-52z" fill="#93a7ac" stroke="#0a414c" stroke-width="2"/>
+
+    <!-- Sheet metal part being bent -->
+    <path d="M192 222h138l42 18" fill="none" stroke="#c8d4d7" stroke-width="10" stroke-linecap="square" stroke-linejoin="round"/>
+    <path d="M192 222h138l42 18" fill="none" stroke="#e3eaec" stroke-width="4" stroke-linecap="square" stroke-linejoin="round"/>
+    <path d="M348 222l10-16" fill="none" stroke="#c8d4d7" stroke-width="10" stroke-linecap="square"/>
+    <path d="M348 222l10-16" fill="none" stroke="#e3eaec" stroke-width="4" stroke-linecap="square"/>
+
+    <!-- Control panel -->
+    <rect x="456" y="156" width="64" height="112" rx="5" fill="#dce7e9" stroke="#0a414c" stroke-width="2"/>
+    <rect x="465" y="168" width="46" height="30" rx="2" fill="#10202b"/>
+    <path d="M472 180h22M472 188h14" fill="none" stroke="#7fb4bb" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="474" cy="216" r="4" fill="#1b6e45"/>
+    <circle cx="490" cy="216" r="4" fill="#d9a55a"/>
+    <rect x="468" y="230" width="40" height="7" rx="2" fill="#93a7ac"/>
+    <rect x="468" y="242" width="40" height="7" rx="2" fill="#93a7ac"/>
+    <rect x="452" y="146" width="52" height="10" rx="4" fill="#0a414c"/>
+
+    <circle cx="448" cy="80" r="6" fill="#d9a55a" stroke="#0a414c" stroke-width="2"/>
+    <rect x="445" y="86" width="6" height="5" fill="#0a414c"/>
+  </g>
+
+  <!-- Material stack -->
+  <g>
+    <rect x="76" y="256" width="86" height="10" rx="2" fill="#c8d4d7" stroke="#93a7ac"/>
+    <rect x="76" y="270" width="86" height="10" rx="2" fill="#dce7e9" stroke="#93a7ac"/>
+    <rect x="76" y="284" width="86" height="10" rx="2" fill="#c8d4d7" stroke="#93a7ac"/>
+    <rect x="68" y="294" width="102" height="8" rx="3" fill="#93a7ac"/>
+  </g>
+</svg>

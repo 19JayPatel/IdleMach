@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 560" role="img" aria-labelledby="ownerTitle ownerDesc">
+  <title id="ownerTitle">Illustration of an owner capacity plan</title>
+  <desc id="ownerDesc">A machine beside a weekly capacity board where an owner marks booked, available, and blocked hours.</desc>
+
+  <defs>
+    <pattern id="ownerGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#cfdee1" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="720" height="560" fill="#e6f2f3"/>
+  <rect width="720" height="560" fill="url(#ownerGrid)" opacity="0.7"/>
+  <rect y="430" width="720" height="130" fill="#d9e6e8"/>
+  <path d="M0 430h720" fill="none" stroke="#b7c9ce" stroke-width="2"/>
+
+  <!-- Wall details -->
+  <rect x="44" y="48" width="132" height="82" rx="4" fill="#f5f7f8" stroke="#b9c6cb" stroke-width="2"/>
+  <rect x="44" y="48" width="132" height="17" rx="4" fill="#0f5c6b"/>
+  <path d="M58 82h92M58 94h58M58 106h76" fill="none" stroke="#b9c6cb" stroke-width="3" stroke-linecap="round"/>
+  <rect x="54" y="160" width="104" height="8" rx="4" fill="#b9c6cb"/>
+  <rect x="54" y="176" width="72" height="8" rx="4" fill="#c8d4d7"/>
+
+  <!-- Machine -->
+  <g>
+    <rect x="46" y="404" width="232" height="16" rx="8" fill="#c4d4d8"/>
+    <rect x="58" y="390" width="210" height="18" rx="4" fill="#0a414c"/>
+    <rect x="66" y="260" width="192" height="134" rx="10" fill="#0f5c6b"/>
+    <rect x="66" y="260" width="192" height="16" rx="10" fill="#0a414c"/>
+    <rect x="82" y="286" width="120" height="84" rx="4" fill="#f5f7f8" stroke="#0a414c" stroke-width="2"/>
+    <rect x="92" y="296" width="90" height="62" rx="3" fill="#17323d"/>
+    <circle cx="132" cy="327" r="21" fill="#c8d4d7" stroke="#93a7ac" stroke-width="2"/>
+    <circle cx="132" cy="327" r="7" fill="#17323d"/>
+    <rect x="140" y="323" width="38" height="8" rx="2" fill="#e3eaec" stroke="#93a7ac"/>
+    <rect x="214" y="286" width="34" height="82" rx="4" fill="#dce7e9" stroke="#0a414c" stroke-width="2"/>
+    <rect x="221" y="296" width="20" height="18" rx="2" fill="#10202b"/>
+    <circle cx="225" cy="328" r="3" fill="#1b6e45"/>
+    <circle cx="238" cy="328" r="3" fill="#d9a55a"/>
+    <rect x="220" y="340" width="22" height="5" rx="2.5" fill="#93a7ac"/>
+    <rect x="220" y="350" width="22" height="5" rx="2.5" fill="#93a7ac"/>
+    <circle cx="246" cy="250" r="6" fill="#d9a55a" stroke="#0a414c" stroke-width="2"/>
+    <path d="M80 374h164" fill="none" stroke="#0a414c" stroke-width="3" opacity="0.45"/>
+    <text x="80" y="400" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="1.4" fill="#dce7e9">MACHINE 01</text>
+  </g>
+
+  <!-- Capacity plan board -->
+  <g transform="translate(286 44)">
+    <rect x="7" y="8" width="382" height="406" rx="12" fill="#a8c0c5" opacity="0.5"/>
+    <rect width="382" height="406" rx="12" fill="#ffffff" stroke="#b9c6cb" stroke-width="2"/>
+    <text x="22" y="36" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700" fill="#10202b">Capacity plan</text>
+    <text x="22" y="55" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#5b6a72">Owner sets the hours available to book</text>
+
+    <!-- Weekday labels -->
+    <g font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#5b6a72" text-anchor="middle">
+      <text x="44" y="84">MON</text>
+      <text x="111" y="84">TUE</text>
+      <text x="178" y="84">WED</text>
+      <text x="245" y="84">THU</text>
+      <text x="312" y="84">FRI</text>
+    </g>
+
+    <!-- Time slot grid -->
+    <g>
+      <!-- Monday -->
+      <rect x="22" y="96" width="44" height="28" rx="4" fill="#d9a55a"/>
+      <rect x="22" y="128" width="44" height="28" rx="4" fill="#0f5c6b"/>
+      <rect x="22" y="160" width="44" height="28" rx="4" fill="#0f5c6b"/>
+      <rect x="22" y="192" width="44" height="28" rx="4" fill="#eef2f3"/>
+      <rect x="22" y="224" width="44" height="28" rx="4" fill="#d9a55a"/>
+      <rect x="22" y="256" width="44" height="28" rx="4" fill="#eef2f3"/>
+
+      <!-- Tuesday -->
+      <rect x="89" y="96" width="44" height="28" rx="4" fill="#0f5c6b"/>
+      <rect x="89" y="128" width="44" height="28" rx="4" fill="#0f5c6b"/>
+      <rect x="89" y="160" width="44" height="28" rx="4" fill="#d9a55a"/>
+      <rect x="89" y="192" width="44" height="28" rx="4" fill="#d9a55a"/>
+      <rect x="89" y="224" width="44" height="28" rx="4" fill="#eef2f3"/>
+      <rect x="89" y="256" width="44" height="28" rx="4" fill="#eef2f3"/>
+
+      <!-- Wednesday -->
+      <rect x="156" y="96" width="44" height="28" rx="4" fill="#eef2f3"/>
+      <rect x="156" y="128" width="44" height="28" rx="4" fill="#eef2f3"/>
+      <rect x="156" y="160" width="44" height="28" rx="4" fill="#0f5c6b"/>
+      <rect x="156" y="192" width="44" height="28" rx="4" fill="#0f5c6b"/>
+      <rect x="156" y="224" width="44" height="28" rx="4" fill="#d9a55a"/>
+      <rect x="156" y="256" width="44" height="28" rx="4" fill="#d9a55a"/>
+
+      <!-- Thursday -->
+      <rect x="223" y="96" width="44" height="28" rx="4" fill="#d9a55a"/>
+      <rect x="223" y="128" width="44" height="28" rx="4" fill="#d9a55a"/>
+      <rect x="223" y="160" width="44" height="28" rx="4" fill="#d7dfe2"/>
+      <rect x="223" y="192" width="44" height="28" rx="4" fill="#d7dfe2"/>
+      <rect x="223" y="224" width="44" height="28" rx="4" fill="#0f5c6b"/>
+      <rect x="223" y="256" width="44" height="28" rx="4" fill="#0f5c6b"/>
+
+      <!-- Friday -->
+      <rect x="290" y="96" width="44" height="28" rx="4" fill="#0f5c6b"/>
+      <rect x="290" y="128" width="44" height="28" rx="4" fill="#d9a55a"/>
+      <rect x="290" y="160" width="44" height="28" rx="4" fill="#d9a55a"/>
+      <rect x="290" y="192" width="44" height="28" rx="4" fill="#eef2f3"/>
+      <rect x="290" y="224" width="44" height="28" rx="4" fill="#eef2f3"/>
+      <rect x="290" y="256" width="44" height="28" rx="4" fill="#eef2f3"/>
+    </g>
+
+    <!-- Selected slot and pointer -->
+    <rect x="154" y="222" width="48" height="32" rx="5" fill="none" stroke="#9a5b0b" stroke-width="3"/>
+    <g transform="translate(246 222)">
+      <path d="M0 0l30 12-12 4-4 12z" fill="#10202b" stroke="#ffffff" stroke-width="2" stroke-linejoin="round"/>
+    </g>
+    <g transform="translate(18 324)">
+      <rect width="170" height="38" rx="6" fill="#fbf1e3" stroke="#d9a55a" stroke-width="2"/>
+      <circle cx="18" cy="19" r="5" fill="#d9a55a"/>
+      <text x="30" y="17" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#7a4e00">AVAILABLE TO LIST</text>
+      <text x="30" y="29" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#7a4e00">Selected by the owner</text>
+    </g>
+
+    <!-- Legend -->
+    <g font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#5b6a72">
+      <circle cx="26" cy="304" r="5" fill="#0f5c6b"/>
+      <text x="37" y="307">Booked</text>
+      <circle cx="100" cy="304" r="5" fill="#d9a55a"/>
+      <text x="111" y="307">Available</text>
+      <circle cx="190" cy="304" r="5" fill="#d7dfe2"/>
+      <text x="201" y="307">Blocked</text>
+    </g>
+
+    <path d="M22 372h340" fill="none" stroke="#d7dfe2" stroke-width="1"/>
+    <text x="22" y="392" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#87949a">Illustrative capacity view</text>
+  </g>
+
+  <!-- Connector from machine to plan -->
+  <path d="M262 330c24 0 20-28 24-36" fill="none" stroke="#93a7ac" stroke-width="2" stroke-dasharray="5 6"/>
+  <circle cx="286" cy="292" r="3.5" fill="#93a7ac"/>
+
+  <!-- Floor details -->
+  <path d="M40 470h360" fill="none" stroke="#b9c6cb" stroke-width="2"/>
+  <rect x="556" y="452" width="112" height="52" rx="4" fill="#e3eaec" stroke="#93a7ac" stroke-width="2"/>
+  <path d="M570 468h84M570 480h56" fill="none" stroke="#93a7ac" stroke-width="3" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="turningTitle turningDesc">
+  <title id="turningTitle">Illustration of a CNC turning machine</title>
+  <desc id="turningDesc">A flat illustration of an enclosed CNC lathe with a control panel and a workpiece in the spindle.</desc>
+
+  <defs>
+    <pattern id="turningGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#d3e2e4" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="640" height="400" fill="#eef2f3"/>
+  <rect width="640" height="400" fill="url(#turningGrid)" opacity="0.65"/>
+  <rect y="320" width="640" height="80" fill="#dfe8ea"/>
+  <path d="M0 320h640" fill="none" stroke="#b9c6cb" stroke-width="2"/>
+  <path d="M80 356h480" fill="none" stroke="#d9a55a" stroke-width="3" stroke-dasharray="14 12" opacity="0.65"/>
+
+  <!-- Machine -->
+  <g>
+    <rect x="126" y="302" width="388" height="18" rx="9" fill="#c4d4d8"/>
+    <rect x="148" y="288" width="344" height="24" rx="5" fill="#0a414c"/>
+    <g fill="#d9a55a">
+      <rect x="160" y="296" width="14" height="8"/>
+      <rect x="188" y="296" width="14" height="8"/>
+      <rect x="216" y="296" width="14" height="8"/>
+      <rect x="244" y="296" width="14" height="8"/>
+      <rect x="272" y="296" width="14" height="8"/>
+      <rect x="300" y="296" width="14" height="8"/>
+      <rect x="328" y="296" width="14" height="8"/>
+      <rect x="356" y="296" width="14" height="8"/>
+      <rect x="384" y="296" width="14" height="8"/>
+      <rect x="412" y="296" width="14" height="8"/>
+      <rect x="440" y="296" width="14" height="8"/>
+      <rect x="468" y="296" width="14" height="8"/>
+    </g>
+
+    <rect x="154" y="142" width="332" height="150" rx="12" fill="#0f5c6b"/>
+    <rect x="154" y="142" width="332" height="18" rx="12" fill="#0a414c"/>
+    <rect x="154" y="152" width="332" height="8" fill="#0a414c"/>
+
+    <!-- Door and window -->
+    <rect x="174" y="172" width="212" height="98" rx="5" fill="#f5f7f8" stroke="#0a414c" stroke-width="2"/>
+    <rect x="186" y="184" width="166" height="74" rx="3" fill="#17323d"/>
+    <path d="M192 190l48-1-36 65-18 0z" fill="#ffffff" opacity="0.08"/>
+    <circle cx="246" cy="222" r="25" fill="#c8d4d7" stroke="#93a7ac" stroke-width="2"/>
+    <circle cx="246" cy="222" r="8" fill="#17323d"/>
+    <rect x="242" y="197" width="9" height="10" rx="2" fill="#93a7ac"/>
+    <rect x="242" y="237" width="9" height="10" rx="2" fill="#93a7ac"/>
+    <rect x="221" y="218" width="9" height="9" rx="2" fill="#93a7ac"/>
+    <rect x="262" y="218" width="9" height="9" rx="2" fill="#93a7ac"/>
+    <rect x="268" y="218" width="56" height="9" rx="2" fill="#e3eaec" stroke="#93a7ac"/>
+    <rect x="312" y="221" width="14" height="5" rx="1" fill="#9a5b0b"/>
+    <rect x="366" y="206" width="7" height="32" rx="3" fill="#93a7ac"/>
+    <text x="180" y="284" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="1.6" fill="#dce7e9">CNC TURNING</text>
+
+    <!-- Control panel -->
+    <rect x="398" y="172" width="70" height="100" rx="5" fill="#dce7e9" stroke="#0a414c" stroke-width="2"/>
+    <rect x="407" y="182" width="52" height="30" rx="2" fill="#10202b"/>
+    <path d="M414 194h26M414 202h18" fill="none" stroke="#7fb4bb" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="416" cy="228" r="4" fill="#1b6e45"/>
+    <circle cx="432" cy="228" r="4" fill="#d9a55a"/>
+    <circle cx="448" cy="228" r="4" fill="#93a7ac"/>
+    <rect x="410" y="242" width="44" height="7" rx="2" fill="#93a7ac"/>
+    <rect x="410" y="254" width="44" height="7" rx="2" fill="#93a7ac"/>
+
+    <circle cx="478" cy="132" r="6" fill="#d9a55a" stroke="#0a414c" stroke-width="2"/>
+    <rect x="475" y="138" width="6" height="5" fill="#0a414c"/>
+    <path d="M168 266h96" fill="none" stroke="#0a414c" stroke-width="3" opacity="0.5"/>
+  </g>
+
+  <!-- Small tool trolley -->
+  <g>
+    <rect x="70" y="248" width="46" height="44" rx="4" fill="#e3eaec" stroke="#93a7ac" stroke-width="2"/>
+    <path d="M80 260h26M80 272h18" fill="none" stroke="#93a7ac" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="62" y="292" width="62" height="7" rx="3" fill="#93a7ac"/>
+  </g>
+</svg>

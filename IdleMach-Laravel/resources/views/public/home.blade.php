@@ -50,15 +50,15 @@
         <div class="col-lg-6">
           <figure class="hero-visual">
             <img
-              src="{{ asset('assets/images/hero-workshop.svg') }}"
+              src="{{ asset('assets/images/HomePage/hero-section_2.jpg') }}"
               width="880"
               height="720"
-              alt="Illustration of a CNC turning machine in a workshop, with a weekly capacity board showing booked and idle hours."
+              alt="Workshop photograph of a CNC machining shop floor."
               decoding="async">
             <figcaption>
               <span class="status-badge status-neutral">
                 <i class="fa-solid fa-pen-ruler" aria-hidden="true"></i>
-                Illustration
+                Workshop photograph
               </span>
               <span
                 >Idle hours become available capacity. The owner decides
@@ -394,16 +394,16 @@
         <div class="col-lg-5">
           <figure class="split-media">
             <img
-              src="{{ asset('assets/images/owner-capacity.svg') }}"
+              src="{{ asset('assets/images/owner-capacity.jpg') }}"
               width="720"
               height="560"
-              alt="Illustration of a machine owner's capacity plan, with booked, available, and blocked hours marked on a weekly schedule."
+              alt="Machine operator standing beside a CNC machine in an organised manufacturing workshop."
               loading="lazy"
               decoding="async">
             <figcaption>
               <span class="status-badge status-neutral">
                 <i class="fa-solid fa-pen-ruler" aria-hidden="true"></i>
-                Illustration
+                Photograph
               </span>
               <span>Availability is set by the machine owner.</span>
             </figcaption>
@@ -542,16 +542,16 @@
         <div class="col-lg-5">
           <figure class="split-media">
             <img
-              src="{{ asset('assets/images/buyer-part.svg') }}"
+              src="{{ asset('assets/images/buyer-part.jpg') }}"
               width="720"
               height="560"
-              alt="Illustration of a machined part technical drawing beside a manufacturing capacity search panel."
+              alt="Manufacturing engineer inspecting a precision-machined component beside a technical drawing in a workshop."
               loading="lazy"
               decoding="async">
             <figcaption>
               <span class="status-badge status-neutral">
                 <i class="fa-solid fa-pen-ruler" aria-hidden="true"></i>
-                Illustration
+                Photograph
               </span>
               <span
                 >Buyers describe the work, then compare available
@@ -640,10 +640,10 @@
           <article class="im-card machine-card h-100">
             <div class="machine-card-media-img">
               <img
-                src="{{ asset('assets/images/machine-turning.svg') }}"
+                src="{{ asset('assets/images/machine_7.jpg') }}"
                 width="640"
                 height="400"
-                alt="Illustration of a CNC turning machine."
+                alt="Representative photograph of a modern CNC turning machine."
                 loading="lazy"
                 decoding="async">
             </div>
@@ -694,10 +694,10 @@
           <article class="im-card machine-card h-100">
             <div class="machine-card-media-img">
               <img
-                src="{{ asset('assets/images/machine-milling.svg') }}"
+                src="{{ asset('assets/images/machine_8.jpg') }}"
                 width="640"
                 height="400"
-                alt="Illustration of a vertical machining centre."
+                alt="Representative photograph of a vertical machining centre."
                 loading="lazy"
                 decoding="async">
             </div>
@@ -750,10 +750,10 @@
           <article class="im-card machine-card h-100">
             <div class="machine-card-media-img">
               <img
-                src="{{ asset('assets/images/machine-fabrication.svg') }}"
+                src="{{ asset('assets/images/machine_2.jpg') }}"
                 width="640"
                 height="400"
-                alt="Illustration of a hydraulic press brake bending sheet metal."
+                alt="Representative photograph of an industrial hydraulic press brake."
                 loading="lazy"
                 decoding="async">
             </div>

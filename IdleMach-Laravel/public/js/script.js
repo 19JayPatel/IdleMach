@@ -500,9 +500,9 @@
           "This listing has 8 hours per day available. No day-by-day time slots are included.",
         images: [
           {
-            src: "assets/images/machine-turning.svg",
-            alt: "Illustration of a CNC turning machine.",
-            caption: "Original illustration - not a photograph of a specific machine."
+            src: "assets/images/machine_7.jpg",
+            alt: "Representative photograph of a modern CNC turning machine.",
+            caption: "Representative sample photograph - not a verified image of a specific machine."
           }
         ]
       },
@@ -521,9 +521,9 @@
           "This listing has 6 hours per day available. No day-by-day time slots are included.",
         images: [
           {
-            src: "assets/images/machine-milling.svg",
-            alt: "Illustration of a vertical machining centre.",
-            caption: "Original illustration - not a photograph of a specific machine."
+            src: "assets/images/machine_8.jpg",
+            alt: "Representative photograph of a vertical machining centre.",
+            caption: "Representative sample photograph - not a verified image of a specific machine."
           }
         ]
       },
@@ -542,9 +542,9 @@
           "This listing is marked limited availability and has 3 hours per day available. No specific dates or time slots are included.",
         images: [
           {
-            src: "assets/images/machine-fabrication.svg",
-            alt: "Illustration of a hydraulic press brake bending sheet metal.",
-            caption: "Original illustration - not a photograph of a specific machine."
+            src: "assets/images/machine_2.jpg",
+            alt: "Representative photograph of an industrial hydraulic press brake.",
+            caption: "Representative sample photograph - not a verified image of a specific machine."
           }
         ]
       }
@@ -745,7 +745,7 @@
             "Only one image is included in this record. The thumbnail selector appears when a listing provides more than one image.";
         } else if (galleryImages.length > 1) {
           galleryNote.textContent =
-            "Select a thumbnail to change the main image. All images are original illustrations.";
+            "Select a thumbnail to change the main image. All images are representative sample photographs.";
         } else {
           galleryNote.textContent = "No image is available for this record.";
         }

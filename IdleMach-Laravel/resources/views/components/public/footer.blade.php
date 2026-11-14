@@ -5,15 +5,13 @@
         <a
           class="site-brand footer-brand"
           href="{{ url('/') }}"
-          aria-label="IdleMach home"
-        >
+          aria-label="IdleMach home">
           <img
             class="brand-mark"
-            src="{{ asset('assets/icons/favicon.svg') }}"
-            width="36"
-            height="36"
-            alt="">
-          <span>IdleMach</span>
+            src="{{ asset('assets/icons/logo-horizontal.svg') }}"
+            width="200"
+            height="63"
+            alt="IdleMach">
         </a>
         <p class="footer-tagline">
           A manufacturing-capacity marketplace that helps businesses turn

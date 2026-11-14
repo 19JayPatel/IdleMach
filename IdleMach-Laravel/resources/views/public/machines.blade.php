@@ -216,10 +216,10 @@
           <article class="im-card machine-card h-100">
             <div class="machine-card-media-img">
               <img
-                src="{{ asset('assets/images/machine-turning.svg') }}"
+                src="{{ asset('assets/images/machine_7.jpg') }}"
                 width="640"
                 height="400"
-                alt="Illustration of a CNC turning machine."
+                alt="Representative photograph of a modern CNC turning machine."
                 loading="lazy"
                 decoding="async">
             </div>
@@ -277,10 +277,10 @@
           <article class="im-card machine-card h-100">
             <div class="machine-card-media-img">
               <img
-                src="{{ asset('assets/images/machine-milling.svg') }}"
+                src="{{ asset('assets/images/machine_8.jpg') }}"
                 width="640"
                 height="400"
-                alt="Illustration of a vertical machining centre."
+                alt="Representative photograph of a vertical machining centre."
                 loading="lazy"
                 decoding="async">
             </div>
@@ -338,10 +338,10 @@
           <article class="im-card machine-card h-100">
             <div class="machine-card-media-img">
               <img
-                src="{{ asset('assets/images/machine-fabrication.svg') }}"
+                src="{{ asset('assets/images/machine_2.jpg') }}"
                 width="640"
                 height="400"
-                alt="Illustration of a hydraulic press brake bending sheet metal."
+                alt="Representative photograph of an industrial hydraulic press brake."
                 loading="lazy"
                 decoding="async">
             </div>

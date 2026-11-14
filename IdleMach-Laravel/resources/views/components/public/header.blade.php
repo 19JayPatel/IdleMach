@@ -4,11 +4,10 @@
       <a class="site-brand" href="{{ url('/') }}" aria-label="IdleMach home">
         <img
           class="brand-mark"
-          src="{{ asset('assets/icons/favicon.svg') }}"
-          width="36"
+          src="{{ asset('assets/icons/logo-compact.svg') }}"
+          width="118"
           height="36"
-          alt="">
-        <span>IdleMach</span>
+          alt="IdleMach">
       </a>
 
       <button
@@ -18,8 +17,7 @@
         data-bs-target="#siteNav"
         aria-controls="siteNav"
         aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+        aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -29,57 +27,43 @@
             <a
               class="nav-link"
               href="{{ url('/') }}"
-              data-nav-match="index.html"
-              >Home</a
-            >
+              data-nav-match="index.html">Home</a>
           </li>
           <li class="nav-item">
             <a
               class="nav-link"
               href="{{ url('/machines') }}"
-              data-nav-match="machines"
-              >Explore Machines</a
-            >
+              data-nav-match="machines">Explore Machines</a>
           </li>
           <li class="nav-item">
             <a
               class="nav-link"
               href="{{ url('/how-it-works') }}"
-              data-nav-match="how-it-works"
-              >How It Works</a
-            >
+              data-nav-match="how-it-works">How It Works</a>
           </li>
           <li class="nav-item">
             <a
               class="nav-link"
               href="{{ url('/about') }}"
-              data-nav-match="about"
-              >About</a
-            >
+              data-nav-match="about">About</a>
           </li>
           <li class="nav-item">
             <a
               class="nav-link"
               href="{{ url('/contact') }}"
-              data-nav-match="contact"
-              >Contact</a
-            >
+              data-nav-match="contact">Contact</a>
           </li>
           <li class="nav-item">
             <a
               class="nav-link"
               href="{{ url('/login') }}"
-              data-nav-match="login"
-              >Login</a
-            >
+              data-nav-match="login">Login</a>
           </li>
           <li class="nav-item nav-cta">
             <a
               class="btn-im btn-im-primary btn-im-sm"
               href="{{ url('/register') }}"
-              data-nav-match="register"
-              >Register</a
-            >
+              data-nav-match="register">Register</a>
           </li>
         </ul>
       </div>

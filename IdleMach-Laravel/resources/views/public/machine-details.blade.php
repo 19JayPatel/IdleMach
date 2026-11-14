@@ -123,12 +123,12 @@
                       Machine image gallery
                     </h2>
                     <p class="detail-panel-subtitle">
-                      Original illustration
+                      Representative sample photograph
                     </p>
                   </div>
                   <span class="status-badge status-neutral">
                     <i class="fa-solid fa-image" aria-hidden="true"></i>
-                    Illustration
+                    Photograph
                   </span>
                 </div>
                 <div class="im-card-body">

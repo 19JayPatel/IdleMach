@@ -1,29 +1,24 @@
       <aside
         class="dashboard-sidebar"
         id="dashboard-sidebar"
-        aria-label="Buyer navigation"
-      >
+        aria-label="Buyer navigation">
         <div class="dashboard-sidebar-brand">
           <a
             class="dashboard-brand-link"
             href="{{ route('buyer.dashboard') }}"
-            aria-label="IdleMach buyer dashboard"
-          >
+            aria-label="IdleMach buyer dashboard">
             <img
-              src="{{ asset('assets/icons/favicon.svg') }}"
-              width="30"
-              height="30"
-              alt=""
-            />
-            <span>IdleMach</span>
+              src="{{ asset('assets/icons/logo-compact.svg') }}"
+              width="105"
+              height="32"
+              alt="IdleMach" />
           </a>
           <span class="dashboard-role-badge">Buyer</span>
           <button
             class="dashboard-sidebar-close"
             type="button"
             data-sidebar-close
-            aria-label="Close buyer navigation"
-          >
+            aria-label="Close buyer navigation">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>
@@ -35,8 +30,7 @@
               <a
                 class="dashboard-nav-link active"
                 href="#top"
-                aria-current="page"
-              >
+                aria-current="page">
                 <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
                 Dashboard
               </a>
@@ -62,17 +56,14 @@
                 <span
                   class="dashboard-nav-badge"
                   id="sidebar-buyer-requests-badge"
-                  aria-label="1 pending request"
-                  >1</span
-                >
+                  aria-label="1 pending request">1</span>
               </a>
             </li>
             <li class="dashboard-nav-item">
               <a
                 class="dashboard-nav-link"
                 href="#booking-requests"
-                data-booking-filter-link="accepted"
-              >
+                data-booking-filter-link="accepted">
                 <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
                 Accepted Bookings
               </a>
@@ -81,8 +72,7 @@
               <a
                 class="dashboard-nav-link"
                 href="#booking-requests"
-                data-booking-filter-link="in_progress"
-              >
+                data-booking-filter-link="in_progress">
                 <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
                 Ongoing Work
               </a>
@@ -123,8 +113,7 @@
                 type="button"
                 data-bs-toggle="offcanvas"
                 data-bs-target="#notifications-offcanvas"
-                aria-controls="notifications-offcanvas"
-              >
+                aria-controls="notifications-offcanvas">
                 <i class="fa-regular fa-bell" aria-hidden="true"></i>
                 Notifications
               </button>
@@ -143,8 +132,7 @@
           <button
             class="dashboard-logout-btn"
             type="button"
-            data-action="buyer-logout"
-          >
+            data-action="buyer-logout">
             <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
             Sign out
           </button>

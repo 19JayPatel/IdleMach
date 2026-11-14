@@ -1,29 +1,24 @@
       <aside
         class="dashboard-sidebar"
         id="dashboard-sidebar"
-        aria-label="Machine owner navigation"
-      >
+        aria-label="Machine owner navigation">
         <div class="dashboard-sidebar-brand">
           <a
             class="dashboard-brand-link"
             href="{{ route('owner.dashboard') }}"
-            aria-label="IdleMach machine owner dashboard"
-          >
+            aria-label="IdleMach machine owner dashboard">
             <img
-              src="{{ asset('assets/icons/favicon.svg') }}"
-              width="30"
-              height="30"
-              alt=""
-            />
-            <span>IdleMach</span>
+              src="{{ asset('assets/icons/logo-compact.svg') }}"
+              width="105"
+              height="32"
+              alt="IdleMach" />
           </a>
           <span class="dashboard-role-badge">Owner</span>
           <button
             class="dashboard-sidebar-close"
             type="button"
             data-sidebar-close
-            aria-label="Close machine owner navigation"
-          >
+            aria-label="Close machine owner navigation">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>
@@ -35,8 +30,7 @@
               <a
                 class="dashboard-nav-link active"
                 href="#top"
-                aria-current="page"
-              >
+                aria-current="page">
                 <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
                 Dashboard
               </a>
@@ -49,8 +43,7 @@
               <button
                 class="dashboard-nav-link"
                 type="button"
-                data-action="owner-company-profile"
-              >
+                data-action="owner-company-profile">
                 <i class="fa-solid fa-building" aria-hidden="true"></i>
                 Company Profile
               </button>
@@ -66,8 +59,7 @@
                 class="dashboard-nav-link"
                 type="button"
                 data-bs-toggle="modal"
-                data-bs-target="#modal-add-machine"
-              >
+                data-bs-target="#modal-add-machine">
                 <i class="fa-solid fa-circle-plus" aria-hidden="true"></i>
                 Add Machine
               </button>
@@ -88,9 +80,7 @@
                 Booking Requests
                 <span
                   class="dashboard-nav-badge"
-                  id="sidebar-owner-requests-badge"
-                  >2</span
-                >
+                  id="sidebar-owner-requests-badge">2</span>
               </a>
             </li>
             <li class="dashboard-nav-item">
@@ -143,8 +133,7 @@
                 type="button"
                 data-bs-toggle="offcanvas"
                 data-bs-target="#notifications-offcanvas"
-                aria-controls="notifications-offcanvas"
-              >
+                aria-controls="notifications-offcanvas">
                 <i class="fa-regular fa-bell" aria-hidden="true"></i>
                 Notifications
               </button>
@@ -163,8 +152,7 @@
           <button
             class="dashboard-logout-btn"
             type="button"
-            data-action="owner-logout"
-          >
+            data-action="owner-logout">
             <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
             Sign out
           </button>

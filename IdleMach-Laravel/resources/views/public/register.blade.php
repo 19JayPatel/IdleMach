@@ -5,198 +5,350 @@
 @section('meta_description', 'IdleMach registration demonstration for Machine Owner and Buyer accounts. This frontend prototype validates locally but does not create accounts, store details, or authenticate users.')
 
 @section('content')
-  <section class="auth-page" aria-labelledby="register-title">
-    <div class="container-im">
-      <nav class="machine-breadcrumb" aria-label="Breadcrumb">
-        <ol>
-          <li><a href="{{ url('/') }}">Home</a></li>
-          <li aria-current="page">Register</li>
-        </ol>
-      </nav>
+<section class="auth-page" aria-labelledby="register-title">
+  <div class="container-im">
+    <nav class="machine-breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="{{ url('/') }}">Home</a></li>
+        <li aria-current="page">Register</li>
+      </ol>
+    </nav>
 
-      <div class="auth-layout auth-layout-register">
-        <aside
-          class="auth-context"
-          aria-labelledby="register-context-title"
-        >
-          <a
-            class="auth-brand"
-            href="{{ url('/') }}"
-            aria-label="IdleMach home"
-          >
-            <img
-              class="brand-mark"
-              src="{{ asset('assets/icons/favicon.svg') }}"
-              width="36"
-              height="36"
-              alt="">
-            <span>IdleMach</span>
-          </a>
+    <div class="auth-layout auth-layout-register">
+      <aside
+        class="auth-context"
+        aria-labelledby="register-context-title">
+        <a
+          class="auth-brand"
+          href="{{ url('/') }}"
+          aria-label="IdleMach home">
+          <img
+            class="brand-mark"
+            src="{{ asset('assets/icons/logo-compact.svg') }}"
+            width="118"
+            height="36"
+            alt="IdleMach">
+        </a>
 
-          <p class="eyebrow">Create an account</p>
-          <h1 class="auth-context-title" id="register-context-title">
-            Join the capacity marketplace.
-          </h1>
-          <p class="auth-context-intro">
-            Machine Owners list idle machine time. Buyers discover
-            manufacturing capacity and request work. Choose the role that
-            matches how you will use IdleMach.
+        <p class="eyebrow">Create an account</p>
+        <h1 class="auth-context-title" id="register-context-title">
+          Join the capacity marketplace.
+        </h1>
+        <p class="auth-context-intro">
+          Machine Owners list idle machine time. Buyers discover
+          manufacturing capacity and request work. Choose the role that
+          matches how you will use IdleMach.
+        </p>
+
+        <ul class="auth-role-summary">
+          <li>
+            <i class="fa-solid fa-industry" aria-hidden="true"></i>
+            <span>
+              <strong>Machine Owner</strong>
+              Add machines, set available hours, and respond to booking
+              requests.
+            </span>
+          </li>
+          <li>
+            <i
+              class="fa-solid fa-magnifying-glass"
+              aria-hidden="true"></i>
+            <span>
+              <strong>Buyer</strong>
+              Search for suitable capacity, request bookings, and track
+              completed work.
+            </span>
+          </li>
+        </ul>
+
+        <div class="auth-context-note">
+          <i class="fa-solid fa-lock" aria-hidden="true"></i>
+          <span>Admin accounts are managed separately. Admin is not
+            available as a public registration option.</span>
+        </div>
+
+      </aside>
+
+      <div class="auth-card auth-card-register">
+        <div class="auth-card-head">
+          <p class="eyebrow">Registration</p>
+          <h2 id="register-title">Create your account.</h2>
+          <p>
+            Select your account type and complete the required details.
+            All fields marked with an asterisk are required.
           </p>
+        </div>
 
-          <ul class="auth-role-summary">
-            <li>
-              <i class="fa-solid fa-industry" aria-hidden="true"></i>
-              <span>
-                <strong>Machine Owner</strong>
-                Add machines, set available hours, and respond to booking
-                requests.
-              </span>
-            </li>
-            <li>
-              <i
-                class="fa-solid fa-magnifying-glass"
-                aria-hidden="true"
-              ></i>
-              <span>
-                <strong>Buyer</strong>
-                Search for suitable capacity, request bookings, and track
-                completed work.
-              </span>
-            </li>
-          </ul>
-
-          <div class="auth-context-note">
-            <i class="fa-solid fa-lock" aria-hidden="true"></i>
-            <span
-              >Admin accounts are managed separately. Admin is not
-              available as a public registration option.</span
-            >
+        <div class="im-alert im-alert-info" role="note">
+          <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+          <div>
+            <strong>Registration is not connected.</strong>
+            No account is created and nothing is stored. Do not enter a
+            real password or sensitive company information.
           </div>
+        </div>
 
-        </aside>
-
-        <div class="auth-card auth-card-register">
-          <div class="auth-card-head">
-            <p class="eyebrow">Registration</p>
-            <h2 id="register-title">Create your account.</h2>
-            <p>
-              Select your account type and complete the required details.
-              All fields marked with an asterisk are required.
+        <form
+          class="auth-form"
+          id="register-form"
+          method="post"
+          aria-labelledby="register-title"
+          novalidate>
+          <fieldset
+            class="auth-role-fieldset"
+            id="register-role-fieldset"
+            aria-describedby="register-role-help register-role-error">
+            <legend class="form-label form-required">Account Type</legend>
+            <p class="form-text" id="register-role-help">
+              Choose how you will use IdleMach. This cannot be an Admin
+              account.
             </p>
-          </div>
 
-          <div class="im-alert im-alert-info" role="note">
-            <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
-            <div>
-              <strong>Registration is not connected.</strong>
-              No account is created and nothing is stored. Do not enter a
-              real password or sensitive company information.
+            <div class="auth-role-options">
+              <label class="auth-role-option" for="register-role-owner">
+                <input
+                  class="form-check-input"
+                  id="register-role-owner"
+                  name="role"
+                  type="radio"
+                  value="owner"
+                  aria-describedby="register-role-owner-description"
+                  required>
+                <span class="auth-role-option-body">
+                  <span class="auth-role-option-title">
+                    <i class="fa-solid fa-industry" aria-hidden="true"></i>
+                    Machine Owner
+                  </span>
+                  <span
+                    class="auth-role-option-text"
+                    id="register-role-owner-description">List machines and unused capacity, then respond to
+                    booking requests.</span>
+                </span>
+              </label>
+
+              <label class="auth-role-option" for="register-role-buyer">
+                <input
+                  class="form-check-input"
+                  id="register-role-buyer"
+                  name="role"
+                  type="radio"
+                  value="buyer"
+                  aria-describedby="register-role-buyer-description"
+                  required>
+                <span class="auth-role-option-body">
+                  <span class="auth-role-option-title">
+                    <i
+                      class="fa-solid fa-magnifying-glass"
+                      aria-hidden="true"></i>
+                    Buyer
+                  </span>
+                  <span
+                    class="auth-role-option-text"
+                    id="register-role-buyer-description">Discover manufacturing capacity and request work
+                    from machine owners.</span>
+                </span>
+              </label>
+            </div>
+
+            <div
+              class="auth-field-error"
+              id="register-role-error"
+              role="alert"
+              hidden>
+              Select an account type to continue.
+            </div>
+          </fieldset>
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="auth-field">
+                <label
+                  class="form-label form-required"
+                  for="register-full-name">Full Name</label>
+                <input
+                  class="form-control"
+                  id="register-full-name"
+                  name="full_name"
+                  type="text"
+                  autocomplete="name"
+                  placeholder="Your full name"
+                  aria-describedby="register-full-name-error"
+                  data-error-required="Enter your full name."
+                  required>
+                <div
+                  class="invalid-feedback"
+                  id="register-full-name-error"
+                  hidden>
+                  Enter your full name.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="auth-field">
+                <label
+                  class="form-label form-required"
+                  for="register-email">Email Address</label>
+                <input
+                  class="form-control"
+                  id="register-email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  placeholder="name@company.com"
+                  aria-describedby="register-email-error"
+                  data-error-required="Enter your email address."
+                  data-error-invalid="Enter a valid email address."
+                  required>
+                <div
+                  class="invalid-feedback"
+                  id="register-email-error"
+                  hidden>
+                  Enter a valid email address.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="auth-field">
+                <label
+                  class="form-label form-required"
+                  for="register-phone">Mobile Number</label>
+                <input
+                  class="form-control"
+                  id="register-phone"
+                  name="phone"
+                  type="tel"
+                  inputmode="tel"
+                  autocomplete="tel"
+                  pattern="[0-9+ ]{7,20}"
+                  title="Enter 7 to 20 digits. Spaces and the + character are allowed."
+                  placeholder="+91 98765 43210"
+                  aria-describedby="register-phone-error"
+                  data-error-required="Enter your mobile number."
+                  data-error-invalid="Enter a valid mobile number."
+                  required>
+                <div
+                  class="invalid-feedback"
+                  id="register-phone-error"
+                  hidden>
+                  Enter a valid mobile number.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="auth-field">
+                <label
+                  class="form-label form-required"
+                  for="register-password">Password</label>
+                <div class="auth-password">
+                  <input
+                    class="form-control"
+                    id="register-password"
+                    name="password"
+                    type="password"
+                    autocomplete="new-password"
+                    placeholder="Create a password"
+                    aria-describedby="register-password-help register-password-error"
+                    data-password-primary
+                    data-error-required="Create a password."
+                    required>
+                  <button
+                    class="auth-password-toggle"
+                    type="button"
+                    data-password-toggle
+                    aria-controls="register-password"
+                    aria-label="Show password"
+                    aria-pressed="false">
+                    <i class="fa-regular fa-eye" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <div class="form-text" id="register-password-help">
+                  Do not use a real password. Nothing is stored or
+                  transmitted.
+                </div>
+                <div
+                  class="invalid-feedback"
+                  id="register-password-error"
+                  hidden>
+                  Create a password.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="auth-field">
+                <label
+                  class="form-label form-required"
+                  for="register-confirm-password">Confirm Password</label>
+                <div class="auth-password">
+                  <input
+                    class="form-control"
+                    id="register-confirm-password"
+                    name="confirm_password"
+                    type="password"
+                    autocomplete="new-password"
+                    placeholder="Re-enter your password"
+                    aria-describedby="register-confirm-password-error"
+                    data-password-confirm
+                    data-error-required="Confirm your password."
+                    data-error-mismatch="Passwords do not match."
+                    required>
+                  <button
+                    class="auth-password-toggle"
+                    type="button"
+                    data-password-toggle
+                    aria-controls="register-confirm-password"
+                    aria-label="Show password"
+                    aria-pressed="false">
+                    <i class="fa-regular fa-eye" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <div
+                  class="invalid-feedback"
+                  id="register-confirm-password-error"
+                  hidden>
+                  Confirm your password.
+                </div>
+              </div>
             </div>
           </div>
 
-          <form
-            class="auth-form"
-            id="register-form"
-            method="post"
-            aria-labelledby="register-title"
-            novalidate
-          >
-            <fieldset
-              class="auth-role-fieldset"
-              id="register-role-fieldset"
-              aria-describedby="register-role-help register-role-error"
-            >
-              <legend class="form-label form-required">Account Type</legend>
-              <p class="form-text" id="register-role-help">
-                Choose how you will use IdleMach. This cannot be an Admin
-                account.
-              </p>
-
-              <div class="auth-role-options">
-                <label class="auth-role-option" for="register-role-owner">
-                  <input
-                    class="form-check-input"
-                    id="register-role-owner"
-                    name="role"
-                    type="radio"
-                    value="owner"
-                    aria-describedby="register-role-owner-description"
-                    required>
-                  <span class="auth-role-option-body">
-                    <span class="auth-role-option-title">
-                      <i class="fa-solid fa-industry" aria-hidden="true"></i>
-                      Machine Owner
-                    </span>
-                    <span
-                      class="auth-role-option-text"
-                      id="register-role-owner-description"
-                      >List machines and unused capacity, then respond to
-                      booking requests.</span
-                    >
-                  </span>
-                </label>
-
-                <label class="auth-role-option" for="register-role-buyer">
-                  <input
-                    class="form-check-input"
-                    id="register-role-buyer"
-                    name="role"
-                    type="radio"
-                    value="buyer"
-                    aria-describedby="register-role-buyer-description"
-                    required>
-                  <span class="auth-role-option-body">
-                    <span class="auth-role-option-title">
-                      <i
-                        class="fa-solid fa-magnifying-glass"
-                        aria-hidden="true"
-                      ></i>
-                      Buyer
-                    </span>
-                    <span
-                      class="auth-role-option-text"
-                      id="register-role-buyer-description"
-                      >Discover manufacturing capacity and request work
-                      from machine owners.</span
-                    >
-                  </span>
-                </label>
-              </div>
-
-              <div
-                class="auth-field-error"
-                id="register-role-error"
-                role="alert"
-                hidden
-              >
-                Select an account type to continue.
-              </div>
-            </fieldset>
+          <fieldset
+            class="auth-role-panel"
+            id="register-owner-panel"
+            data-role-panel="owner"
+            hidden
+            disabled>
+            <legend>Machine Owner details</legend>
+            <p class="auth-panel-note">
+              These details identify your company on the marketplace. You
+              will complete the rest of your company profile, including
+              GST details, description, and logo, after registration.
+            </p>
 
             <div class="row g-3">
               <div class="col-md-6">
                 <div class="auth-field">
                   <label
                     class="form-label form-required"
-                    for="register-full-name"
-                    >Full Name</label
-                  >
+                    for="register-company">Company Name</label>
                   <input
                     class="form-control"
-                    id="register-full-name"
-                    name="full_name"
+                    id="register-company"
+                    name="company_name"
                     type="text"
-                    autocomplete="name"
-                    placeholder="Your full name"
-                    aria-describedby="register-full-name-error"
-                    data-error-required="Enter your full name."
+                    autocomplete="organization"
+                    placeholder="Company or business name"
+                    aria-describedby="register-company-error"
+                    data-error-required="Enter your company name."
                     required>
                   <div
                     class="invalid-feedback"
-                    id="register-full-name-error"
-                    hidden
-                  >
-                    Enter your full name.
+                    id="register-company-error"
+                    hidden>
+                    Enter your company name.
                   </div>
                 </div>
               </div>
@@ -205,348 +357,148 @@
                 <div class="auth-field">
                   <label
                     class="form-label form-required"
-                    for="register-email"
-                    >Email Address</label
-                  >
+                    for="register-city">City</label>
                   <input
                     class="form-control"
-                    id="register-email"
-                    name="email"
-                    type="email"
-                    autocomplete="email"
-                    placeholder="name@company.com"
-                    aria-describedby="register-email-error"
-                    data-error-required="Enter your email address."
-                    data-error-invalid="Enter a valid email address."
+                    id="register-city"
+                    name="city"
+                    type="text"
+                    autocomplete="address-level2"
+                    placeholder="City"
+                    aria-describedby="register-city-error"
+                    data-error-required="Enter your city."
                     required>
                   <div
                     class="invalid-feedback"
-                    id="register-email-error"
-                    hidden
-                  >
-                    Enter a valid email address.
+                    id="register-city-error"
+                    hidden>
+                    Enter your city.
                   </div>
                 </div>
               </div>
 
-              <div class="col-md-6">
+              <div class="col-12">
                 <div class="auth-field">
                   <label
                     class="form-label form-required"
-                    for="register-phone"
-                    >Mobile Number</label
-                  >
+                    for="register-address">Company Address</label>
                   <input
                     class="form-control"
-                    id="register-phone"
-                    name="phone"
-                    type="tel"
-                    inputmode="tel"
-                    autocomplete="tel"
-                    pattern="[0-9+ ]{7,20}"
-                    title="Enter 7 to 20 digits. Spaces and the + character are allowed."
-                    placeholder="+91 98765 43210"
-                    aria-describedby="register-phone-error"
-                    data-error-required="Enter your mobile number."
-                    data-error-invalid="Enter a valid mobile number."
+                    id="register-address"
+                    name="address"
+                    type="text"
+                    autocomplete="address-line1"
+                    placeholder="Street address"
+                    aria-describedby="register-address-error"
+                    data-error-required="Enter your company address."
                     required>
                   <div
                     class="invalid-feedback"
-                    id="register-phone-error"
-                    hidden
-                  >
-                    Enter a valid mobile number.
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="auth-field">
-                  <label
-                    class="form-label form-required"
-                    for="register-password"
-                    >Password</label
-                  >
-                  <div class="auth-password">
-                    <input
-                      class="form-control"
-                      id="register-password"
-                      name="password"
-                      type="password"
-                      autocomplete="new-password"
-                      placeholder="Create a password"
-                      aria-describedby="register-password-help register-password-error"
-                      data-password-primary
-                      data-error-required="Create a password."
-                      required>
-                    <button
-                      class="auth-password-toggle"
-                      type="button"
-                      data-password-toggle
-                      aria-controls="register-password"
-                      aria-label="Show password"
-                      aria-pressed="false"
-                    >
-                      <i class="fa-regular fa-eye" aria-hidden="true"></i>
-                    </button>
-                  </div>
-                  <div class="form-text" id="register-password-help">
-                    Do not use a real password. Nothing is stored or
-                    transmitted.
-                  </div>
-                  <div
-                    class="invalid-feedback"
-                    id="register-password-error"
-                    hidden
-                  >
-                    Create a password.
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="auth-field">
-                  <label
-                    class="form-label form-required"
-                    for="register-confirm-password"
-                    >Confirm Password</label
-                  >
-                  <div class="auth-password">
-                    <input
-                      class="form-control"
-                      id="register-confirm-password"
-                      name="confirm_password"
-                      type="password"
-                      autocomplete="new-password"
-                      placeholder="Re-enter your password"
-                      aria-describedby="register-confirm-password-error"
-                      data-password-confirm
-                      data-error-required="Confirm your password."
-                      data-error-mismatch="Passwords do not match."
-                      required>
-                    <button
-                      class="auth-password-toggle"
-                      type="button"
-                      data-password-toggle
-                      aria-controls="register-confirm-password"
-                      aria-label="Show password"
-                      aria-pressed="false"
-                    >
-                      <i class="fa-regular fa-eye" aria-hidden="true"></i>
-                    </button>
-                  </div>
-                  <div
-                    class="invalid-feedback"
-                    id="register-confirm-password-error"
-                    hidden
-                  >
-                    Confirm your password.
+                    id="register-address-error"
+                    hidden>
+                    Enter your company address.
                   </div>
                 </div>
               </div>
             </div>
-
-            <fieldset
-              class="auth-role-panel"
-              id="register-owner-panel"
-              data-role-panel="owner"
-              hidden
-              disabled
-            >
-              <legend>Machine Owner details</legend>
-              <p class="auth-panel-note">
-                These details identify your company on the marketplace. You
-                will complete the rest of your company profile, including
-                GST details, description, and logo, after registration.
-              </p>
-
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <div class="auth-field">
-                    <label
-                      class="form-label form-required"
-                      for="register-company"
-                      >Company Name</label
-                    >
-                    <input
-                      class="form-control"
-                      id="register-company"
-                      name="company_name"
-                      type="text"
-                      autocomplete="organization"
-                      placeholder="Company or business name"
-                      aria-describedby="register-company-error"
-                      data-error-required="Enter your company name."
-                      required>
-                    <div
-                      class="invalid-feedback"
-                      id="register-company-error"
-                      hidden
-                    >
-                      Enter your company name.
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="auth-field">
-                    <label
-                      class="form-label form-required"
-                      for="register-city"
-                      >City</label
-                    >
-                    <input
-                      class="form-control"
-                      id="register-city"
-                      name="city"
-                      type="text"
-                      autocomplete="address-level2"
-                      placeholder="City"
-                      aria-describedby="register-city-error"
-                      data-error-required="Enter your city."
-                      required>
-                    <div
-                      class="invalid-feedback"
-                      id="register-city-error"
-                      hidden
-                    >
-                      Enter your city.
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-12">
-                  <div class="auth-field">
-                    <label
-                      class="form-label form-required"
-                      for="register-address"
-                      >Company Address</label
-                    >
-                    <input
-                      class="form-control"
-                      id="register-address"
-                      name="address"
-                      type="text"
-                      autocomplete="address-line1"
-                      placeholder="Street address"
-                      aria-describedby="register-address-error"
-                      data-error-required="Enter your company address."
-                      required>
-                    <div
-                      class="invalid-feedback"
-                      id="register-address-error"
-                      hidden
-                    >
-                      Enter your company address.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </fieldset>
-
-            <div
-              class="auth-role-panel auth-role-panel-info"
-              id="register-buyer-panel"
-              data-role-panel="buyer"
-              hidden
-            >
-              <h3>
-                <i
-                  class="fa-solid fa-magnifying-glass"
-                  aria-hidden="true"
-                ></i>
-                Buyer account
-              </h3>
-              <p>
-                Buyer registration uses the common details above. No
-                company profile is required. Once the marketplace is
-                connected, buyers will be able to discover machines,
-                request capacity, and track bookings.
-              </p>
-              <a class="text-link" href="{{ url('/machines') }}">
-                Explore machines
-                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-              </a>
-            </div>
-
-            <div class="auth-terms">
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  id="register-terms"
-                  name="terms"
-                  type="checkbox"
-                  aria-describedby="register-terms-error"
-                  data-error-required="Accept the Terms and Conditions to continue."
-                  required>
-                <label class="form-check-label" for="register-terms"
-                  >I accept the Terms and Conditions.</label
-                >
-              </div>
-              <div
-                class="invalid-feedback"
-                id="register-terms-error"
-                hidden
-              >
-                Accept the Terms and Conditions to continue.
-              </div>
-              <details class="auth-terms-note">
-                <summary>About the Terms and Conditions</summary>
-                <p>
-                  The final Terms and Conditions are not published yet.
-                  This checkbox is required for interface testing and does
-                  not create a legal agreement.
-                </p>
-              </details>
-            </div>
-
-            <div class="auth-actions">
-              <button
-                class="btn-im btn-im-primary auth-submit"
-                type="submit"
-              >
-                <i class="fa-solid fa-user-plus" aria-hidden="true"></i>
-                Create Account
-              </button>
-              <button class="btn-im btn-im-outline" type="reset">
-                <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
-                Clear Form
-              </button>
-            </div>
-
-            <p class="auth-form-note">
-              No account is created, no details are stored, and no email
-              verification is sent.
-            </p>
-          </form>
+          </fieldset>
 
           <div
-            class="im-alert im-alert-success auth-success"
-            id="register-success"
-            role="status"
-            tabindex="-1"
-            hidden
-          >
-            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
-            <div>
-              <strong>No account was created.</strong>
-              The form passed local validation, but nothing was sent,
-              stored, or registered. No email verification was sent.
-            </div>
-          </div>
-
-          <div class="auth-card-footer">
+            class="auth-role-panel auth-role-panel-info"
+            id="register-buyer-panel"
+            data-role-panel="buyer"
+            hidden>
+            <h3>
+              <i
+                class="fa-solid fa-magnifying-glass"
+                aria-hidden="true"></i>
+              Buyer account
+            </h3>
             <p>
-              Already have an account?
-              <a href="{{ url('/login') }}">Login</a>
+              Buyer registration uses the common details above. No
+              company profile is required. Once the marketplace is
+              connected, buyers will be able to discover machines,
+              request capacity, and track bookings.
             </p>
-            <a class="text-link" href="{{ url('/') }}">
-              <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
-              Back to homepage
+            <a class="text-link" href="{{ url('/machines') }}">
+              Explore machines
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
             </a>
           </div>
+
+          <div class="auth-terms">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                id="register-terms"
+                name="terms"
+                type="checkbox"
+                aria-describedby="register-terms-error"
+                data-error-required="Accept the Terms and Conditions to continue."
+                required>
+              <label class="form-check-label" for="register-terms">I accept the Terms and Conditions.</label>
+            </div>
+            <div
+              class="invalid-feedback"
+              id="register-terms-error"
+              hidden>
+              Accept the Terms and Conditions to continue.
+            </div>
+            <details class="auth-terms-note">
+              <summary>About the Terms and Conditions</summary>
+              <p>
+                The final Terms and Conditions are not published yet.
+                This checkbox is required for interface testing and does
+                not create a legal agreement.
+              </p>
+            </details>
+          </div>
+
+          <div class="auth-actions">
+            <button
+              class="btn-im btn-im-primary auth-submit"
+              type="submit">
+              <i class="fa-solid fa-user-plus" aria-hidden="true"></i>
+              Create Account
+            </button>
+            <button class="btn-im btn-im-outline" type="reset">
+              <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+              Clear Form
+            </button>
+          </div>
+
+          <p class="auth-form-note">
+            No account is created, no details are stored, and no email
+            verification is sent.
+          </p>
+        </form>
+
+        <div
+          class="im-alert im-alert-success auth-success"
+          id="register-success"
+          role="status"
+          tabindex="-1"
+          hidden>
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+          <div>
+            <strong>No account was created.</strong>
+            The form passed local validation, but nothing was sent,
+            stored, or registered. No email verification was sent.
+          </div>
+        </div>
+
+        <div class="auth-card-footer">
+          <p>
+            Already have an account?
+            <a href="{{ url('/login') }}">Login</a>
+          </p>
+          <a class="text-link" href="{{ url('/') }}">
+            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+            Back to homepage
+          </a>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 @endsection

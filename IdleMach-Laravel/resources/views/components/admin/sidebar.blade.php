@@ -1,29 +1,24 @@
       <aside
         class="dashboard-sidebar"
         id="dashboard-sidebar"
-        aria-label="Admin navigation"
-      >
+        aria-label="Admin navigation">
         <div class="dashboard-sidebar-brand">
           <a
             class="dashboard-brand-link"
             href="{{ route('admin.dashboard') }}"
-            aria-label="IdleMach admin dashboard"
-          >
+            aria-label="IdleMach admin dashboard">
             <img
-              src="{{ asset('assets/icons/favicon.svg') }}"
-              width="30"
-              height="30"
-              alt=""
-            />
-            <span>IdleMach</span>
+              src="{{ asset('assets/icons/logo-compact.svg') }}"
+              width="105"
+              height="32"
+              alt="IdleMach" />
           </a>
           <span class="dashboard-role-badge">Admin</span>
           <button
             class="dashboard-sidebar-close"
             type="button"
             data-sidebar-close
-            aria-label="Close admin navigation"
-          >
+            aria-label="Close admin navigation">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>
@@ -35,8 +30,7 @@
               <a
                 class="dashboard-nav-link active"
                 href="#top"
-                aria-current="page"
-              >
+                aria-current="page">
                 <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
                 Dashboard
               </a>
@@ -49,8 +43,7 @@
               <button
                 class="dashboard-nav-link"
                 type="button"
-                data-management-preview="User management"
-              >
+                data-management-preview="User management">
                 <i class="fa-solid fa-users-gear" aria-hidden="true"></i>
                 User Management
               </button>
@@ -59,8 +52,7 @@
               <button
                 class="dashboard-nav-link"
                 type="button"
-                data-management-preview="Machine management"
-              >
+                data-management-preview="Machine management">
                 <i class="fa-solid fa-gears" aria-hidden="true"></i>
                 Machine Management
               </button>
@@ -69,9 +61,7 @@
               <a class="dashboard-nav-link" href="#pending-approvals">
                 <i class="fa-solid fa-clipboard-check" aria-hidden="true"></i>
                 Machine Approvals
-                <span class="dashboard-nav-badge" id="sidebar-pending-badge"
-                  >12</span
-                >
+                <span class="dashboard-nav-badge" id="sidebar-pending-badge">12</span>
               </a>
             </li>
             <li class="dashboard-nav-item">
@@ -84,8 +74,7 @@
               <button
                 class="dashboard-nav-link"
                 type="button"
-                data-management-preview="Payment management"
-              >
+                data-management-preview="Payment management">
                 <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
                 Payment Management
               </button>
@@ -94,8 +83,7 @@
               <button
                 class="dashboard-nav-link"
                 type="button"
-                data-management-preview="Review management"
-              >
+                data-management-preview="Review management">
                 <i class="fa-solid fa-star-half-stroke" aria-hidden="true"></i>
                 Review Management
               </button>
@@ -136,8 +124,7 @@
           <button
             class="dashboard-logout-btn"
             type="button"
-            data-action="admin-logout"
-          >
+            data-action="admin-logout">
             <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
             Sign out
           </button>

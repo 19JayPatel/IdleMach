@@ -52,7 +52,6 @@
 
     <div class="footer-bottom">
       <span>&copy; <span data-current-year>{{ date('Y') }}</span> IdleMach</span>
-      <span>Turn Idle Capacity Into Opportunity.</span>
       <a href="#top">Back to top</a>
     </div>
   </div>

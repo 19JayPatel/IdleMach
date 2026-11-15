@@ -1236,7 +1236,7 @@
       if (firstInvalid) {
         firstInvalid.focus();
         showPreviewNotice(
-          "Please correct the highlighted fields. Nothing was submitted or saved."
+          "Please correct the highlighted fields."
         );
         return;
       }
@@ -1264,8 +1264,7 @@
   var loginForm = document.getElementById("login-form");
   if (loginForm) {
     setupAuthForm(loginForm, "login-success", {
-      successMessage:
-        "The login form passed local validation. No account was checked and no session was created."
+      successMessage: "Welcome back to IdleMach."
     });
   }
 
@@ -1283,8 +1282,7 @@
     setupAuthForm(registerForm, "register-success", {
       roleFieldset: registerRoleFieldset,
       requestedRole: requestedRole,
-      successMessage:
-        "The registration form passed local validation. No account was created and nothing was stored or sent."
+      successMessage: "Welcome to IdleMach."
     });
   }
 
@@ -1532,6 +1530,29 @@
       }
     };
 
+    /* Keep the drawer toggle's icon and label in sync with its state. A
+       hamburger only represents a closed drawer, so switch to a close icon
+       (and a "Close ..." label) once the drawer is open. */
+    var syncSidebarToggleState = function (isOpen) {
+      toggleBtns.forEach(function (btn) {
+        var icon = btn.querySelector("i");
+        if (icon) {
+          icon.classList.toggle("fa-bars", !isOpen);
+          icon.classList.toggle("fa-xmark", isOpen);
+        }
+        if (!btn.dataset.labelClosed) {
+          btn.dataset.labelClosed =
+            btn.getAttribute("aria-label") || "Toggle navigation";
+        }
+        btn.setAttribute(
+          "aria-label",
+          isOpen
+            ? btn.dataset.labelClosed.replace(/^Open\b/, "Close")
+            : btn.dataset.labelClosed
+        );
+      });
+    };
+
     var openSidebar = function () {
       if (sidebar) {
         sidebar.classList.add("is-open");
@@ -1542,6 +1563,7 @@
       toggleBtns.forEach(function (btn) {
         btn.setAttribute("aria-expanded", "true");
       });
+      syncSidebarToggleState(true);
       document.body.style.overflow = "hidden";
       syncSidebarAccessibility();
       if (closeBtn) {
@@ -1552,6 +1574,7 @@
     var closeSidebar = function (restoreFocus) {
       var wasOpen = sidebar && sidebar.classList.contains("is-open");
       if (!wasOpen) {
+        syncSidebarToggleState(false);
         syncSidebarAccessibility();
         return;
       }
@@ -1564,6 +1587,7 @@
       toggleBtns.forEach(function (btn) {
         btn.setAttribute("aria-expanded", "false");
       });
+      syncSidebarToggleState(false);
       document.body.style.overflow = "";
       syncSidebarAccessibility();
       if (restoreFocus && isMobileSidebar() && toggleBtns[0]) {
@@ -1606,6 +1630,7 @@
         });
     }
 
+    syncSidebarToggleState(false);
     syncSidebarAccessibility();
 
     window.addEventListener("resize", function () {

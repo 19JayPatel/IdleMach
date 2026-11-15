@@ -30,7 +30,7 @@
 
           <ul class="hero-roles" aria-label="Who IdleMach connects">
             <li>
-              <i class="fa-solid fa-industry" aria-hidden="true"></i>
+              <i class="fa-solid fa-user-tie" aria-hidden="true"></i>
               <span><strong>Machine owners</strong> with unused hours</span>
             </li>
             <li>

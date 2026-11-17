@@ -1,3 +1,18 @@
+@php
+  $buyerPageTitle = match (true) {
+      request()->routeIs('buyer.dashboard') => 'Dashboard',
+      request()->routeIs('buyer.explore-machines') => 'Explore Machines',
+      request()->routeIs('buyer.booking-requests') => 'Booking Requests',
+      request()->routeIs('buyer.accepted-bookings') => 'Accepted Bookings',
+      request()->routeIs('buyer.ongoing-work') => 'Ongoing Work',
+      request()->routeIs('buyer.completed-bookings') => 'Completed Bookings',
+      request()->routeIs('buyer.payments') => 'Payments and History',
+      request()->routeIs('buyer.reviews') => 'My Reviews',
+      request()->routeIs('buyer.notifications') => 'Notifications',
+      request()->routeIs('buyer.profile') => 'Profile Management',
+      default => trim($__env->yieldContent('page_title')) ?: 'Dashboard',
+  };
+@endphp
         <header class="dashboard-topbar">
           <div class="dashboard-topbar-left">
             <button
@@ -17,7 +32,7 @@
                 <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
               </span>
               <span class="dashboard-breadcrumb-item" aria-current="page"
-                >Dashboard</span
+                >{{ $buyerPageTitle }}</span
               >
             </nav>
           </div>
@@ -25,7 +40,7 @@
           <div class="dashboard-topbar-right">
             <a
               class="btn-im btn-im-outline btn-im-sm d-none d-lg-inline-flex"
-              href="#discover"
+              href="{{ route('buyer.explore-machines') }}"
             >
               <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
               Explore machines
@@ -64,7 +79,7 @@
                 </li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
-                  <a class="dropdown-item" href="#discover">
+                  <a class="dropdown-item" href="{{ route('buyer.explore-machines') }}">
                     <i
                       class="fa-solid fa-magnifying-glass me-2"
                       aria-hidden="true"
@@ -73,15 +88,21 @@
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#booking-requests">
+                  <a class="dropdown-item" href="{{ route('buyer.booking-requests') }}">
                     <i class="fa-solid fa-inbox me-2" aria-hidden="true"></i>
                     My bookings
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#payments">
+                  <a class="dropdown-item" href="{{ route('buyer.payments') }}">
                     <i class="fa-solid fa-receipt me-2" aria-hidden="true"></i>
                     Payments and history
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{{ route('buyer.profile') }}">
+                    <i class="fa-solid fa-user-gear me-2" aria-hidden="true"></i>
+                    Profile management
                   </a>
                 </li>
                 <li><hr class="dropdown-divider" /></li>

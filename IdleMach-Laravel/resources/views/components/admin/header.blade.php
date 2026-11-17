@@ -1,3 +1,18 @@
+@php
+  $adminPageTitle = match (true) {
+      request()->routeIs('admin.dashboard') => 'Dashboard',
+      request()->routeIs('admin.users') => 'User Management',
+      request()->routeIs('admin.machines') => 'Machine Management',
+      request()->routeIs('admin.machine-approvals') => 'Machine Approval',
+      request()->routeIs('admin.bookings') => 'Booking Management',
+      request()->routeIs('admin.payments') => 'Payment Management',
+      request()->routeIs('admin.reviews') => 'Review Management',
+      request()->routeIs('admin.reports') => 'Reports and Activity',
+      request()->routeIs('admin.business-rules') => 'Business Rules',
+      request()->routeIs('admin.profile') => 'Profile Management',
+      default => trim($__env->yieldContent('page_title')) ?: 'Dashboard',
+  };
+@endphp
         <header class="dashboard-topbar">
           <div class="dashboard-topbar-left">
             <button
@@ -16,9 +31,7 @@
                 <a href="{{ route('admin.dashboard') }}">Admin</a>
                 <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
               </span>
-              <span class="dashboard-breadcrumb-item" aria-current="page"
-                >Dashboard</span
-              >
+              <span class="dashboard-breadcrumb-item" aria-current="page">{{ $adminPageTitle }}</span>
             </nav>
           </div>
 
@@ -64,17 +77,13 @@
                 </li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
-                  <button
-                    class="dropdown-item"
-                    type="button"
-                    data-management-preview="Admin profile"
-                  >
+                  <a class="dropdown-item" href="{{ route('admin.profile') }}">
                     <i
                       class="fa-solid fa-user-gear me-2"
                       aria-hidden="true"
                     ></i>
                     Profile settings
-                  </button>
+                  </a>
                 </li>
                 <li>
                   <button

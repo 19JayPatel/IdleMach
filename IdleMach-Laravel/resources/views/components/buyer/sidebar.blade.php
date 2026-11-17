@@ -28,9 +28,9 @@
           <ul class="dashboard-nav-list">
             <li class="dashboard-nav-item">
               <a
-                class="dashboard-nav-link active"
-                href="#top"
-                aria-current="page">
+                class="dashboard-nav-link {{ request()->routeIs('buyer.dashboard') ? 'active' : '' }}"
+                href="{{ route('buyer.dashboard') }}"
+                @if(request()->routeIs('buyer.dashboard')) aria-current="page" @endif>
                 <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
                 Dashboard
               </a>
@@ -40,7 +40,10 @@
           <p class="dashboard-nav-heading">Discover</p>
           <ul class="dashboard-nav-list">
             <li class="dashboard-nav-item">
-              <a class="dashboard-nav-link" href="#discover">
+              <a
+                class="dashboard-nav-link {{ request()->routeIs('buyer.explore-machines') ? 'active' : '' }}"
+                href="{{ route('buyer.explore-machines') }}"
+                @if(request()->routeIs('buyer.explore-machines')) aria-current="page" @endif>
                 <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
                 Explore Machines
               </a>
@@ -50,7 +53,10 @@
           <p class="dashboard-nav-heading">My Bookings</p>
           <ul class="dashboard-nav-list">
             <li class="dashboard-nav-item">
-              <a class="dashboard-nav-link" href="#booking-requests">
+              <a
+                class="dashboard-nav-link {{ request()->routeIs('buyer.booking-requests') ? 'active' : '' }}"
+                href="{{ route('buyer.booking-requests') }}"
+                @if(request()->routeIs('buyer.booking-requests')) aria-current="page" @endif>
                 <i class="fa-solid fa-inbox" aria-hidden="true"></i>
                 Booking Requests
                 <span
@@ -61,24 +67,27 @@
             </li>
             <li class="dashboard-nav-item">
               <a
-                class="dashboard-nav-link"
-                href="#booking-requests"
-                data-booking-filter-link="accepted">
+                class="dashboard-nav-link {{ request()->routeIs('buyer.accepted-bookings') ? 'active' : '' }}"
+                href="{{ route('buyer.accepted-bookings') }}"
+                @if(request()->routeIs('buyer.accepted-bookings')) aria-current="page" @endif>
                 <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
                 Accepted Bookings
               </a>
             </li>
             <li class="dashboard-nav-item">
               <a
-                class="dashboard-nav-link"
-                href="#booking-requests"
-                data-booking-filter-link="in_progress">
+                class="dashboard-nav-link {{ request()->routeIs('buyer.ongoing-work') ? 'active' : '' }}"
+                href="{{ route('buyer.ongoing-work') }}"
+                @if(request()->routeIs('buyer.ongoing-work')) aria-current="page" @endif>
                 <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
                 Ongoing Work
               </a>
             </li>
             <li class="dashboard-nav-item">
-              <a class="dashboard-nav-link" href="#completed-work">
+              <a
+                class="dashboard-nav-link {{ request()->routeIs('buyer.completed-bookings') ? 'active' : '' }}"
+                href="{{ route('buyer.completed-bookings') }}"
+                @if(request()->routeIs('buyer.completed-bookings')) aria-current="page" @endif>
                 <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
                 Completed Bookings
               </a>
@@ -88,7 +97,10 @@
           <p class="dashboard-nav-heading">Financial</p>
           <ul class="dashboard-nav-list">
             <li class="dashboard-nav-item">
-              <a class="dashboard-nav-link" href="#payments">
+              <a
+                class="dashboard-nav-link {{ request()->routeIs('buyer.payments') ? 'active' : '' }}"
+                href="{{ route('buyer.payments') }}"
+                @if(request()->routeIs('buyer.payments')) aria-current="page" @endif>
                 <i class="fa-solid fa-receipt" aria-hidden="true"></i>
                 Payments and History
               </a>
@@ -98,7 +110,10 @@
           <p class="dashboard-nav-heading">Feedback</p>
           <ul class="dashboard-nav-list">
             <li class="dashboard-nav-item">
-              <a class="dashboard-nav-link" href="#reviews">
+              <a
+                class="dashboard-nav-link {{ request()->routeIs('buyer.reviews') ? 'active' : '' }}"
+                href="{{ route('buyer.reviews') }}"
+                @if(request()->routeIs('buyer.reviews')) aria-current="page" @endif>
                 <i class="fa-solid fa-star" aria-hidden="true"></i>
                 My Reviews
               </a>
@@ -108,15 +123,22 @@
           <p class="dashboard-nav-heading">Other</p>
           <ul class="dashboard-nav-list">
             <li class="dashboard-nav-item">
-              <button
-                class="dashboard-nav-link"
-                type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#notifications-offcanvas"
-                aria-controls="notifications-offcanvas">
+              <a
+                class="dashboard-nav-link {{ request()->routeIs('buyer.notifications') ? 'active' : '' }}"
+                href="{{ route('buyer.notifications') }}"
+                @if(request()->routeIs('buyer.notifications')) aria-current="page" @endif>
                 <i class="fa-regular fa-bell" aria-hidden="true"></i>
                 Notifications
-              </button>
+              </a>
+            </li>
+            <li class="dashboard-nav-item">
+              <a
+                class="dashboard-nav-link {{ request()->routeIs('buyer.profile') ? 'active' : '' }}"
+                href="{{ route('buyer.profile') }}"
+                @if(request()->routeIs('buyer.profile')) aria-current="page" @endif>
+                <i class="fa-solid fa-user-gear" aria-hidden="true"></i>
+                Profile Management
+              </a>
             </li>
           </ul>
         </nav>

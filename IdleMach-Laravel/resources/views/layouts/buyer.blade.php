@@ -34,6 +34,8 @@
       </div>
     </div>
 
+    @include('buyer.partials.modals')
+
     @stack('modals')
 
     <!-- Preview-only toast -->

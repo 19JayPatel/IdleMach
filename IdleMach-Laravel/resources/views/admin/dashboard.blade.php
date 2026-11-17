@@ -71,7 +71,7 @@
           <p class="stat-card-label">Pending Machine Approvals</p>
           <span class="stat-card-icon stat-icon-approvals"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i></span>
         </div>
-        <p class="stat-card-value">12</p>
+        <p class="stat-card-value" id="stat-pending-approvals">12</p>
         <p class="stat-card-meta">Listings awaiting admin review</p>
       </div>
 

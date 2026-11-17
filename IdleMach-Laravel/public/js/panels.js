@@ -237,7 +237,7 @@
     return -1;
   }
 
-  function requestStatusChange(button, row, headings, action) {
+  function requestStatusChange(button, row, headings, action, refresh) {
     var config = statusActions[action];
     if (!config) {
       return;
@@ -278,6 +278,12 @@
 
       if (confirmModal) {
         confirmModal.hide();
+      }
+
+      // Re-apply active search and filters so the changed row reflects its
+      // new status immediately.
+      if (typeof refresh === "function") {
+        refresh();
       }
 
       notify(
@@ -385,13 +391,17 @@
 
       rows.forEach(function (row) {
         var text = normalise(row.textContent);
+        var cellTexts = Array.prototype.slice.call(row.cells).map(function (cell) {
+          return normalise(cell.textContent);
+        });
         var matches = terms.every(function (term) {
           return text.indexOf(term) !== -1;
         });
 
         criteria.forEach(function (value) {
           if (value.indexOf("stars") !== -1) {
-            var score = value.charAt(0) + " / 5";
+            var rating = value.match(/\d+/);
+            var score = (rating ? rating[0] : "0") + " / 5";
             if (text.indexOf(score) === -1) {
               matches = false;
             }
@@ -409,7 +419,9 @@
             return;
           }
 
-          if (text.indexOf(value) === -1) {
+          // Match filters against whole cell values so "Active" does not also
+          // match "Inactive", and "Pending" does not also match "Payment pending".
+          if (cellTexts.indexOf(value) === -1) {
             matches = false;
           }
         });
@@ -484,7 +496,7 @@
       }
 
       if (action && statusActions[action]) {
-        requestStatusChange(button, row, headings, action);
+        requestStatusChange(button, row, headings, action, applyFilters);
         return;
       }
 

@@ -20,7 +20,8 @@
   });
 
   /* Mark the active public navigation item for the current page. */
-  var currentPage = window.location.pathname.split("/").pop() || "";
+  var currentPage =
+    window.location.pathname.replace(/\/+$/, "").split("/").pop() || "home";
   document.querySelectorAll("[data-nav-match]").forEach(function (link) {
     if (link.getAttribute("data-nav-match") === currentPage) {
       link.classList.add("active");
@@ -1936,319 +1937,514 @@
       }
     };
 
-    // Pending count state
-    var pendingCount = 12;
-    var updatePendingDisplays = function () {
-      var badgeSidebar = document.getElementById("sidebar-pending-badge");
-      var statPending = document.getElementById("stat-pending-approvals");
+    // Machine Approval page state and interactions (frontend demo only)
+    var approvalsTable = document.getElementById("machine-approvals-table");
+    if (approvalsTable) {
+      var approvalsBody = approvalsTable.tBodies[0] || approvalsTable.querySelector("tbody");
+      var viewMachineModalEl = document.getElementById("modal-view-machine");
+      var viewMachineModal =
+        viewMachineModalEl && window.bootstrap
+          ? window.bootstrap.Modal.getOrCreateInstance(viewMachineModalEl)
+          : null;
+      var approveMachineModalEl = document.getElementById("modal-approve-machine");
+      var approveMachineModal =
+        approveMachineModalEl && window.bootstrap
+          ? window.bootstrap.Modal.getOrCreateInstance(approveMachineModalEl)
+          : null;
+      var rejectMachineModalEl = document.getElementById("modal-reject-machine");
+      var rejectMachineModal =
+        rejectMachineModalEl && window.bootstrap
+          ? window.bootstrap.Modal.getOrCreateInstance(rejectMachineModalEl)
+          : null;
+      var currentActionMachineId = null;
       var countLabel = document.getElementById("pending-approvals-count");
+      var initialPendingCount = countLabel
+        ? parseInt((countLabel.textContent.match(/\d+/) || ["0"])[0], 10)
+        : NaN;
 
-      if (badgeSidebar) {
-        badgeSidebar.textContent = pendingCount;
+      if (isNaN(initialPendingCount)) {
+        initialPendingCount = approvalsBody
+          ? approvalsBody.querySelectorAll("tr[data-machine-id]").length
+          : 0;
       }
-      if (statPending) {
-        statPending.textContent = pendingCount;
-      }
-      if (countLabel) {
-        countLabel.textContent = pendingCount + " pending review";
-      }
-    };
 
-    // View Machine Details Modal
-    var viewMachineModalEl = document.getElementById("modal-view-machine");
-    var viewMachineModal = viewMachineModalEl && window.bootstrap ? new window.bootstrap.Modal(viewMachineModalEl) : null;
+      var setText = function (id, value) {
+        var element = document.getElementById(id);
+        if (element) {
+          element.textContent = value;
+        }
+      };
 
-    document.querySelectorAll("[data-action='view-machine']").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        var machineId = btn.getAttribute("data-machine-id");
-        var m = sampleMachines[machineId];
-        if (!m) return;
+      var getApprovalRows = function () {
+        return approvalsBody
+          ? Array.prototype.slice.call(
+              approvalsBody.querySelectorAll("tr[data-machine-id]")
+            )
+          : [];
+      };
 
-        document.getElementById("vm-title").textContent = m.name;
-        document.getElementById("vm-id").textContent = m.id;
-        document.getElementById("vm-company").textContent = m.company;
-        document.getElementById("vm-type").textContent = m.type;
-        document.getElementById("vm-rate").textContent = m.rate;
-        document.getElementById("vm-capacity").textContent = m.capacity;
-        document.getElementById("vm-envelope").textContent = m.envelope;
-        document.getElementById("vm-specs").textContent = m.specs;
-        document.getElementById("vm-material").textContent = m.material;
-        document.getElementById("vm-submitted").textContent = m.submitted;
-        document.getElementById("vm-photos").textContent = m.photos;
-        document.getElementById("vm-notes").textContent = m.verificationNotes;
+      var findApprovalRow = function (machineId) {
+        var rows = getApprovalRows();
+        for (var index = 0; index < rows.length; index += 1) {
+          if (rows[index].getAttribute("data-machine-id") === machineId) {
+            return rows[index];
+          }
+        }
+        return null;
+      };
+
+      var resolveMachineId = function (button) {
+        var machineId = button.getAttribute("data-machine-id");
+        if (!machineId) {
+          var row = button.closest("tr[data-machine-id]");
+          if (row) {
+            machineId = row.getAttribute("data-machine-id");
+          }
+        }
+        return machineId || null;
+      };
+
+      var readRowStatus = function (row) {
+        var badge =
+          row && row.querySelector(".machine-status-cell .status-badge");
+        if (!badge) {
+          return "pending";
+        }
+        var statusClass = Array.prototype.slice
+          .call(badge.classList)
+          .filter(function (name) {
+            return name.indexOf("status-") === 0 && name !== "status-badge";
+          })[0];
+        return statusClass ? statusClass.replace("status-", "") : "pending";
+      };
+
+      var statusDetails = function (status) {
+        if (status === "approved") {
+          return {
+            badge: "status-approved",
+            icon: "fa-circle-check",
+            iconStyle: "fa-solid",
+            label: "Approved"
+          };
+        }
+        if (status === "rejected") {
+          return {
+            badge: "status-rejected",
+            icon: "fa-circle-xmark",
+            iconStyle: "fa-solid",
+            label: "Rejected"
+          };
+        }
+        return {
+          badge: "status-pending",
+          icon: "fa-clock",
+          iconStyle: "fa-regular",
+          label: "Pending"
+        };
+      };
+
+      var fillStatusBadge = function (badge, status) {
+        var details = statusDetails(status);
+        var icon = document.createElement("i");
+        badge.className = "status-badge " + details.badge;
+        badge.textContent = "";
+        icon.className = details.iconStyle + " " + details.icon;
+        icon.setAttribute("aria-hidden", "true");
+        badge.appendChild(icon);
+        badge.appendChild(document.createTextNode(" " + details.label));
+        return badge;
+      };
+
+      var createStatusBadge = function (status) {
+        return fillStatusBadge(document.createElement("span"), status);
+      };
+
+      var createActionButton = function (
+        action,
+        machineId,
+        label,
+        icon,
+        className
+      ) {
+        var button = document.createElement("button");
+        button.className = "btn-im " + className + " btn-im-sm";
+        button.type = "button";
+        button.setAttribute("data-action", action);
+        button.setAttribute("data-machine-id", machineId);
+        var buttonIcon = document.createElement("i");
+        buttonIcon.className = "fa-solid " + icon;
+        buttonIcon.setAttribute("aria-hidden", "true");
+        button.appendChild(buttonIcon);
+        button.appendChild(document.createTextNode(" " + label));
+        return button;
+      };
+
+      var renderStatus = function (row, status) {
+        if (!row) {
+          return;
+        }
+        row.setAttribute("data-status", status);
+        var statusCell = row.querySelector(".machine-status-cell");
+        if (statusCell) {
+          statusCell.textContent = "";
+          statusCell.appendChild(createStatusBadge(status));
+        }
+      };
+
+      var renderActions = function (row, machineId, status) {
+        if (!row) {
+          return;
+        }
+        var actionsCell = row.querySelector(".machine-actions-cell");
+        if (!actionsCell) {
+          return;
+        }
+
+        var actions = document.createElement("div");
+        actions.className = "table-actions";
+        actions.appendChild(
+          createActionButton(
+            "view-machine",
+            machineId,
+            "View",
+            "fa-eye",
+            "btn-im-outline"
+          )
+        );
+
+        if (status === "pending") {
+          actions.appendChild(
+            createActionButton(
+              "approve-machine",
+              machineId,
+              "Approve",
+              "fa-check",
+              "btn-im-primary"
+            )
+          );
+          actions.appendChild(
+            createActionButton(
+              "reject-machine",
+              machineId,
+              "Reject",
+              "fa-xmark",
+              "btn-im-danger"
+            )
+          );
+        } else {
+          var closedBadge = document.createElement("span");
+          closedBadge.className =
+            status === "approved"
+              ? "badge bg-success-subtle text-success border border-success-subtle px-2 py-1"
+              : "badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1";
+          var closedIcon = document.createElement("i");
+          closedIcon.className =
+            "fa-solid " +
+            (status === "approved" ? "fa-check" : "fa-xmark") +
+            " me-1";
+          closedIcon.setAttribute("aria-hidden", "true");
+          closedBadge.appendChild(closedIcon);
+          closedBadge.appendChild(
+            document.createTextNode(
+              status === "approved" ? "Approved" : "Rejected"
+            )
+          );
+          actions.appendChild(closedBadge);
+        }
+
+        actionsCell.textContent = "";
+        actionsCell.appendChild(actions);
+      };
+
+      var updatePendingDisplays = function () {
+        var rows = getApprovalRows();
+        var visiblePending = rows.filter(function (row) {
+          return readRowStatus(row) === "pending";
+        }).length;
+        var closedCount = rows.length - visiblePending;
+        var pendingCount = Math.max(0, initialPendingCount - closedCount);
+
+        var badgeSidebar = document.getElementById("sidebar-pending-badge");
+        if (badgeSidebar) {
+          badgeSidebar.textContent = pendingCount;
+        }
+        var statPending = document.getElementById("stat-pending-approvals");
+        if (statPending) {
+          statPending.textContent = pendingCount;
+        }
+        if (countLabel) {
+          countLabel.textContent = pendingCount + " pending review";
+        }
+        setText("pending-approvals-visible", visiblePending);
+        setText("pending-approvals-total", pendingCount);
+      };
+
+      var machineDetails = function (machineId, row) {
+        var stored = sampleMachines[machineId] || {};
+        var cells = row ? row.cells : [];
+        var title = row && row.querySelector(".table-cell-title");
+        var ownerTitle =
+          cells[1] && cells[1].querySelector(".table-cell-title");
+        var rateLine = cells[0] && cells[0].querySelector(".table-cell-subtext");
+        var categoryCell = cells[2];
+        var category = "";
+
+        if (categoryCell && categoryCell.firstChild) {
+          category = String(categoryCell.firstChild.textContent || "").trim();
+        }
+
+        return {
+          id: machineId,
+          name: stored.name || (title ? title.textContent.trim() : machineId),
+          company:
+            stored.company ||
+            (ownerTitle
+              ? ownerTitle.textContent.trim()
+              : "Owner details not provided"),
+          type: stored.type || category || "Machine type not provided",
+          rate:
+            stored.rate ||
+            (rateLine ? rateLine.textContent.trim() : "Rate not provided"),
+          capacity:
+            stored.capacity || "Capacity not provided in this sample row",
+          envelope: stored.envelope || "Not provided in this sample row",
+          specs: stored.specs || "Not provided in this sample row",
+          material: stored.material || "Not provided in this sample row",
+          submitted:
+            stored.submitted ||
+            (cells[3] ? cells[3].textContent.trim() : "Not provided"),
+          status: readRowStatus(row) || stored.status || "pending",
+          photos: stored.photos || "No photos listed for this sample row",
+          verificationNotes:
+            stored.verificationNotes ||
+            "No verification notes for this sample row"
+        };
+      };
+
+      var showMachineDetails = function (machineId, row) {
+        var machine = machineDetails(machineId, row);
+        setText("vm-title", machine.name);
+        setText("vm-id", machine.id);
+        setText("vm-company", machine.company);
+        setText("vm-type", machine.type);
+        setText("vm-rate", machine.rate);
+        setText("vm-capacity", machine.capacity);
+        setText("vm-envelope", machine.envelope);
+        setText("vm-specs", machine.specs);
+        setText("vm-material", machine.material);
+        setText("vm-submitted", machine.submitted);
+        setText("vm-photos", machine.photos);
+        setText("vm-notes", machine.verificationNotes);
 
         var statusBadge = document.getElementById("vm-status-badge");
         if (statusBadge) {
-          statusBadge.className = "status-badge status-" + m.status;
-          var iconClass = m.status === "approved" ? "fa-circle-check" : (m.status === "rejected" ? "fa-circle-xmark" : "fa-clock");
-          statusBadge.innerHTML = '<i class="fa-solid ' + iconClass + '" aria-hidden="true"></i> ' + m.status.charAt(0).toUpperCase() + m.status.slice(1);
+          fillStatusBadge(statusBadge, machine.status);
         }
 
         if (viewMachineModal) {
           viewMachineModal.show();
+        } else {
+          showPreviewNotice(
+            "Machine details cannot be opened because the details modal is unavailable on this page."
+          );
         }
-      });
-    });
+      };
 
-    // Approve Machine Modal & Action
-    var currentActionMachineId = null;
-    var approveMachineModalEl = document.getElementById("modal-approve-machine");
-    var approveMachineModal = approveMachineModalEl && window.bootstrap ? new window.bootstrap.Modal(approveMachineModalEl) : null;
-
-    document.querySelectorAll("[data-action='approve-machine']").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        currentActionMachineId = btn.getAttribute("data-machine-id");
-        var m = sampleMachines[currentActionMachineId];
-        if (!m) return;
-
-        var nameEl = document.getElementById("approve-machine-name");
-        var idEl = document.getElementById("approve-machine-id");
-        if (nameEl) nameEl.textContent = m.name;
-        if (idEl) idEl.textContent = m.id;
+      var openApproveMachine = function (machineId, row) {
+        currentActionMachineId = machineId;
+        var machine = machineDetails(machineId, row);
+        setText("approve-machine-name", machine.name);
+        setText("approve-machine-id", machine.id);
 
         if (approveMachineModal) {
           approveMachineModal.show();
+        } else {
+          showPreviewNotice(
+            "Approval confirmation is unavailable on this page. No status was changed."
+          );
         }
-      });
-    });
+      };
 
-    var confirmApproveBtn = document.getElementById("btn-confirm-approve");
-    if (confirmApproveBtn) {
-      confirmApproveBtn.addEventListener("click", function () {
-        if (!currentActionMachineId) return;
-
-        var m = sampleMachines[currentActionMachineId];
-        if (m) {
-          m.status = "approved";
-        }
-
-        var row = document.querySelector("tr[data-machine-id='" + currentActionMachineId + "']");
-        if (row) {
-          var badgeCell = row.querySelector(".machine-status-cell");
-          if (badgeCell) {
-            badgeCell.innerHTML = '<span class="status-badge status-approved"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Approved</span>';
-          }
-
-          var actionsCell = row.querySelector(".machine-actions-cell");
-          if (actionsCell) {
-            actionsCell.innerHTML = '<button class="btn-im btn-im-outline btn-im-sm" type="button" data-action="view-machine" data-machine-id="' + currentActionMachineId + '"><i class="fa-solid fa-eye" aria-hidden="true"></i> View</button> <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1"><i class="fa-solid fa-check me-1"></i>Approved</span>';
-            // Re-bind view action for this button
-            var newViewBtn = actionsCell.querySelector("[data-action='view-machine']");
-            if (newViewBtn) {
-              newViewBtn.addEventListener("click", function () {
-                var vm = sampleMachines[currentActionMachineId];
-                if (!vm) return;
-                document.getElementById("vm-title").textContent = vm.name;
-                document.getElementById("vm-id").textContent = vm.id;
-                document.getElementById("vm-company").textContent = vm.company;
-                document.getElementById("vm-type").textContent = vm.type;
-                document.getElementById("vm-rate").textContent = vm.rate;
-                document.getElementById("vm-capacity").textContent = vm.capacity;
-                document.getElementById("vm-envelope").textContent = vm.envelope;
-                document.getElementById("vm-specs").textContent = vm.specs;
-                document.getElementById("vm-material").textContent = vm.material;
-                document.getElementById("vm-submitted").textContent = vm.submitted;
-                document.getElementById("vm-photos").textContent = vm.photos;
-                document.getElementById("vm-notes").textContent = vm.verificationNotes;
-                var statusBadge = document.getElementById("vm-status-badge");
-                if (statusBadge) {
-                  statusBadge.className = "status-badge status-approved";
-                  statusBadge.innerHTML = '<i class="fa-solid fa-circle-check" aria-hidden="true"></i> Approved';
-                }
-                if (viewMachineModal) viewMachineModal.show();
-              });
-            }
-          }
-        }
-
-        if (pendingCount > 0) {
-          pendingCount--;
-          updatePendingDisplays();
-        }
-
-        if (approveMachineModal) {
-          approveMachineModal.hide();
-        }
-
-        showPreviewNotice("Machine " + currentActionMachineId + " marked approved locally. In production, listing appears in marketplace after owner activation. No database modified.");
-        currentActionMachineId = null;
-      });
-    }
-
-    // Reject Machine Modal & Action
-    var rejectMachineModalEl = document.getElementById("modal-reject-machine");
-    var rejectMachineModal = rejectMachineModalEl && window.bootstrap ? new window.bootstrap.Modal(rejectMachineModalEl) : null;
-
-    document.querySelectorAll("[data-action='reject-machine']").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        currentActionMachineId = btn.getAttribute("data-machine-id");
-        var m = sampleMachines[currentActionMachineId];
-        if (!m) return;
-
-        var nameEl = document.getElementById("reject-machine-name");
-        var idEl = document.getElementById("reject-machine-id");
-        if (nameEl) nameEl.textContent = m.name;
-        if (idEl) idEl.textContent = m.id;
+      var openRejectMachine = function (machineId, row) {
+        currentActionMachineId = machineId;
+        var machine = machineDetails(machineId, row);
+        setText("reject-machine-name", machine.name);
+        setText("reject-machine-id", machine.id);
 
         var reasonSelect = document.getElementById("reject-reason-select");
-        if (reasonSelect) reasonSelect.value = "Incomplete technical specifications";
+        if (reasonSelect) {
+          reasonSelect.value = "Incomplete technical specifications";
+        }
 
         var notesField = document.getElementById("reject-notes-field");
-        if (notesField) notesField.value = "";
+        if (notesField) {
+          notesField.value = "";
+        }
 
         if (rejectMachineModal) {
           rejectMachineModal.show();
+        } else {
+          showPreviewNotice(
+            "Rejection confirmation is unavailable on this page. No status was changed."
+          );
         }
-      });
-    });
+      };
 
-    var confirmRejectBtn = document.getElementById("btn-confirm-reject");
-    if (confirmRejectBtn) {
-      confirmRejectBtn.addEventListener("click", function () {
-        if (!currentActionMachineId) return;
-
-        var m = sampleMachines[currentActionMachineId];
-        if (m) {
-          m.status = "rejected";
-        }
-
-        var reasonSelect = document.getElementById("reject-reason-select");
-        var reason = reasonSelect ? reasonSelect.value : "Documentation requirements not met";
-
-        var row = document.querySelector("tr[data-machine-id='" + currentActionMachineId + "']");
-        if (row) {
-          var badgeCell = row.querySelector(".machine-status-cell");
-          if (badgeCell) {
-            badgeCell.innerHTML = '<span class="status-badge status-rejected"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i> Rejected</span>';
-          }
-
-          var actionsCell = row.querySelector(".machine-actions-cell");
-          if (actionsCell) {
-            actionsCell.innerHTML = '<button class="btn-im btn-im-outline btn-im-sm" type="button" data-action="view-machine" data-machine-id="' + currentActionMachineId + '"><i class="fa-solid fa-eye" aria-hidden="true"></i> View</button> <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1"><i class="fa-solid fa-xmark me-1"></i>Rejected</span>';
-            var newViewBtn = actionsCell.querySelector("[data-action='view-machine']");
-            if (newViewBtn) {
-              newViewBtn.addEventListener("click", function () {
-                var vm = sampleMachines[currentActionMachineId];
-                if (!vm) return;
-                document.getElementById("vm-title").textContent = vm.name;
-                document.getElementById("vm-id").textContent = vm.id;
-                document.getElementById("vm-company").textContent = vm.company;
-                document.getElementById("vm-type").textContent = vm.type;
-                document.getElementById("vm-rate").textContent = vm.rate;
-                document.getElementById("vm-capacity").textContent = vm.capacity;
-                document.getElementById("vm-envelope").textContent = vm.envelope;
-                document.getElementById("vm-specs").textContent = vm.specs;
-                document.getElementById("vm-material").textContent = vm.material;
-                document.getElementById("vm-submitted").textContent = vm.submitted;
-                document.getElementById("vm-photos").textContent = vm.photos;
-                document.getElementById("vm-notes").textContent = vm.verificationNotes;
-                var statusBadge = document.getElementById("vm-status-badge");
-                if (statusBadge) {
-                  statusBadge.className = "status-badge status-rejected";
-                  statusBadge.innerHTML = '<i class="fa-solid fa-circle-xmark" aria-hidden="true"></i> Rejected';
-                }
-                if (viewMachineModal) viewMachineModal.show();
-              });
-            }
-          }
+      var updateMachineStatus = function (machineId, status) {
+        var row = findApprovalRow(machineId);
+        if (!row) {
+          return false;
         }
 
-        if (pendingCount > 0) {
-          pendingCount--;
-          updatePendingDisplays();
+        var stored = sampleMachines[machineId];
+        if (stored) {
+          stored.status = status;
         }
 
-        if (rejectMachineModal) {
-          rejectMachineModal.hide();
-        }
-
-        showPreviewNotice("Machine " + currentActionMachineId + " marked rejected locally (" + reason + "). No database modified.");
-        currentActionMachineId = null;
-      });
-    }
-
-    // Reset Approvals Demo Button
-    var resetApprovalsBtn = document.getElementById("btn-reset-approvals");
-    if (resetApprovalsBtn) {
-      resetApprovalsBtn.addEventListener("click", function () {
-        pendingCount = 12;
+        renderStatus(row, status);
+        renderActions(row, machineId, status);
         updatePendingDisplays();
+        return true;
+      };
 
-        // Reset memory
-        Object.keys(sampleMachines).forEach(function (id) {
-          sampleMachines[id].status = "pending";
-          var row = document.querySelector("tr[data-machine-id='" + id + "']");
-          if (row) {
-            var badgeCell = row.querySelector(".machine-status-cell");
-            if (badgeCell) {
-              badgeCell.innerHTML = '<span class="status-badge status-pending"><i class="fa-regular fa-clock" aria-hidden="true"></i> Pending</span>';
+      var confirmApproveBtn = document.getElementById("btn-confirm-approve");
+      if (confirmApproveBtn) {
+        confirmApproveBtn.addEventListener("click", function () {
+          if (!currentActionMachineId) {
+            return;
+          }
+
+          var machineId = currentActionMachineId;
+          currentActionMachineId = null;
+          var row = findApprovalRow(machineId);
+
+          if (!row || readRowStatus(row) !== "pending") {
+            if (approveMachineModal) {
+              approveMachineModal.hide();
             }
-            var actionsCell = row.querySelector(".machine-actions-cell");
-            if (actionsCell) {
-              actionsCell.innerHTML = '<button class="btn-im btn-im-outline btn-im-sm" type="button" data-action="view-machine" data-machine-id="' + id + '"><i class="fa-solid fa-eye" aria-hidden="true"></i> View</button> <button class="btn-im btn-im-primary btn-im-sm" type="button" data-action="approve-machine" data-machine-id="' + id + '"><i class="fa-solid fa-check" aria-hidden="true"></i> Approve</button> <button class="btn-im btn-im-danger btn-im-sm" type="button" data-action="reject-machine" data-machine-id="' + id + '"><i class="fa-solid fa-xmark" aria-hidden="true"></i> Reject</button>';
+            return;
+          }
+
+          updateMachineStatus(machineId, "approved");
+
+          if (approveMachineModal) {
+            approveMachineModal.hide();
+          }
+
+          showPreviewNotice(
+            "Machine " +
+              machineId +
+              " marked approved locally. In production, listing appears in marketplace after owner activation. No database modified."
+          );
+        });
+      }
+
+      var confirmRejectBtn = document.getElementById("btn-confirm-reject");
+      if (confirmRejectBtn) {
+        confirmRejectBtn.addEventListener("click", function () {
+          if (!currentActionMachineId) {
+            return;
+          }
+
+          var machineId = currentActionMachineId;
+          currentActionMachineId = null;
+          var row = findApprovalRow(machineId);
+
+          if (!row || readRowStatus(row) !== "pending") {
+            if (rejectMachineModal) {
+              rejectMachineModal.hide();
             }
+            return;
+          }
+
+          var reasonSelect = document.getElementById("reject-reason-select");
+          var reason = reasonSelect
+            ? reasonSelect.value
+            : "Documentation requirements not met";
+
+          updateMachineStatus(machineId, "rejected");
+
+          if (rejectMachineModal) {
+            rejectMachineModal.hide();
+          }
+
+          showPreviewNotice(
+            "Machine " +
+              machineId +
+              " marked rejected locally (" +
+              reason +
+              "). No database modified."
+          );
+        });
+      }
+
+      var resetApprovalsBtn = document.getElementById("btn-reset-approvals");
+      if (resetApprovalsBtn) {
+        resetApprovalsBtn.addEventListener("click", function () {
+          getApprovalRows().forEach(function (row) {
+            var machineId = row.getAttribute("data-machine-id");
+            if (machineId) {
+              updateMachineStatus(machineId, "pending");
+            }
+          });
+
+          Object.keys(sampleMachines).forEach(function (machineId) {
+            sampleMachines[machineId].status = "pending";
+          });
+
+          updatePendingDisplays();
+          showPreviewNotice(
+            "Approvals reset: machine rows restored to pending review status. No database modified."
+          );
+        });
+      }
+
+      if (approvalsBody) {
+        approvalsBody.addEventListener("click", function (event) {
+          var button = event.target.closest("button[data-action]");
+          if (!button || !approvalsBody.contains(button)) {
+            return;
+          }
+
+          var machineId = resolveMachineId(button);
+          if (!machineId) {
+            return;
+          }
+
+          var row = findApprovalRow(machineId);
+          var action = button.getAttribute("data-action");
+
+          if (action === "view-machine") {
+            showMachineDetails(machineId, row);
+          } else if (action === "approve-machine") {
+            openApproveMachine(machineId, row);
+          } else if (action === "reject-machine") {
+            openRejectMachine(machineId, row);
           }
         });
+      }
 
-        // Re-attach listeners to reset buttons
-        setupMachineActions();
-        showPreviewNotice("Approvals reset: machine rows restored to pending review status. No database modified.");
-      });
-    }
+      // Keep the demonstration store and the rendered rows in sync on load.
+      getApprovalRows().forEach(function (row) {
+        var machineId = row.getAttribute("data-machine-id");
+        if (!machineId) {
+          return;
+        }
 
-    function setupMachineActions() {
-      document.querySelectorAll("[data-action='view-machine']").forEach(function (btn) {
-        btn.onclick = function () {
-          var machineId = btn.getAttribute("data-machine-id");
-          var m = sampleMachines[machineId];
-          if (!m) return;
-          document.getElementById("vm-title").textContent = m.name;
-          document.getElementById("vm-id").textContent = m.id;
-          document.getElementById("vm-company").textContent = m.company;
-          document.getElementById("vm-type").textContent = m.type;
-          document.getElementById("vm-rate").textContent = m.rate;
-          document.getElementById("vm-capacity").textContent = m.capacity;
-          document.getElementById("vm-envelope").textContent = m.envelope;
-          document.getElementById("vm-specs").textContent = m.specs;
-          document.getElementById("vm-material").textContent = m.material;
-          document.getElementById("vm-submitted").textContent = m.submitted;
-          document.getElementById("vm-photos").textContent = m.photos;
-          document.getElementById("vm-notes").textContent = m.verificationNotes;
-          var statusBadge = document.getElementById("vm-status-badge");
-          if (statusBadge) {
-            statusBadge.className = "status-badge status-" + m.status;
-            var iconClass = m.status === "approved" ? "fa-circle-check" : (m.status === "rejected" ? "fa-circle-xmark" : "fa-clock");
-            statusBadge.innerHTML = '<i class="fa-solid ' + iconClass + '" aria-hidden="true"></i> ' + m.status.charAt(0).toUpperCase() + m.status.slice(1);
+        var status = readRowStatus(row);
+        row.setAttribute("data-status", status);
+        if (sampleMachines[machineId]) {
+          sampleMachines[machineId].status = status;
+        }
+
+        row.querySelectorAll("button[data-action]").forEach(function (button) {
+          if (!button.getAttribute("data-machine-id")) {
+            button.setAttribute("data-machine-id", machineId);
           }
-          if (viewMachineModal) viewMachineModal.show();
-        };
+        });
       });
 
-      document.querySelectorAll("[data-action='approve-machine']").forEach(function (btn) {
-        btn.onclick = function () {
-          currentActionMachineId = btn.getAttribute("data-machine-id");
-          var m = sampleMachines[currentActionMachineId];
-          if (!m) return;
-          var nameEl = document.getElementById("approve-machine-name");
-          var idEl = document.getElementById("approve-machine-id");
-          if (nameEl) nameEl.textContent = m.name;
-          if (idEl) idEl.textContent = m.id;
-          if (approveMachineModal) approveMachineModal.show();
-        };
-      });
-
-      document.querySelectorAll("[data-action='reject-machine']").forEach(function (btn) {
-        btn.onclick = function () {
-          currentActionMachineId = btn.getAttribute("data-machine-id");
-          var m = sampleMachines[currentActionMachineId];
-          if (!m) return;
-          var nameEl = document.getElementById("reject-machine-name");
-          var idEl = document.getElementById("reject-machine-id");
-          if (nameEl) nameEl.textContent = m.name;
-          if (idEl) idEl.textContent = m.id;
-          if (rejectMachineModal) rejectMachineModal.show();
-        };
-      });
+      updatePendingDisplays();
     }
 
     // Booking Details Modal

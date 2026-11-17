@@ -22,7 +22,7 @@
     <div class="dashboard-card-body dashboard-card-body-flush">
       <span class="table-scroll-hint" hidden><i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i> Scroll the table sideways to see all columns.</span>
       <div class="table-responsive" tabindex="0" role="region" aria-label="Pending machine approvals table">
-        <table class="im-table">
+        <table class="im-table" id="machine-approvals-table">
           <caption class="visually-hidden">Machines awaiting approval with machine and owner details, status, and actions.</caption>
           <thead>
             <tr>
@@ -48,8 +48,8 @@
               </td>
               <td>3-Axis VMC<br><span class="table-cell-subtext">Ahmedabad, Gujarat</span></td>
               <td>Today, 09:30 AM</td>
-              <td><span class="status-badge status-pending"><i class="fa-regular fa-clock" aria-hidden="true"></i> Pending</span></td>
-              <td><div class="table-actions"><button class="btn-im btn-im-outline btn-im-sm" type="button"><i class="fa-solid fa-eye" aria-hidden="true"></i> View</button><button class="btn-im btn-im-primary btn-im-sm" type="button"><i class="fa-solid fa-check" aria-hidden="true"></i> Approve</button><button class="btn-im btn-im-danger btn-im-sm" type="button"><i class="fa-solid fa-xmark" aria-hidden="true"></i> Reject</button></div></td>
+              <td class="machine-status-cell"><span class="status-badge status-pending"><i class="fa-regular fa-clock" aria-hidden="true"></i> Pending</span></td>
+              <td class="machine-actions-cell"><div class="table-actions"><button class="btn-im btn-im-outline btn-im-sm" type="button" data-action="view-machine" data-machine-id="M-1014"><i class="fa-solid fa-eye" aria-hidden="true"></i> View</button><button class="btn-im btn-im-primary btn-im-sm" type="button" data-action="approve-machine" data-machine-id="M-1014"><i class="fa-solid fa-check" aria-hidden="true"></i> Approve</button><button class="btn-im btn-im-danger btn-im-sm" type="button" data-action="reject-machine" data-machine-id="M-1014"><i class="fa-solid fa-xmark" aria-hidden="true"></i> Reject</button></div></td>
             </tr>
             <tr data-machine-id="M-1015">
               <td>
@@ -64,10 +64,10 @@
               </td>
               <td>Industrial Lathe<br><span class="table-cell-subtext">Vadodara, Gujarat</span></td>
               <td>Today, 11:15 AM</td>
-              <td><span class="status-badge status-pending"><i class="fa-regular fa-clock" aria-hidden="true"></i> Pending</span></td>
-              <td><div class="table-actions"><button class="btn-im btn-im-outline btn-im-sm" type="button"><i class="fa-solid fa-eye" aria-hidden="true"></i> View</button><button class="btn-im btn-im-primary btn-im-sm" type="button"><i class="fa-solid fa-check" aria-hidden="true"></i> Approve</button><button class="btn-im btn-im-danger btn-im-sm" type="button"><i class="fa-solid fa-xmark" aria-hidden="true"></i> Reject</button></div></td>
+              <td class="machine-status-cell"><span class="status-badge status-pending"><i class="fa-regular fa-clock" aria-hidden="true"></i> Pending</span></td>
+              <td class="machine-actions-cell"><div class="table-actions"><button class="btn-im btn-im-outline btn-im-sm" type="button" data-action="view-machine" data-machine-id="M-1015"><i class="fa-solid fa-eye" aria-hidden="true"></i> View</button><button class="btn-im btn-im-primary btn-im-sm" type="button" data-action="approve-machine" data-machine-id="M-1015"><i class="fa-solid fa-check" aria-hidden="true"></i> Approve</button><button class="btn-im btn-im-danger btn-im-sm" type="button" data-action="reject-machine" data-machine-id="M-1015"><i class="fa-solid fa-xmark" aria-hidden="true"></i> Reject</button></div></td>
             </tr>
-            <tr>
+            <tr data-machine-id="M-1016">
               <td>
                 <p class="table-cell-title mb-0">Jyoti CNC Turning Center DX-200</p>
                 <span class="table-cell-id">M-1016</span>
@@ -80,15 +80,15 @@
               </td>
               <td>CNC Turning Center<br><span class="table-cell-subtext">Rajkot, Gujarat</span></td>
               <td>Yesterday, 04:45 PM</td>
-              <td><span class="status-badge status-pending"><i class="fa-regular fa-clock" aria-hidden="true"></i> Pending</span></td>
-              <td><div class="table-actions"><button class="btn-im btn-im-outline btn-im-sm" type="button"><i class="fa-solid fa-eye" aria-hidden="true"></i> View</button><button class="btn-im btn-im-primary btn-im-sm" type="button"><i class="fa-solid fa-check" aria-hidden="true"></i> Approve</button><button class="btn-im btn-im-danger btn-im-sm" type="button"><i class="fa-solid fa-xmark" aria-hidden="true"></i> Reject</button></div></td>
+              <td class="machine-status-cell"><span class="status-badge status-pending"><i class="fa-regular fa-clock" aria-hidden="true"></i> Pending</span></td>
+              <td class="machine-actions-cell"><div class="table-actions"><button class="btn-im btn-im-outline btn-im-sm" type="button" data-action="view-machine" data-machine-id="M-1016"><i class="fa-solid fa-eye" aria-hidden="true"></i> View</button><button class="btn-im btn-im-primary btn-im-sm" type="button" data-action="approve-machine" data-machine-id="M-1016"><i class="fa-solid fa-check" aria-hidden="true"></i> Approve</button><button class="btn-im btn-im-danger btn-im-sm" type="button" data-action="reject-machine" data-machine-id="M-1016"><i class="fa-solid fa-xmark" aria-hidden="true"></i> Reject</button></div></td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
     <div class="dashboard-card-footer">
-      <span>Showing 3 of 12 pending approvals. Approve/Reject controls are frontend interface elements only and do not update records.</span>
+      <span>Showing <span id="pending-approvals-visible">3</span> of <span id="pending-approvals-total">12</span> pending approvals. Approve/Reject controls are frontend interface elements only and do not update records.</span>
     </div>
   </section>
 @endsection

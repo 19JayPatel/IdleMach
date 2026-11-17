@@ -18,7 +18,7 @@
 
     <script>
       window.IdleMach = window.IdleMach || {};
-      window.IdleMach.loginUrl = @json(route('login'));
+      window.IdleMach.loginUrl = "{{ route('login') }}";
     </script>
 
     @stack('styles')

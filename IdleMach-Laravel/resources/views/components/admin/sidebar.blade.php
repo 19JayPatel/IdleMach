@@ -64,7 +64,7 @@
                 @if(request()->routeIs('admin.machine-approvals')) aria-current="page" @endif>
                 <i class="fa-solid fa-clipboard-check" aria-hidden="true"></i>
                 Machine Approval
-                <span class="dashboard-nav-badge">12</span>
+                <span class="dashboard-nav-badge" id="sidebar-pending-badge">12</span>
               </a>
             </li>
             <li class="dashboard-nav-item">

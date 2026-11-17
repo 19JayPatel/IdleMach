@@ -27,7 +27,7 @@
             <a
               class="nav-link"
               href="{{ url('/') }}"
-              data-nav-match="index.html">Home</a>
+              data-nav-match="home">Home</a>
           </li>
           <li class="nav-item">
             <a

@@ -46,7 +46,7 @@
           <span class="text-muted small">Frontend interface only</span>
         </div>
         <div class="dashboard-card-body">
-          <form class="row g-3" onsubmit="event.preventDefault();">
+          <form class="row g-3" data-demo-profile-form>
             <div class="col-md-6">
               <label class="form-label" for="admin-name">Full name</label>
               <input class="form-control" id="admin-name" type="text" value="Platform Admin">

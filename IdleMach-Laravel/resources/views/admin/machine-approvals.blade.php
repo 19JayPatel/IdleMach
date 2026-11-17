@@ -14,7 +14,10 @@
   <section class="dashboard-card" aria-labelledby="approvals-heading">
     <div class="dashboard-card-header">
       <h2 class="dashboard-card-title" id="approvals-heading"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> Machines awaiting approval</h2>
-      <span class="text-muted small">12 pending review</span>
+      <div class="d-flex align-items-center gap-3">
+        <span class="text-muted small" id="pending-approvals-count">12 pending review</span>
+        <button class="btn-im btn-im-outline btn-im-sm" type="button" id="btn-reset-approvals"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i> Reset demo</button>
+      </div>
     </div>
     <div class="dashboard-card-body dashboard-card-body-flush">
       <span class="table-scroll-hint" hidden><i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i> Scroll the table sideways to see all columns.</span>
@@ -32,7 +35,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr data-machine-id="M-1014">
               <td>
                 <p class="table-cell-title mb-0">ACE Micromatic VMC 850V</p>
                 <span class="table-cell-id">M-1014</span>
@@ -48,7 +51,7 @@
               <td><span class="status-badge status-pending"><i class="fa-regular fa-clock" aria-hidden="true"></i> Pending</span></td>
               <td><div class="table-actions"><button class="btn-im btn-im-outline btn-im-sm" type="button"><i class="fa-solid fa-eye" aria-hidden="true"></i> View</button><button class="btn-im btn-im-primary btn-im-sm" type="button"><i class="fa-solid fa-check" aria-hidden="true"></i> Approve</button><button class="btn-im btn-im-danger btn-im-sm" type="button"><i class="fa-solid fa-xmark" aria-hidden="true"></i> Reject</button></div></td>
             </tr>
-            <tr>
+            <tr data-machine-id="M-1015">
               <td>
                 <p class="table-cell-title mb-0">Lokesh Heavy Duty Industrial Lathe 260</p>
                 <span class="table-cell-id">M-1015</span>

@@ -9,13 +9,18 @@
 (function () {
   "use strict";
 
+  /* Laravel-facing URLs are injected by the panel layouts. The literal
+     fallback keeps the file usable if it is loaded outside a Blade view. */
+  var appLoginUrl =
+    (window.IdleMach && window.IdleMach.loginUrl) || "/login";
+
   /* Current year in the footer. */
   document.querySelectorAll("[data-current-year]").forEach(function (element) {
     element.textContent = String(new Date().getFullYear());
   });
 
   /* Mark the active public navigation item for the current page. */
-  var currentPage = window.location.pathname.split("/").pop() || "index.html";
+  var currentPage = window.location.pathname.split("/").pop() || "";
   document.querySelectorAll("[data-nav-match]").forEach(function (link) {
     if (link.getAttribute("data-nav-match") === currentPage) {
       link.classList.add("active");
@@ -281,7 +286,7 @@
   /* ------------------------------------------------------------------------
      Explore Machines sample search, filters, and sorting
      This only filters and orders the three clearly labelled sample records in
-     machines.html. It never queries a server or implies live marketplace data.
+     the /machines page. It never queries a server or implies live marketplace data.
      ------------------------------------------------------------------------ */
   var machineSearchForm = document.getElementById("machines-search-form");
 
@@ -616,7 +621,7 @@
       if (detailMissingText) {
         detailMissingText.textContent = requestedMachineId
           ? "The machine ID \"" + requestedMachineId + "\" is not available. Only three machines (IDs 1 to 3) are available."
-          : "This page needs a machine ID, such as machine-details.html?id=1. Only machines 1 to 3 are available.";
+          : "This page needs a machine ID, such as /machine-details?id=1. Only machines 1 to 3 are available.";
       }
     } else {
       document.title = currentMachine.name + " — Machine Details — IdleMach";
@@ -1880,28 +1885,6 @@
         });
       }
 
-      var buyerLogoutModalElement = document.getElementById("buyer-logout-modal");
-      var buyerLogoutModal =
-        buyerLogoutModalElement && window.bootstrap
-          ? new window.bootstrap.Modal(buyerLogoutModalElement)
-          : null;
-      document.querySelectorAll("[data-action='buyer-logout']").forEach(function (button) {
-        button.addEventListener("click", function () {
-          if (buyerLogoutModal) {
-            buyerLogoutModal.show();
-          }
-        });
-      });
-
-      var buyerLogoutConfirm = document.getElementById("buyer-logout-confirm");
-      if (buyerLogoutConfirm) {
-        buyerLogoutConfirm.addEventListener("click", function () {
-          if (buyerLogoutModal) {
-            buyerLogoutModal.hide();
-          }
-          window.location.href = "login.html";
-        });
-      }
     }
 
     // Sample Machine Approvals Data Store (Prototype Demo)
@@ -2435,30 +2418,6 @@
       });
     }
 
-    // Admin Logout Prototype Modal
-    var logoutModalEl = document.getElementById("modal-admin-logout");
-    var logoutModal = logoutModalEl && window.bootstrap ? new window.bootstrap.Modal(logoutModalEl) : null;
-
-    document.querySelectorAll("[data-action='admin-logout']").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        if (logoutModal) {
-          logoutModal.show();
-        }
-      });
-    });
-
-    var confirmLogoutBtn = document.getElementById("btn-confirm-logout");
-    if (confirmLogoutBtn) {
-      confirmLogoutBtn.addEventListener("click", function () {
-        if (logoutModal) {
-          logoutModal.hide();
-        }
-        showPreviewNotice("Simulating admin sign-out. Returning to login interface...");
-        window.setTimeout(function () {
-          window.location.href = "login.html";
-        }, 800);
-      });
-    }
   }
 
   /* ------------------------------------------------------------------------
@@ -3374,31 +3333,74 @@
       });
     }
 
-    // Owner Logout Simulation
-    var ownerLogoutModalEl = document.getElementById("modal-owner-logout");
-    var ownerLogoutModal = ownerLogoutModalEl && window.bootstrap ? new window.bootstrap.Modal(ownerLogoutModalEl) : null;
-
-    document.querySelectorAll("[data-action='owner-logout']").forEach(function (btn) {
-      btn.onclick = function () {
-        if (ownerLogoutModal) {
-          ownerLogoutModal.show();
-        }
-      };
-    });
-
-    var btnConfirmOwnerLogout = document.getElementById("btn-confirm-owner-logout");
-    if (btnConfirmOwnerLogout) {
-      btnConfirmOwnerLogout.onclick = function () {
-        if (ownerLogoutModal) {
-          ownerLogoutModal.hide();
-        }
-        showPreviewNotice("Simulating machine owner sign-out. Returning to login interface...");
-        window.setTimeout(function () {
-          window.location.href = "login.html";
-        }, 800);
-      };
-    }
   }
+
+  /* ------------------------------------------------------------------------
+     Unified sign-out confirmation for Admin, Owner, and Buyer panels.
+     This is a frontend demonstration only: no session is destroyed and no
+     authentication state is changed. Confirm returns to the Laravel login
+     route injected by the panel layouts.
+     ------------------------------------------------------------------------ */
+  (function setupPanelLogout() {
+    var configurations = [
+      {
+        trigger: "admin-logout",
+        modal: "modal-admin-logout",
+        confirm: "btn-confirm-logout"
+      },
+      {
+        trigger: "owner-logout",
+        modal: "modal-owner-logout",
+        confirm: "btn-confirm-owner-logout"
+      },
+      {
+        trigger: "buyer-logout",
+        modal: "buyer-logout-modal",
+        confirm: "buyer-logout-confirm"
+      }
+    ];
+
+    configurations.forEach(function (configuration) {
+      var modalElement = document.getElementById(configuration.modal);
+      var modal =
+        modalElement && window.bootstrap
+          ? window.bootstrap.Modal.getOrCreateInstance(modalElement)
+          : null;
+
+      document
+        .querySelectorAll('[data-action="' + configuration.trigger + '"]')
+        .forEach(function (trigger) {
+          trigger.addEventListener("click", function () {
+            if (modal) {
+              modal.show();
+            } else {
+              showPreviewNotice(
+                "Sign-out confirmation is unavailable on this page."
+              );
+            }
+          });
+        });
+
+      var confirmButton = document.getElementById(configuration.confirm);
+      if (!confirmButton) {
+        return;
+      }
+
+      confirmButton.addEventListener("click", function () {
+        if (modal) {
+          modal.hide();
+        }
+
+        showPreviewNotice(
+          "Frontend demonstration only: no active session was ended. Returning to the login page..."
+        );
+
+        window.setTimeout(function () {
+          window.location.href = appLoginUrl;
+        }, 600);
+      });
+    });
+  })();
 
   /* ------------------------------------------------------------------------
      Phase 6 – shared motion

@@ -16,6 +16,11 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
+    <script>
+      window.IdleMach = window.IdleMach || {};
+      window.IdleMach.loginUrl = @json(route('login'));
+    </script>
+
     @stack('styles')
   </head>
   <body id="top">
@@ -62,6 +67,7 @@
       defer
     ></script>
     <script src="{{ asset('js/script.js') }}" defer></script>
+    <script src="{{ asset('js/panels.js') }}" defer></script>
 
     @stack('scripts')
   </body>

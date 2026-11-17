@@ -16,6 +16,11 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
+    <script>
+      window.IdleMach = window.IdleMach || {};
+      window.IdleMach.loginUrl = @json(route('login'));
+    </script>
+
     @stack('styles')
   </head>
   <body id="top">
@@ -79,6 +84,117 @@
               Sign out
             </button>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= Admin approval / booking demo modals ================= -->
+    <div class="modal fade" id="modal-view-machine" tabindex="-1" role="dialog" aria-labelledby="modal-view-machine-label" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title h5" id="modal-view-machine-label">Machine details</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close machine details"></button>
+          </div>
+          <div class="modal-body">
+            <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+              <div>
+                <h3 class="h6 mb-1" id="vm-title">Machine</h3>
+                <span class="table-cell-id" id="vm-id">—</span>
+              </div>
+              <span class="status-badge status-pending" id="vm-status-badge"><i class="fa-regular fa-clock" aria-hidden="true"></i> Pending</span>
+            </div>
+            <dl class="row mb-0">
+              <dt class="col-sm-4">Owner</dt><dd class="col-sm-8" id="vm-company">—</dd>
+              <dt class="col-sm-4">Machine type</dt><dd class="col-sm-8" id="vm-type">—</dd>
+              <dt class="col-sm-4">Hourly rate</dt><dd class="col-sm-8" id="vm-rate">—</dd>
+              <dt class="col-sm-4">Capacity</dt><dd class="col-sm-8" id="vm-capacity">—</dd>
+              <dt class="col-sm-4">Work envelope</dt><dd class="col-sm-8" id="vm-envelope">—</dd>
+              <dt class="col-sm-4">Specifications</dt><dd class="col-sm-8" id="vm-specs">—</dd>
+              <dt class="col-sm-4">Materials</dt><dd class="col-sm-8" id="vm-material">—</dd>
+              <dt class="col-sm-4">Submitted</dt><dd class="col-sm-8" id="vm-submitted">—</dd>
+              <dt class="col-sm-4">Photos</dt><dd class="col-sm-8" id="vm-photos">—</dd>
+              <dt class="col-sm-4 mb-0">Verification notes</dt><dd class="col-sm-8 mb-0" id="vm-notes">—</dd>
+            </dl>
+            <div class="im-alert im-alert-info mt-3 mb-0">
+              <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+              <div>Sample approval record. Viewing does not change any stored data.</div>
+            </div>
+          </div>
+          <div class="modal-footer"><button type="button" class="btn-im btn-im-outline" data-bs-dismiss="modal">Close</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modal-approve-machine" tabindex="-1" role="dialog" aria-labelledby="modal-approve-machine-label" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header"><h2 class="modal-title h5" id="modal-approve-machine-label">Approve machine</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancel approval"></button></div>
+          <div class="modal-body">
+            <p class="mb-2">Approve <strong id="approve-machine-name">—</strong> (<span id="approve-machine-id">—</span>) in this frontend demonstration?</p>
+            <p class="small text-muted mb-0">No database record is changed. Approval is not activation; the owner still controls activation.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-im btn-im-outline" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn-im btn-im-primary" id="btn-confirm-approve"><i class="fa-solid fa-check" aria-hidden="true"></i> Approve in demo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modal-reject-machine" tabindex="-1" role="dialog" aria-labelledby="modal-reject-machine-label" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header"><h2 class="modal-title h5" id="modal-reject-machine-label">Reject machine</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancel rejection"></button></div>
+          <div class="modal-body">
+            <p class="mb-3">Reject <strong id="reject-machine-name">—</strong> (<span id="reject-machine-id">—</span>) in this frontend demonstration?</p>
+            <label class="form-label" for="reject-reason-select">Reason</label>
+            <select class="form-select mb-3" id="reject-reason-select">
+              <option>Incomplete technical specifications</option>
+              <option>Documentation requirements not met</option>
+              <option>Image quality unacceptable</option>
+              <option>Capacity details cannot be verified</option>
+              <option>Other</option>
+            </select>
+            <label class="form-label" for="reject-notes-field">Notes (optional)</label>
+            <textarea class="form-control" id="reject-notes-field" rows="3" placeholder="Demo notes are not stored."></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-im btn-im-outline" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn-im btn-im-danger" id="btn-confirm-reject"><i class="fa-solid fa-xmark" aria-hidden="true"></i> Reject in demo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modal-view-booking" tabindex="-1" role="dialog" aria-labelledby="modal-view-booking-label" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header"><h2 class="modal-title h5" id="modal-view-booking-label">Booking details</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close booking details"></button></div>
+          <div class="modal-body">
+            <div class="d-flex flex-wrap gap-2 mb-3">
+              <span class="table-cell-id" id="vb-id">—</span>
+              <span class="status-badge status-pending" id="vb-status-badge"><i class="fa-regular fa-clock" aria-hidden="true"></i> Pending</span>
+              <span class="status-badge status-pending" id="vb-pay-badge"><i class="fa-regular fa-clock" aria-hidden="true"></i> Pending</span>
+            </div>
+            <dl class="row mb-0">
+              <dt class="col-sm-4">Machine</dt><dd class="col-sm-8" id="vb-machine">—</dd>
+              <dt class="col-sm-4">Buyer</dt><dd class="col-sm-8" id="vb-buyer">—</dd>
+              <dt class="col-sm-4">Owner</dt><dd class="col-sm-8" id="vb-owner">—</dd>
+              <dt class="col-sm-4">Schedule</dt><dd class="col-sm-8" id="vb-date">—</dd>
+              <dt class="col-sm-4">Duration</dt><dd class="col-sm-8" id="vb-hours">—</dd>
+              <dt class="col-sm-4">Rate</dt><dd class="col-sm-8" id="vb-rate">—</dd>
+              <dt class="col-sm-4">Amount</dt><dd class="col-sm-8" id="vb-total">—</dd>
+              <dt class="col-sm-4">Work description</dt><dd class="col-sm-8" id="vb-desc">—</dd>
+              <dt class="col-sm-4">Drawing reference</dt><dd class="col-sm-8" id="vb-drawing">—</dd>
+              <dt class="col-sm-4 mb-0">Transaction reference</dt><dd class="col-sm-8 mb-0" id="vb-txnid">—</dd>
+            </dl>
+            <div class="im-alert im-alert-info mt-3 mb-0">
+              <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+              <div>Sample booking record. No payment or booking is processed here.</div>
+            </div>
+          </div>
+          <div class="modal-footer"><button type="button" class="btn-im btn-im-outline" data-bs-dismiss="modal">Close</button></div>
         </div>
       </div>
     </div>
@@ -197,6 +313,7 @@
       defer
     ></script>
     <script src="{{ asset('js/script.js') }}" defer></script>
+    <script src="{{ asset('js/panels.js') }}" defer></script>
 
     @stack('scripts')
   </body>

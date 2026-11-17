@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <section class="dashboard-card" aria-labelledby="payments-heading">
+  <section class="dashboard-card" aria-labelledby="payments-heading" data-demo-table>
     <div class="dashboard-card-header">
       <h2 class="dashboard-card-title" id="payments-heading"><i class="fa-solid fa-credit-card" aria-hidden="true"></i> Payment records</h2>
       <span class="text-muted small">Frontend interface only</span>
@@ -42,7 +42,10 @@
           </select>
         </div>
         <div class="col-12 col-md-2">
-          <button class="btn-im btn-im-primary w-100" type="submit"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Search</button>
+          <div class="d-grid gap-2">
+            <button class="btn-im btn-im-primary" type="submit"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Search</button>
+            <button class="btn-im btn-im-outline" type="reset"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i> Reset</button>
+          </div>
         </div>
       </form>
 

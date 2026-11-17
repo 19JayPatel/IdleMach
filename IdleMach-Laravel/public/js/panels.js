@@ -219,6 +219,39 @@
     }
   };
 
+  var moderationButtons = {
+    flag: {
+      label: "Flag",
+      action: "flag",
+      buttonClass: "btn-im-outline",
+      buttonIcon: "fa-flag"
+    },
+    unflag: {
+      label: "Unflag",
+      action: "unflag",
+      buttonClass: "btn-im-outline",
+      buttonIcon: "fa-flag"
+    },
+    hide: {
+      label: "Hide",
+      action: "hide",
+      buttonClass: "btn-im-danger",
+      buttonIcon: "fa-eye-slash"
+    },
+    restore: {
+      label: "Restore",
+      action: "restore",
+      buttonClass: "btn-im-outline",
+      buttonIcon: "fa-rotate-left"
+    }
+  };
+
+  var moderationActionsByStatus = {
+    published: ["flag", "hide"],
+    flagged: ["unflag", "hide"],
+    hidden: ["restore"]
+  };
+
   function recordLabel(row) {
     var first = row.cells[0];
     if (!first) {
@@ -235,6 +268,62 @@
       }
     }
     return -1;
+  }
+
+  function isModerationTable(headings) {
+    return headings.some(function (heading) {
+      return normalise(heading.textContent).indexOf("moderation") !== -1;
+    });
+  }
+
+  function moderationCellIndex(headings) {
+    for (var index = 0; index < headings.length; index += 1) {
+      var text = normalise(headings[index].textContent);
+      if (text.indexOf("moderation") !== -1 || text.indexOf("action") !== -1) {
+        return index;
+      }
+    }
+    return -1;
+  }
+
+  function renderModerationActions(row, headings, status) {
+    var index = moderationCellIndex(headings);
+    var cell = index >= 0 ? row.cells[index] : row.cells[row.cells.length - 1];
+    if (!cell) {
+      return;
+    }
+
+    var container = cell.querySelector(".table-actions") || cell;
+    var viewButton = null;
+
+    Array.prototype.slice.call(container.querySelectorAll("button")).forEach(function (button) {
+      if (!viewButton && normalise(button.textContent).indexOf("view") !== -1) {
+        viewButton = button.cloneNode(true);
+      }
+    });
+
+    container.innerHTML = "";
+
+    if (viewButton) {
+      container.appendChild(viewButton);
+    }
+
+    var actions = moderationActionsByStatus[normalise(status)] || [];
+    actions.forEach(function (action) {
+      var buttonConfig = moderationButtons[action];
+      if (!buttonConfig) {
+        return;
+      }
+
+      var button = document.createElement("button");
+      button.type = "button";
+      button.className = "btn-im " + buttonConfig.buttonClass + " btn-im-sm";
+      button.innerHTML =
+        '<i class="fa-solid ' + buttonConfig.buttonIcon + '" aria-hidden="true"></i> ' +
+        buttonConfig.label;
+      button.dataset.demoAction = buttonConfig.action;
+      container.appendChild(button);
+    });
   }
 
   function requestStatusChange(button, row, headings, action, refresh) {
@@ -270,11 +359,15 @@
           "</span>";
       }
 
-      button.className = "btn-im btn-im-outline btn-im-sm " + config.buttonClass;
-      button.innerHTML =
-        '<i class="fa-solid ' + config.buttonIcon + '" aria-hidden="true"></i> ' +
-        config.label;
-      button.dataset.demoAction = config.action;
+      if (isModerationTable(headings)) {
+        renderModerationActions(row, headings, config.status);
+      } else {
+        button.className = "btn-im btn-im-outline btn-im-sm " + config.buttonClass;
+        button.innerHTML =
+          '<i class="fa-solid ' + config.buttonIcon + '" aria-hidden="true"></i> ' +
+          config.label;
+        button.dataset.demoAction = config.action;
+      }
 
       if (confirmModal) {
         confirmModal.hide();

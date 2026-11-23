@@ -768,15 +768,6 @@
       var bookingDescription = document.getElementById("booking-description");
       var bookingEstimate = document.getElementById("booking-estimate-value");
       var bookingFeedback = document.getElementById("booking-feedback");
-      var bookingFields = [
-        bookingDate,
-        bookingTime,
-        bookingHours,
-        bookingMaterial,
-        bookingQuantity,
-        bookingDescription
-      ];
-
       var getTodayIso = function () {
         var today = new Date();
         return (
@@ -794,6 +785,10 @@
 
       if (bookingHours) {
         bookingHours.max = String(currentMachine.capacityHours);
+        bookingHours.setAttribute(
+          "data-error-max",
+          "This listing has only " + currentMachine.capacityHours + " hours/day available."
+        );
       }
 
       if (bookingHoursHelp) {
@@ -802,41 +797,8 @@
           " hours/day as available. Enter 1 to " + currentMachine.capacityHours + " hours.";
       }
 
-      var updateDateValidity = function () {
-        if (!bookingDate) {
-          return;
-        }
-
-        bookingDate.setCustomValidity(
-          bookingDate.value && bookingDate.value < todayIso
-            ? "Choose today or a future date."
-            : ""
-        );
-      };
-
-      var updateHoursValidity = function () {
-        if (!bookingHours) {
-          return;
-        }
-
-        var hours = bookingHours.value === "" ? NaN : Number(bookingHours.value);
-        var message = "";
-
-        if (bookingHours.value === "") {
-          message = "Enter the number of hours you need.";
-        } else if (!isFinite(hours) || hours < 1) {
-          message = "Requested hours must be at least 1.";
-        } else if (hours > currentMachine.capacityHours) {
-          message =
-            "This listing has only " + currentMachine.capacityHours +
-            " hours/day available.";
-        } else if (Math.floor(hours) !== hours) {
-          message = "Use whole hours.";
-        }
-
-        bookingHours.setCustomValidity(message);
-      };
-
+      /* Date and hour constraints are declared with native min/max attributes.
+         The shared engine reads them and shows the data-error-* messages above. */
       var updateEstimate = function () {
         if (!bookingEstimate || !bookingHours) {
           return;
@@ -852,17 +814,6 @@
         bookingEstimate.textContent = formatRupees(currentMachine.rate * hours);
       };
 
-      var validateBookingField = function (field) {
-        if (!field || !field.willValidate) {
-          return true;
-        }
-
-        var isValid = field.checkValidity();
-        field.classList.toggle("is-invalid", !isValid);
-        field.setAttribute("aria-invalid", isValid ? "false" : "true");
-        return isValid;
-      };
-
       var onBookingFieldChange = function (event) {
         var field = event.target;
 
@@ -870,17 +821,8 @@
           return;
         }
 
-        if (field === bookingDate) {
-          updateDateValidity();
-        }
-
         if (field === bookingHours) {
-          updateHoursValidity();
           updateEstimate();
-        }
-
-        if (field.classList.contains("is-invalid")) {
-          validateBookingField(field);
         }
 
         if (bookingFeedback && !bookingFeedback.hidden) {
@@ -889,48 +831,43 @@
       };
 
       if (bookingForm) {
+        /* Prototype form: no backend request is made. The shared engine has
+           already validated the form before this listener runs. */
         bookingForm.addEventListener("submit", function (event) {
           event.preventDefault();
+        });
 
-          updateDateValidity();
-          updateHoursValidity();
-
-          var firstInvalid = null;
-
-          bookingFields.forEach(function (field) {
-            var isValid = validateBookingField(field);
-
-            if (!isValid && !firstInvalid) {
-              firstInvalid = field;
+        bookingForm.addEventListener(
+          window.IdleMachFormValidation.VALID_EVENT,
+          function () {
+            if (bookingFeedback) {
+              bookingFeedback.hidden = false;
+              bookingFeedback.focus();
             }
-          });
 
-          if (firstInvalid) {
+            showPreviewNotice(
+              "The booking form passed local validation. Nothing was sent, stored, or booked."
+            );
+          }
+        );
+
+        bookingForm.addEventListener(
+          window.IdleMachFormValidation.INVALID_EVENT,
+          function () {
             if (bookingFeedback) {
               bookingFeedback.hidden = true;
             }
 
-            firstInvalid.focus();
-            showPreviewNotice("Please correct the highlighted fields. Nothing was sent or saved.");
-            return;
+            showPreviewNotice(
+              "Please correct the highlighted fields. Nothing was sent or saved."
+            );
           }
-
-          if (bookingFeedback) {
-            bookingFeedback.hidden = false;
-            bookingFeedback.focus();
-          }
-
-          showPreviewNotice(
-            "The booking form passed local validation. Nothing was sent, stored, or booked."
-          );
-        });
+        );
 
         bookingForm.addEventListener("input", onBookingFieldChange);
         bookingForm.addEventListener("change", onBookingFieldChange);
       }
 
-      updateDateValidity();
-      updateHoursValidity();
       updateEstimate();
       machineDetailView.hidden = false;
     }
@@ -978,142 +915,12 @@
     });
   };
 
-  var getAuthError = function (field) {
-    return field && field.id ? document.getElementById(field.id + "-error") : null;
-  };
-
-  var setAuthFieldError = function (field, message) {
-    var error = getAuthError(field);
-
-    field.classList.add("is-invalid");
-    field.setAttribute("aria-invalid", "true");
-
-    if (error) {
-      if (message) {
-        error.textContent = message;
-      }
-      error.hidden = false;
-    }
-  };
-
-  var clearAuthFieldError = function (field) {
-    field.classList.remove("is-invalid");
-    field.removeAttribute("aria-invalid");
-
-    var error = getAuthError(field);
-    if (error) {
-      error.hidden = true;
-    }
-  };
-
-  var getAuthErrorMessage = function (field, key, fallback) {
-    return field.getAttribute("data-error-" + key) || fallback;
-  };
-
-  var validateAuthField = function (field) {
-    if (!field || !field.willValidate || field.name === "role") {
-      return true;
-    }
-
-    var value = field.value ? field.value.trim() : "";
-    var requiredMessage = getAuthErrorMessage(
-      field,
-      "required",
-      "Complete this required field."
-    );
-    var invalidMessage = getAuthErrorMessage(
-      field,
-      "invalid",
-      "Enter a valid value."
-    );
-    var errorMessage = "";
-
-    if (field.type === "checkbox") {
-      if (field.required && !field.checked) {
-        errorMessage = requiredMessage;
-      }
-    } else if (!value && field.required) {
-      errorMessage = requiredMessage;
-    } else if (!field.checkValidity()) {
-      errorMessage = invalidMessage;
-    }
-
-    if (errorMessage) {
-      setAuthFieldError(field, errorMessage);
-      return false;
-    }
-
-    clearAuthFieldError(field);
-    return true;
-  };
-
-  var validateAuthConfirmation = function (form) {
-    var confirmField = form.querySelector("[data-password-confirm]");
-    if (!confirmField || confirmField.disabled) {
-      return true;
-    }
-
-    var passwordField = form.querySelector("[data-password-primary]");
-    var requiredMessage = getAuthErrorMessage(
-      confirmField,
-      "required",
-      "Confirm your password."
-    );
-    var mismatchMessage = getAuthErrorMessage(
-      confirmField,
-      "mismatch",
-      "Passwords do not match."
-    );
-
-    if (!confirmField.value) {
-      setAuthFieldError(confirmField, requiredMessage);
-      return false;
-    }
-
-    if (passwordField && confirmField.value !== passwordField.value) {
-      setAuthFieldError(confirmField, mismatchMessage);
-      return false;
-    }
-
-    clearAuthFieldError(confirmField);
-    return true;
-  };
-
-  var hideAuthSuccess = function (success) {
-    if (success) {
-      success.hidden = true;
-    }
-  };
-
-  var setupAuthForm = function (form, successId, options) {
-    var success = document.getElementById(successId);
-    var fields = form.querySelectorAll("input, select, textarea");
+  /* Field-level validation, confirmation checks and role-group validation are
+     handled by the shared form-validation.js engine. This file only keeps the
+     auth-specific UI: password reveal, role panels and preview notices. */
+  var setupAuthForm = function (form, options) {
     var roleFieldset = options && options.roleFieldset ? options.roleFieldset : null;
-    var roleError = roleFieldset
-      ? roleFieldset.querySelector(".auth-field-error")
-      : null;
-    var roleInputs = roleFieldset
-      ? roleFieldset.querySelectorAll('input[name="role"]')
-      : [];
     var rolePanels = form.querySelectorAll("[data-role-panel]");
-
-    var clearRoleError = function () {
-      if (!roleFieldset) {
-        return;
-      }
-
-      roleFieldset.classList.remove("is-invalid");
-      roleFieldset.removeAttribute("aria-invalid");
-
-      roleInputs.forEach(function (input) {
-        input.classList.remove("is-invalid");
-        input.removeAttribute("aria-invalid");
-      });
-
-      if (roleError) {
-        roleError.hidden = true;
-      }
-    };
 
     var updateRolePanels = function (role) {
       rolePanels.forEach(function (panel) {
@@ -1128,38 +935,9 @@
         if (!isActive) {
           panel
             .querySelectorAll("input, select, textarea")
-            .forEach(clearAuthFieldError);
+            .forEach(window.IdleMachFormValidation.resetField);
         }
       });
-
-      clearRoleError();
-    };
-
-    var validateRole = function () {
-      if (!roleFieldset) {
-        return true;
-      }
-
-      var selected = roleFieldset.querySelector('input[name="role"]:checked');
-
-      if (selected) {
-        clearRoleError();
-        return true;
-      }
-
-      roleFieldset.classList.add("is-invalid");
-      roleFieldset.setAttribute("aria-invalid", "true");
-
-      roleInputs.forEach(function (input) {
-        input.classList.add("is-invalid");
-        input.setAttribute("aria-invalid", "true");
-      });
-
-      if (roleError) {
-        roleError.hidden = false;
-      }
-
-      return false;
     };
 
     if (roleFieldset) {
@@ -1182,84 +960,35 @@
         }
 
         updateRolePanels(event.target.value);
-        hideAuthSuccess(success);
+        hideToast();
       });
     }
 
     var handleAuthFieldChange = function (event) {
-      var field = event.target;
-
-      if (!field.matches("input, select, textarea") || field.name === "role") {
-        return;
-      }
-
-      hideAuthSuccess(success);
-
-      if (field.matches("[data-password-primary]")) {
-        var confirmField = form.querySelector("[data-password-confirm]");
-
-        if (confirmField && confirmField.classList.contains("is-invalid")) {
-          validateAuthConfirmation(form);
-        }
-      }
-
-      if (field.classList.contains("is-invalid")) {
-        if (field.matches("[data-password-confirm]")) {
-          validateAuthConfirmation(form);
-        } else {
-          validateAuthField(field);
-        }
+      if (event.target.matches && event.target.matches("input, select, textarea")) {
+        hideToast();
       }
     };
 
     form.addEventListener("input", handleAuthFieldChange);
     form.addEventListener("change", handleAuthFieldChange);
 
+    /* Prototype form: prevent navigation. Validation and user feedback are
+       driven by the shared engine's valid/invalid events. */
     form.addEventListener("submit", function (event) {
       event.preventDefault();
-      hideAuthSuccess(success);
+    });
 
-      var firstInvalid = null;
-
-      if (roleFieldset && !validateRole()) {
-        firstInvalid = roleFieldset.querySelector('input[name="role"]');
-      }
-
-      fields.forEach(function (field) {
-        if (field.name === "role") {
-          return;
-        }
-
-        var isValid = field.matches("[data-password-confirm]")
-          ? validateAuthConfirmation(form)
-          : validateAuthField(field);
-
-        if (!isValid && !firstInvalid) {
-          firstInvalid = field;
-        }
-      });
-
-      if (firstInvalid) {
-        firstInvalid.focus();
-        showPreviewNotice(
-          "Please correct the highlighted fields."
-        );
-        return;
-      }
-
-      if (success) {
-        success.hidden = false;
-        success.focus();
-      }
-
+    form.addEventListener(window.IdleMachFormValidation.VALID_EVENT, function () {
       showPreviewNotice(options.successMessage);
+    });
+
+    form.addEventListener(window.IdleMachFormValidation.INVALID_EVENT, function () {
+      showPreviewNotice("Please correct the highlighted fields.");
     });
 
     form.addEventListener("reset", function () {
       window.setTimeout(function () {
-        fields.forEach(clearAuthFieldError);
-        hideAuthSuccess(success);
-
         updateRolePanels(null);
         resetPasswordToggles(form);
         hideToast();
@@ -1269,8 +998,9 @@
 
   var loginForm = document.getElementById("login-form");
   if (loginForm) {
-    setupAuthForm(loginForm, "login-success", {
-      successMessage: "Welcome back to IdleMach."
+    setupAuthForm(loginForm, {
+      successMessage:
+        "Login form passed local validation. This is a preview; no sign-in occurred."
     });
   }
 
@@ -1285,10 +1015,11 @@
       requestedRole = null;
     }
 
-    setupAuthForm(registerForm, "register-success", {
+    setupAuthForm(registerForm, {
       roleFieldset: registerRoleFieldset,
       requestedRole: requestedRole,
-      successMessage: "Welcome to IdleMach."
+      successMessage:
+        "Registration form passed local validation. This is a preview; no account was created."
     });
   }
 
@@ -1300,46 +1031,13 @@
   var contactForm = document.getElementById("contact-form");
   if (contactForm) {
     var contactSuccess = document.getElementById("contact-form-success");
-    var contactFields = contactForm.querySelectorAll("input, select, textarea");
 
-    var setContactFieldState = function (field) {
-      var hasValue = field.value.trim() !== "";
-      var isValid = hasValue && field.checkValidity();
-
-      field.classList.toggle("is-invalid", !isValid);
-      field.setAttribute("aria-invalid", isValid ? "false" : "true");
-      return isValid;
-    };
-
-    var clearContactFieldState = function (field) {
-      field.classList.remove("is-invalid");
-      field.removeAttribute("aria-invalid");
-    };
-
+    /* Prototype form: prevent navigation. Field validation is shared. */
     contactForm.addEventListener("submit", function (event) {
       event.preventDefault();
+    });
 
-      var firstInvalid = null;
-
-      contactFields.forEach(function (field) {
-        var isValid = setContactFieldState(field);
-        if (!isValid && !firstInvalid) {
-          firstInvalid = field;
-        }
-      });
-
-      if (firstInvalid) {
-        if (contactSuccess) {
-          contactSuccess.hidden = true;
-        }
-
-        firstInvalid.focus();
-        showPreviewNotice(
-          "Please correct the highlighted fields. Nothing was sent or stored."
-        );
-        return;
-      }
-
+    contactForm.addEventListener(window.IdleMachFormValidation.VALID_EVENT, function () {
       if (contactSuccess) {
         contactSuccess.hidden = false;
         contactSuccess.focus();
@@ -1350,112 +1048,31 @@
       );
     });
 
-    contactForm.addEventListener("input", function (event) {
-      if (event.target.matches("input, select, textarea")) {
-        if (contactSuccess && !contactSuccess.hidden) {
-          contactSuccess.hidden = true;
-        }
-
-        if (event.target.classList.contains("is-invalid")) {
-          setContactFieldState(event.target);
-        }
+    contactForm.addEventListener(window.IdleMachFormValidation.INVALID_EVENT, function () {
+      if (contactSuccess) {
+        contactSuccess.hidden = true;
       }
+
+      showPreviewNotice(
+        "Please correct the highlighted fields. Nothing was sent or stored."
+      );
     });
 
-    contactForm.addEventListener("change", function (event) {
-      if (
-        event.target.matches("input, select, textarea") &&
-        event.target.classList.contains("is-invalid")
-      ) {
-        setContactFieldState(event.target);
+    var hideContactSuccess = function (event) {
+      if (event.target.matches("input, select, textarea") && contactSuccess) {
+        contactSuccess.hidden = true;
       }
-    });
+    };
+
+    contactForm.addEventListener("input", hideContactSuccess);
+    contactForm.addEventListener("change", hideContactSuccess);
 
     contactForm.addEventListener("reset", function () {
       window.setTimeout(function () {
-        contactFields.forEach(clearContactFieldState);
         if (contactSuccess) {
           contactSuccess.hidden = true;
         }
         hideToast();
-      }, 0);
-    });
-  }
-
-  /* ------------------------------------------------------------------------
-     Design-foundation form validation demo
-     This validates locally for interface testing. It does not submit, store,
-     or transmit anything.
-     ------------------------------------------------------------------------ */
-  var demoForm = document.getElementById("styleguide-form");
-  if (demoForm) {
-    var demoSuccess = document.getElementById("demo-form-success");
-    var demoFields = demoForm.querySelectorAll("input, select, textarea");
-
-    var setFieldState = function (field) {
-      if (!field.willValidate) {
-        return true;
-      }
-
-      var isValid = field.checkValidity();
-      field.classList.toggle("is-invalid", !isValid);
-      field.setAttribute("aria-invalid", isValid ? "false" : "true");
-      return isValid;
-    };
-
-    var clearFieldState = function (field) {
-      field.classList.remove("is-invalid");
-      field.removeAttribute("aria-invalid");
-    };
-
-    demoForm.addEventListener("submit", function (event) {
-      event.preventDefault();
-
-      var firstInvalid = null;
-
-      demoFields.forEach(function (field) {
-        var isValid = setFieldState(field);
-        if (!isValid && !firstInvalid) {
-          firstInvalid = field;
-        }
-      });
-
-      if (firstInvalid) {
-        if (demoSuccess) {
-          demoSuccess.hidden = true;
-        }
-
-        firstInvalid.focus();
-        showPreviewNotice("Please correct the highlighted fields. Nothing was sent or saved.");
-        return;
-      }
-
-      if (demoSuccess) {
-        demoSuccess.hidden = false;
-        demoSuccess.focus();
-      }
-
-      showPreviewNotice("Validation passed. This is a preview form, so nothing was sent or saved.");
-    });
-
-    demoForm.addEventListener("input", function (event) {
-      if (event.target.matches("input, select, textarea") && event.target.classList.contains("is-invalid")) {
-        setFieldState(event.target);
-      }
-    });
-
-    demoForm.addEventListener("change", function (event) {
-      if (event.target.matches("input, select, textarea") && event.target.classList.contains("is-invalid")) {
-        setFieldState(event.target);
-      }
-    });
-
-    demoForm.addEventListener("reset", function () {
-      window.setTimeout(function () {
-        demoFields.forEach(clearFieldState);
-        if (demoSuccess) {
-          demoSuccess.hidden = true;
-        }
       }, 0);
     });
   }
@@ -1807,10 +1424,8 @@
             return;
           }
 
-          if (!rating || !comment || !comment.value.trim()) {
-            buyerReviewForm.reportValidity();
-            return;
-          }
+          /* Rating/comment field validity is handled by the shared engine
+             before this listener runs. */
 
           reviewBooking.setAttribute("data-review", "preview-submitted");
           var requestRow = dashboard.querySelector(
@@ -2919,10 +2534,8 @@
         var specs = document.getElementById("add-m-specs").value.trim() || "Standard precision specifications provided.";
         var materials = document.getElementById("add-m-materials").value.trim() || "Mild Steel, Aluminium";
 
-        if (!name) {
-          showPreviewNotice("Please enter a machine name.");
-          return;
-        }
+        /* Required fields and numeric ranges are checked by form-validation.js
+           before this prototype-only insert runs. */
 
         var newId = "M-100" + (totalMachinesCount + 1);
         ownerMachines[newId] = {

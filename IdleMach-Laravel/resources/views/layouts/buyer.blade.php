@@ -66,6 +66,7 @@
       src="{{ asset('assets/vendor/bootstrap/bootstrap.bundle.min.js') }}"
       defer
     ></script>
+    <script src="{{ asset('js/form-validation.js') }}" defer></script>
     <script src="{{ asset('js/script.js') }}" defer></script>
     <script src="{{ asset('js/panels.js') }}" defer></script>
 

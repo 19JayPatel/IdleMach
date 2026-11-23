@@ -575,7 +575,7 @@
               machineLabel.textContent =
                 button.getAttribute("data-machine-name") || "this machine";
             }
-            form.classList.remove("was-validated");
+            window.IdleMachFormValidation.resetForm(form);
             if (feedback) {
               feedback.hidden = true;
             }
@@ -585,16 +585,19 @@
 
         form.addEventListener("submit", function (event) {
           event.preventDefault();
-          if (!form.checkValidity()) {
-            form.classList.add("was-validated");
-            return;
-          }
+        });
 
+        form.addEventListener(window.IdleMachFormValidation.VALID_EVENT, function () {
           if (feedback) {
             feedback.hidden = false;
           }
-          form.classList.remove("was-validated");
           form.reset();
+        });
+
+        form.addEventListener(window.IdleMachFormValidation.INVALID_EVENT, function () {
+          if (feedback) {
+            feedback.hidden = true;
+          }
         });
       });
     </script>

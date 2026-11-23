@@ -207,8 +207,12 @@
                           type="password"
                           minlength="8"
                           autocomplete="new-password"
+                          data-validation="required|strongPassword"
+                          data-error-strongPassword="Use at least 8 characters with uppercase, lowercase, a number and a special character."
+                          aria-describedby="buyer-profile-new-password-error"
                           required
                         />
+                        <div class="invalid-feedback" id="buyer-profile-new-password-error"></div>
                       </div>
                       <div class="col-md-6">
                         <label
@@ -223,18 +227,14 @@
                           type="password"
                           minlength="8"
                           autocomplete="new-password"
+                          data-validation="required|confirmPassword"
+                          data-password-id="buyer-profile-new-password"
+                          data-error-mismatch="New password and confirmation do not match."
+                          aria-describedby="buyer-profile-confirm-password-error"
                           required
                         />
+                        <div class="invalid-feedback" id="buyer-profile-confirm-password-error"></div>
                       </div>
-                    </div>
-                    <div
-                      class="im-alert im-alert-danger mt-3 mb-0"
-                      id="buyer-password-mismatch"
-                      role="alert"
-                      hidden
-                    >
-                      <i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>
-                      <div>New password and confirmation do not match.</div>
                     </div>
                     <div
                       class="im-alert im-alert-success mt-3 mb-0"
@@ -312,48 +312,42 @@
         if (profileForm && profileFeedback) {
           profileForm.addEventListener("submit", function (event) {
             event.preventDefault();
-            if (!profileForm.checkValidity()) {
-              profileForm.classList.add("was-validated");
-              return;
-            }
+          });
+          profileForm.addEventListener(window.IdleMachFormValidation.VALID_EVENT, function () {
             profileFeedback.hidden = false;
+          });
+          profileForm.addEventListener(window.IdleMachFormValidation.INVALID_EVENT, function () {
+            profileFeedback.hidden = true;
+          });
+          profileForm.addEventListener("input", function () {
+            profileFeedback.hidden = true;
+          });
+          profileForm.addEventListener("change", function () {
+            profileFeedback.hidden = true;
           });
         }
 
         var passwordForm = document.getElementById("buyer-password-form");
         var passwordFeedback = document.getElementById("buyer-password-feedback");
-        var passwordMismatch = document.getElementById("buyer-password-mismatch");
-        if (!passwordForm || !passwordFeedback || !passwordMismatch) {
+        if (!passwordForm || !passwordFeedback) {
           return;
         }
 
         passwordForm.addEventListener("submit", function (event) {
           event.preventDefault();
-          passwordFeedback.hidden = true;
-          passwordMismatch.hidden = true;
-
-          if (!passwordForm.checkValidity()) {
-            passwordForm.classList.add("was-validated");
-            return;
-          }
-
-          var newPassword = document.getElementById(
-            "buyer-profile-new-password"
-          );
-          var confirmPassword = document.getElementById(
-            "buyer-profile-confirm-password"
-          );
-          if (!newPassword || !confirmPassword) {
-            return;
-          }
-
-          if (newPassword.value !== confirmPassword.value) {
-            passwordMismatch.hidden = false;
-            return;
-          }
-
+        });
+        passwordForm.addEventListener(window.IdleMachFormValidation.VALID_EVENT, function () {
           passwordFeedback.hidden = false;
           passwordForm.reset();
+        });
+        passwordForm.addEventListener(window.IdleMachFormValidation.INVALID_EVENT, function () {
+          passwordFeedback.hidden = true;
+        });
+        passwordForm.addEventListener("input", function () {
+          passwordFeedback.hidden = true;
+        });
+        passwordForm.addEventListener("change", function () {
+          passwordFeedback.hidden = true;
         });
       });
     </script>

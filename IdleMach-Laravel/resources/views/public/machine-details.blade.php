@@ -453,6 +453,8 @@
                       name="preferred_date"
                       type="date"
                       required
+                      data-error-required="Choose a preferred date."
+                      data-error-min="Choose today or a future date."
                       aria-describedby="booking-date-error">
                     <div class="invalid-feedback" id="booking-date-error">
                       Choose today or a future date.
@@ -496,6 +498,8 @@
                       step="1"
                       value="1"
                       required
+                      data-error-required="Enter the number of hours you need."
+                      data-error-min="Requested hours must be at least 1."
                       aria-describedby="booking-hours-help booking-hours-error">
                     <div class="form-text" id="booking-hours-help">
                       Capacity limits will appear here.

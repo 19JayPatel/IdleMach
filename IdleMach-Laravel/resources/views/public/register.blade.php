@@ -99,7 +99,8 @@
             <fieldset
               class="auth-role-fieldset"
               id="register-role-fieldset"
-              aria-describedby="register-role-help register-role-error">
+              aria-describedby="register-role-help register-role-error"
+              data-error-required="Choose an account type.">
               <legend class="form-label form-required">Account Type</legend>
               <p class="form-text" id="register-role-help">
                 Choose how you will use IdleMach. This cannot be an Admin
@@ -263,8 +264,10 @@
                       autocomplete="new-password"
                       placeholder="Create a password"
                       aria-describedby="register-password-error"
+                      data-validation="required|strongPassword"
                       data-password-primary
                       data-error-required="Create a password."
+                      data-error-strongPassword="Use at least 8 characters with uppercase, lowercase, a number and a special character."
                       required>
                     <button
                       class="auth-password-toggle"
@@ -300,7 +303,9 @@
                       autocomplete="new-password"
                       placeholder="Re-enter your password"
                       aria-describedby="register-confirm-password-error"
+                      data-validation="required|confirmPassword"
                       data-password-confirm
+                      data-password-id="register-password"
                       data-error-required="Confirm your password."
                       data-error-mismatch="Passwords do not match."
                       required>
@@ -450,6 +455,7 @@
                   name="terms"
                   type="checkbox"
                   aria-describedby="register-terms-error"
+                  data-validation="required|terms"
                   data-error-required="Accept the Terms and Conditions to continue."
                   required>
                 <label class="form-check-label" for="register-terms">I accept the Terms and Conditions.</label>

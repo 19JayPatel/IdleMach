@@ -54,9 +54,11 @@
                       name="machine_name"
                       type="text"
                       placeholder="Example: Haas CNC Turning Machine ST-20"
+                      aria-describedby="page-add-name-error"
+                      data-error-required="Please enter a machine name."
                       required
                     />
-                    <div class="invalid-feedback">
+                    <div class="invalid-feedback" id="page-add-name-error">
                       Please enter a machine name.
                     </div>
                   </div>
@@ -68,6 +70,8 @@
                       class="form-select"
                       id="page-add-type"
                       name="machine_type"
+                      aria-describedby="page-add-type-error"
+                      data-error-required="Please select a machine category."
                       required
                     >
                       <option value="" selected disabled>Select category</option>
@@ -78,7 +82,7 @@
                       <option value="Fabrication">Fabrication</option>
                       <option value="Other">Other</option>
                     </select>
-                    <div class="invalid-feedback">
+                    <div class="invalid-feedback" id="page-add-type-error">
                       Please select a machine category.
                     </div>
                   </div>
@@ -130,9 +134,11 @@
                       name="city"
                       type="text"
                       value="Rajkot"
+                      aria-describedby="page-add-city-error"
+                      data-error-required="Please enter the machine location."
                       required
                     />
-                    <div class="invalid-feedback">
+                    <div class="invalid-feedback" id="page-add-city-error">
                       Please enter the machine location.
                     </div>
                   </div>
@@ -158,9 +164,12 @@
                       min="1"
                       step="1"
                       placeholder="850"
+                      aria-describedby="page-add-rate-error"
+                      data-error-required="Please enter an hourly rental price."
+                      data-error-min="Please enter an hourly rental price."
                       required
                     />
-                    <div class="invalid-feedback">
+                    <div class="invalid-feedback" id="page-add-rate-error">
                       Please enter an hourly rental price.
                     </div>
                   </div>
@@ -438,12 +447,15 @@
         }
         form.addEventListener("submit", function (event) {
           event.preventDefault();
-          form.classList.add("was-validated");
-          if (!form.checkValidity()) {
-            return;
-          }
+        });
+
+        form.addEventListener(window.IdleMachFormValidation.VALID_EVENT, function () {
           feedback.hidden = false;
           feedback.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        });
+
+        form.addEventListener(window.IdleMachFormValidation.INVALID_EVENT, function () {
+          feedback.hidden = true;
         });
       });
     </script>

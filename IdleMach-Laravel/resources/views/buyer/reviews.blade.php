@@ -457,13 +457,7 @@
           return;
         }
 
-        editForm.addEventListener("submit", function (event) {
-          event.preventDefault();
-          if (!editForm.checkValidity()) {
-            editForm.classList.add("was-validated");
-            return;
-          }
-
+        var applyReviewEdit = function () {
           var rating = Number(ratingField.value);
           var comment = commentField.value.trim();
           var quoted = "\u201c" + comment + "\u201d";
@@ -511,9 +505,18 @@
             average.textContent = rating.toFixed(1);
           }
 
-          editForm.classList.remove("was-validated");
           if (feedback) {
             feedback.hidden = false;
+          }
+        };
+
+        editForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+        });
+        editForm.addEventListener(window.IdleMachFormValidation.VALID_EVENT, applyReviewEdit);
+        editForm.addEventListener(window.IdleMachFormValidation.INVALID_EVENT, function () {
+          if (feedback) {
+            feedback.hidden = true;
           }
         });
       });

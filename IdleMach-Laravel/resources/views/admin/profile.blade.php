@@ -49,11 +49,13 @@
           <form class="row g-3" data-demo-profile-form>
             <div class="col-md-6">
               <label class="form-label" for="admin-name">Full name</label>
-              <input class="form-control" id="admin-name" type="text" value="Platform Admin">
+              <input class="form-control" id="admin-name" name="full_name" type="text" value="Platform Admin" required aria-describedby="admin-name-error" data-error-required="Enter your full name.">
+              <div class="invalid-feedback" id="admin-name-error"></div>
             </div>
             <div class="col-md-6">
               <label class="form-label" for="admin-email">Email address</label>
-              <input class="form-control" id="admin-email" type="email" value="admin@idlemach.example.com">
+              <input class="form-control" id="admin-email" name="email" type="email" value="admin@idlemach.example.com" required aria-describedby="admin-email-error" data-error-required="Enter your email address." data-error-invalid="Enter a valid email address.">
+              <div class="invalid-feedback" id="admin-email-error"></div>
             </div>
             <div class="col-md-6">
               <label class="form-label" for="admin-phone">Phone number</label>

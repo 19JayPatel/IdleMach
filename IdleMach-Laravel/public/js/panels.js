@@ -604,9 +604,6 @@
   /* Admin profile: local validation and honest feedback. */
   var demoProfileForm = document.querySelector('form[data-demo-profile-form]');
   if (demoProfileForm) {
-    var profileFields = Array.prototype.slice.call(
-      demoProfileForm.querySelectorAll("input, textarea, select")
-    );
     var profileNotice = document.createElement("div");
     profileNotice.className = "im-alert im-alert-success mt-3";
     profileNotice.setAttribute("role", "status");
@@ -617,54 +614,33 @@
       "<div>The profile fields passed local validation. Nothing was saved or stored.</div>";
     demoProfileForm.appendChild(profileNotice);
 
-    function validateProfileField(field) {
-      if (!field.willValidate) {
-        return true;
-      }
-      var valid = field.checkValidity();
-      field.classList.toggle("is-invalid", !valid);
-      field.setAttribute("aria-invalid", valid ? "false" : "true");
-      return valid;
-    }
-
+    /* Prototype form: field validation comes from form-validation.js. */
     demoProfileForm.addEventListener("submit", function (event) {
       event.preventDefault();
-      var firstInvalid = null;
+    });
 
-      profileFields.forEach(function (field) {
-        if (!validateProfileField(field) && !firstInvalid) {
-          firstInvalid = field;
-        }
-      });
-
-      if (firstInvalid) {
-        profileNotice.hidden = true;
-        firstInvalid.focus();
-        notify("Please correct the highlighted profile fields. Nothing was saved.");
-        return;
-      }
-
+    demoProfileForm.addEventListener(window.IdleMachFormValidation.VALID_EVENT, function () {
       profileNotice.hidden = false;
       profileNotice.focus();
       notify("Profile validation passed. This is a frontend demo, so nothing was saved.");
     });
 
-    demoProfileForm.addEventListener("input", function (event) {
+    demoProfileForm.addEventListener(window.IdleMachFormValidation.INVALID_EVENT, function () {
       profileNotice.hidden = true;
-      if (
-        event.target.matches("input, textarea, select") &&
-        event.target.classList.contains("is-invalid")
-      ) {
-        validateProfileField(event.target);
-      }
+      notify("Please correct the highlighted profile fields. Nothing was saved.");
     });
+
+    var hideProfileNotice = function (event) {
+      if (event.target.matches("input, textarea, select")) {
+        profileNotice.hidden = true;
+      }
+    };
+
+    demoProfileForm.addEventListener("input", hideProfileNotice);
+    demoProfileForm.addEventListener("change", hideProfileNotice);
 
     demoProfileForm.addEventListener("reset", function () {
       window.setTimeout(function () {
-        profileFields.forEach(function (field) {
-          field.classList.remove("is-invalid");
-          field.removeAttribute("aria-invalid");
-        });
         profileNotice.hidden = true;
         notify("Profile form reset. No saved details were changed.");
       }, 0);

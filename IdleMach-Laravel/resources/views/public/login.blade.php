@@ -40,17 +40,20 @@
           class="auth-form"
           id="login-form"
           method="post"
+          action="{{ route('login.store') }}"
           aria-labelledby="login-title"
           novalidate>
+          @csrf
           <div class="auth-field">
             <label class="form-label form-required" for="login-email">Email Address</label>
             <div class="auth-input">
               <i class="fa-solid fa-envelope auth-input-icon" aria-hidden="true"></i>
               <input
-                class="form-control"
+                class="form-control @error('email') is-invalid @enderror"
                 id="login-email"
                 name="email"
                 type="email"
+                value="{{ old('email') }}"
                 autocomplete="email"
                 placeholder="name@company.com"
                 aria-describedby="login-email-error"
@@ -61,6 +64,9 @@
             <div class="invalid-feedback" id="login-email-error" hidden>
               Enter a valid email address.
             </div>
+            @error('email')
+              <div class="invalid-feedback d-block" role="alert">{{ $message }}</div>
+            @enderror
           </div>
 
           <div class="auth-field">
@@ -78,7 +84,7 @@
             <div class="auth-input auth-password">
               <i class="fa-solid fa-lock auth-input-icon" aria-hidden="true"></i>
               <input
-                class="form-control"
+                class="form-control @error('password') is-invalid @enderror"
                 id="login-password"
                 name="password"
                 type="password"
@@ -104,6 +110,9 @@
               hidden>
               Enter your password.
             </div>
+            @error('password')
+              <div class="invalid-feedback d-block" role="alert">{{ $message }}</div>
+            @enderror
           </div>
 
           <div class="auth-check">
@@ -112,7 +121,8 @@
                 class="form-check-input"
                 id="login-remember"
                 name="remember"
-                type="checkbox" />
+                type="checkbox"
+                @checked(old('remember')) />
               <label class="form-check-label" for="login-remember">Remember me on this device</label>
             </div>
           </div>

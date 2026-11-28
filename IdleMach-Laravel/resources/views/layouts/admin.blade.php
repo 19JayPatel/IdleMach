@@ -39,6 +39,11 @@
       </div>
     </div>
 
+    <!-- Real logout endpoint used by the confirmation modal. -->
+    <form id="admin-logout-form" method="POST" action="{{ route('logout') }}" class="d-none">
+      @csrf
+    </form>
+
     <!-- ================= Admin logout modal (shared) ================= -->
     <div
       class="modal fade"
@@ -76,7 +81,8 @@
               Stay on dashboard
             </button>
             <button
-              type="button"
+              type="submit"
+              form="admin-logout-form"
               class="btn-im btn-im-danger"
               id="btn-confirm-logout"
             >

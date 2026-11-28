@@ -94,8 +94,10 @@
             class="auth-form"
             id="register-form"
             method="post"
+            action="{{ route('register.store') }}"
             aria-labelledby="register-title"
             novalidate>
+            @csrf
             <fieldset
               class="auth-role-fieldset"
               id="register-role-fieldset"
@@ -116,6 +118,7 @@
                     type="radio"
                     value="owner"
                     aria-describedby="register-role-owner-description"
+                    @checked(old('role') === 'owner')
                     required>
                   <span class="auth-role-option-body">
                     <span class="auth-role-option-title">
@@ -137,6 +140,7 @@
                     type="radio"
                     value="buyer"
                     aria-describedby="register-role-buyer-description"
+                    @checked(old('role') === 'buyer')
                     required>
                   <span class="auth-role-option-body">
                     <span class="auth-role-option-title">
@@ -160,6 +164,9 @@
                 hidden>
                 Select an account type to continue.
               </div>
+              @error('role')
+                <div class="auth-field-error" role="alert">{{ $message }}</div>
+              @enderror
             </fieldset>
 
             <div class="row g-3">
@@ -171,10 +178,11 @@
                   <div class="auth-input">
                     <i class="fa-solid fa-user auth-input-icon" aria-hidden="true"></i>
                     <input
-                      class="form-control"
+                      class="form-control @error('full_name') is-invalid @enderror"
                       id="register-full-name"
                       name="full_name"
                       type="text"
+                      value="{{ old('full_name') }}"
                       autocomplete="name"
                       placeholder="Your full name"
                       aria-describedby="register-full-name-error"
@@ -187,6 +195,9 @@
                     hidden>
                     Enter your full name.
                   </div>
+                  @error('full_name')
+                    <div class="invalid-feedback d-block" role="alert">{{ $message }}</div>
+                  @enderror
                 </div>
               </div>
 
@@ -198,10 +209,11 @@
                   <div class="auth-input">
                     <i class="fa-solid fa-envelope auth-input-icon" aria-hidden="true"></i>
                     <input
-                      class="form-control"
+                      class="form-control @error('email') is-invalid @enderror"
                       id="register-email"
                       name="email"
                       type="email"
+                      value="{{ old('email') }}"
                       autocomplete="email"
                       placeholder="name@company.com"
                       aria-describedby="register-email-error"
@@ -215,6 +227,9 @@
                     hidden>
                     Enter a valid email address.
                   </div>
+                  @error('email')
+                    <div class="invalid-feedback d-block" role="alert">{{ $message }}</div>
+                  @enderror
                 </div>
               </div>
 
@@ -226,10 +241,11 @@
                   <div class="auth-input">
                     <i class="fa-solid fa-phone auth-input-icon" aria-hidden="true"></i>
                     <input
-                      class="form-control"
+                      class="form-control @error('phone') is-invalid @enderror"
                       id="register-phone"
                       name="phone"
                       type="tel"
+                      value="{{ old('phone') }}"
                       inputmode="tel"
                       autocomplete="tel"
                       pattern="[0-9+ ]{7,20}"
@@ -246,6 +262,9 @@
                     hidden>
                     Enter a valid mobile number.
                   </div>
+                  @error('phone')
+                    <div class="invalid-feedback d-block" role="alert">{{ $message }}</div>
+                  @enderror
                 </div>
               </div>
 
@@ -257,7 +276,7 @@
                   <div class="auth-input auth-password">
                     <i class="fa-solid fa-lock auth-input-icon" aria-hidden="true"></i>
                     <input
-                      class="form-control"
+                      class="form-control @error('password') is-invalid @enderror"
                       id="register-password"
                       name="password"
                       type="password"
@@ -285,6 +304,9 @@
                     hidden>
                     Create a password.
                   </div>
+                  @error('password')
+                    <div class="invalid-feedback d-block" role="alert">{{ $message }}</div>
+                  @enderror
                 </div>
               </div>
 
@@ -296,7 +318,7 @@
                   <div class="auth-input auth-password">
                     <i class="fa-solid fa-lock auth-input-icon" aria-hidden="true"></i>
                     <input
-                      class="form-control"
+                      class="form-control @error('confirm_password') is-invalid @enderror"
                       id="register-confirm-password"
                       name="confirm_password"
                       type="password"
@@ -325,6 +347,9 @@
                     hidden>
                     Confirm your password.
                   </div>
+                  @error('confirm_password')
+                    <div class="invalid-feedback d-block" role="alert">{{ $message }}</div>
+                  @enderror
                 </div>
               </div>
             </div>
@@ -351,10 +376,11 @@
                     <div class="auth-input">
                       <i class="fa-solid fa-building auth-input-icon" aria-hidden="true"></i>
                       <input
-                        class="form-control"
+                        class="form-control @error('company_name') is-invalid @enderror"
                         id="register-company"
                         name="company_name"
                         type="text"
+                        value="{{ old('company_name') }}"
                         autocomplete="organization"
                         placeholder="Company or business name"
                         aria-describedby="register-company-error"
@@ -367,6 +393,9 @@
                       hidden>
                       Enter your company name.
                     </div>
+                    @error('company_name')
+                      <div class="invalid-feedback d-block" role="alert">{{ $message }}</div>
+                    @enderror
                   </div>
                 </div>
 
@@ -378,10 +407,11 @@
                     <div class="auth-input">
                       <i class="fa-solid fa-location-dot auth-input-icon" aria-hidden="true"></i>
                       <input
-                        class="form-control"
+                        class="form-control @error('city') is-invalid @enderror"
                         id="register-city"
                         name="city"
                         type="text"
+                        value="{{ old('city') }}"
                         autocomplete="address-level2"
                         placeholder="City"
                         aria-describedby="register-city-error"
@@ -394,6 +424,9 @@
                       hidden>
                       Enter your city.
                     </div>
+                    @error('city')
+                      <div class="invalid-feedback d-block" role="alert">{{ $message }}</div>
+                    @enderror
                   </div>
                 </div>
 
@@ -405,10 +438,11 @@
                     <div class="auth-input">
                       <i class="fa-solid fa-map auth-input-icon" aria-hidden="true"></i>
                       <input
-                        class="form-control"
+                        class="form-control @error('address') is-invalid @enderror"
                         id="register-address"
                         name="address"
                         type="text"
+                        value="{{ old('address') }}"
                         autocomplete="address-line1"
                         placeholder="Street address"
                         aria-describedby="register-address-error"
@@ -421,6 +455,9 @@
                       hidden>
                       Enter your company address.
                     </div>
+                    @error('address')
+                      <div class="invalid-feedback d-block" role="alert">{{ $message }}</div>
+                    @enderror
                   </div>
                 </div>
               </div>
@@ -454,6 +491,7 @@
                   id="register-terms"
                   name="terms"
                   type="checkbox"
+                  @checked(old('terms'))
                   aria-describedby="register-terms-error"
                   data-validation="required|terms"
                   data-error-required="Accept the Terms and Conditions to continue."
@@ -466,6 +504,9 @@
                 hidden>
                 Accept the Terms and Conditions to continue.
               </div>
+              @error('terms')
+                <div class="invalid-feedback d-block" role="alert">{{ $message }}</div>
+              @enderror
             </div>
 
             <div class="auth-actions">

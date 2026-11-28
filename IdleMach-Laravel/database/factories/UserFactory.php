@@ -42,4 +42,35 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    public function admin(): static
+    {
+        return $this->afterCreating(fn (User $user) => $user->forceFill([
+            'role' => User::ROLE_ADMIN,
+            'status' => User::STATUS_ACTIVE,
+        ])->save());
+    }
+
+    public function owner(): static
+    {
+        return $this->afterCreating(fn (User $user) => $user->forceFill([
+            'role' => User::ROLE_OWNER,
+            'status' => User::STATUS_ACTIVE,
+        ])->save());
+    }
+
+    public function buyer(): static
+    {
+        return $this->afterCreating(fn (User $user) => $user->forceFill([
+            'role' => User::ROLE_BUYER,
+            'status' => User::STATUS_ACTIVE,
+        ])->save());
+    }
+
+    public function blocked(): static
+    {
+        return $this->afterCreating(fn (User $user) => $user->forceFill([
+            'status' => User::STATUS_BLOCKED,
+        ])->save());
+    }
 }

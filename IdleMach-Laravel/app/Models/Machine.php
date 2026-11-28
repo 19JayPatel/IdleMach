@@ -10,7 +10,10 @@ use App\Models\MachineReservedPeriod;
 use App\Models\MachineSpecification;
 use App\Models\MachineWeeklySchedule;
 use App\Models\User;
+use Database\Factories\MachineFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -33,6 +36,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 ])]
 class Machine extends Model
 {
+    /** @use HasFactory<MachineFactory> */
+    use HasFactory;
+
+    public const APPROVAL_PENDING = 'pending';
+    public const APPROVAL_APPROVED = 'approved';
+    public const APPROVAL_REJECTED = 'rejected';
+
+    public const OPERATION_ACTIVE = 'active';
+    public const OPERATION_INACTIVE = 'inactive';
     /**
      * Get the attributes that should be cast.
      *
@@ -45,6 +57,31 @@ class Machine extends Model
             'approved_at' => 'datetime',
             'rejected_at' => 'datetime',
         ];
+    }
+
+    /**
+     * Scope a query to machines publicly visible in approved listings.
+     *
+     * @param  Builder<Machine>  $query
+     * @return Builder<Machine>
+     */
+    public function scopePubliclyApproved(Builder $query): Builder
+    {
+        return $query->where('approval_status', self::APPROVAL_APPROVED);
+    }
+
+    /**
+     * Scope a query to machines that are currently bookable.
+     *
+     * Bookability requires approved visibility and active operation.
+     *
+     * @param  Builder<Machine>  $query
+     * @return Builder<Machine>
+     */
+    public function scopeBookable(Builder $query): Builder
+    {
+        return $query->publiclyApproved()
+            ->where('operational_status', self::OPERATION_ACTIVE);
     }
 
     /**

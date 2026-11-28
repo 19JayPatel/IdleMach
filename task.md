@@ -1,69 +1,111 @@
-# IdleMach --- Development Task Plan
+﻿# IdleMach - Development Task Plan
 
 **Project:** IdleMach\
 **Tagline:** Turn Idle Capacity Into Opportunity\
 **Purpose:** Provide an actionable task breakdown for planning and
 building IdleMach.
 
-------------------------------------------------------------------------
+---
 
 ## How to Use This File
 
--   Work through tasks in the order shown unless a dependency requires a
-    different order.
--   Mark a task complete only after implementation and the relevant
-    checks are finished.
--   Keep unresolved product decisions in the **Open Decisions** section;
-    do not guess.
--   The initial milestone is a frontend-only prototype using HTML, CSS,
-    vanilla JavaScript, Bootstrap 5, and Font Awesome.
--   Laravel, PHP, and MySQL implementation follows after the frontend
-    prototype is reviewed.
+- Work through tasks in the order shown unless a dependency requires a
+  different order.
+- Mark a task complete only after implementation and the relevant
+  checks are finished.
+- Keep unresolved product decisions in the **Open Decisions** section;
+  do not guess.
+- The initial milestone is a frontend-only prototype using HTML, CSS,
+  vanilla JavaScript, Bootstrap 5, and Font Awesome.
+- Laravel, PHP, and MySQL implementation follows after the frontend
+  prototype is reviewed.
 
 ### Task status convention
 
 Use these labels when tracking progress:
 
--   `[ ]` Not started
--   `[x]` Completed and checked
--   `[!]` Blocked or waiting for a decision
+- `[x]` Completed and verified.
+- `[ ]` Not completed (not started, or remaining work is still open).
+- `[!]` Blocked or waiting for a decision. This also counts as **not
+  completed**.
+- Partially completed work is explained directly below the affected task
+  or phase; a phase is not complete when only its frontend, schema, or
+  database foundation exists.
 
-This document is a task plan, not evidence that any task has already
-been completed.
+This document tracks implementation progress. The statuses below reflect
+the verification notes recorded in this file plus the 2026-11-23 source
+audit of the Laravel repository. Browser checks and user-reported testing
+recorded earlier remain attributed to those earlier sessions; this audit
+did not run a new live-browser, migration, database, or test-suite pass.
+A documentation-only review on 2026-11-25 reconciled the phase summaries;
+it did not add implementation evidence or complete any Phase 5 check.
 
-------------------------------------------------------------------------
+### Approved business rules (preserved)
+
+These IdleMach decisions apply throughout the phases below. Do not change
+or expand them without a separate approved requirement:
+
+- Roles are Admin, Machine Owner, and Buyer. One user has one role.
+- One user belongs to one company; one company can own multiple machines.
+- Admin accounts cannot be created through public registration.
+- Machine approval status and operational status are separate.
+- Only approved machines are publicly visible; only approved **and**
+  active machines are bookable.
+- A Machine Owner cannot approve their own machine.
+- The owner accepts a booking before payment is attempted.
+- MVP payments are simulated/demo records only; no real gateway charge is
+  made.
+- A booking is confirmed only after one successful payment record is saved.
+  Multiple payment attempts may exist for a booking; failed attempts must
+  be retained, and no more than one successful payment may confirm it.
+- Overlapping machine bookings must be prevented with database
+  transactions and appropriate locking.
+- After confirmed work completion, the buyer can review the Machine
+  Owner. There is one review per booking.
+- Use empty states instead of fabricated business data in implemented
+  database-backed views. The retained frontend sample records are the
+  approved prototype baseline, not live platform data.
+
+---
 
 # Phase 0 --- Project Setup and Requirement Review
 
 ## 0.1 Review the project documents
 
--   [ ] Read `prd.md` and understand the product goals and MVP scope.
--   [ ] Read `architecture.md` and understand the proposed application
-    structure.
--   [ ] Read `Rules.md` and follow the coding, security, workflow, and
-    scope rules.
--   [ ] Read `Design.md` and follow the approved design direction.
--   [ ] Review the original `CapacityShare.md` notes when a requirement
-    needs clarification.
--   [ ] List unresolved product and design decisions before implementing
-    dependent features.
--   [ ] Confirm the first prototype sitemap and which pages are in
-    scope.
+- [ ] Read `prd.md` and understand the product goals and MVP scope.
+- [ ] Read `architecture.md` and understand the proposed application
+      structure.
+- [ ] Read `Rules.md` and follow the coding, security, workflow, and
+      scope rules.
+- [ ] Read `Design.md` and follow the approved design direction.
+- [ ] Review the original `CapacityShare.md` notes when a requirement
+      needs clarification.
+- [ ] List unresolved product and design decisions before implementing
+      dependent features.
+- [ ] Confirm the first prototype sitemap and which pages are in
+      scope.
 
 ## 0.2 Prepare the frontend workspace
 
--   [x] Create or inspect the project folder.
--   [x] Establish the agreed HTML page structure.
--   [x] Create the shared `css/style.css` file.
--   [x] Create the shared `js/script.js` file.
--   [x] Create the required `assets/images/` folder.
--   [x] Add Bootstrap 5 and Font Awesome using the project's chosen
-    inclusion method.
--   [x] Confirm all pages can load the shared CSS and JavaScript files.
--   [x] Run the project locally and verify that the starting page opens.
+- [x] Create or inspect the project folder.
+- [x] Establish the agreed HTML page structure.
+- [x] Create the shared `css/style.css` file.
+- [x] Create the shared `js/script.js` file.
+- [x] Create the required `assets/images/` folder.
+- [x] Add Bootstrap 5 and Font Awesome using the project's chosen
+      inclusion method.
+- [x] Confirm all pages can load the shared CSS and JavaScript files.
+- [x] Run the project locally and verify that the starting page opens.
 
 **Exit check:** The frontend workspace runs locally, shared assets load,
 and the agreed page list is documented.
+
+**Phase 0 status: Partially completed.** Phase 0.2 is complete. The Phase
+0.1 documents were inspected during the 2026-11-23 source audit, but the
+individual checklist items remain unchecked because that audit did not
+record a separate sign-off for each review task or confirm that every
+open decision and prototype-scope item had been formally closed. Complete
+those checks explicitly before marking Phase 0.1 done.
 
 > **Workspace note:** The frontend is in `IdleMach-Frontend/`. Bootstrap
 > 5.3.3 and Font Awesome 6.7.2 are stored locally under `assets/vendor/`
@@ -71,20 +113,20 @@ and the agreed page list is documented.
 > `styleguide.html`) is documented in `IdleMach-Frontend/README.md`.
 > Later product pages remain out of scope for this phase.
 
-------------------------------------------------------------------------
+---
 
 # Phase 1 --- Frontend Design Foundation
 
 ## 1.1 Establish shared design tokens
 
--   [!] Confirm the brand logo/wordmark direction.
--   [!] Confirm the final colour palette.
--   [!] Confirm the font family and typography scale.
--   [x] Define CSS custom properties for colours, spacing, borders,
-    radii, and shadows.
--   [x] Define consistent page containers and section spacing.
--   [x] Define reusable heading, body text, muted text, and metadata
-    styles.
+- [!] Confirm the brand logo/wordmark direction.
+- [!] Confirm the final colour palette.
+- [!] Confirm the font family and typography scale.
+- [x] Define CSS custom properties for colours, spacing, borders,
+      radii, and shadows.
+- [x] Define consistent page containers and section spacing.
+- [x] Define reusable heading, body text, muted text, and metadata
+      styles.
 
 > **Provisional tokens:** A temporary capacity-bar mark, palette, and
 > system font stack are implemented in `css/style.css` and documented in
@@ -92,29 +134,33 @@ and the agreed page list is documented.
 
 ## 1.2 Build shared UI components
 
--   [x] Create the public website header.
--   [x] Create the responsive mobile navigation.
--   [x] Create the public website footer.
--   [x] Create primary, secondary, outline, and danger button styles.
--   [x] Create consistent form fields and validation message styles.
--   [x] Create status badge styles for machine, availability, booking,
-    and payment states.
--   [x] Create reusable card and content panel styles.
--   [x] Create alert, empty-state, and confirmation styles.
--   [ ] Create dashboard navigation/sidebar styling if dashboard pages
-    are in the prototype scope.
+- [x] Create the public website header.
+- [x] Create the responsive mobile navigation.
+- [x] Create the public website footer.
+- [x] Create primary, secondary, outline, and danger button styles.
+- [x] Create consistent form fields and validation message styles.
+- [x] Create status badge styles for machine, availability, booking,
+      and payment states.
+- [x] Create reusable card and content panel styles.
+- [x] Create alert, empty-state, and confirmation styles.
+- [x] Create dashboard navigation/sidebar styling if dashboard pages
+      are in the prototype scope.
 
-> **Dashboard note:** Dashboard pages are not in Phase 1 scope, so this
-> item is not applicable yet and no sidebar has been built. Dashboard
-> scope is tracked in Open Decisions; dashboards belong to Phase 3.
+> **Dashboard note (corrected):** This item was originally left unchecked
+> because dashboards were outside Phase 1 scope. Dashboard overview
+> prototypes were later approved and built in Phase 3; their shared
+> navigation, sidebar, cards, tables, and responsive drawer styles were
+> verified there and are now also present in
+> `IdleMach-Laravel/public/css/style.css`. The complete dashboard sub-page
+> scope remains an open decision.
 
 ## 1.3 Check the design foundation
 
--   [x] Verify shared components look consistent across pages.
--   [x] Verify keyboard focus states.
--   [x] Verify text contrast and readable font sizes.
--   [x] Verify shared components work on desktop, tablet, and mobile.
--   [x] Remove unused or duplicate CSS rules.
+- [x] Verify shared components look consistent across pages.
+- [x] Verify keyboard focus states.
+- [x] Verify text contrast and readable font sizes.
+- [x] Verify shared components work on desktop, tablet, and mobile.
+- [x] Remove unused or duplicate CSS rules.
 
 **Exit check:** Shared styles and components are consistent and ready to
 be reused by individual pages.
@@ -126,28 +172,38 @@ be reused by individual pages.
 > and SEO on both pages. No console errors or horizontal overflow were
 > found.
 
-------------------------------------------------------------------------
+**Phase 1 status: Partially completed.** The design foundation and shared
+components are complete and were browser-verified for the frontend
+prototype. The brand logo/wordmark, final palette, and font family remain
+provisional and blocked on approval.
+
+---
 
 # Phase 2 --- Public Website Prototype
 
+**Phase 2 status: Completed for the accepted frontend prototype.** The
+items below were browser-verified in earlier frontend sessions. The
+2026-11-23 audit inspected the Laravel Blade conversions at source level
+only and did not repeat those browser checks.
+
 ## 2.1 Home page
 
--   [x] Build the public header and navigation.
--   [x] Create a hero section that explains IdleMach as a
-    manufacturing-capacity marketplace.
--   [x] Include the tagline: "Turn Idle Capacity Into Opportunity."
--   [x] Make the Machine Owner and Buyer journeys clear.
--   [x] Add the approved marketplace discovery entry point, if included
-    in the prototype scope.
--   [x] Add a simple "How It Works" section.
--   [x] Add an owner-focused section explaining the purpose of listing
-    unused capacity.
--   [x] Add a buyer-focused section explaining how to discover
-    manufacturing capacity.
--   [x] Add relevant manufacturing imagery or clearly identified
-    placeholders.
--   [x] Add the public footer.
--   [x] Check the page at desktop, tablet, and mobile widths.
+- [x] Build the public header and navigation.
+- [x] Create a hero section that explains IdleMach as a
+      manufacturing-capacity marketplace.
+- [x] Include the tagline: "Turn Idle Capacity Into Opportunity."
+- [x] Make the Machine Owner and Buyer journeys clear.
+- [x] Add the approved marketplace discovery entry point, if included
+      in the prototype scope.
+- [x] Add a simple "How It Works" section.
+- [x] Add an owner-focused section explaining the purpose of listing
+      unused capacity.
+- [x] Add a buyer-focused section explaining how to discover
+      manufacturing capacity.
+- [x] Add relevant manufacturing imagery or clearly identified
+      placeholders.
+- [x] Add the public footer.
+- [x] Check the page at desktop, tablet, and mobile widths.
 
 > **Checked in browser:** `index.html` was tested at 320, 360, 390, 414,
 > 576, 768, 820, 991, 992, 1024, 1180, 1440, and 1920 CSS px. The mobile
@@ -158,27 +214,30 @@ be reused by individual pages.
 > and SEO; the W3C validator reported no errors. No console errors or
 > horizontal overflow were found.
 >
-> Marketplace records are labelled sample/demo data. At the time of this
-> Phase 2.1 check, Explore Machines, Machine Details, Login, and
-> Registration remained later phases. Explore Machines was completed in
-> Phase 2.2 below; the others remain later phases.
+> **Historical Phase 2.1 wording:** At the time of this check, marketplace
+> records were visibly labelled sample/demo data. That labelling was later
+> changed by Phase 4.5; current prototype disclosures remain mainly in page
+> metadata and internal interface notices. At this check, Explore Machines,
+> Machine Details, Login, and Registration remained later phases. Explore
+> Machines was completed in Phase 2.2 below; the others were completed in
+> later phases.
 
 ## 2.2 Explore Machines page
 
--   [x] Build the page heading and short introduction.
--   [x] Build the machine search interface.
--   [x] Add only the filters supported by the agreed sample data and
-    requirements.
--   [x] Create reusable machine result cards or list rows.
--   [x] Display available machine information without inventing missing
-    specifications.
--   [x] Add working client-side search/filter behaviour for the
-    prototype.
--   [x] Add a no-results empty state.
--   [x] Pagination/load-more was not required for the three sample
-    records; no control was added.
--   [x] Provide a working Machine Details link for each sample record.
--   [x] Test the layout on desktop, tablet, and mobile.
+- [x] Build the page heading and short introduction.
+- [x] Build the machine search interface.
+- [x] Add only the filters supported by the agreed sample data and
+      requirements.
+- [x] Create reusable machine result cards or list rows.
+- [x] Display available machine information without inventing missing
+      specifications.
+- [x] Add working client-side search/filter behaviour for the
+      prototype.
+- [x] Add a no-results empty state.
+- [x] Pagination/load-more was not required for the three sample
+      records; no control was added.
+- [x] Provide a working Machine Details link for each sample record.
+- [x] Test the layout on desktop, tablet, and mobile.
 
 > **Checked in browser:** `machines.html` was tested at 320, 360, 390,
 > 414, 576, 768, 820, 991, 992, 1024, 1180, 1440, and 1920 CSS px. The
@@ -191,7 +250,10 @@ be reused by individual pages.
 > accessibility, best practices, and SEO; the W3C validator reported no
 > messages for `index.html` or `machines.html`.
 >
-> The three records remain clearly labelled sample/demo data. Homepage
+> **Historical Phase 2.2 wording:** At the time of this check, the three
+> records were visibly labelled sample/demo data. Phase 4.5 later removed
+> the approved visitor-facing wording; current sample/demo disclosures are
+> limited mainly to metadata and internal prototype notices. Homepage
 > "Explore Machines" links point to the new page, and its existing
 > sample search was rechecked. Phase 2.3 has since replaced the
 > provisional Machine Details notice with working details links; see the
@@ -199,16 +261,16 @@ be reused by individual pages.
 
 ## 2.3 Machine Details page
 
--   [x] Display machine name and relevant listing information.
--   [x] Build the machine image gallery.
--   [x] Display machine type and available technical specifications.
--   [x] Display owner/company information that is appropriate for public
-    viewing.
--   [x] Display location and rate when sample data provides them.
--   [x] Display capacity and availability information when defined.
--   [x] Add a booking-request call to action for the prototype.
--   [x] Make inactive or unavailable states clear.
--   [x] Check image sizing, gallery behaviour, and responsive layout.
+- [x] Display machine name and relevant listing information.
+- [x] Build the machine image gallery.
+- [x] Display machine type and available technical specifications.
+- [x] Display owner/company information that is appropriate for public
+      viewing.
+- [x] Display location and rate when sample data provides them.
+- [x] Display capacity and availability information when defined.
+- [x] Add a booking-request call to action for the prototype.
+- [x] Make inactive or unavailable states clear.
+- [x] Check image sizing, gallery behaviour, and responsive layout.
 
 > **Checked in browser:** `machine-details.html` was opened with sample
 > IDs 1, 2, and 3. The matching name, process, owner, location, status,
@@ -244,14 +306,14 @@ be reused by individual pages.
 
 ## 2.4 How It Works page
 
--   [x] Explain the Machine Owner journey.
--   [x] Explain the Buyer journey.
--   [x] Preserve the documented sequence: listing/discovery, request,
-    owner decision, payment, booking, work, completion, and review.
--   [x] Make clear that owner acceptance happens before payment.
--   [x] Make clear that successful payment is required before booking
-    confirmation.
--   [x] Check that the page uses simple, consistent language.
+- [x] Explain the Machine Owner journey.
+- [x] Explain the Buyer journey.
+- [x] Preserve the documented sequence: listing/discovery, request,
+      owner decision, payment, booking, work, completion, and review.
+- [x] Make clear that owner acceptance happens before payment.
+- [x] Make clear that successful payment is required before booking
+      confirmation.
+- [x] Check that the page uses simple, consistent language.
 
 > **Checked in browser:** `how-it-works.html` was opened from the shared
 > navigation and tested at 320, 375, 576, 768, 992, 1280, 1440, and
@@ -289,12 +351,12 @@ be reused by individual pages.
 
 ## 2.5 About and Contact pages
 
--   [x] Build the About page using only confirmed project information.
--   [x] Build the Contact page.
--   [x] Use only confirmed contact details.
--   [x] Clearly label any contact form that is only a frontend
-    demonstration.
--   [x] Check both pages on mobile.
+- [x] Build the About page using only confirmed project information.
+- [x] Build the Contact page.
+- [x] Use only confirmed contact details.
+- [x] Clearly label any contact form that is only a frontend
+      demonstration.
+- [x] Check both pages on mobile.
 
 > **Checked in browser:** `about.html` presents the marketplace purpose,
 > the three documented roles (Machine Owners, Buyers, and Admins), the
@@ -339,16 +401,16 @@ be reused by individual pages.
 
 ## 2.6 Login and Registration pages
 
--   [x] Build the Login page UI.
--   [x] Build the Registration page UI.
--   [x] Include role selection if it is part of the agreed registration
-    flow.
--   [x] Add client-side form validation for user experience.
--   [x] Show clear field-level error messages.
--   [x] Add password visibility control if included in the design.
--   [x] Clearly label prototype-only behaviour.
--   [x] Do not claim an account is created or authenticated without a
-    real backend.
+- [x] Build the Login page UI.
+- [x] Build the Registration page UI.
+- [x] Include role selection if it is part of the agreed registration
+      flow.
+- [x] Add client-side form validation for user experience.
+- [x] Show clear field-level error messages.
+- [x] Add password visibility control if included in the design.
+- [x] Clearly label prototype-only behaviour.
+- [x] Do not claim an account is created or authenticated without a
+      real backend.
 
 > **Checked in browser:** `login.html` contains the IdleMach logo, a
 > welcome heading, a short role description, Email Address and Password
@@ -407,7 +469,7 @@ be reused by individual pages.
 consistent, responsive, and its prototype interactions work as
 described.
 
-------------------------------------------------------------------------
+---
 
 # Phase 3 --- Dashboard Frontend Prototype
 
@@ -417,13 +479,13 @@ described.
 
 ## 3.1 Shared dashboard structure
 
--   [x] Create a shared dashboard layout.
--   [x] Create role-specific navigation for Admin, Owner, and Buyer.
--   [x] Add a page title and breadcrumb pattern.
--   [x] Add a responsive sidebar or mobile drawer.
--   [x] Create consistent dashboard tables, filters, cards, and status
-    indicators.
--   [x] Add empty states and action confirmation patterns.
+- [x] Create a shared dashboard layout.
+- [x] Create role-specific navigation for Admin, Owner, and Buyer.
+- [x] Add a page title and breadcrumb pattern.
+- [x] Add a responsive sidebar or mobile drawer.
+- [x] Create consistent dashboard tables, filters, cards, and status
+      indicators.
+- [x] Add empty states and action confirmation patterns.
 
 > **Phase 3.1 implementation note:** The shared dashboard layout foundation
 > is implemented in `admin-dashboard.html` with reusable styles in
@@ -438,20 +500,20 @@ described.
 
 ## 3.2 Machine Owner screens
 
--   [x] Owner dashboard overview.
--   [x] Company profile view/edit screen.
--   [x] Machine listing list.
--   [x] Add machine form.
--   [x] Edit machine form.
--   [x] Machine image management UI.
--   [x] Machine specifications UI.
--   [x] Machine rate and capacity UI.
--   [x] Machine availability/calendar UI.
--   [x] Incoming booking requests screen.
--   [x] Booking details screen.
--   [x] Booking status/progress screen.
--   [x] Relevant earnings/payment summary UI.
--   [x] Reviews screen.
+- [x] Owner dashboard overview.
+- [x] Company profile view/edit screen.
+- [x] Machine listing list.
+- [x] Add machine form.
+- [x] Edit machine form.
+- [x] Machine image management UI.
+- [x] Machine specifications UI.
+- [x] Machine rate and capacity UI.
+- [x] Machine availability/calendar UI.
+- [x] Incoming booking requests screen.
+- [x] Booking details screen.
+- [x] Booking status/progress screen.
+- [x] Relevant earnings/payment summary UI.
+- [x] Reviews screen.
 
 > **Owner dashboard verified in browser (2026-11-08):** Checked at 320, 375,
 > 576, 768, 992, 1024, and 1440 px using sized same-origin iframes. No page-level
@@ -491,11 +553,13 @@ described.
 >   Completed Work rises from 25 to 26, and the row becomes review-eligible.
 >   Progress notes update the local preview only.
 > - The payment ledger shows 7 records: 4 successful sample payments totalling
->   ₹30,800, 1 pending ₹6,400, 1 failed ₹4,800, and 1 refunded ₹3,600. Failed and
+>   ₹41,800, 1 pending ₹6,400, 1 failed ₹4,800, and 1 refunded ₹3,600. Failed and
 >   refunded amounts are excluded from successful totals. No commission, tax,
 >   withdrawal, or invoice figures are invented.
 > - The three sample reviews belong only to completed bookings CS-10024,
->   CS-10022, and CS-10018 and are labelled as demonstration feedback. Sample
+>   CS-10022, and CS-10018 and are labelled as demonstration feedback. They
+>   represent buyer-to-machine-owner reviews only, with one review per
+>   booking; they are not live user-submitted reviews. Sample
 >   notifications go from 3 unread to 0 with mark-as-read. Company profile save
 >   and owner sign-out show local preview notices only.
 >
@@ -506,16 +570,17 @@ described.
 
 ## 3.3 Buyer screens
 
--   [x] Buyer dashboard overview.
--   [ ] Buyer profile view/edit screen.
--   [x] Booking request form (existing Machine Details form linked from recommendations).
--   [x] Drawing/document upload UI (existing Machine Details form).
--   [x] Booking list.
--   [x] Booking details and status screen.
--   [x] Payment status screen.
--   [x] Completed booking screen.
--   [x] Review form and review history UI.
--   [x] Relevant notification list.
+- [x] Buyer dashboard overview.
+- [x] Buyer profile UI shell (Blade view and local validation added during
+      Laravel integration; approved field definitions still pending).
+- [x] Booking request form (existing Machine Details form linked from recommendations).
+- [x] Drawing/document upload UI (existing Machine Details form).
+- [x] Booking list.
+- [x] Booking details and status screen.
+- [x] Payment status screen.
+- [x] Completed booking screen.
+- [x] Review form and review history UI.
+- [x] Relevant notification list.
 
 > **Buyer dashboard prototype verified in browser (2026-11-08):**
 > `buyer-dashboard.html` uses the shared Admin/Owner dashboard shell and the
@@ -551,10 +616,16 @@ described.
 > respond to keyboard arrow scrolling. Admin Dashboard, Machine Owner Dashboard,
 > Explore Machines, Machine Details (IDs 1–3), and Login pages loaded with no
 > console errors or failed requests after the change, and `node --check
-> js/script.js` passes. The Buyer preview link on `login.html` resolves to the new
-> page. Buyer profile editing remains open because the PRD does not define buyer
-> profile fields; Saved Machines and buyer Profile Settings are omitted because
-> the project documents do not define them.
+js/script.js` passes. The Buyer preview link on `login.html` resolves to the new
+> page. Saved Machines and buyer Profile Settings are omitted because the
+> project documents do not define them.
+>
+> **Laravel UI update (2026-11-23 audit):** A `buyer/profile.blade.php`
+> screen now exists with view/edit fields and local validation feedback. It
+> is a frontend-only screen with sample values; no account data is read or
+> written and the approved buyer profile field definition is still not
+> documented. This checkbox is therefore complete for UI presence only, not
+> for backend profile management.
 >
 > **Buyer dashboard refinement verified in browser (2026-11-08):**
 > The existing hierarchy was tightened without changing the design system. The
@@ -590,18 +661,33 @@ described.
 
 ## Admin dashboard and management screens
 
--   [x] Admin dashboard overview.
--   [ ] User management screen.
--   [ ] Company/owner management screen.
--   [ ] Buyer management screen.
--   [ ] Machine listing management screen.
--   [ ] Pending machine approval screen.
--   [ ] Machine review/detail screen.
--   [ ] Booking management/monitoring screen.
--   [ ] Payment monitoring screen.
--   [ ] Review management screen.
--   [ ] Reports/activity screen.
--   [ ] Block/unblock user confirmation UI.
+> **Scope note:** `admin-dashboard.html` is the static dashboard prototype
+> with management shortcuts and previews. The separate Blade management
+> screens below were added during Laravel integration and use static sample
+> records; they are UI-only and do not change the completed frontend
+> dashboard scope. Implemented UI screens cover users, machines, pending
+> approvals, machine detail, bookings, payments, reviews, reports/activity,
+> business rules, and admin profile. Dedicated company/owner and buyer
+> management screens remain undefined; owners and buyers appear only in the
+> static user list.
+
+- [x] Admin dashboard overview. _(Static `admin-dashboard.html`.)_
+- [x] User management screen. _(Separate Blade UI with static sample
+      users.)_
+- [ ] Company/owner management screen (no dedicated screen; owners are
+      shown in the user list only).
+- [ ] Buyer management screen (no dedicated screen; buyers are shown in
+      the user list only).
+- [x] Machine listing management screen. _(Separate Blade UI.)_
+- [x] Pending machine approval screen. _(Separate Blade UI.)_
+- [x] Machine review/detail screen (view-listing detail modal). _(Static
+      admin dashboard preview and Blade machine detail UI.)_
+- [x] Booking management/monitoring screen. _(Separate Blade UI.)_
+- [x] Payment monitoring screen. _(Separate Blade UI.)_
+- [x] Review management screen. _(Separate Blade UI.)_
+- [x] Reports/activity screen. _(Separate Blade UI.)_
+- [x] Block/unblock user confirmation UI (suspend/activate confirmation
+      modal in `public/js/panels.js`).
 
 > **Checked in browser:** `admin-dashboard.html` was verified against all
 > documented status values, business rules, and administrative monitoring
@@ -626,17 +712,17 @@ described.
 >    listings (`M-1014`, `M-1015`, `M-1016`) awaiting review with specifications,
 >    work envelopes, hourly rates, and daily capacities. Each row carries a
 >    compact “Demo” tag beside its ID. Working prototype actions:
->    - *View listing:* modal displaying full machine specs, envelope, tooling,
+>    - _View listing:_ modal displaying full machine specs, envelope, tooling,
 >      material, photos count, and verification notes.
->    - *Approve:* confirmation modal that updates local row status to approved,
+>    - _Approve:_ confirmation modal that updates local row status to approved,
 >      updates badge, disables buttons, decrements pending counters, and shows
 >      demo feedback. Approved listings become marketplace-visible regardless
 >      of operational status; only approved + active listings can receive new
 >      booking requests.
->    - *Reject:* rejection modal capturing structured reason and optional admin
+>    - _Reject:_ rejection modal capturing structured reason and optional admin
 >      notes, updating local row status to rejected, decrementing pending
 >      counters, and showing demo feedback toast.
->    - *Reset demo:* header action restoring all rows to pending review and
+>    - _Reset demo:_ header action restoring all rows to pending review and
 >      counter to 12.
 > 5. **Recent bookings monitoring:** Second priority section. Audit table
 >    displaying 6 representative bookings across documented statuses (`pending`,
@@ -688,29 +774,37 @@ described.
 > The W3C validator reported 0 errors (only informational trailing-slash notes),
 > Lighthouse scored 100 for accessibility, best practices, and SEO, all 10
 > workspace HTML pages loaded with 0 console errors, failed requests, or 4xx/5xx
-> responses, and `node --check js/script.js` passes. The remaining detailed
-> management sub-screens are outside the Phase 3.4 integration scope and remain
-> pending for Phase 8. The Machine Owner and
+> responses, and `node --check js/script.js` passes. The Machine Owner and
 > Buyer dashboards are implemented in Phases 3.2 and 3.3, and their preview links
 > on `login.html` now resolve.
+>
+> **Laravel UI update (2026-11-23 audit):** The note that detailed Admin
+> management sub-screens remained pending was correct at the time of the
+> frontend review, but is now outdated. Dedicated Blade screens exist for
+> users, machines, pending approvals, bookings, payments, reviews,
+> reports/activity, business rules, and admin profile. They use static
+> sample records and frontend-only filters, detail modals, and
+> suspend/activate confirmation dialogs in `public/js/panels.js`. No screen
+> reads or writes MySQL records, and no role authorization is enforced.
+> Company/owner and buyer management still have no dedicated screens.
 
 **Phase 3 exit check:** Agreed dashboard screens share a consistent design, show
 the correct role-specific actions, and work responsively.
 
 ## 3.4 Dashboard integration, responsive improvements, and consistency testing
 
--   [x] Standardize the shared dashboard shell while preserving each role's
-    own navigation and actions.
--   [x] Verify responsive layouts and table usability at 1440, 1280, 1024,
-    768, and 375 CSS px.
--   [x] Check drawer open/close, backdrop, navigation closure, dropdowns,
-    table filters, modals, and demo action feedback.
--   [x] Reconcile repeated machine, booking, payment, capacity, and review
-    sample data without changing documented business rules.
--   [x] Check internal navigation across public pages and all three dashboards.
--   [x] Check accessible form labels, button names, focus handling, and mobile
-    touch targets.
--   [x] Regression-test public pages and check page-wide horizontal overflow.
+- [x] Standardize the shared dashboard shell while preserving each role's
+      own navigation and actions.
+- [x] Verify responsive layouts and table usability at 1440, 1280, 1024,
+      768, and 375 CSS px.
+- [x] Check drawer open/close, backdrop, navigation closure, dropdowns,
+      table filters, modals, and demo action feedback.
+- [x] Reconcile repeated machine, booking, payment, capacity, and review
+      sample data without changing documented business rules.
+- [x] Check internal navigation across public pages and all three dashboards.
+- [x] Check accessible form labels, button names, focus handling, and mobile
+      touch targets.
+- [x] Regression-test public pages and check page-wide horizontal overflow.
 
 > **Verified in the integrated browser:** Admin, Machine Owner, and Buyer
 > dashboards were exercised at 1440, 1280, 1024, 768, and 375 px. Their
@@ -747,10 +841,18 @@ the correct role-specific actions, and work responsively.
 > confirmation, documented status progression, and completed-only review
 > eligibility. Admin pages remain illustrative monitoring views. Authentication,
 > authorization, payment processing, and persistence are not connected in this
-> frontend prototype; remaining Admin management sub-screens are still pending
-> and were not started in this phase.
+> frontend prototype; remaining Admin management sub-screens were not started
+> in this phase. Dedicated UI screens were added later during Laravel Blade
+> integration, but their backend functionality is still pending.
 
-------------------------------------------------------------------------
+**Phase 3 status: Partially completed.** All approved static frontend
+dashboard screens and their shared shell are implemented and were
+browser-verified. The static Admin dashboard provides management previews;
+the separate Admin Blade management screens are UI-only. Company/owner and
+buyer-specific management screens remain undefined and unbuilt. No Laravel
+dashboard screen reads or writes backend data or enforces authorization.
+
+---
 
 # Phase 4 --- Frontend Review and Acceptance
 
@@ -788,9 +890,14 @@ the correct role-specific actions, and work responsively.
 - [x] Existing sample records, reviews, ratings, listings, and images retained.
 - [x] Latest approved frontend changes committed to `WebUI_Sample`.
 
-**Phase 4 status:** The accepted frontend is the baseline for Laravel integration. Preserve its design, layouts, sample content, images, and approved business rules. Do not redesign, delete sample records, or replace images without a separate approved requirement.
+**Phase 4 status: Completed for the accepted frontend prototype.** The
+accepted frontend is the baseline for Laravel integration. Preserve its
+design, layouts, sample content, images, and approved business rules. Do
+not redesign, delete sample records, or replace images without a separate
+approved requirement. This user acceptance does not extend to Laravel
+backend functionality.
 
-------------------------------------------------------------------------
+---
 
 # Phase 4.5 --- Demo Content Disclosure Cleanup and Frontend Preparation
 
@@ -848,155 +955,328 @@ the correct role-specific actions, and work responsively.
 
 **Phase 4.5 exit status:** Completed. The accepted frontend is ready for Laravel integration. Sample data, reviews, ratings, machine listings, images, and the accepted design remain in place. No further demo-data deletion or image replacement is authorized by this phase.
 
-------------------------------------------------------------------------
+## 4.6 Animation and UI polish tracking
+
+Verified implementation in `IdleMach-Laravel/public/css/style.css` and
+`IdleMach-Laravel/public/js/script.js`:
+
+- [x] Page entrance animations (hero/header/primary panels, staggered
+      via `im-enter-up` and related keyframes).
+- [x] Scroll-reveal animations (single `IntersectionObserver`,
+      `.im-reveal` / `.is-revealed`, with a fail-safe that never hides
+      content when the API is unavailable).
+- [x] Hover and micro-interactions (buttons, cards, image lifts, icon
+      nudges, dropdowns, toasts, and modals).
+- [x] Reduced-motion accessibility support (`prefers-reduced-motion:
+reduce` in CSS and JavaScript, including live preference changes,
+      plus print overrides).
+- [x] Browser testing of animations. The reduced-motion browser setting
+      was enabled during testing and disabled afterward; animations are
+      working in the user's browser.
+
+> **Verification note:** These items are implemented in the Laravel asset
+> files and were confirmed at source level in this audit. The browser
+> result is the previously reported/user-observed check described above;
+> it was not repeated during the 2026-11-23 audit. Motion is a shared
+> frontend layer across public and dashboard views; it does not indicate
+> backend functionality.
+
+---
 
 # Phase 5 --- Laravel 13 Application Foundation
 
 > Phase 4.5 is completed. The accepted frontend is the baseline for Laravel integration. Preserve its existing design, sample content, images, and approved business rules.
 
+**Phase 5 status: Partially completed.** The Laravel 13 application foundation is present: local MySQL environment settings, shared assets, Blade layouts/views, GET routes, Eloquent models, and core migrations are in place. Phase 5.5 has implemented authentication/role-access controllers, FormRequests, POST routes, role middleware, ownership policies, factories, and automated security/ownership/auth tests; these implemented workflows are documented in Phase 5.5. Remaining Phase 5 foundation checks (clean-database migration execution, runtime relationship verification, and fresh converted-page browser regression) remain unverified unless explicitly recorded with evidence. Do not treat Blade UI, schema, or unconnected business modules as completed backend functionality.
+
+**Verification gate:** The unchecked items in 5.1-5.3 remain open Phase 5 foundation checks. Each requires fresh evidence recorded in this file before it can be marked complete. Phase 5.5 completion does not close unrelated Phase 5 foundation verification items.
+
 ## 5.1 Laravel setup
 
-- [ ] Create or prepare the Laravel 13 application.
-- [ ] Verify the installed Laravel version is 13.x.
-- [ ] Configure the local PHP and Composer environment.
-- [ ] Configure the MySQL connection through environment settings.
-- [ ] Confirm the application can connect to the database.
-- [ ] Set up the project's source control and ignore rules.
-- [ ] Verify the Laravel application runs successfully locally.
+- [x] Create or prepare the Laravel 13 application.
+- [x] Verify the installed Laravel version is 13.x. _(Composer requires
+      `laravel/framework ^13.17`; `composer.lock` pins `v13.42.0`.)_
+- [x] Configure the local PHP and Composer environment. _(PHP 8.5.10 and
+      Composer 2.10.3 are available; dependencies are installed in `vendor/`.)_
+- [x] Configure the MySQL connection through environment settings.
+      _(Local `.env` sets `DB_CONNECTION=mysql` and `DB_DATABASE=idlemach`;
+      `config/database.php` defines the MySQL connection.)_
+- [ ] Confirm the application can connect to the database. _(Not verified
+      by a fresh clean-database migration/run recorded in this file. Manual
+      local Laragon/MySQL checks during Phase 5.5 confirmed registration,
+      company creation, login, and dashboard access; this is separate from a
+      clean-database migration verification.)_
+- [x] Set up the project's source control and ignore rules.
+- [ ] Verify the Laravel application runs successfully locally. _(Not
+      re-run as a fresh full Laravel browser regression in this audit. Manual
+      local Laragon/MySQL/browser checks during Phase 5.5 confirmed
+      Owner/Buyer registration, owner company creation, login, and dashboard
+      access.)_
+
+> **Environment note:** The committed `.env.example` still defaults to
+> `DB_CONNECTION=sqlite`, while `config/database.php` also defaults to
+> sqlite. The MySQL setting exists only in the local, git-ignored `.env`.
+> A fresh clone must set MySQL values explicitly before using MySQL.
 
 ## 5.2 Application structure
 
-- [ ] Create the agreed Blade layout structure.
-- [ ] Create shared header, footer, and navigation partials.
-- [ ] Organize public, admin, owner, and buyer views.
-- [ ] Move approved shared CSS and JavaScript into the Laravel asset structure.
-- [ ] Convert the cleaned and approved prototype pages into Blade templates.
-- [ ] Integrate approved local images into the Laravel asset structure.
+- [x] Create the agreed Blade layout structure.
+      _(`layouts/public`, `layouts/admin`, `layouts/owner`, `layouts/buyer`.)_
+- [x] Create shared header, footer, and navigation partials.
+      _(`components/public`, `components/admin`, `components/owner`, and
+      `components/buyer` each contain `header.blade.php` and
+      `footer.blade.php`; role layouts also use `sidebar.blade.php`.)_
+- [x] Organize public, admin, owner, and buyer views.
+- [x] Move approved shared CSS and JavaScript into the Laravel asset
+      structure. _(Bootstrap 5, Font Awesome, images, `public/css/style.css`,
+      `public/js/script.js`, `form-validation.js`, and `panels.js`.)_
+- [x] Convert the cleaned and approved prototype pages into Blade
+      templates. _(All public product pages and all three dashboards have
+      Blade equivalents; the prototype-only `styleguide.html` remains in
+      `IdleMach-Frontend/`.)_
+- [x] Integrate approved local images into the Laravel asset structure.
 - [ ] Verify that converted pages preserve the approved frontend design.
+      _(The Blade markup and shared CSS/JS match the accepted frontend at
+      source level, but no new Laravel-rendered browser regression pass is
+      recorded in this document.)_
 
 ## 5.3 Database and migrations
 
-Create and verify migrations for the planned core entities:
+Migrations present and verified at file level for the planned core
+entities:
 
-- [ ] `users`
-- [ ] `companies`
-- [ ] `machines`
-- [ ] `machine_images`
-- [ ] `machine_availabilities`
-- [ ] `bookings`
-- [ ] `booking_documents`
-- [ ] `payments`
-- [ ] `reviews`
-- [ ] `notifications`
+- [x] `users` _(base table plus role/status columns)_
+- [x] `companies`
+- [x] `machines`
+- [x] `machine_images`
+- [x] `machine_specifications`
+- [x] `machine_weekly_schedules`
+- [x] `machine_availability_exceptions`
+- [x] `machine_reserved_periods`
+- [x] `bookings`
+- [x] `booking_documents`
+- [x] `payments`
+- [x] `payment_deadline_rules`
+- [x] `reviews`
+- [x] `notifications`
+
+> **Availability naming note:** No `machine_availabilities` migration or
+> table exists. The approved availability model is represented by
+> `machine_weekly_schedules`, `machine_availability_exceptions`, and
+> `machine_reserved_periods`. Do not treat `machine_availabilities` as an
+> implemented table or add it without an approved requirement.
 
 Additional tasks:
 
-- [ ] Define foreign keys and relationships from the approved data model.
-- [ ] Add required indexes and constraints.
-- [ ] Define allowed status values and validation rules.
-- [ ] Run migrations on a clean development database.
-- [ ] Verify relationships and referential integrity.
-- [ ] Use seed data only when it is intentionally required for development and clearly identified as test data.
+- [x] Define foreign keys and relationships from the approved data model.
+      _(Foreign keys in migrations and Eloquent relations in `app/Models/`.)_
+- [x] Add required indexes and constraints. _(Includes unique
+      `companies.user_id`, unique `reviews.booking_id`, and unique
+      `payments.successful_booking_id`. The successful-payment constraint
+      allows multiple failed/pending attempts while limiting a booking to one
+      successful payment record; verify its exact database behaviour during
+      the clean-database migration and runtime checks.)_
+- [ ] Define and enforce allowed status values and transitions. _(Status
+      columns are strings with defaults/comments and UI labels. Auth
+      FormRequests exist for implemented authentication flows, but broader
+      business-module server-side validation rules, Form Requests, or database
+      CHECK/enum constraints enforcing status values/transitions are not
+      implemented. Browser validation in `public/js/form-validation.js` is only
+      a user-interface aid, not a security or data-integrity control.)_
+- [ ] Run migrations on a clean development database. _(No migration was
+      run during this audit.)_
+- [ ] Verify relationships and referential integrity at runtime. _(Model
+      relations and schema constraints exist; no fresh clean-database runtime
+      verification was performed in this audit.)_
+- [x] Use seed data only when it is intentionally required for development
+      and clearly identified as test data. _(No seed records are registered;
+      `DatabaseSeeder::run()` is an empty stub.)_
 
-**Exit check:** Laravel runs, MySQL is connected, migrations succeed on a clean database, and shared Blade layouts render the approved frontend.
+**Exit check:** Not yet satisfied. Laravel files, MySQL environment
+settings, Blade layouts, migrations, and Phase 5.5 auth/role-access
+implementations exist. Database connectivity for the implemented auth flow was
+manually checked on local Laragon/MySQL, but clean-database migration
+execution, runtime relationship verification, and a fresh full converted-page
+browser regression remain unverified.
 
-------------------------------------------------------------------------
+---
 
-# Definition of Done
+# Phase 5.5 --- Authentication, Role Access, Ownership Foundation, and Security Verification
 
-A task may be marked `[x]` only when all applicable conditions are met:
+**Phase 5.5 status: Complete with warnings (5.5.5 final verification).** This phase implemented and verified the current authentication, role-based access, company ownership foundation, and security test coverage. No new migrations were introduced during Phase 5.5. Existing dashboard sample records remain frontend-only, and Company/Machine CRUD, booking, payment, review, upload, and notification workflows remain unconnected.
 
-1. The implementation matches the approved requirement.
-2. The correct role can access the feature and unauthorized roles cannot.
-3. Input and state changes are validated appropriately.
-4. The page or feature works in the browser.
-5. The layout is checked on desktop, tablet, and mobile where applicable.
-6. Relevant errors and empty states are handled.
-7. No known blocking console or application errors remain.
-8. Related pages and shared components have been checked for regressions.
-9. Any limitations or unimplemented parts are documented.
+## 5.5.1 Authentication Core - COMPLETE
 
-------------------------------------------------------------------------
+- [x] Implement Owner and Buyer registration with server-side validation.
+      _(Auth controllers/FormRequests; `RegisterRequest` validates identity,
+      role, password confirmation/strength, terms, and owner company fields.)_
+- [x] Enforce public registration roles as Owner/Buyer only; Admin cannot be
+      publicly registered. _(Server-side role validation.)_
+- [x] Assign role/status server-side and keep them out of mass assignment.
+- [x] Create owner company during registration in a database transaction.
+      _(No request-supplied ownership; state/pincode deferred.)_
+- [x] Ensure Buyer registration does not create a company.
+- [x] Implement login with Laravel Auth, session regeneration, remember-me,
+      and rate limiting.
+- [x] Handle invalid/inactive/invalid-role accounts with generic failure and
+      safe logout/session invalidation.
+- [x] Implement logout with session invalidation and CSRF token regeneration.
+- [x] Connect login/register Blade forms to POST routes with CSRF.
 
-## Final Project Rule
+## 5.5.2 Role-Based Access - COMPLETE
 
-**Complete the core IdleMach marketplace journey first: owners list capacity, admins review listings, buyers discover machines and request work, owners respond, successful payment confirms the booking, work is completed, and eligible users leave reviews. Keep each phase tested before moving to the next.**
+- [x] Add `EnsureUserHasRole` middleware and register `role` alias in
+      `bootstrap/app.php`.
+- [x] Protect dashboard route groups with `auth` and `role:*` middleware.
+- [x] Verify 34 dashboard routes are protected with correct role middleware.
+- [x] Keep public routes and login/register POST routes public; keep logout
+      authenticated.
+- [x] Verify unauthenticated redirect, cross-role 403, inactive/invalid-role
+      handling, and route-name/URL expectations through automated tests.
 
-------------------------------------------------------------------------
+## 5.5.3 Company Ownership Foundation - COMPLETE
+
+- [x] Add `CompanyPolicy` and `MachinePolicy` with Laravel auto-discovery.
+- [x] Enforce company ownership through authenticated user/company relationship.
+- [x] Prevent owners from viewing/managing another owner's company/machines.
+- [x] Allow admins to view/moderate machines but not edit/delete owner machine
+      details through policy rules.
+- [x] Add Machine approval/operational status constants and
+      `publiclyApproved()` / `bookable()` scopes.
+- [x] Add `CompanyFactory`, `MachineFactory`, and UserFactory role states.
+- [x] Add ownership feature tests.
+
+## 5.5.4 Security Testing - COMPLETE
+
+- [x] Add registration rollback test proving no user/company remains after
+      simulated owner company-create failure. _(SQLite trigger in test
+      transaction, cleaned up in `finally`; no Reflection/flushEventListeners.)_
+- [x] Add mass-assignment tests for 8 intended models.
+- [x] Add CSRF missing/invalid/valid token tests for login/register/logout.
+      _(Test-only `PreventRequestForgery` subclass; production middleware unchanged.)_
+
+## 5.5.5 Final Verification - COMPLETE WITH WARNINGS
+
+- [x] Run full PHPUnit suite: **PASS (86 tests, 751 assertions)**.
+- [x] Run relevant PHP lint checks: **PASS**.
+- [x] Run route/middleware verification: **34 protected dashboard routes** with
+      correct `auth` + `role:*` middleware.
+- [x] Manual local Laragon/MySQL checks: Owner registration works; owner company
+      creation works during registration; Buyer registration works without
+      creating a company; Owner and Buyer login and dashboard access work;
+      cross-role dashboard access returned 403 Forbidden.
+- [!] Warnings: pre-existing dirty working tree/baseline changes outside this
+      documentation task; pre-existing `git diff --check` CRLF/LF warning in
+      `resources/views/buyer/partials/modals.blade.php`; Phase 5 clean-database
+      migration/runtime/browser regression checks remain separately tracked.
+
+**Phase 5.5 limitations:** Company and Machine CRUD workflows are not
+implemented. Machine creation and editing are not connected to the database.
+Booking, payment, and review workflows are not connected. Real payment gateway
+integration is not implemented. File uploads and notification delivery are not
+implemented. Existing dashboard sample records remain frontend-only.
+
+---
 
 # Phase 6 --- Authentication and Role Access
 
--   [ ] Implement user registration.
--   [ ] Implement login and logout.
--   [ ] Use secure password hashing.
--   [ ] Implement the approved role assignment process.
--   [ ] Protect authenticated routes.
--   [ ] Add role-based middleware or equivalent authorization.
--   [ ] Redirect users to the correct role area after login.
--   [ ] Prevent buyers from accessing owner/admin routes.
--   [ ] Prevent owners from accessing another owner's private records.
--   [ ] Restrict admin routes to authorized administrators.
--   [ ] Implement profile management.
--   [ ] Test unauthenticated and unauthorized access.
+**Phase 6 status: Core implementation complete via Phase 5.5; remaining items pending.** The implemented IdleMach authentication and role-access flows include Owner/Buyer registration, login/logout, password hashing, role assignment constraints, admin public-registration blocking, authenticated route protection, role middleware, role-based redirects, and cross-role/admin restrictions. Profile management and any broader account-management features remain incomplete.
 
-**Exit check:** Registration, login, logout, and role-based route
-protection work correctly.
+- [x] Implement user registration. _(Owner/Buyer registration implemented in Phase 5.5.1; local Laragon/MySQL manual check passed.)_
+- [x] Implement login and logout. _(Phase 5.5.1; automated tests and manual local checks passed.)_
+- [x] Use secure password hashing.
+- [x] Configure secure password hashing on the `User` model. _(`password` cast is `hashed` in `app/Models/User.php`; registration flow uses it.)_
+- [x] Hash passwords during the IdleMach registration flow.
+- [x] Implement the approved role assignment process. _(Server-side role assignment; public registration limited to Owner/Buyer.)_
+- [x] Enforce one role per user and one company per user. _(Role constrained; `companies.user_id` unique and owner registration creates one company.)_
+- [x] Ensure Admin accounts cannot be created through public
+      registration. _(Server-side validation and tests.)_
+- [x] Protect authenticated routes.
+- [x] Add role-based middleware or equivalent authorization.
+- [x] Redirect users to the correct role area after login.
+- [x] Prevent buyers from accessing owner/admin routes.
+- [x] Prevent owners from accessing another owner's private records. _(Role middleware/policies/tests cover implemented scope; Company/Machine CRUD workflows remain unimplemented.)_
+- [x] Restrict admin routes to authorized administrators.
+- [ ] Implement profile management.
+- [x] Test unauthenticated and unauthorized access. _(Automated PHPUnit/SQLite tests; manual local cross-role 403 check passed.)_
 
-------------------------------------------------------------------------
+**Exit check:** Core registration, login, logout, and role-based route
+protection work correctly for the current scope. Profile management remains
+pending.
+
+---
 
 # Phase 7 --- Machine Owner Module
 
+**Phase 7 status: Not completed.** Owner screens exist as Blade UI with
+static sample records (`owner/*.blade.php`) and the schema/model foundation
+exists (`companies`, `machines`, `machine_images`,
+`machine_specifications`, weekly schedules/exceptions/reserved periods,
+plus Eloquent relations). There are no owner controllers, Form Requests,
+policies, file uploads, or database writes. Local JS notices explicitly
+state that no database record is modified.
+
 ## 7.1 Company profile
 
--   [ ] Allow an owner to create a company profile.
--   [ ] Allow an owner to view and update their company profile.
--   [ ] Validate company information.
--   [ ] Enforce ownership checks.
+- [ ] Allow an owner to create a company profile.
+- [ ] Allow an owner to view and update their company profile.
+- [ ] Validate company information.
+- [ ] Enforce ownership checks.
 
 ## 7.2 Machine management
 
--   [ ] Allow an owner to create a machine listing.
--   [ ] Validate required machine information.
--   [ ] Allow an owner to update their own listing.
--   [ ] Allow an owner to manage their own listing images.
--   [ ] Store machine specifications provided by the owner.
--   [ ] Store rate and capacity information.
--   [ ] Implement the approved listing submission process.
--   [ ] Allow owners to view listing status.
--   [ ] Prevent owners from editing another owner's machine.
+- [ ] Allow an owner to create a machine listing.
+- [ ] Validate required machine information.
+- [ ] Allow an owner to update their own listing.
+- [ ] Allow an owner to manage their own listing images.
+- [ ] Store machine specifications provided by the owner.
+- [ ] Store rate and capacity information.
+- [ ] Implement the approved listing submission process.
+- [ ] Allow owners to view listing status.
+- [ ] Prevent owners from editing another owner's machine.
 
 ## 7.3 Availability management
 
--   [ ] Implement the approved availability data structure.
--   [ ] Allow owners to manage availability where permitted.
--   [ ] Display available, booked, maintenance, and unavailable periods.
--   [ ] Calculate available capacity using the documented rule.
--   [ ] Prevent unavailable capacity from being offered.
--   [ ] Test overlapping time and capacity conflicts.
+- [ ] Implement availability using `machine_weekly_schedules`,
+      `machine_availability_exceptions`, and `machine_reserved_periods`; do
+      not create a `machine_availabilities` table without an approved change.
+- [ ] Allow owners to manage weekly schedules and permitted exceptions.
+- [ ] Display available, booked, maintenance, and unavailable periods.
+- [ ] Calculate available capacity using the documented rule.
+- [ ] Prevent unavailable capacity from being offered.
+- [ ] Test overlapping time and capacity conflicts.
 
 **Exit check:** Owners can manage their company, machines, and
 availability within their permissions.
 
-------------------------------------------------------------------------
+---
 
 # Phase 8 --- Admin Module and Machine Approval
 
--   [ ] Build the admin dashboard.
--   [ ] Implement user listing and management.
--   [ ] Implement owner/company management.
--   [ ] Implement buyer management.
--   [ ] Implement machine listing review.
--   [ ] Implement machine approval.
--   [ ] Implement machine rejection.
--   [ ] Display listing status to the owner.
--   [ ] Ensure all approved machines appear in the marketplace, including
-    inactive and maintenance listings.
--   [ ] Ensure only approved + active machines can receive new booking
-    requests.
--   [ ] Implement block/unblock actions with authorization.
--   [ ] Implement booking, payment, and review monitoring.
--   [ ] Implement reports/activity views based on defined data.
--   [ ] Test admin permissions and status transitions.
+**Phase 8 status: Not completed.** All Admin Blade screens and frontend
+approval/rejection demo actions exist, but approval state is held only in
+browser-side JavaScript. `machines` has `approval_status` and
+`operational_status` columns plus approver/rejection fields; no controller,
+authorization, admin action endpoint, or database update exists, so
+approval decisions are not persisted and are not protected.
+
+- [ ] Implement the database-backed Admin dashboard and management actions.
+- [ ] Implement user listing and management.
+- [ ] Implement owner/company management.
+- [ ] Implement buyer management.
+- [ ] Implement machine listing review.
+- [ ] Implement machine approval.
+- [ ] Prevent a Machine Owner from approving their own machine.
+- [ ] Implement machine rejection.
+- [ ] Display listing status to the owner.
+- [ ] Ensure all approved machines appear in the marketplace, including
+      inactive and maintenance listings.
+- [ ] Ensure only approved + active machines can receive new booking
+      requests.
+- [ ] Implement block/unblock actions with authorization.
+- [ ] Implement booking, payment, and review monitoring.
+- [ ] Implement reports/activity views based on defined data.
+- [ ] Test admin permissions and status transitions.
 
 **Open dependency:** Approval and operational status are separate. The
 permission rules and allowed transitions for changing
@@ -1007,235 +1287,299 @@ machine.
 **Exit check:** Admin actions are protected, recorded consistently, and
 reflected in the appropriate owner and marketplace views.
 
-------------------------------------------------------------------------
+---
 
 # Phase 9 --- Buyer Marketplace
 
--   [ ] Build the machine marketplace using database records.
--   [ ] Show every approved machine in the marketplace, including listings
-    whose operational status is inactive or maintenance.
--   [ ] Clearly label approved inactive/maintenance machines as unavailable
-    and disable their new-booking action.
--   [ ] Allow new booking requests only for machines that are both approved
-    and active, subject to date/time capacity checks.
--   [ ] Implement machine search.
--   [ ] Implement the approved machine filters.
--   [ ] Implement machine detail pages.
--   [ ] Display machine images and specifications.
--   [ ] Display owner/company information permitted for public viewing.
--   [ ] Display rate and capacity information.
--   [ ] Display availability accurately.
--   [ ] Prevent booking requests for inactive or unavailable machines.
--   [ ] Add suitable empty and no-results states.
--   [ ] Test search and filter behaviour against database records.
+**Phase 9 status: Not completed.** Public `home`, `machines`, and
+`machine-details` Blade pages plus the buyer `explore-machines` screen are
+converted from the accepted frontend and render hardcoded sample records.
+No query, controller, or route reads machines from MySQL; search, filters,
+and empty states run only in browser JavaScript. Static listings are the
+approved prototype baseline and must not be presented as live inventory.
+
+- [ ] Build the machine marketplace using database records.
+- [ ] Show every approved machine in the marketplace, including listings
+      whose operational status is inactive or maintenance.
+- [ ] Clearly label approved inactive/maintenance machines as unavailable
+      and disable their new-booking action.
+- [ ] Allow new booking requests only for machines that are both approved
+      and active, subject to date/time capacity checks.
+- [ ] Implement machine search.
+- [ ] Implement the approved machine filters.
+- [ ] Implement machine detail pages.
+- [ ] Display machine images and specifications.
+- [ ] Display owner/company information permitted for public viewing.
+- [ ] Display rate and capacity information.
+- [ ] Display availability accurately.
+- [ ] Prevent booking requests for inactive or unavailable machines.
+- [ ] Add suitable empty and no-results states.
+- [ ] Use empty states instead of fabricated business data in the
+      database-backed marketplace views. _(The existing sample records are
+      the approved static frontend baseline, not substitute DB results.)_
+- [ ] Test search and filter behaviour against database records.
 
 **Exit check:** Buyers can discover eligible machines and view accurate
 machine and availability information.
 
-------------------------------------------------------------------------
+---
 
 # Phase 10 --- Booking Workflow
 
--   [ ] Build the buyer booking request form.
--   [ ] Capture the required booking date and time.
--   [ ] Capture requested hours and quantity where required.
--   [ ] Capture work description and special requirements.
--   [ ] Support the approved drawing/document upload process.
--   [ ] Validate booking input on the server.
--   [ ] Verify machine availability and capacity on the server.
--   [ ] Prevent overlapping or double bookings.
--   [ ] Create a booking with `pending` status.
--   [ ] Show incoming requests to the correct machine owner.
--   [ ] Allow the owner to accept a request.
--   [ ] Allow the owner to reject a request.
--   [ ] Prevent unauthorized booking status changes.
--   [ ] Update the booking state consistently after owner action.
--   [ ] Test invalid dates, unavailable capacity, and concurrent booking
-    attempts.
+**Phase 10 status: Not completed.** Booking forms, request tables,
+accept/reject dialogs, and progress/completion controls are frontend-only
+interactions in Blade views and `public/js/script.js`. The `bookings` and
+`booking_documents` tables exist, but there is no request controller,
+server-side validation, availability calculation, file storage, status
+transition, or concurrency control.
+
+- [ ] Build the buyer booking request form.
+- [ ] Capture the required booking date and time.
+- [ ] Capture requested hours and quantity where required.
+- [ ] Capture work description and special requirements.
+- [ ] Support the approved drawing/document upload process.
+- [ ] Validate booking input on the server.
+- [ ] Verify machine availability and capacity on the server.
+- [ ] Prevent overlapping or double bookings using database transactions
+      and appropriate locking.
+- [ ] Create a booking with `pending` status.
+- [ ] Show incoming requests to the correct machine owner.
+- [ ] Allow the owner to accept a request.
+- [ ] Allow the owner to reject a request.
+- [ ] Prevent unauthorized booking status changes.
+- [ ] Update the booking state consistently after owner action.
+- [ ] Test invalid dates, unavailable capacity, and concurrent booking
+      attempts.
 
 **Exit check:** Buyers can submit requests and owners can accept/reject
 them without violating availability or access rules.
 
-------------------------------------------------------------------------
+---
 
 # Phase 11 --- Payment Records and Booking Confirmation
 
--   [ ] Implement the approved initial payment-record approach.
--   [ ] Link each payment record to the correct booking.
--   [ ] Support the defined payment statuses.
--   [ ] Allow payment to proceed only after owner acceptance.
--   [ ] Record successful or failed payment results appropriately.
--   [ ] Confirm a booking only after successful payment is recorded.
--   [ ] Ensure failed or pending payment does not confirm a booking.
--   [ ] Protect payment information.
--   [ ] Test payment and booking status consistency.
+**Phase 11 status: Not completed.** The `payments` schema and static
+payment ledgers exist, but no demo payment is created, no booking is
+confirmed by a payment, and no payment status is persisted. Failed attempts
+shown in the UI are sample rows only; no failed attempt is created or
+persisted by an application payment flow. The intended model permits
+multiple attempts for one booking, retains each failed attempt, and allows
+only one successful payment record to confirm that booking.
+
+- [ ] Implement the approved initial payment-record approach.
+- [ ] Use simulated/demo payment records only; never charge real money.
+- [ ] Link each payment record to the correct booking.
+- [ ] Support the defined payment statuses.
+- [ ] Allow payment to proceed only after owner acceptance.
+- [ ] Record successful or failed payment results appropriately.
+- [ ] Confirm a booking only after successful payment is recorded.
+- [ ] Ensure failed or pending payment does not confirm a booking.
+- [ ] Retain failed payment attempts as records instead of deleting or
+      overwriting them.
+- [ ] Protect payment information.
+- [ ] Test payment and booking status consistency.
 
 **Scope note:** The MVP uses demo/simulated payment outcomes only. It
 must not charge real money or imply that real funds were received. A
-booking is confirmed only after a successful demo payment record is
-saved. Real Razorpay/Stripe integration is deferred to a later phase;
-demo failure/timeout handling and multiple attempts remain open.
+booking is confirmed only after one successful demo payment record is
+saved. Multiple attempts are allowed; every failed attempt must remain
+as its own record, while a booking can have no more than one successful
+payment. Real Razorpay/Stripe integration is deferred to a later phase.
+The exact failure/timeout user experience remains an open decision.
 
 **Exit check:** Payment records and booking confirmation follow the
 approved sequence and remain consistent.
 
-------------------------------------------------------------------------
+---
 
 # Phase 12 --- Work Progress, Completion, and Reviews
 
--   [ ] Allow authorized users to view booking progress.
--   [ ] Implement the approved transition to `in_progress`.
--   [ ] Allow the permitted completion action.
--   [ ] Mark work completed only when the work is actually completed.
--   [ ] Allow only the buyer associated with a completed booking to review
-    the machine owner.
--   [ ] Validate that the reviewer is the booking buyer and the reviewee is
-    the booked machine's owner.
--   [ ] Enforce at most one review per booking with a unique
-    `reviews.booking_id` constraint.
--   [ ] Prevent owners from reviewing buyers.
--   [ ] Display reviews in the appropriate owner/machine views.
--   [ ] Test the full booking-to-completion journey.
+**Phase 12 status: Not completed.** Work progress/completion and review UI
+are frontend-only. The `reviews.booking_id` unique constraint exists, but
+there is no completion endpoint, no confirmed-work check, no review
+creation logic, and no reviewer/reviewee authorization.
+
+- [ ] Allow authorized users to view booking progress.
+- [ ] Implement the approved transition to `in_progress`.
+- [ ] Allow the permitted completion action.
+- [ ] Mark work completed only when the work is actually completed.
+- [ ] Allow only the buyer associated with a booking to review the
+      machine owner after confirmed work completion.
+- [ ] Validate that the reviewer is the booking buyer and the reviewee is
+      the booked machine's owner.
+- [x] Add a unique `reviews.booking_id` schema constraint. _(Verified at
+      file level in the migration.)_
+- [ ] Verify at runtime that duplicate reviews are rejected and enforce
+      reviewer/reviewee authorization. _(No review creation endpoint or
+      runtime verification exists.)_
+- [ ] Prevent owners from reviewing buyers.
+- [ ] Display reviews in the appropriate owner/machine views.
+- [ ] Test the full booking-to-completion journey.
 
 **Exit check:** Work status and review eligibility follow the documented
 business rules.
 
-------------------------------------------------------------------------
+---
 
 # Phase 13 --- Notifications
 
--   [ ] Implement the required in-app notification records.
--   [ ] Notify the relevant owner when a booking request is received.
--   [ ] Notify the buyer when the owner accepts or rejects a request.
--   [ ] Notify the relevant user about payment and booking updates.
--   [ ] Notify users about relevant work progress or completion events.
--   [ ] Protect notification visibility by user ownership.
--   [ ] Test that notifications are generated only for the correct
-    events.
+**Phase 13 status: Not completed.** The `notifications` migration
+provides the database table used by Laravel's notification system, but
+IdleMach has no notification classes, event/trigger integration, or
+persisted notification workflow yet. Owner/buyer notification screens
+use static sample lists and local mark-as-read feedback only. Implement
+in-app notifications with Laravel's built-in Notifications feature and
+database channel unless an approved requirement changes that approach;
+do not build a separate custom notification system.
+
+- [ ] Implement in-app notifications using Laravel Notifications and
+      the database channel.
+- [ ] Notify the relevant owner when a booking request is received.
+- [ ] Notify the buyer when the owner accepts or rejects a request.
+- [ ] Notify the relevant user about payment and booking updates.
+- [ ] Notify users about relevant work progress or completion events.
+- [ ] Protect notification visibility by user ownership.
+- [ ] Test that notifications are generated only for the correct
+      events.
 
 Email, SMS, and WhatsApp delivery must be treated as separate
 integrations unless explicitly included in the approved scope.
 
-------------------------------------------------------------------------
+---
 
 # Phase 14 --- Security, Testing, and Release Preparation
 
+**Phase 14 status: Not completed.** PHPUnit is configured and the default
+`tests/Feature/ExampleTest.php` and `tests/Unit/ExampleTest.php` are the
+only test files; no IdleMach feature, role, workflow, or browser coverage
+exists. The earlier frontend checks recorded in Phases 2–4 are not a
+substitute for testing the Laravel application. No security, release, or
+fresh UI test pass was performed during this audit.
+
 ## 14.1 Security checks
 
--   [ ] Verify authentication and role authorization.
--   [ ] Verify ownership checks for private records.
--   [ ] Verify CSRF protection for state-changing forms.
--   [ ] Verify server-side validation.
--   [ ] Verify safe file upload validation and storage.
--   [ ] Verify password hashing.
--   [ ] Verify secrets are not committed to source control.
--   [ ] Verify database queries use Eloquent or parameterized queries.
--   [ ] Verify sensitive information is not exposed in public views or
-    logs.
--   [ ] Verify unauthorized users cannot change machine, booking,
-    payment, or review records.
+- [ ] Verify authentication and role authorization.
+- [ ] Verify ownership checks for private records.
+- [ ] Verify CSRF protection for state-changing forms.
+- [ ] Verify server-side validation.
+- [ ] Verify safe file upload validation and storage.
+- [ ] Verify password hashing.
+- [ ] Verify secrets are not committed to source control.
+- [ ] Verify database queries use Eloquent or parameterized queries.
+- [ ] Verify sensitive information is not exposed in public views or
+      logs.
+- [ ] Verify unauthorized users cannot change machine, booking,
+      payment, or review records.
 
 ## 14.2 Functional testing
 
--   [ ] Test owner registration and company profile setup.
--   [ ] Test machine listing submission and approval.
--   [ ] Test marketplace discovery and machine details.
--   [ ] Test machine availability and capacity.
--   [ ] Test booking request and owner decision.
--   [ ] Test payment status and booking confirmation.
--   [ ] Test work progress and completion.
--   [ ] Test review eligibility.
--   [ ] Test admin management and monitoring.
--   [ ] Test blocked-user behaviour.
--   [ ] Test invalid and unauthorized actions.
+- [ ] Test owner registration and company profile setup.
+- [ ] Test machine listing submission and approval.
+- [ ] Test marketplace discovery and machine details.
+- [ ] Test machine availability and capacity.
+- [ ] Test booking request and owner decision.
+- [ ] Test payment status and booking confirmation.
+- [ ] Test work progress and completion.
+- [ ] Test review eligibility.
+- [ ] Test admin management and monitoring.
+- [ ] Test blocked-user behaviour.
+- [ ] Test invalid and unauthorized actions.
 
 ## 14.3 UI and browser testing
 
--   [ ] Inspect all agreed pages in a browser.
--   [ ] Test desktop, tablet, and mobile layouts.
--   [ ] Check all buttons, links, forms, filters, and menus.
--   [ ] Check image, icon, and asset loading.
--   [ ] Check empty, loading, success, and error states.
--   [ ] Check browser console and application logs.
--   [ ] Fix visible layout and interaction defects.
+- [ ] Inspect all agreed pages in a browser.
+- [ ] Test desktop, tablet, and mobile layouts.
+- [ ] Check all buttons, links, forms, filters, and menus.
+- [ ] Check image, icon, and asset loading.
+- [ ] Check empty, loading, success, and error states.
+- [ ] Check browser console and application logs.
+- [ ] Fix visible layout and interaction defects.
 
 ## 14.4 Release preparation
 
--   [ ] Confirm production environment configuration.
--   [ ] Confirm database backup and restore procedure.
--   [ ] Confirm storage and upload configuration.
--   [ ] Confirm error handling and logging.
--   [ ] Confirm that secrets and debug settings are safe for production.
--   [ ] Document setup and run instructions.
--   [ ] Document known limitations and deferred features.
--   [ ] Review the final changes before release.
+- [ ] Confirm production environment configuration.
+- [ ] Confirm database backup and restore procedure.
+- [ ] Confirm storage and upload configuration.
+- [ ] Confirm error handling and logging.
+- [ ] Confirm that secrets and debug settings are safe for production.
+- [ ] Document setup and run instructions.
+- [ ] Document known limitations and deferred features.
+- [ ] Review the final changes before release.
 
 **Exit check:** The core user journeys are tested, access controls are
 verified, and known limitations are documented.
 
-------------------------------------------------------------------------
+---
 
 # Phase 15 --- Optional Future Enhancements
 
 These items are not part of the first MVP unless separately approved:
 
--   [ ] Real payment gateway integration.
--   [ ] Email, SMS, or WhatsApp integrations.
--   [ ] Live chat.
--   [ ] Advanced search and matching.
--   [ ] Favorites.
--   [ ] Advanced analytics.
--   [ ] Invoice generation.
--   [ ] Platform commission and payout automation.
--   [ ] Maps and location-based discovery.
--   [ ] AI-based machine matching.
--   [ ] Demand prediction.
--   [ ] Mobile application.
--   [ ] Redis, queues, WebSockets, or cloud storage integrations.
+- [ ] Real payment gateway integration.
+- [ ] Email, SMS, or WhatsApp integrations.
+- [ ] Live chat.
+- [ ] Advanced search and matching.
+- [ ] Favorites.
+- [ ] Advanced analytics.
+- [ ] Invoice generation.
+- [ ] Platform commission and payout automation.
+- [ ] Maps and location-based discovery.
+- [ ] AI-based machine matching.
+- [ ] Demand prediction.
+- [ ] Mobile application.
+- [ ] Redis, queues, WebSockets, or cloud storage integrations.
 
 Do not start these tasks before the core MVP workflow is stable and the
 required product decisions are approved.
 
-------------------------------------------------------------------------
+---
 
 # Open Decisions and Blockers
 
 Record decisions here before implementing features that depend on them.
 
--   [ ] Define who may change machine `operational_status` and the
-    allowed transitions between `active`, `inactive`, and
-    `maintenance`.
--   [ ] Confirm capacity units and detailed availability scheduling
-    rules.
--   [ ] Define booking cancellation, rescheduling, and refund policies.
--   [ ] Define demo payment failure/timeout handling and whether multiple
-    demo payment attempts are allowed.
--   [ ] Select a future real payment gateway only when that phase is
-    approved; define related deadlines, fees, taxes, and owner payouts.
--   [ ] Confirm supported drawing/document file types and upload limits.
--   [ ] Define review editing/removal and dispute rules.
--   [ ] Confirm notification channels and delivery expectations.
--   [ ] Define machine verification requirements and badges, if any.
--   [ ] Confirm hosting, deployment, backup, and data-retention
-    policies.
--   [!] Confirm final brand identity and design tokens. *(Frontend uses
-    clearly documented provisional values pending approval.)*
--   [!] Confirm the final prototype sitemap and dashboard page scope.
-    *(Public pages and the three dashboard overview prototypes are
-    implemented; remaining Admin management sub-screens and Buyer profile
-    fields are not defined/implemented and remain outside the completed
-    dashboard overview scope.)*
+- [ ] Define who may change machine `operational_status` and the
+      allowed transitions between `active`, `inactive`, and
+      `maintenance`.
+- [ ] Confirm capacity units and detailed availability scheduling
+      rules.
+- [ ] Define booking cancellation, rescheduling, and refund policies.
+- [ ] Define the demo payment failure/timeout user experience. Multiple
+      attempts are already allowed; failed attempts must be retained and a
+      booking may have only one successful payment record.
+- [ ] Select a future real payment gateway only when that phase is
+      approved; define related deadlines, fees, taxes, and owner payouts.
+- [ ] Confirm supported drawing/document file types and upload limits.
+- [ ] Define review editing/removal and dispute rules.
+- [ ] Confirm whether any external notification channels (email, SMS, or
+      WhatsApp) are required in a separately approved scope.
+- [ ] Define machine verification requirements and badges, if any.
+- [ ] Confirm hosting, deployment, backup, and data-retention
+      policies.
+- [!] Confirm final brand identity and design tokens. _(Frontend uses
+  clearly documented provisional values pending approval.)_
+- [!] Confirm the final prototype sitemap and dashboard page scope.
+  _(Public pages, the three dashboard overview prototypes, and the listed
+  Admin UI-only management screens are implemented. Dedicated
+  company/owner and buyer management screens remain undefined, and the
+  approved Buyer profile field set is still pending even though a UI shell
+  exists. These unresolved items remain outside the completed dashboard
+  overview scope.)_
 
 > **Phase 0.2 / Phase 1 blockers:** The logo/wordmark, final palette, and
 > brand font require approval. The current temporary values are isolated
 > at the top of `css/style.css` and listed in
 > `IdleMach-Frontend/README.md`.
 
-------------------------------------------------------------------------
+---
 
 # Definition of Done
 
-A task may be marked `[x]` only when all applicable conditions are met:
+A task may be marked `[x]` only when all applicable conditions are met.
+A Blade page, route that only returns a view, migration, model, or
+JavaScript-only interaction does not by itself mean the corresponding
+IdleMach backend feature is implemented. Record frontend, schema, and
+working backend verification separately where they differ.
 
 1.  The implementation matches the approved requirement.
 2.  The correct role can access the feature and unauthorized roles
@@ -1250,7 +1594,7 @@ A task may be marked `[x]` only when all applicable conditions are met:
     regressions.
 9.  Any limitations or unimplemented parts are documented.
 
-------------------------------------------------------------------------
+---
 
 ## Final Project Rule
 

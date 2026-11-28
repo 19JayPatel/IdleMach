@@ -1125,6 +1125,11 @@
       </div>
     </div>
 
+    <!-- Real logout endpoint used by the confirmation modal. -->
+    <form id="owner-logout-form" method="POST" action="{{ route('logout') }}" class="d-none">
+      @csrf
+    </form>
+
     <!-- ================= Owner logout modal ================= -->
     <div
       class="modal fade"
@@ -1169,7 +1174,8 @@
               Stay on dashboard
             </button>
             <button
-              type="button"
+              type="submit"
+              form="owner-logout-form"
               class="btn-im btn-im-danger"
               id="btn-confirm-owner-logout"
             >

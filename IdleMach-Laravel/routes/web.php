@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -34,7 +38,16 @@ Route::get('/register', function () {
     return view('public.register');
 })->name('register');
 
-Route::prefix('owner')->name('owner.')->group(function () {
+Route::post('/register', RegisterController::class)->name('register.store');
+
+Route::post('/login', LoginController::class)->name('login.store');
+
+Route::post('/logout', LogoutController::class)->middleware('auth')->name('logout');
+
+Route::middleware(['auth', 'role:'.User::ROLE_OWNER])
+    ->prefix('owner')
+    ->name('owner.')
+    ->group(function () {
     Route::get('/dashboard', function () {
         return view('owner.dashboard');
     })->name('dashboard');
@@ -92,7 +105,10 @@ Route::prefix('owner')->name('owner.')->group(function () {
     })->name('profile');
 });
 
-Route::prefix('buyer')->name('buyer.')->group(function () {
+Route::middleware(['auth', 'role:'.User::ROLE_BUYER])
+    ->prefix('buyer')
+    ->name('buyer.')
+    ->group(function () {
     Route::get('/dashboard', function () {
         return view('buyer.dashboard');
     })->name('dashboard');
@@ -134,7 +150,10 @@ Route::prefix('buyer')->name('buyer.')->group(function () {
     })->name('profile');
 });
 
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'role:'.User::ROLE_ADMIN])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     })->name('dashboard');

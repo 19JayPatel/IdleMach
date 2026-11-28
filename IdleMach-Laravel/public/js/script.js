@@ -9,11 +9,6 @@
 (function () {
   "use strict";
 
-  /* Laravel-facing URLs are injected by the panel layouts. The literal
-     fallback keeps the file usable if it is loaded outside a Blade view. */
-  var appLoginUrl =
-    (window.IdleMach && window.IdleMach.loginUrl) || "/login";
-
   /* Current year in the footer. */
   document.querySelectorAll("[data-current-year]").forEach(function (element) {
     element.textContent = String(new Date().getFullYear());
@@ -874,10 +869,10 @@
   }
 
   /* ------------------------------------------------------------------------
-     Login and registration pages (Phase 2.6)
-     Password visibility, role switching, and local form validation only.
-     No authentication, account creation, session, password recovery, or
-     storage is connected to these interfaces.
+     Login and registration pages (Phase 5.5.1)
+     Laravel handles registration, login, authentication, and sessions.
+     JavaScript handles password visibility, role-panel switching, and
+     client-side validation. Password recovery is not implemented in this phase.
      ------------------------------------------------------------------------ */
   var setPasswordVisibility = function (toggle, show) {
     var targetId = toggle.getAttribute("aria-controls");
@@ -941,7 +936,12 @@
     };
 
     if (roleFieldset) {
-      if (options && options.requestedRole) {
+      /* Server-side old() values take precedence over ?role= preselection. */
+      if (
+        options &&
+        options.requestedRole &&
+        !roleFieldset.querySelector('input[name="role"]:checked')
+      ) {
         var requestedInput = roleFieldset.querySelector(
           'input[name="role"][value="' + options.requestedRole + '"]'
         );
@@ -973,15 +973,8 @@
     form.addEventListener("input", handleAuthFieldChange);
     form.addEventListener("change", handleAuthFieldChange);
 
-    /* Prototype form: prevent navigation. Validation and user feedback are
-       driven by the shared engine's valid/invalid events. */
-    form.addEventListener("submit", function (event) {
-      event.preventDefault();
-    });
-
-    form.addEventListener(window.IdleMachFormValidation.VALID_EVENT, function () {
-      showPreviewNotice(options.successMessage);
-    });
+    /* The shared validation engine blocks invalid submissions. Valid forms
+       submit normally to their Laravel action URL. */
 
     form.addEventListener(window.IdleMachFormValidation.INVALID_EVENT, function () {
       showPreviewNotice("Please correct the highlighted fields.");
@@ -998,10 +991,7 @@
 
   var loginForm = document.getElementById("login-form");
   if (loginForm) {
-    setupAuthForm(loginForm, {
-      successMessage:
-        "Login form passed local validation. This is a preview; no sign-in occurred."
-    });
+    setupAuthForm(loginForm);
   }
 
   var registerForm = document.getElementById("register-form");
@@ -1017,9 +1007,7 @@
 
     setupAuthForm(registerForm, {
       roleFieldset: registerRoleFieldset,
-      requestedRole: requestedRole,
-      successMessage:
-        "Registration form passed local validation. This is a preview; no account was created."
+      requestedRole: requestedRole
     });
   }
 
@@ -3146,27 +3134,14 @@
 
   /* ------------------------------------------------------------------------
      Unified sign-out confirmation for Admin, Owner, and Buyer panels.
-     This is a frontend demonstration only: no session is destroyed and no
-     authentication state is changed. Confirm returns to the Laravel login
-     route injected by the panel layouts.
+     The trigger buttons open the existing confirmation modal; the modal's
+     confirm button is a real POST form that submits to Laravel.
      ------------------------------------------------------------------------ */
   (function setupPanelLogout() {
     var configurations = [
-      {
-        trigger: "admin-logout",
-        modal: "modal-admin-logout",
-        confirm: "btn-confirm-logout"
-      },
-      {
-        trigger: "owner-logout",
-        modal: "modal-owner-logout",
-        confirm: "btn-confirm-owner-logout"
-      },
-      {
-        trigger: "buyer-logout",
-        modal: "buyer-logout-modal",
-        confirm: "buyer-logout-confirm"
-      }
+      { trigger: "admin-logout", modal: "modal-admin-logout" },
+      { trigger: "owner-logout", modal: "modal-owner-logout" },
+      { trigger: "buyer-logout", modal: "buyer-logout-modal" }
     ];
 
     configurations.forEach(function (configuration) {
@@ -3189,25 +3164,6 @@
             }
           });
         });
-
-      var confirmButton = document.getElementById(configuration.confirm);
-      if (!confirmButton) {
-        return;
-      }
-
-      confirmButton.addEventListener("click", function () {
-        if (modal) {
-          modal.hide();
-        }
-
-        showPreviewNotice(
-          "Frontend demonstration only: no active session was ended. Returning to the login page..."
-        );
-
-        window.setTimeout(function () {
-          window.location.href = appLoginUrl;
-        }, 600);
-      });
     });
   })();
 

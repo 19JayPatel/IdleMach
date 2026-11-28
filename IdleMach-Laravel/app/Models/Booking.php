@@ -13,10 +13,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+/**
+ * User-editable: requested machine, schedule, hours, work details, material,
+ * quantity, and special requirements.
+ * Server-assigned: booking_number, buyer_id, status, pricing, and all
+ * lifecycle/payment/deadline fields.
+ */
 #[Fillable([
-    'booking_number',
     'machine_id',
-    'buyer_id',
     'required_date',
     'start_time',
     'end_time',
@@ -25,22 +29,32 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
     'material',
     'quantity',
     'special_requirements',
-    'hourly_rate',
-    'total_amount',
-    'status',
-    'accepted_at',
-    'payment_deadline_at',
-    'cancelled_at',
-    'cancelled_by',
-    'cancellation_reason',
-    'work_started_at',
-    'work_completed_at',
-    'completion_confirmed_at',
-    'dispute_reason',
-    'disputed_at',
 ])]
 class Booking extends Model
 {
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'required_date' => 'date',
+            'required_hours' => 'decimal:2',
+            'quantity' => 'decimal:2',
+            'hourly_rate' => 'decimal:2',
+            'total_amount' => 'decimal:2',
+            'accepted_at' => 'datetime',
+            'payment_deadline_at' => 'datetime',
+            'cancelled_at' => 'datetime',
+            'work_started_at' => 'datetime',
+            'work_completed_at' => 'datetime',
+            'completion_confirmed_at' => 'datetime',
+            'disputed_at' => 'datetime',
+        ];
+    }
+
     /**
      * Get the machine that is booked.
      */
@@ -71,6 +85,22 @@ class Booking extends Model
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
+    }
+
+    /**
+     * Get the single successful payment that confirms this booking, if any.
+     */
+    public function successfulPayment(): HasOne
+    {
+        return $this->hasOne(Payment::class, 'successful_booking_id');
+    }
+
+    /**
+     * Get the user who cancelled the booking.
+     */
+    public function cancelledBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'cancelled_by');
     }
 
     /**

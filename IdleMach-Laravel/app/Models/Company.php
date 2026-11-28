@@ -9,8 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * User-editable: company profile fields below.
+ * Server-assigned: user_id (ownership from the authenticated user).
+ */
 #[Fillable([
-    'user_id',
     'company_name',
     'gst_number',
     'phone',

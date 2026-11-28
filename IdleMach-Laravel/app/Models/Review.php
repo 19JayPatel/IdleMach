@@ -8,15 +8,28 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * User-editable: rating and comment.
+ * Server-assigned: booking_id, reviewer_id, and reviewee_id.
+ */
 #[Fillable([
-    'booking_id',
-    'reviewer_id',
-    'reviewee_id',
     'rating',
     'comment',
 ])]
 class Review extends Model
 {
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'rating' => 'integer',
+        ];
+    }
+
     /**
      * Get the booking that is reviewed.
      */
